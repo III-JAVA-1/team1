@@ -8,6 +8,10 @@ public class TTestt {
 			System.out.println("HI");
 			System.out.println("HI");
 			System.out.println("HI");
+			System.out.println("HI");
+			System.out.println("HI");
+			System.out.println("👍👍👍");
+			System.out.println("🤠");
 	}
 
 }

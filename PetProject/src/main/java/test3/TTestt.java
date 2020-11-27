@@ -11,7 +11,7 @@ public class TTestt {
 			System.out.println("HI");
 			System.out.println("HI");
 			System.out.println("777");
-			System.out.println("777");
+			System.out.println("🤠");
 	}
 
 }

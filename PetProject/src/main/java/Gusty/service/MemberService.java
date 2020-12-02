@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 
 import Gusty.dao.MemberHibernateDao;
 import Gusty.model.MemberBean;
-import Gusty.util.HibernateUtils;
+import util.HibernateUtils;
 
 public class MemberService {
 	

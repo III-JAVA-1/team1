@@ -207,7 +207,7 @@
 		}   
     });
 
-	let password=/^[a-zA-Z]+\d+/;//密碼判斷
+	let password=/[a-zA-z]+\d|\d+[a-zA-z]+/;//密碼判斷
 	document.getElementById("password").addEventListener("blur",function(){
 
     	if (!password.test(document.getElementById("password").value)){
@@ -263,7 +263,6 @@
 		else{
 			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
 		}
-		//alert(document.getElementById("birth").value);
 	});
 
 	let address=/^[\u4e00-\u9fff]+\d+/;//地址判斷

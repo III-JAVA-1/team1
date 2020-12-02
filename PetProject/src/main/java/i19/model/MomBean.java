@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import Gusty.model.MemberBean;
 
 @Entity
-@Table(name="MOM")
+@Table(name="MOM2")
 public class MomBean{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +47,9 @@ public class MomBean{
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String bodyType5;
 	
-//	@OneToOne(mappedBy = "momBean" , fetch = FetchType.EAGER)
-	@OneToOne(cascade = CascadeType.ALL,mappedBy = "momBean")
+	
+	//@OneToOne(cascade = CascadeType.ALL,mappedBy = "momBean")
+	@OneToOne(mappedBy = "momBean",cascade = CascadeType.ALL)
 	private MemberBean memberBean;
 	
 	public MomBean() {

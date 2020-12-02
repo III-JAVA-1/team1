@@ -49,7 +49,8 @@ pom.properties
 .buildpath
 
 # sbteclipse plugin
-.target
+.
+
 
 # Tern plugin
 .tern-project
@@ -125,6 +126,7 @@ hs_err_pid*
 
 ### Maven ###
 target/
+/target
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -159,7 +161,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-/target
 
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows

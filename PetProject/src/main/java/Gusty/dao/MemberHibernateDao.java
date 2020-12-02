@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import Gusty.model.MemberBean;
-import Gusty.util.HibernateUtils;
+import util.HibernateUtils;
 
 
 

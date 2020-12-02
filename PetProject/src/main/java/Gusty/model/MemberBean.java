@@ -38,9 +38,7 @@ public class MemberBean {
 	String Address;
 	@Column(name = "Img", columnDefinition = "nvarchar(MAX)", nullable = true)
 	String Img;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "Momid")
-	Integer momid;
+
 	public Integer getU_Id() {
 		return U_Id;
 	}

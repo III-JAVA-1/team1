@@ -28,7 +28,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.hibernate.Hibernate;
 import org.junit.Ignore;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import Gusty.model.MemberBean;
 import Gusty.service.MemberService;

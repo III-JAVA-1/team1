@@ -31,7 +31,7 @@ import org.junit.Ignore;
 
 import Gusty.model.MemberBean;
 import Gusty.service.MemberService;
-import Gusty.util.HibernateUtils;
+import util.HibernateUtils;
 
 /**
  * Servlet implementation class InsertMember

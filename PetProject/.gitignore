@@ -160,7 +160,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-pom.properties
-MANIFEST.MF
+/target
 
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows

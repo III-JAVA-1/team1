@@ -19,31 +19,31 @@ import i19.model.MomBean;
 public class MemberBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer U_Id;
+	private Integer U_Id;
 	@Column(name = "Name", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Name;
+	private String Name;
 	@Column(name = "Gender", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Gender;
-	String Password;
-	String ID;
-	String Phone;
-	String Email;
-	Date Birth;
+	private String Gender;
+	private String Password;
+	private String ID;
+	private String Phone;
+	private String Email;
+	private Date Birth;
 	@Column(name = "Sname", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Sname;
-	String Zip;
+	private String Sname;
+	private String Zip;
 	@Column(name = "Country", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Country;
+	private String Country;
 	@Column(name = "District", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String District;
+	private String District;
 	@Column(name = "Address", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Address;
+	private String Address;
 	@Column(name = "Img", columnDefinition = "nvarchar(MAX)", nullable = true)
-	String Img;
+	private String Img;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "momId")
-	MomBean momBean;
+    @JoinColumn(name = "momId")
+	private MomBean momBean;
 
 	public MomBean getMomBean() {
 		return momBean;

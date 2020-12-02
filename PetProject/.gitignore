@@ -138,6 +138,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 pom.properties
 .properties
+config.properties
 
 ### Windows ###
 # Windows thumbnail cache files

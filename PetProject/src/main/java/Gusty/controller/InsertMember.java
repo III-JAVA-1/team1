@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ import org.junit.Ignore;
 
 import Gusty.model.MemberBean;
 import Gusty.service.MemberService;
+import net.bytebuddy.asm.Advice.This;
 import util.HibernateUtils;
 
 /**
@@ -56,6 +58,7 @@ public class InsertMember extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		super.init(config);
 	}
 
 	/**
@@ -152,6 +155,7 @@ public class InsertMember extends HttpServlet {
 						String fileName = item.getName();
 						//File file = new File("D:\\Java EclipseWorkspace\\PetProject\\src\\main\\webapp\\Gusty\\image\\member"+realname,fileName);
 						
+//						File filepath = new File("C:\\AdvancedWebWorkSpace\\PetProject\\src\\main\\webapp\\Gusty\\image\\member\\"+name);
 						File filepath = new File("C:\\AdvancedWebWorkSpace\\PetProject\\src\\main\\webapp\\Gusty\\image\\member\\"+name);
 						if(!filepath.exists())//如果資料夾不存在
 						{
@@ -159,7 +163,6 @@ public class InsertMember extends HttpServlet {
 						}
 						
 						File file =new File("C:\\AdvancedWebWorkSpace\\PetProject\\src\\main\\webapp\\Gusty\\image\\member\\"+name,fileName);
-						
 						if(fileName.equals("")||fileName==null){
 							img = "No upload file";
 						}

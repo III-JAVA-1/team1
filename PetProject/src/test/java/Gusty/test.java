@@ -2,6 +2,8 @@ package Gusty;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +20,8 @@ public class test {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		File ss = new File("");
+		System.out.println(ss.getAbsolutePath());
 	}
 
 }

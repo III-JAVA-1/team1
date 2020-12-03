@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+	<!-- 图形验证码servlet -->
+    <servlet>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <servlet-class>com.wf.captcha.servlet.CaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <url-pattern>/captcha</url-pattern>
+    </servlet-mapping>
+  
 </web-app>

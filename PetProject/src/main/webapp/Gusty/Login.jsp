@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.wf.captcha.servlet.CaptchaServlet"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -62,10 +63,18 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				</div>
 			</div>
 			
-<!-- 			<div class="row justify-content-center"> -->
-<!-- 				<img src="/captcha" width="130px" height="48px" /> -->
-<!-- 			</div> -->
-<!-- 			驗證碼目前無法顯示 -->
+			<div class="row justify-content-center">
+				<img src="<c:url value='/captcha'/>" style="width:250px; height:100px;">
+			</div>
+			
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+					<label for="safecode" class="col-sm-3 col-form-label col-form-label-lg">驗證碼:</label>
+					<div class="col-xs-4">
+						<input type="text" class="form-control form-control-lg" id="safecode" name="safecode" required>
+					</div>
+				</div>
+			</div>
 			
 			<br>
 			

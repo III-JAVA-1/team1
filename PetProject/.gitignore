@@ -26,7 +26,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-pom.properties
+
 # External tool builders
 .externalToolBuilders/
 
@@ -139,6 +139,11 @@ buildNumber.properties
 pom.properties
 .properties
 config.properties
+MANIFEST.MF
+*.MF
+config.MF
+META-INF
+*/META-INF/*
 
 ### Windows ###
 # Windows thumbnail cache files

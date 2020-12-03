@@ -139,6 +139,9 @@ buildNumber.properties
 pom.properties
 .properties
 config.properties
+MANIFEST.MF
+*.MF
+config.MF
 
 ### Windows ###
 # Windows thumbnail cache files

@@ -92,7 +92,7 @@ public class InsertMember extends HttpServlet {
 		String district = null;
 		String address = null;
 		String img = null;
-	    
+		
 	    //上傳圖片要用enctype="很長..." 用了request.getPatameter會被搞掉 要想辦法
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory(); //建立磁碟工廠

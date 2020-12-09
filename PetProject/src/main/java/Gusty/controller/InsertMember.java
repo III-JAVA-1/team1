@@ -188,6 +188,9 @@ public class InsertMember extends HttpServlet {
 			MemberBean mb = new MemberBean(name, gender, password, iD, phone, email, birth, sname, zipcode, county, district, address, img);
 			session.setAttribute("mb", mb);
 			ms.save(mb);
+			out.print("<script>");
+			out.print("window.alert('註冊成功轉回登入頁面'); window.location.href='Login.jsp';");
+			out.print("</script>");
 			
 		} catch (Exception e) {
 			// TODO: handle exception

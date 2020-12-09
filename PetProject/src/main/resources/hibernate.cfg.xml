@@ -30,6 +30,7 @@
 		<mapping class="Gusty.model.MemberBean"></mapping>
 		<mapping class="i19.model.MomBean"></mapping>
 		<mapping class="Henry.model.Salon_reservBean"></mapping>
+		<mapping class="Wu.model.ActBean"></mapping>
 		<mapping class="petforum.model.ArticleBean"></mapping>
 	</session-factory>
 </hibernate-configuration>

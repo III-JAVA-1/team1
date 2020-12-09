@@ -1,25 +1,19 @@
-package Gusty.dao;
+package Wu.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
-import Gusty.model.MemberBean;
+import Wu.model.ActBean;
 import util.HibernateUtils;
 
-
-
-public class MemberHibernateDao {
-	
+public class ActHibernetDao {
 	SessionFactory factory = HibernateUtils.getSessionFactory();
 	
-	public int save(MemberBean mb) {
+	public int save (ActBean actbean) {
 		int count=0;
 		Session session = factory.getCurrentSession();
-		session.save(mb);
+		session.save(actbean);
 		count++;
 		return count;
 	}
-	
-
 }

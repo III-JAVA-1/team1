@@ -48,12 +48,11 @@ public class MemberBean {
 	@Column(name = "Img", columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String Img;
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "momId")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "momId",referencedColumnName = "momId")
 	private MomBean momBean;
 	
-	
-	
+
 	@OneToMany(mappedBy = "memberBean", fetch = FetchType.LAZY)
 //-------------------------------------------------	
 	
@@ -229,23 +228,6 @@ public class MemberBean {
 		Img = img;
 	}
 
-	public MemberBean(String name, String gender, String password, String iD, String phone, String email, Date birth,
-			String sname, String zip, String country, String district, String address, String img) {
-		super();
-		Name = name;
-		Gender = gender;
-		Password = password;
-		ID = iD;
-		Phone = phone;
-		Email = email;
-		Birth = birth;
-		Sname = sname;
-		Zip = zip;
-		Country = country;
-		District = district;
-		Address = address;
-		Img = img;
-	}
 
 	public MemberBean(String name, String gender, String password, String iD, String phone, String email, Date birth,
 			String sname, String zip, String country, String district, String address, String img, MomBean momBean) {

@@ -36,7 +36,7 @@ public class ArticleBean implements Serializable{
 	
 //	多對一，多的一方有外鍵
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="U_Id")
+	@JoinColumn(name="petforum_U_Id",referencedColumnName = "U_Id")
 	//外鍵:"U_Id"為MemberBean01主鍵
 	MemberBean memberBean;//mappedBy = "memberBean01"是參考這裡的
 	
@@ -164,8 +164,6 @@ public class ArticleBean implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+
 	
 }

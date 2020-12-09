@@ -26,23 +26,5 @@ public class test {
 
 	@Test
 	public void test() {
-		
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			
-			MemberBean memberBean = session.get(MemberBean.class, 1);
-			System.out.println(memberBean);
-			
-			tx.commit();
-			System.out.println(memberBean.getAddress());
-		}catch (Exception ex) {
-			if(tx != null) {
-				tx.rollback();
-			}
-			ex.printStackTrace();
-		}
 	}
-
 }

@@ -204,23 +204,6 @@ public class MemberBean {
 		Img = img;
 	}
 
-	public MemberBean(String name, String gender, String password, String iD, String phone, String email, Date birth,
-			String sname, String zip, String country, String district, String address, String img) {
-		super();
-		Name = name;
-		Gender = gender;
-		Password = password;
-		ID = iD;
-		Phone = phone;
-		Email = email;
-		Birth = birth;
-		Sname = sname;
-		Zip = zip;
-		Country = country;
-		District = district;
-		Address = address;
-		Img = img;
-	}
 
 	public MemberBean(String name, String gender, String password, String iD, String phone, String email, Date birth,
 			String sname, String zip, String country, String district, String address, String img, MomBean momBean) {

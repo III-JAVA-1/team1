@@ -82,6 +82,7 @@ public class InsertMember extends HttpServlet {
 		String district = null;
 		String address = null;
 		String img = null;
+
 		MomBean momBean=null;
 		
 	    //上傳圖片要用enctype="很長..." 用了request.getPatameter會被搞掉 要想辦法
@@ -176,7 +177,9 @@ public class InsertMember extends HttpServlet {
 		MemberService ms = new MemberService();
 		
 		try {
+
 			MemberBean mb = new MemberBean(name, gender, password, iD, phone, email, birth, sname, zipcode, county, district, address, img,momBean);
+
 			session.setAttribute("mb", mb);
 			ms.save(mb);
 			out.print("<script>");

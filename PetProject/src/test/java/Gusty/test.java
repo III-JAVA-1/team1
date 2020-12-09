@@ -22,6 +22,7 @@ public class test {
 	public void test() {
 		File ss = new File("");
 		System.out.println(ss.getAbsolutePath());
+		System.out.println("gggggghhhhhh");
 	}
 
 }

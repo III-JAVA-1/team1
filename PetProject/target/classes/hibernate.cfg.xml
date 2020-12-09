@@ -29,12 +29,10 @@
 		<!-- 3. 宣告程式使用的Mapping檔 ，每個永續類別都需要定義一個Mapping檔 -->
 		<mapping class="Gusty.model.MemberBean"></mapping>
 		<mapping class="i19.model.MomBean"></mapping>
-<<<<<<< HEAD
 		<mapping class="Wu.model.ActBean"></mapping>
 
-=======
-		
+
 		<mapping class="petforum.model.ArticleBean"></mapping>
->>>>>>> branch 'Wu' of https://github.com/III-JAVA-1/team1.git
+
 	</session-factory>
 </hibernate-configuration>

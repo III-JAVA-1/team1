@@ -21,12 +21,6 @@ public class test {
 	@Test
 	public void test() {
 		File ss = new File("");
-		System.out.println(ss.getAbsolutePath());
-<<<<<<< HEAD
-		System.out.println("122222");
-=======
-		System.out.println("gggggghhhhhh");
->>>>>>> branch 'Wu' of https://github.com/III-JAVA-1/team1.git
-	}
 
+	}
 }

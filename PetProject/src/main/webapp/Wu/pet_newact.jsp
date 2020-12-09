@@ -26,7 +26,7 @@
 			<H1>新增活動</H1>
 		</div>
 		
-		<form method="post" action="NewActServlet">
+		<form method="post" action="../NewActServlet">
 		
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">

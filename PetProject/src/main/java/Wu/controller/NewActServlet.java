@@ -93,7 +93,7 @@ public class NewActServlet extends HttpServlet {
 		 if(count > 0) {
 			 	request.getSession(true).removeAttribute("ActBean");
 			 	out.print("<script>");
-			 	out.print("window.alert('活動建立成功');  window.location.href='Login.jsp'");
+			 	out.print("window.alert('活動建立成功');  window.location.href='Wu/AllActive.jsp'");
 			 	out.print("</script>");
 			 	
 				}

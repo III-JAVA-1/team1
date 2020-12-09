@@ -3,13 +3,13 @@ package petforum.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import Gusty.model.MemberBean;
 import petforum.dao.ArticleHibernateDao;
 import petforum.model.ArticleBean;
-import petforum.model.MemberBean01;
 import util.HibernateUtils;
 
 
@@ -109,8 +109,8 @@ public class ArticleService {
 	
 	
 	/////////////////////////////////////////////////
-	public MemberBean01 getMember(int U_Id) {
-		MemberBean01 memberBean =null;
+	public MemberBean getMember(int U_Id) {
+		MemberBean memberBean =null;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {
@@ -130,15 +130,15 @@ public class ArticleService {
 		
 	}
 	
-	public List<MemberBean01> getAllMembers(String hql) {
-		List<MemberBean01> list = new ArrayList<MemberBean01>();		
+	public List<MemberBean> getAllMembers(String hql) {
+		List<MemberBean> list = new ArrayList<MemberBean>();		
 		
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			list = dao.getAllMembers(hql);
-			for(MemberBean01 member: list) {
+			for(MemberBean member: list) {
 				System.out.println("123"+member.getName());
 			}
 			

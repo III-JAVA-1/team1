@@ -1,7 +1,6 @@
-<%@page import="petforum.model.MemberBean01"%>
+<%@page import="Gusty.model.MemberBean"%>
 <%@page import="petforum.model.ArticleBean"%>
 <%@page import="petforum.service.ArticleService"%>
-<%@page import="petforum.model.ArticleBean"%>
 <%@page import="java.util.List"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -117,7 +116,6 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 	%><%
-		MemberBean01 member = service.getMember(article.getMemberId());
 			
 			out.print("<div class='media'>");
 			out.print("<div class='media-body'>");
@@ -125,7 +123,7 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 				//System.out.print("img src='/PetProject/Gusty/image/"+member.getImg()+"'");
 				//out.print("<img src='/PetProject/Gusty/image/"+member.getImg()+"' class='align-self-start mr-3' style='width:100px; height:100px;' alt='...'>");	
 			
-			out.print("<p>"+article.getMemberId());
+	
 			//request.getSession(true).setAttribute("memberId", rs.getString("member_id"));
 			out.print("	");
 			out.print(article.getUpdatedTime()+"</p>");
@@ -135,17 +133,6 @@ response.setDateHeader ("Expires", -1); // Prevents caching at the proxy server
 			out.print("<p>");
 			out.print(article.getContent());
 			out.print("</p>");
-			if(session.getAttribute("user")!=null && session.getAttribute("user").toString().equals(member.getU_Id()))
-			{
-				out.print("<form action='edit.jsp'>");
-				
-				out.print("<button type='submit' class='btn btn-primary' name='edit' value='");
-				out.print(article.getPosterUid()+"'");
-				out.print(">修改文章</button>");
-				//out.print("value='rs.getString('member_id')'>修改文章</button>");
-				out.print("</form>");
-			}
-			
 			out.print("</div>");
 			out.print("</div>");
 	%>

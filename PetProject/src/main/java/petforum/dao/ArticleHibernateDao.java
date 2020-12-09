@@ -1,19 +1,16 @@
 package petforum.dao;
 
 
-import util.HibernateUtils;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-
+import Gusty.model.MemberBean;
 import petforum.model.ArticleBean;
-import petforum.model.MemberBean01;
+import util.HibernateUtils;
 
 
 public class ArticleHibernateDao {
@@ -67,22 +64,22 @@ public class ArticleHibernateDao {
 	
 	
 	///////////////////////////////////////////////////////
-	public MemberBean01 getMember(int U_Id) {
+	public MemberBean getMember(int U_Id) {
 		
-		MemberBean01 memberBean =null;
+		MemberBean memberBean =null;
 		Session session = factory.getCurrentSession();
-		memberBean = session.get(MemberBean01.class, U_Id);
+		memberBean = session.get(MemberBean.class, U_Id);
 		return memberBean;
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<MemberBean01> getAllMembers(String hql) {
+	public List<MemberBean> getAllMembers(String hql) {
 		
-		List<MemberBean01> list = new ArrayList<MemberBean01>();
+		List<MemberBean> list = new ArrayList<MemberBean>();
 		
 		Session session = factory.getCurrentSession();	
-		Query<MemberBean01> query = session.createQuery(hql);		
+		Query<MemberBean> query = session.createQuery(hql);		
 		list = query.getResultList();
 		
 		return list;

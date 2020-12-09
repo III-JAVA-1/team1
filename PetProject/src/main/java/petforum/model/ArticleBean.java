@@ -13,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import Gusty.model.MemberBean;
+
 @Entity
-@Table(name = "Article")
+@Table(name = "Article01")
 public class ArticleBean implements Serializable{
 	
 	@Id
@@ -29,14 +31,14 @@ public class ArticleBean implements Serializable{
 	private String content;
 	private Integer viewing;
 	private Integer reply;
-	private Integer memberId;
+	//private Integer memberId;
 	private Integer isHide = 0;//預設無違規不隱藏	
 	
 //	多對一，多的一方有外鍵
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="U_Id")
 	//外鍵:"U_Id"為MemberBean01主鍵
-	MemberBean01 memberBean01;//mappedBy = "memberBean01"是參考這裡的
+	MemberBean memberBean;//mappedBy = "memberBean01"是參考這裡的
 	
 	
 	public ArticleBean() {
@@ -49,7 +51,6 @@ public class ArticleBean implements Serializable{
 		this.header = header;
 		this.updatedTime = updatedTime;
 		this.content = content;
-		this.memberId = memberId;
 	}
 
 
@@ -63,7 +64,6 @@ public class ArticleBean implements Serializable{
 		this.content = content;
 		this.viewing = viewing;
 		this.reply = reply;
-		this.memberId = memberId;
 		this.isHide = isHide;
 	}
 
@@ -123,13 +123,6 @@ public class ArticleBean implements Serializable{
 		this.reply = reply;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
 
 	public Integer getIsHide() {
 		return isHide;
@@ -139,12 +132,12 @@ public class ArticleBean implements Serializable{
 		this.isHide = isHide;
 	}
 
-	public MemberBean01 getMemberBean01() {
-		return memberBean01;
+	public MemberBean getMemberBean() {
+		return memberBean;
 	}
 
-	public void setMemberBean01(MemberBean01 memberBean01) {
-		this.memberBean01 = memberBean01;
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
 	}
 
 	@Override
@@ -164,12 +157,10 @@ public class ArticleBean implements Serializable{
 		builder.append(viewing);
 		builder.append(", reply=");
 		builder.append(reply);
-		builder.append(", memberId=");
-		builder.append(memberId);
 		builder.append(", isHide=");
 		builder.append(isHide);
-		builder.append(", memberBean01=");
-		builder.append(memberBean01);
+//		builder.append(", memberBean=");
+//		builder.append(memberBean);
 		builder.append("]");
 		return builder.toString();
 	}

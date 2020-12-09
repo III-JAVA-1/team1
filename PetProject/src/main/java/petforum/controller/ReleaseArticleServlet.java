@@ -29,16 +29,16 @@ public class ReleaseArticleServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8"); 
 		
-		int poster_uid;
+		Integer poster_uid;
 		String article_name = null;
 		String forum_id = null;
 		String article_content = null;
 		String updated_time = null;
-		int reply = 0;
-		int viewing=0;
-		int isHide = 0;
+		Integer reply = 0;
+		Integer viewing=0;
+		Integer isHide = 0;
 		//int member_id = Integer.parseInt(request.getSession(true).getAttribute("user").toString());//從session拿到
-		int member_id = 1;
+		Integer member_id = null ;
 		
 		if(request.getParameter("preview").toString().equals("確定修改"))
 		{
@@ -79,7 +79,7 @@ public class ReleaseArticleServlet extends HttpServlet {
 			if(count > 0) {
 			request.getSession(true).removeAttribute("ArticleBean");
 			out.print("<script>");
-			out.print("window.alert('文章修改成功');  window.location.href='/PetProject/petforum/postDetail.jsp?posterUid="+poster_uid+"'");
+			out.print("window.alert('文章修改成功');  window.location.href='petforum/postDetail.jsp?posterUid="+poster_uid+"'");
 			out.print("</script>");
 			}
 			
@@ -123,7 +123,7 @@ public class ReleaseArticleServlet extends HttpServlet {
 			if(count > 0) {
 			request.getSession(true).removeAttribute("ArticleBean");
 			out.print("<script>");
-			out.print("window.alert('文章新增成功');  window.location.href='/PetProject/petforum/lookforPet.jsp'");
+			out.print("window.alert('文章新增成功');  window.location.href='petforum/lookforPet.jsp'");
 			out.print("</script>");
 			}
 			

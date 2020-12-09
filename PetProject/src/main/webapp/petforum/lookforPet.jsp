@@ -241,7 +241,7 @@ th{
 				out.print("</td>");
 				out.print("<td>"+article.getReply());
 				out.print("</td>");
-				out.print("<td>"+article.getMemberId());
+				out.print("<td>"+article.getMemberBean());
 				out.print("</td>");
 				out.print("</tr>");	
 				
@@ -320,24 +320,6 @@ th{
    
      
 
-      //$("#hitHeader").on("click",function(){
-    //	//function test1(){  
-        //let viewingCount = 0;//計數 
-       //let viewingRecord;//存已瀏覽數
-    	 //  console.log('234')
-    	   //console.log(document.querySelector("#viewing").innerText);//"0" 已瀏覽數          
-           //viewingRecord = parseInt(document.querySelector("#viewing").innerText);          
-    	   
-           //viewingCount++;
-           //viewingRecord += viewingCount;
-           //document.querySelector("#viewing").innerText=viewingRecord;
-           
-           //console.log(document.querySelector("#viewing").innerText);
-           //document.querySelector("#viewing").value = viewingRecord;//為了傳到servlet
-    	//}   
-      //});
-       
-       
        
      
         

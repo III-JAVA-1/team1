@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Gusty.model.MemberBean;
 import petforum.model.ArticleBean;
 import petforum.service.ArticleService;
 
@@ -39,6 +40,7 @@ public class ReleaseArticleServlet extends HttpServlet {
 		Integer isHide = 0;
 		//int member_id = Integer.parseInt(request.getSession(true).getAttribute("user").toString());//從session拿到
 		Integer member_id = null ;
+		MemberBean memberBean=null;
 		
 		if(request.getParameter("preview").toString().equals("確定修改"))
 		{

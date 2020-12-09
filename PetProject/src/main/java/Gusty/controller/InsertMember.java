@@ -1,21 +1,15 @@
 package Gusty.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.sql.Blob;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,16 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.hibernate.Hibernate;
-import org.junit.Ignore;
 
 import Gusty.model.MemberBean;
 import Gusty.service.MemberService;
-import net.bytebuddy.asm.Advice.This;
-import util.HibernateUtils;
+import i19.model.MomBean;
 
 /**
  * Servlet implementation class InsertMember
@@ -92,6 +82,7 @@ public class InsertMember extends HttpServlet {
 		String district = null;
 		String address = null;
 		String img = null;
+		MomBean momBean=null;
 		
 	    //上傳圖片要用enctype="很長..." 用了request.getPatameter會被搞掉 要想辦法
 		
@@ -185,7 +176,7 @@ public class InsertMember extends HttpServlet {
 		MemberService ms = new MemberService();
 		
 		try {
-			MemberBean mb = new MemberBean(name, gender, password, iD, phone, email, birth, sname, zipcode, county, district, address, img);
+			MemberBean mb = new MemberBean(name, gender, password, iD, phone, email, birth, sname, zipcode, county, district, address, img,momBean);
 			session.setAttribute("mb", mb);
 			ms.save(mb);
 			out.print("<script>");

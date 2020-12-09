@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import Gusty.model.MemberBean;
 
 @Entity
-@Table(name="MOM2")
+@Table(name="MOM")
 public class MomBean{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class MomBean{
 	private MemberBean memberBean;
 	
 	public MomBean() {
-		super();
+
 	}
 
 	public MomBean(String petContent, String experience, String notices, String title, String pic,

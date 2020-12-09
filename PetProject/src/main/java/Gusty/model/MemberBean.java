@@ -2,6 +2,7 @@ package Gusty.model;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import Henry.model.Salon_reservBean;
 import i19.model.MomBean;
 import petforum.model.ArticleBean;
 
@@ -50,7 +52,30 @@ public class MemberBean {
     @JoinColumn(name = "momId")
 	private MomBean momBean;
 	
-	@OneToMany(mappedBy = "memberBean", fetch = FetchType.EAGER)
+	
+	
+	@OneToMany(mappedBy = "memberBean", fetch = FetchType.LAZY)
+//-------------------------------------------------	
+	
+	private Set <Salon_reservBean>salon_reservBeans=new LinkedHashSet<>();
+	
+	
+	
+	/**
+	 * @return the salon_reservBeans
+	 */
+	public Set<Salon_reservBean> getSalon_reservBeans() {
+		return salon_reservBeans;
+	}
+
+	/**
+	 * @param salon_reservBeans the salon_reservBeans to set
+	 */
+	public void setSalon_reservBeans(Set<Salon_reservBean> salon_reservBeans) {
+		this.salon_reservBeans = salon_reservBeans;
+	}
+//*****************************************************
+	@OneToMany(mappedBy = "memberBean", fetch = FetchType.LAZY)
 	private Set<ArticleBean> articles = new HashSet<>(0);
 
 	public Set<ArticleBean> getArticles() {

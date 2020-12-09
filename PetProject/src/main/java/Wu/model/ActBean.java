@@ -1,28 +1,81 @@
 package Wu.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import Gusty.model.MemberBean;
 
 @Entity
 @Table(name="Active2")
-public class ActBean {
+public class ActBean implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer act_no;
-	
+	@Column(name = "act_name", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_name;
 	private Date starttime;
 	private Date endtime;
+	@Column(name = "act_content", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_content;
+	@Column(name = "act_organize", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_organize;
+	@Column(name = "act_orgman", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_orgman;
 	private String act_orgphone;
+	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="U_Id")
+	MemberBean memberBean;
+	
+	public ActBean() {
+		
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ActBean [act_no=");
+		builder.append(act_no);
+		builder.append(", act_name=");
+		builder.append(act_name);
+		builder.append(", starttime=");
+		builder.append(starttime);
+		builder.append(", endtime=");
+		builder.append(endtime);
+		builder.append(", act_content=");
+		builder.append(act_content);
+		builder.append(", act_organize=");
+		builder.append(act_organize);
+		builder.append(", act_orgman=");
+		builder.append(act_orgman);
+		builder.append(", act_orgphone=");
+		builder.append(act_orgphone);
+		builder.append(", act_type=");
+		builder.append(act_type);
+//		builder.append(", memberBean=");
+//		builder.append(memberBean);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 	public Integer getAct_no() {
 		return act_no;
 	}
@@ -77,6 +130,14 @@ public class ActBean {
 	public void setAct_type(String act_type) {
 		this.act_type = act_type;
 	}
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
+	
+	
 	public ActBean(Integer act_no, String act_name, Date starttime, Date endtime, String act_content,
 			String act_organize, String act_orgman, String act_orgphone, String act_type) {
 		super();

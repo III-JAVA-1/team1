@@ -26,7 +26,7 @@
 			<H1>新增活動</H1>
 		</div>
 		
-		<form method="post" action="InsertAct">
+		<form method="post" action="NewActServlet">
 		
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
@@ -49,10 +49,10 @@
 					<div class="col-xs-4">
 						<p>開始:</p>
 						<input type="date" class="form-control form-control-lg"
-							id="act_start" name="act_start"> <br>
+							id="act_start" name="starttime"> <br>
 						<p>結束:</p>
 						<input type="date" class="form-control form-control-lg"
-							id="act_end" name="act_end">
+							id="act_end" name="endtime">
 					</div>
 
 				</div>

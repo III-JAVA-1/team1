@@ -20,7 +20,6 @@ public class test {
 
 	@Test
 	public void test() {
-		File ss = new File("");
 
 	}
 }

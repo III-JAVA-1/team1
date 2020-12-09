@@ -164,8 +164,6 @@ public class ArticleBean implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+
 	
 }

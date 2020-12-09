@@ -28,6 +28,9 @@
 
 		<!-- 3. 宣告程式使用的Mapping檔 ，每個永續類別都需要定義一個Mapping檔 -->
 		<mapping class="Gusty.model.MemberBean"></mapping>
+		<mapping class="i19.model.MomBean"></mapping>
+		
+		<mapping class="petforum.model.ArticleBean"></mapping>
 
 	</session-factory>
 </hibernate-configuration>

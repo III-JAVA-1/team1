@@ -2,6 +2,7 @@ package Gusty.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import Gusty.model.MemberBean;
 import util.HibernateUtils;
@@ -19,5 +20,6 @@ public class MemberHibernateDao {
 		count++;
 		return count;
 	}
+	
 
 }

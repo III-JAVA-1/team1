@@ -46,11 +46,11 @@ public class MemberBean {
 	@Column(name = "Img", columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String Img;
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "momId")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "momId",referencedColumnName = "momId")
 	private MomBean momBean;
 	
-	@OneToMany(mappedBy = "memberBean", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "memberBean", fetch = FetchType.LAZY)
 	private Set<ArticleBean> articles = new HashSet<>(0);
 
 	public Set<ArticleBean> getArticles() {

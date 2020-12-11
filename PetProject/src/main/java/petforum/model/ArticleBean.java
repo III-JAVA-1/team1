@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import Gusty.model.MemberBean;
 
 @Entity
-@Table(name = "Article01")
+@Table(name = "Article")
 public class ArticleBean implements Serializable{
 	
 	@Id

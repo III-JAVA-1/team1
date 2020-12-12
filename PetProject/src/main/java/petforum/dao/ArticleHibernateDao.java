@@ -7,12 +7,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import Gusty.model.MemberBean;
 import petforum.model.ArticleBean;
 import util.HibernateUtils;
 
-
+@Repository
 public class ArticleHibernateDao {
 	
 	SessionFactory factory = HibernateUtils.getSessionFactory();

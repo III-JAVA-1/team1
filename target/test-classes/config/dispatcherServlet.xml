@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 這是springMVC配置文件用來聲明Controller和web相關的對象 -->
+
+	<!-- 掃描包 理論上應該只要掃描controller但是會報錯所以掃整個package -->
+	<context:component-scan base-package="com.web.pet.member" />
+	<context:component-scan base-package="com.web.pet.mom" />
+	<context:component-scan base-package="com.web.pet.exception" />
+	
+	<!-- 配置視圖解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 註解驅動 上面必須是MVC的註解驅動 springmvc.xsd 響應AJAX -->
+	<mvc:annotation-driven />
+
+	<!-- 處理靜態資源無法讀取的方法 -->
+	<mvc:default-servlet-handler />
+
+</beans>

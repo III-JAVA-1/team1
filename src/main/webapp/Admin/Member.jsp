@@ -125,7 +125,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 	
 	<script>
-	<% request.getSession().setAttribute("user", 1); %>
 	var boy=0;
 	var girl=0;
 	var nowdate=new Date();
@@ -133,13 +132,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var age2=0;
 	var age3=0;
 	var count=0;
-	//console.log(nowdate)
 		$.ajax({
 			url:"../Gusty/logincheck",
 			type:"post",
 			dataType:"json",
 			async:false,
-			//$(":contains(text)")
 			success:function(data){
 			$.each(data,function(i,n){
 				count=data.length;
@@ -150,8 +147,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						girl=girl+1;
 					}
 					var oldbirth = new Date(n.birth);
-					//console.log(oldbirth.getyear());
-					//console.log(nowdate.getYear() - oldbirth.getYear());
 					if((nowdate.getYear() - oldbirth.getYear())<=30){
 						age1++;
 					}

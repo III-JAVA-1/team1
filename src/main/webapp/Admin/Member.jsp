@@ -22,7 +22,23 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <title>Accompany</title>
 <style>
-
+#gotop {
+		width:65px;
+		height:65px;
+    	position: fixed;
+    	border-radius: 50px;
+    	right: 20px;
+    	bottom: 30px;
+    	padding: 10px 16px;
+    	background-repeat: no-repeat;
+    	background-size: cover;
+    	background-image: url("image/up.png");
+    	color: white;
+    	cursor: pointer;
+    	z-index: 1000;
+	}
+/* 	tr:nth-child(even+1) {background: #CCC} */
+/* 	tr:nth-child(odd+1) {background: #FFF} */
 	
 </style>
 </head>
@@ -62,9 +78,30 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</div><br>
 		
 		<div class="col">
+		
 		<div class="row justify-content-center">
 			<h1>全部會員資料</h1>
 		</div>
+		<div class="row justify-content-center">
+			<h4 id="count"></h4>
+		</div>
+		
+		<table class="table table-hover table-bordered">
+  		<thead class="h4" style="background-color:#D200D2;">
+    		<tr>
+      			<th scope="col">u_Id</th>
+      			<th scope="col" style="width:100px;height:50px;">大頭貼</th>
+      			<th scope="col">姓名</th>
+      			<th scope="col">手機</th>
+      			<th scope="col">電子郵件</th>
+      			<th scope="col">暱稱</th>
+      			<th scope="col">地址</th>
+    		</tr>
+  		</thead>
+  		<tbody id="aa">
+   
+  		</tbody>
+	</table>
 		
 		</div>
 		
@@ -88,12 +125,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 	
 	<script>
+	<% request.getSession().setAttribute("user", 1); %>
 	var boy=0;
 	var girl=0;
 	var nowdate=new Date();
 	var age1=0;
 	var age2=0;
 	var age3=0;
+	var count=0;
 	//console.log(nowdate)
 		$.ajax({
 			url:"../Gusty/logincheck",
@@ -103,6 +142,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			//$(":contains(text)")
 			success:function(data){
 			$.each(data,function(i,n){
+				count=data.length;
 					if(n.gender=="男"){
 						boy=boy+1;
 					}
@@ -121,10 +161,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					if((nowdate.getYear() - oldbirth.getYear())>=51){
 						age3++;
 					}
+					
+					$("#aa").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+							+"<td>"+n.name+"</td>"
+							+"<td>"+n.phone+"</td>"
+							+"<td>"+n.email+"</td>"
+							+"<td>"+n.sname+"</td>"
+							+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
+					);
 				});
 			}
 		});
-	
+	$("#count").html("會員總數:"+count);
 	
 	var ctx = document.getElementById("boyandgirl").getContext('2d');//顯示男女比例
 	var myChart = new Chart(ctx, {
@@ -157,6 +206,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	        }]
 	    },
 	});
+	
+	$("#gotop").click(function(){//回最上層JQUERY
+        jQuery("html,body").animate({
+            scrollTop:0
+        },1000);
+    });
+    $(window).scroll(function() {
+        if ( $(this).scrollTop() > 300){
+            $('#gotop').fadeIn("fast");
+        } else {
+            $('#gotop').stop().fadeOut("fast");
+        }
+    });
 	</script>
 
 </body>

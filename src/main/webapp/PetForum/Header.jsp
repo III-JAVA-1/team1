@@ -21,7 +21,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
-            <a class="navbar-brand" href="index.jsp"><img src="image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
+            <a class="navbar-brand" href="../index.jsp"><img src="../image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                         <a class="nav-link" href="#">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='PetForum/lookforPet.jsp'/>">寵物討論區</a>
+                        <a class="nav-link" href="lookforPet.jsp">寵物討論區</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物店家</a>
@@ -48,9 +48,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                         <%
                         	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
 							{
-								out.print("<a class='nav-link' href='Member/Login.jsp'><img src='image/user.svg' width='30' height='30' alt=''></a>");
+								out.print("<a class='nav-link' href='../Member/Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
 							}else{
-								 out.print("<a class='nav-link' href='Member/Member.jsp' id='sname'></a>");
+								 out.print("<a class='nav-link' href='../Member/Member.jsp' id='headersname'></a>");
 							}
 						%>
                     </li>
@@ -74,7 +74,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		
 		$().ready(function(){
 			$.ajax({
-				url:"Gusty/headercheck",
+				url:"../Gusty/headercheck",
 				type:"post",
 				dataType:"json",
 				data : { 
@@ -82,7 +82,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 },
 				success:function(data){
 					$.each(data,function(i,n){
-						$("#sname").html(n.sname+"您好");
+						$("#headersname").html(n.sname+"您好");
 					});
 				}
 			});

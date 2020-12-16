@@ -50,7 +50,6 @@
 				<!-- 掃描實體包的位置 -->
 				<value>com.web.pet.member.model</value>
 				<value>com.web.pet.mom.model</value>				
-				<value>com.web.pet.forum.model</value>
 			</array>
 		</property>
 		<property name="hibernateProperties">

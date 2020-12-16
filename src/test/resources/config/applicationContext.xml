@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tt="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
@@ -12,6 +13,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- 這是spring配置文件用來聲明Service DAO和工具類相關的對象 -->
+	<context:annotation-config />
+ 	<mvc:annotation-driven />
 
 	<!-- 聲明數據源 連接數據庫 -->
 	<bean id="dataSource"
@@ -54,7 +57,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.transaction.coordinator_class">jdbc</prop>
+<!-- 				<prop key="hibernate.transaction.coordinator_class">jdbc</prop> -->
 				<prop key="hibernate.bytecode.use_reflection_optimizer">false</prop>
 				<prop key="connection_pool_size">8</prop>
 				<!-- CREATE、UPDATE改這裡 -->
@@ -65,6 +68,10 @@
 		</property>
 	</bean>
 
+	<!-- 宣告式容器事務管理 ,transaction-manager指定事務管理器為transactionManager -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" proxy-target-class="true" />
+
 	<!-- 配置Hibernate事務管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -74,10 +81,6 @@
 	<!-- 配置事務異常封裝 -->
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-	<!-- 宣告式容器事務管理 ,transaction-manager指定事務管理器為transactionManager -->
-	<tx:annotation-driven
-		transaction-manager="transactionManager" proxy-target-class="true" />
-
+	
 
 </beans>

@@ -67,7 +67,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center">
 				<Button  type="submit" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true">登錄</Button>
 				<a href="Register.jsp" class="btn btn-success btn-lg active ml-3" role="button" aria-pressed="true">註冊</a>
-				<Button  type="button" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true" onclick="admingo()">管理者後台</Button>
+				<Button  type="button" class="btn btn-info btn-lg active ml-3" role="button" aria-pressed="true" onclick="admingo()">管理者後台</Button>
 			</div>
 			
 		</form>

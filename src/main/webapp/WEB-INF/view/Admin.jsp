@@ -55,8 +55,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		
 			<div class="col-4">
 			<div class="card functioncard ">
-			<a href="Member.jsp" class="nav-link">
-  				<img src="image/member.png" class="card-img-top" alt="...">
+			<a href="<c:url value='/Gusty/goadminabality?abality=Member'/>" class="nav-link">
+  				<img src="../Admin/image/member.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理會員相關事項</p>
@@ -68,7 +68,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="col-4">
 			<div class="card functioncard ">
 			<a href="Member.jsp" class="nav-link">
-  				<img src="image/shop.png" class="card-img-top" alt="...">
+  				<img src="../Admin/image/shop.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理商品上下架和銷售量顯示</p>
@@ -80,7 +80,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="col-4">
 			<div class="card functioncard ">
 			<a href="Member.jsp" class="nav-link">
-  				<img src="image/chat.png" class="card-img-top" alt="...">
+  				<img src="../Admin/image/chat.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理論壇相關事項</p>
@@ -92,7 +92,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="col-4">
 			<div class="card functioncard">
 			<a href="Member.jsp" class="nav-link">
-  				<img src="image/store.png" class="card-img-top" alt="...">
+  				<img src="../Admin/image/store.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理實體寵物店面相關事項</p>
@@ -104,7 +104,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="col-4">
 			<div class="card functioncard">
 			<a href="Member.jsp" class="nav-link">
-  				<img src="image/activity.png" class="card-img-top" alt="...">
+  				<img src="../Admin/image/activity.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理活動和課程相關事項</p>
@@ -116,7 +116,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="col-4">
 			<div class="card functioncard">
 			<a href="Member.jsp" class="nav-link">
-  				<img src="image/mom.png" class="card-img-top" alt="...">
+  				<img src="../Admin/image/mom.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
     			<p class="card-text">管理保母相關事項</p>

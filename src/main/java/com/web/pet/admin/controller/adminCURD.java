@@ -39,4 +39,16 @@ public class adminCURD {
 		}	
 	}
 	
+	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
+	public String goadmin() {
+		return "Admin";
+	}
+	
+	
+	@RequestMapping(value="/goadminabality")//Admin其他功能的超連結
+	public String goadminfunction(@RequestParam String abality) {
+		
+		return abality;
+	}
+	
 }

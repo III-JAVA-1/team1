@@ -395,7 +395,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var check=[];
 	
 	let phone = /^[09]{2}[0-9]{8}$/;//手機判斷
-	document.getElementById("editphone").addEventListener("mouseout",function(){
+	document.getElementById("editphone").addEventListener("change",function(){
 		
 		if (!phone.test(document.getElementById("editphone").value)){
 			document.getElementById("editphonecheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -410,7 +410,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var sumpassword=[];
 	
 	let password=/[a-zA-z]+\d|\d+[a-zA-z]+/;//密碼判斷
-	document.getElementById("editpassword").addEventListener("mouseout",function(){
+	document.getElementById("editpassword").addEventListener("change",function(){
 
     	if (!password.test(document.getElementById("editpassword").value)){
     		document.getElementById("editpasswordcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";	
@@ -436,7 +436,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	});
 	
 	let oldpassword=/[a-zA-z]+\d|\d+[a-zA-z]+/;//舊密碼判斷
-	document.getElementById("oldeditpassword").addEventListener("mouseout",function(){
+	document.getElementById("oldeditpassword").addEventListener("change",function(){
 
     	if (!password.test(document.getElementById("oldeditpassword").value)){
     		document.getElementById("oldeditpasswordcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";	
@@ -478,7 +478,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	}
 	
     let name= /[^\u4e00-\u9fa5]/;//名字判斷
-    document.getElementById("editname").addEventListener("mouseout",function(){
+    document.getElementById("editname").addEventListener("change",function(){
 
     	if (!name.test(document.getElementById("editname").value)&&document.getElementById("editname").value.length>=2){
     		document.getElementById("editnamecheck").innerHTML="<img src='image/checked.png'>OK";
@@ -491,7 +491,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     });
     
 	let email=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;//電郵判斷
-	document.getElementById("editemail").addEventListener("mouseout",function(){
+	document.getElementById("editemail").addEventListener("change",function(){
 
     	if (!email.test(document.getElementById("editemail").value)){
     		document.getElementById("editemailcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -550,7 +550,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     });
 
 	let address=/^[\u4e00-\u9fff]+\d+/;//地址判斷
-	document.getElementById("editaddress").addEventListener("mouseout",function(){
+	document.getElementById("editaddress").addEventListener("change",function(){
 
     	if (!address.test(document.getElementById("editaddress").value)){
     		document.getElementById("editaddresscheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -562,7 +562,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		}
     });
 	
-	document.getElementById("editsname").addEventListener("mouseout",function(){//AJAX暱稱判斷
+	document.getElementById("editsname").addEventListener("change",function(){//AJAX暱稱判斷
 		if($("#editsname").val()==""){
 			$("#editsnamecheck").html("<img src='image/cancel.png'>格式錯誤");	
 		}

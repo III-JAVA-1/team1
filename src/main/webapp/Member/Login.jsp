@@ -105,7 +105,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		}
 		function adminpasswordcheck(){
 			if($("#adminpassword").val()=="admin"){
-				window.location.href='../Admin/Admin.jsp';
+				window.location.href='<c:url value='/Gusty/goadmin'/>';
 			}
 			else if($("#adminpassword").val()==""||$("#adminpassword").val()!="admin"){
 				$("#dialog").dialog("close");

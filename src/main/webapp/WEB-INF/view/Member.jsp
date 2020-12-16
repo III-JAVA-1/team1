@@ -48,7 +48,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		<div class="container-fluid" style="background-color:#81C0C0;">
     		<p class="nav-link mt-2">會員後台</p>
     		<div class="d-flex">
-      		<a class="nav-link" href="Admin.jsp">回後台首頁</a>
+      		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
   		</div>
 	</nav>

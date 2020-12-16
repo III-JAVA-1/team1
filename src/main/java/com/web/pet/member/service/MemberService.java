@@ -16,7 +16,7 @@ import com.web.pet.member.model.Member;
 public class MemberService {
 
 	@Autowired
-	MemberDao memberDao;
+	private MemberDao memberDao;
 
 	public void insertMemberService(Member member) {//會員註冊
 		memberDao.insertMemberDao(member);

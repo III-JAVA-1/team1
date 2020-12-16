@@ -60,7 +60,6 @@
 	<!-- 處理靜態資源無法讀取的方法 -->
 	<mvc:default-servlet-handler />
 	
-	<context:annotation-config />
-
+	<mvc:resources mapping="/images/**" location="/images/" />
 
 </beans>

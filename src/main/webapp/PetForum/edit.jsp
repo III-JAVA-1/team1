@@ -100,12 +100,12 @@
     </form:select>	
 	
 	<form:hidden name="posterUid" path="posterUid" />
-	<form:input name="header" path="header" size="105" placeholder="請輸入文章標題…" />
+	<form:input name="header" path="header" size="98" placeholder="請輸入文章標題…" /><br/>
 	<label for="" class="lb">時間：</label>
-	<form:input name="updatedTime" path="updatedTime" size="115"/>
+	<form:input name="updatedTime" path="updatedTime" size="104"/><br/>
 	<label for="image" class="lb">請選擇要上傳的圖片:</label>
-	<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br>
-	<form:textarea name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…"/><br>
+	<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br/>
+	<form:textarea name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…"/><br/>
 	<input class="ck" type="checkbox" id="ckObey">
 	 <label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
 	 <button type="button"  onclick="window.open('forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>

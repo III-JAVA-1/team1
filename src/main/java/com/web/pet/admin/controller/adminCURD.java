@@ -2,8 +2,6 @@ package com.web.pet.admin.controller;
 
 import java.sql.Blob;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -24,10 +22,9 @@ public class adminCURD {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(value="/getallimg")//會員頁面秀出圖片
+	@RequestMapping(value="/getallimg")//管理者會員頁面秀出全部會員圖片
 	public ResponseEntity<byte[]> getPicture(@RequestParam Integer id) {
 		byte[] body = null;
-		//Integer id=Integer.valueOf(request.getSession().getAttribute("user").toString());
 		ResponseEntity<byte[]> re = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());

@@ -20,7 +20,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		//這會顯示localhost+port號
 	%>
 	
-<title>Accompany</title>
+<title>AccompanyMe</title>
 <style>
 #gotop {
 		width:65px;
@@ -32,7 +32,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	padding: 10px 16px;
     	background-repeat: no-repeat;
     	background-size: cover;
-    	background-image: url("image/up.png");
+    	background-image: url("../Admin/image/up.png");
     	color: white;
     	cursor: pointer;
     	z-index: 1000;
@@ -86,6 +86,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<h4 id="count"></h4>
 		</div>
 		
+		<div class="row justify-content-start">
+		<p class="h4">依名字搜尋:&nbsp</p>
+		<input type="text" name="namesearch" id="namesearch">
+		</div><br>
+		
 		<table class="table table-hover table-bordered">
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
@@ -98,10 +103,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col">地址</th>
     		</tr>
   		</thead>
-  		<tbody id="aa">
+  		<tbody id="membertable">
    
   		</tbody>
 	</table>
+		
+		<div class="row justify-content-center">
+			<h1 id="tip"></h1>
+		</div>
 		
 		</div>
 		
@@ -132,6 +141,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var age2=0;
 	var age3=0;
 	var count=0;
+	if($("#namesearch").val()==""||$("#namesearch").val()==null){
 		$.ajax({
 			url:"../Gusty/logincheck",
 			type:"post",
@@ -157,7 +167,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						age3++;
 					}
 					
-					$("#aa").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
 							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
 							+"<td>"+n.name+"</td>"
 							+"<td>"+n.phone+"</td>"
@@ -168,6 +178,38 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				});
 			}
 		});
+	}
+	
+	
+	$("#namesearch").change(function(){
+		$("#membertable").html("");
+		$("#tip").html("");
+		$.ajax({
+			url:"../Gusty/adminmembernamesearch",
+			type:"post",
+			dataType:"json",
+			//async:false,
+			data : { 
+				"user_name" : $("#namesearch").val(),                     
+            },
+			success:function(data){
+			$.each(data,function(i,n){
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+							+"<td>"+n.name+"</td>"
+							+"<td>"+n.phone+"</td>"
+							+"<td>"+n.email+"</td>"
+							+"<td>"+n.sname+"</td>"
+							+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
+					);
+				});
+			},
+            error:function(){
+            	$("#tip").html("查無相關資料");
+            }
+		});
+	});
+		
 	$("#count").html("會員總數:"+count);
 	
 	var ctx = document.getElementById("boyandgirl").getContext('2d');//顯示男女比例

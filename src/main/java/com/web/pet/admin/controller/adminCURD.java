@@ -1,6 +1,8 @@
 package com.web.pet.admin.controller;
 
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -10,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.web.pet.admin.service.AdminService;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
 import com.web.pet.util.BlobToByteArray;
@@ -20,7 +24,21 @@ import com.web.pet.util.BlobToByteArray;
 public class adminCURD {
 	
 	@Autowired
+	private AdminService adminService;
+	@Autowired
 	private MemberService memberService;
+	
+	@RequestMapping(value = "/adminmembernamesearch")
+	@ResponseBody
+	public List<Member> ajaxLoginController(@RequestParam String user_name) {//admin member依名字查詢
+		List<Member> list = new ArrayList<Member>();
+		list = adminService.membernamesearch(user_name);
+		if(list==null||list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}		
+	}
 
 	@RequestMapping(value="/getallimg")//管理者會員頁面秀出全部會員圖片
 	public ResponseEntity<byte[]> getPicture(@RequestParam Integer id) {

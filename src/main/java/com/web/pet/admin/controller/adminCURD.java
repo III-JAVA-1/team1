@@ -30,9 +30,13 @@ public class adminCURD {
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		Member member = memberService.fullmemberService(id);
 		Blob blob = member.getImg();
-		body = BlobToByteArray.blobToByteArray(blob);
-		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-		return re;
+		if(blob==null) {
+			return null;
+		}else {
+			body = BlobToByteArray.blobToByteArray(blob);
+			re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+			return re;
+		}	
 	}
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -101,10 +102,10 @@ public class MemberCURD {
 	
 	@RequestMapping(value = "/headercheck")
 	@ResponseBody
-	public List<Member> ajaxLoginController(HttpServletRequest request) {//AJAX取得一筆完整會員資料
+	public List<Member> ajaxLoginController(@RequestParam Integer user_id) {//AJAX取得一筆完整會員資料
 		List<Member> list = new ArrayList<Member>();
-		if(!request.getParameter("user_id").isEmpty()){
-			list = memberService.ajaxloginService(Integer.valueOf(request.getParameter("user_id").toString()));
+		if(user_id!=null){
+			list = memberService.ajaxloginService(user_id);
 			return list;		
 		}
 		else {

@@ -89,9 +89,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-start">
 		<p class="h4">依名字搜尋:&nbsp</p>
 		<input type="text" name="namesearch" id="namesearch">
+		<p class="h4" id="pagedisplay"></p>
 		</div><br>
 		
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered ">
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
       			<th scope="col">u_Id</th>
@@ -107,6 +108,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
    
   		</tbody>
 	</table>
+		<div class="row justify-content-center">
+		<div class="btn-group me-2" role="group" aria-label="First group">
+    		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="1">1</button>
+    		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="2">2</button>
+    		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="3">3</button>
+    		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="4">4</button>
+  		</div>
+  		</div>
 		
 		<div class="row justify-content-center">
 			<h1 id="tip"></h1>
@@ -147,6 +156,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			type:"post",
 			dataType:"json",
 			async:false,
+			data : { 
+				"page":null,
+				"user_name" :null,                     
+            },
 			success:function(data){
 			$.each(data,function(i,n){
 				count=data.length;
@@ -190,6 +203,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			dataType:"json",
 			//async:false,
 			data : { 
+				"page":null,
 				"user_name" : $("#namesearch").val(),                     
             },
 			success:function(data){
@@ -209,6 +223,39 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             }
 		});
 	});
+	
+	function pagesearch(item){
+		//alert($(item).val());
+		$("#pagedisplay").html("");
+		$("#pagedisplay").html("每頁顯示10筆資料，目前在"+$(item).val()+"頁");
+		$("#membertable").html("");
+		$("#tip").html("");
+		$.ajax({
+			url:"../Gusty/adminmembernamesearch",
+			type:"post",
+			dataType:"json",
+			//async:false,
+			data : { 
+				"page":$(item).val(),
+				"user_name" : $("#namesearch").val(),                     
+            },
+			success:function(data){
+			$.each(data,function(i,n){
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+							+"<td>"+n.name+"</td>"
+							+"<td>"+n.phone+"</td>"
+							+"<td>"+n.email+"</td>"
+							+"<td>"+n.sname+"</td>"
+							+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
+					);
+				});
+			},
+            error:function(){
+            	$("#tip").html("此分頁沒有資料");
+            }
+		});
+	}
 		
 	$("#count").html("會員總數:"+count);
 	

@@ -31,13 +31,13 @@
 <jsp:include page="Header.jsp"/>
 
 <body>
-	<sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB"
-	user="scott" password="tiger"/>
+<%-- 	<sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
+<%-- 	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB" --%>
+<%-- 	user="scott" password="tiger"/> --%>
 	
-	<sql:query dataSource="${ds}" var="rs">
-   			select * from Active2
-	</sql:query>
+<%-- 	<sql:query dataSource="${ds}" var="rs"> --%>
+<!--    			select * from Active2 -->
+<%-- 	</sql:query> --%>
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -80,7 +80,7 @@
 
 	<div class="container">
 		<table style="border: 2px solid black; margin: auto;width:1000px;">
-			<tbody>
+			
 				<tr>
 					<td class="acstyle">活動名稱</td>
 					<td class="acstyle">活動時間</td>
@@ -89,32 +89,42 @@
 					<td class="acstyle">連絡人</td>
 				</tr>
 				
-<%-- 				<c:forEach var='Active' items='${ActAll}'> --%>
-				<c:forEach var='Active' items='${rs.rows}'>
-<!-- 					<tr> -->
-<%-- 						<td class="acstyle">${Active.act_name}</td> --%>
-<%-- 						<td class="acstyle">${Active.starttime} ~ ${Active.endtime}</td> --%>
-<%-- 						<td class="acstyle">${Active.act_content}</td> --%>
-<%-- 						<td class="acstyle">${Active.act_organize}</td> --%>
-<%-- 						<td class="acstyle">${Active.act_orgman}</td> --%>
-<!-- 					</tr> -->
-					<tr>
-						<td class="acstyle"><c:out value="${Active.act_name}" /></td>
-						<td class="acstyle"><c:out value="${Active.starttime}" />~<c:out value="${Active.endtime}" /></td>
-						<td class="acstyle"><c:out value="${Active.act_content}" /></td>
-						<td class="acstyle"><c:out value="${Active.act_organize}" /></td>
-						<td class="acstyle"><c:out value="${Active.act_orgman}" /></td>
-					</tr>
-				</c:forEach>
-
+			<tbody id="activetable">
 			</tbody>
+
+			
 		</table>
+		
 <br><br>
 
 	</div>
+	
+<script>
 
+$().ready(function(){//ajax活動表格
+	$.ajax({
+		url:"../Wu/Activity",
+		type:"post",
+		dataType:"json",
+		success : function(data) {
+			$.each(data,function(i,n){
 
+				$("#activetable").append(
+				"<tr><td class='acstyle'>"+n.act_name+"</td>"
+				+"<td class='acstyle'>"+n.starttime+" ~ "+n.endtime+"</td>"
+				+"<td class='acstyle'>"+n.act_content+"</td>"
+				+"<td class='acstyle'>"+n.act_organize+"</td>"
+				+"<td class='acstyle'>"+n.act_orgman+"</td></tr>"
+				);				
+					});
+				}
+			});
+			   
+		});
+
+</script>
 
 </body>
+
 <%-- <jsp:include page="Footer.jsp"/> --%>
 </html>

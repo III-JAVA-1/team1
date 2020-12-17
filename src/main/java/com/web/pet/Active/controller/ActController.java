@@ -43,21 +43,21 @@ public class ActController {
 		out.close();
 	}
 	
-	@GetMapping("/ActAll")
-	public String list(ActBean actBean){
-		List<ActBean> list = actservice.getAllAct();
-		actBean.addAttribute("ActAll",list);
-		return "ActAll";
-		
-	}
-//	@GetMapping(value = "/Active")
-//	@ResponseBody
-//	public List<ActBean> ajaxActController(){
-//		List<ActBean> list = new ArrayList<ActBean>();
-//		list = actservice.ajaxActService();
-//		return list;
+//	@GetMapping("/ActAll")
+//	public String list(ActBean actBean){
+//		List<ActBean> list = actservice.getAllAct();
+//		actBean.addAttribute("ActAll",list);
+//		return "ActAll";
 //		
 //	}
+	@RequestMapping(value = "/Activity")
+	@ResponseBody
+	public List<ActBean> ajaxActController(){
+		List<ActBean> list = new ArrayList<ActBean>();
+		list = actservice.ajaxActService();
+		return list;
+		
+	}
 	
 	
 

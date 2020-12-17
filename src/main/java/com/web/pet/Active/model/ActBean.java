@@ -43,10 +43,10 @@ public class ActBean {
 	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
 	
-	public void addAttribute(String string, List<ActBean> list) {
-		// TODO Auto-generated method stub
-		
-	}
+//	public void addAttribute(String string, List<ActBean> list) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	
 

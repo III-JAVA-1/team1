@@ -26,24 +26,24 @@ public class ActDao {
 		session.save(actbean);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<ActBean> getAllAct(){
-		String hql = "FROM ActBean";
-		Session session = null;
-		List<ActBean> list = new ArrayList<ActBean>();
-		session = sessionFactory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
-		return list;
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<ActBean> getAllAct(){
+//		String hql = "FROM ActBean";
+//		Session session = null;
+//		List<ActBean> list = new ArrayList<ActBean>();
+//		session = sessionFactory.getCurrentSession();
+//		list = session.createQuery(hql).getResultList();
+//		return list;
+//	}
 	
 
-//	@SuppressWarnings({ "unchecked", "unused" })
-//	public List<ActBean> ajaxActDao(){
-//		List<ActBean> list = new ArrayList<ActBean>();
-//		String hql = "FROM ActBean";
-//		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql);
-//	
-//		return query.getResultList();
-//	}
+	@SuppressWarnings("unchecked")
+	public List<ActBean> ajaxActDao(){
+		List<ActBean> list = new ArrayList<ActBean>();
+		String hql = "FROM ActBean";
+		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql);
+		list=query.getResultList();
+		return list;
+	}
 	
 }

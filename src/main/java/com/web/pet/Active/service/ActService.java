@@ -23,15 +23,15 @@ public class ActService {
 		actDao.insertActDao(actbean);
 	}
 
-	public List<ActBean> getAllAct() {
-		// TODO Auto-generated method stub
-		return actDao.getAllAct();
-	}
-
-//	public List<ActBean> ajaxActService() {
+//	public List<ActBean> getAllAct() {
 //		// TODO Auto-generated method stub
-//		return actDao.ajaxActDao();
+//		return actDao.getAllAct();
 //	}
+
+	public List<ActBean> ajaxActService() {
+		// TODO Auto-generated method stub
+		return actDao.ajaxActDao();
+	}
 	
 	
 }

@@ -15,7 +15,7 @@
 	<!-- 這是spring配置文件用來聲明Service DAO和工具類相關的對象 -->
 	<context:annotation-config />
  	<mvc:annotation-driven />
-
+	
 	<!-- 聲明數據源 連接數據庫 -->
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -50,8 +50,8 @@
 				<!-- 掃描實體包的位置 -->
 				<value>com.web.pet.member.model</value>
 				<value>com.web.pet.mom.model</value>
-				<value>com.web.pet.Active.model</value>
-				
+				<value>com.web.pet.Active.model</value>				
+
 			</array>
 		</property>
 		<property name="hibernateProperties">

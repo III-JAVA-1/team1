@@ -43,14 +43,8 @@ public class ActController {
 		out.close();
 	}
 	
-//	@GetMapping("/ActAll")
-//	public String list(ActBean actBean){
-//		List<ActBean> list = actservice.getAllAct();
-//		actBean.addAttribute("ActAll",list);
-//		return "ActAll";
-//		
-//	}
-	@RequestMapping(value = "/Activity")
+
+	@RequestMapping(value = "/Activity") //ajax查詢活動有哪些
 	@ResponseBody
 	public List<ActBean> ajaxActController(){
 		List<ActBean> list = new ArrayList<ActBean>();

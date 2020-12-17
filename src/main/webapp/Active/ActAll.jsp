@@ -31,13 +31,13 @@
 <jsp:include page="Header.jsp"/>
 
 <body>
-<%-- 	<sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
-<%-- 	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB" --%>
-<%-- 	user="scott" password="tiger"/> --%>
+	<sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB"
+	user="scott" password="tiger"/>
 	
-<%-- 	<sql:query dataSource="${ds}" var="rs"> --%>
-<!--    			select * from Active2 -->
-<%--    	</sql:query> --%>
+	<sql:query dataSource="${ds}" var="rs">
+   			select * from Active2
+	</sql:query>
 
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -89,21 +89,22 @@
 					<td class="acstyle">連絡人</td>
 				</tr>
 				
-				<c:forEach var='Active' items='${ActAll}'>
-					<tr>
-						<td class="acstyle">${Active.act_name}</td>
-						<td class="acstyle">${Active.starttime} ~ ${Active.endtime}</td>
-						<td class="acstyle">${Active.act_content}</td>
-						<td class="acstyle">${Active.act_organize}</td>
-						<td class="acstyle">${Active.act_orgman}</td>
-					</tr>
+<%-- 				<c:forEach var='Active' items='${ActAll}'> --%>
+				<c:forEach var='Active' items='${rs.rows}'>
 <!-- 					<tr> -->
-<%-- 						<td class="acstyle"><c:out value="${Active.act_name}" /></td> --%>
-<%-- 						<td class="acstyle"><c:out value="${Active.starttime}" />~<c:out value="${Active.endtime}" /></td> --%>
-<%-- 						<td class="acstyle"><c:out value="${Active.act_content}" /></td> --%>
-<%-- 						<td class="acstyle"><c:out value="${Active.act_organize}" /></td> --%>
-<%-- 						<td class="acstyle"><c:out value="${Active.act_orgman}" /></td> --%>
+<%-- 						<td class="acstyle">${Active.act_name}</td> --%>
+<%-- 						<td class="acstyle">${Active.starttime} ~ ${Active.endtime}</td> --%>
+<%-- 						<td class="acstyle">${Active.act_content}</td> --%>
+<%-- 						<td class="acstyle">${Active.act_organize}</td> --%>
+<%-- 						<td class="acstyle">${Active.act_orgman}</td> --%>
 <!-- 					</tr> -->
+					<tr>
+						<td class="acstyle"><c:out value="${Active.act_name}" /></td>
+						<td class="acstyle"><c:out value="${Active.starttime}" />~<c:out value="${Active.endtime}" /></td>
+						<td class="acstyle"><c:out value="${Active.act_content}" /></td>
+						<td class="acstyle"><c:out value="${Active.act_organize}" /></td>
+						<td class="acstyle"><c:out value="${Active.act_orgman}" /></td>
+					</tr>
 				</c:forEach>
 
 			</tbody>

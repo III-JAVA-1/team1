@@ -1,0 +1,45 @@
+body {
+    background-color: rgb(241, 237, 237);
+}
+
+.starAll{
+    margin-top: 20px ;
+}
+
+.tb1{
+    margin: 5vw 20vw 2vw 20vw;
+    background-color: white;
+    padding-bottom: 10px;
+}
+
+.text1{
+    padding:0px 0 10px 0;
+}
+
+.my-title{
+    text-align: center;
+    font-size: 15pt;
+    font-weight:bold;
+    padding: 1rem 0;
+    background-color: #11183d;
+    margin: 0;
+    color: white;
+}
+
+hr{
+   margin:0;
+}
+
+.products{
+    margin: 20px 50px;
+}
+
+.product-name {
+    padding: 0 0 0 20px;
+}
+
+.btn1{
+    margin: 10px 50px 5px 0;
+}
+
+

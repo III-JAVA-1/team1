@@ -294,7 +294,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	$("#gotop").click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
-        },1000);
+        },10);
     });
     $(window).scroll(function() {
         if ( $(this).scrollTop() > 300){

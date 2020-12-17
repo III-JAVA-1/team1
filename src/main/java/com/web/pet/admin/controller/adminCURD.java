@@ -30,9 +30,9 @@ public class adminCURD {
 	
 	@RequestMapping(value = "/adminmembernamesearch")
 	@ResponseBody
-	public List<Member> ajaxLoginController(@RequestParam String user_name) {//admin member依名字查詢
+	public List<Member> ajaxLoginController(@RequestParam String user_name ,@RequestParam Integer page) {//admin member依名字查詢
 		List<Member> list = new ArrayList<Member>();
-		list = adminService.membernamesearch(user_name);
+		list = adminService.membernamesearch(user_name,page);
 		if(list==null||list.isEmpty()) {
 			return null;
 		}else {
@@ -58,13 +58,14 @@ public class adminCURD {
 	}
 	
 	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
-	public String goadmin() {
+	public String goadmin(){
+		
 		return "Admin/Admin";
 	}
 	
 	
 	@RequestMapping(value="/goadminabality")//Admin其他功能的超連結
-	public String goadminfunction(@RequestParam String abality) {
+	public String goadminfunction(@RequestParam String abality,@RequestParam String admin) {
 		
 		return "Admin/"+abality;
 	}

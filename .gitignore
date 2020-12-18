@@ -169,3 +169,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows
+/PetProject_Final.iml
+/.idea/
+/src/main/webapp/Store/images/upload/

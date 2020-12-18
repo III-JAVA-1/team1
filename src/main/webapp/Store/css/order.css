@@ -1,0 +1,58 @@
+.tb1, .paytotle {
+    margin: 5vw 15vw;
+    background-color: white;
+}
+
+body {
+    background-color: rgb(241, 237, 237);
+}
+
+.tr1, .td {
+    background-color: rgb(136, 140, 145);
+    color: white;
+    margin: 5vw 15vw;
+}
+
+.btn1 {
+    text-align: right;
+    margin: 0px 0px 10px 0px;
+    padding: 10px 0px 20px 0px;
+}
+
+.p1{
+    text-align: right;
+    margin: 0px 0px 10px 0px;
+    padding-top: 10px;
+    font-size: 16pt;
+    color: grey;
+}
+
+.p2 {
+    padding: 20px 0px 0px 20px;
+    font-size: 14pt;
+
+}
+
+.btn { /*貨到付款鈕*/
+    margin-left: 20px;
+}
+
+
+.address {
+    color: grey;
+}
+
+.message {
+    color: grey;
+
+}
+
+.p {
+    margin-left: 55%;
+    padding-top: 30px;
+
+}
+
+.btnborder {
+    margin: 20px;
+}

@@ -1,0 +1,75 @@
+.tb1, .paytotle {
+    margin: 5vw 15vw;
+    background-color: white;
+}
+
+body {
+    background-color: rgb(241, 237, 237) !important;
+}
+
+.tr1, .td {
+    background-color: #525B76;
+    color: white;
+    margin: 5vw 15vw;
+}
+
+.p1{
+    text-align: right;
+    padding: 10px 0px 10px 0px;
+    font-size: 16pt;
+    color: grey;
+}
+
+.p2 {
+    padding: 20px 0px 0px 20px;
+    font-size: 14pt;
+
+}
+
+.btn { /*付款按鈕*/
+    margin-left: 10px;
+}
+
+.address {
+    color: grey;
+}
+
+.message {
+    color: grey;
+}
+
+.p {
+    margin-left: 55%;
+    padding-top: 30px;
+}
+
+.btnborder {
+    margin: 20px;
+}
+
+.success{
+    margin: 5vw;
+}
+
+.mb-0{
+    font-size: 40pt;
+}
+
+.btn1{
+    line-height: 150px;
+    margin-right:20px;
+    padding-top: 15px;
+}
+
+.st1{
+    font-size: 20pt;
+}
+
+.title1{
+    background-color: #201E50;
+    color: white;
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    padding: 5px 0 5px 0;
+}

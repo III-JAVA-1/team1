@@ -2,6 +2,9 @@ package com.web.pet.member.model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,12 +14,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.web.pet.Active.model.ActBean;
+import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.mom.model.Mom;
 
 import lombok.AllArgsConstructor;
@@ -59,5 +66,11 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "momId",referencedColumnName = "momId")
 	private Mom mom;
+	
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)	
+	private Set<ActBean> actBean = new LinkedHashSet<>(0);
+	
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)	
+	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>(0);
 
 }

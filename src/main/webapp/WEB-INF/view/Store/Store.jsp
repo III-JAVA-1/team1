@@ -124,8 +124,11 @@
 <div id="cartCount" class="cart-count">0</div>
 <button type="button" class="btn btn-outline-primary" id="gotop"
         style="background-image: url('Store/images/upward.svg')"></button>
-<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"
-        style="background-image: url('Store/images/home.svg')"></button>
+<button type="button" class="btn btn-outline-primary" id="add" onclick="goAdd()"
+        style="background-image: url('Store/images/plus.svg')"></button>
+
+<%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
+<%--        style="background-image: url('Store/images/home.svg')"></button>--%>
 
 
 <!-- Optional JavaScript; choose one of the two! -->
@@ -450,7 +453,7 @@
             alert("請先登入")
             goLogin();
         } else {
-            window.location.href = "/test/shoppingCart?memberId=" + memberId;
+            window.location.href = "shoppingCart?memberId=" + memberId;
         }
     }
 
@@ -562,7 +565,7 @@
 
     function goUpdate(id) {
         event.stopPropagation();
-        window.location.href = "/test/UpdateProduct?memberId=" + memberId
+        window.location.href = "UpdateProduct?memberId=" + memberId
             + "&productId=" + id;
     }
 
@@ -570,9 +573,15 @@
         if (event.target.id === 'deleteBtn') {
             return
         }
-        location.href = "/test/productDetail?id=" + id + "&memberId=" + memberId;
+        location.href = "productDetail?id=" + id + "&memberId=" + memberId;
         return false
     }
+
+    function goAdd() {
+
+        location.href = "AddProduct";
+    }
+
 
 </script>
 </body>

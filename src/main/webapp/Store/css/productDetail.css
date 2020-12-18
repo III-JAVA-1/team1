@@ -17,7 +17,7 @@
 .div1 {
     background-color: white;
     border: 2px solid white;
-    margin: 100px 100px 20px 100px;  /*上右下左*/
+    margin: 50px 100px 20px 100px;  /*上右下左*/
     padding: .9375rem .9375rem;
 }
 
@@ -38,13 +38,12 @@
 }
 
 legend {
-    background-color: rgb(247, 243, 243);
-    margin: 20px 20px 20px 20px;
-    width: auto;
-    font-size: 1.125rem;
-    padding: .875rem;
-    text-transform: capitalize;
-
+    background-color: rgb(247, 243, 243) !important;
+    margin: 20px 20px 20px 20px !important;
+    width: auto !important;
+    font-size: 1.125rem !important;
+    padding: .875rem !important;
+    text-transform: capitalize !important;
 }
 
 .price {
@@ -63,7 +62,7 @@ legend {
 }
 
 body {
-    background-color: rgb(247, 243, 243);
+    background-color: rgb(247, 243, 243) !important;
 }
 
 #pen { /*修改按鈕*/

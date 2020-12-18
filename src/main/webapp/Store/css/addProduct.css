@@ -1,6 +1,6 @@
-body {
-    padding-top: 56px;
-}
+/*body {*/
+/*    padding-top: 56px;*/
+/*}*/
 
 .form-group {
     width: 90%;
@@ -34,7 +34,7 @@ body {
 legend {
     /*text-align: right;只能左中右*/
     margin-left: 30px;
-    width: fit-content;
+    width: fit-content !important;
 }
 
 .button {
@@ -70,6 +70,7 @@ legend {
 .pChoose {
     text-align: center;
     font-size: 12pt;
+    margin-bottom: 0;
 }
 
 .imgDiv {

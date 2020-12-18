@@ -65,12 +65,6 @@ public class StoreAction {
         return "Store/Store";
     }
 
-    /**
-     * 標準POST格式 (傳入及傳出的型別可以自由更改為自己想要的型別, 本範例為String) PostMapping括號中的字串為自己要設定的網址路徑
-     *
-     * @param req 接收前端傳入的值
-     * @return 要回傳給前端的值
-     */
     @PostMapping("/store/getCard")
     public @ResponseBody
     GetCardResDTO test(@RequestBody GetCardReqDTO req) {

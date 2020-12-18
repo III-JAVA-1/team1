@@ -1,0 +1,104 @@
+@charset "UTF-8";
+/* header, footer通用的東西 */
+
+/*Floating Back-To-Top Button*/
+#myBtn {
+    
+    position: fixed;
+    bottom: 10px;
+    float: right;
+    right: 5%;    
+    max-width: 30px;
+    width: 100%;
+    border-color: white;
+    background-color: #ccc;
+    padding: .5px;
+    border-radius: 4px;
+
+}
+/*On Hover Color Change*/
+#myBtn:hover {
+    background-color: #7dbbf1;
+}
+
+
+body{
+    margin: 0px;
+    background-image: url("/image/bg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+
+#wrapper{
+    margin:10px auto;
+    /* 上下距邊界10px，左右自動對齊(置中) */   
+    height: auto;
+    border:1px solid #39C;
+    background-color: #FFF;
+   
+}
+
+.searchBox{
+    float: right;      
+}
+
+.searchButton{
+    background-color: #ccc;
+    padding: .5px;
+    border-color: white;
+    border-radius: 4px;
+}
+
+.searchButton:hover{
+    background-color: #39C;
+}
+
+.hd_line1{ 
+    margin-top: 10px;
+}  
+  
+
+.hd_line1_logo{
+    float: left;
+    overflow: auto;
+    /* 超出div,讓他回去div */   
+    margin-left: 20px;
+}
+.hd_line1_name{
+    float: left;
+    margin-left: 10px;
+}
+
+.hd_line2{   
+    clear: left;
+    overflow: auto;
+}
+
+.hd_line2_a a{   
+    margin-top: 5px;
+    float: left;
+    font-weight: bold;
+    color: #666;     
+    padding: 15px;
+    border-top:3px solid #39C;
+    border-right: 1px solid #ccc;
+}
+
+.hd_line2_a a:hover{
+    text-decoration: none;
+    color: #39C;    
+}
+.hd_line2_banner{  
+    margin-top: 5px;
+    float: right;
+}
+
+
+
+
+
+
+
+
+

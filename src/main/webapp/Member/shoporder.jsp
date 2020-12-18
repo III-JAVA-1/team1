@@ -83,7 +83,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >收藏商品/文章</a>
+  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >收藏商品/文章</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -93,6 +93,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			
   			<div class="row justify-content-center">
     			<div class="display-4">訂單查詢</div>
+  			</div><br>
+  			
+  			<div class="row justify-content-center">
+    			<div class="h4" id="result">每頁顯示10筆資料，目前在第1頁</div>
   			</div><br>
   			
   			<div class="row justify-content-start">
@@ -113,10 +117,18 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<div class="col" id="ordertable">
   			
 			</div>
+			
+			<div class="row justify-content-center">
+  			<div class="btn-group me-2" role="group" aria-label="First group">
+    		<button type="button" class="btn btn-primary" value="1" onclick="pagesearch(this)">1</button>
+    		<button type="button" class="btn btn-primary" value="2" onclick="pagesearch(this)">2</button>
+   			<button type="button" class="btn btn-primary" value="3" onclick="pagesearch(this)">3</button>
+    		<button type="button" class="btn btn-primary" value="4" onclick="pagesearch(this)">4</button>
+  			</div></div>
+			
   			</div>
-  			
+	
   		</div>
- 
 	</div>
 	
 	<div id="gotop">
@@ -161,6 +173,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
 			"queue":$("#queue").val(),
+			"page":1,
         },
 		success:function(data){
 			$.each(data,function(i,n){
@@ -256,6 +269,66 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		}
     	});
     });
+    
+    function pagesearch(item){
+    	//alert($(item).val());
+    	$("#ordertable").html("");
+    	//console.log("aaaa");
+    	$.ajax({
+    		url:"../Gusty/shoporder",
+    		type:"post",
+    		//async : false,//要賦值給全域變數要改false
+    		dataType:"json",
+    		data : { 
+    			"user_id" : <%=session.getAttribute("user")%>,
+    			"queue":$("#queue").val(),
+    			"page":$(item).val(),
+            },
+    		success:function(data){
+    			$.each(data,function(i,n){
+    				if(i==0||n[0]!=test){
+    					test=n[0];
+    					$("#ordertable").append("<table class='table table-hover table-bordered' id='"+test+"'>"+
+    			 				"<thead class='h4' style='background-color:#EA7500;'>"+
+    			 				"<tr>"+
+    			       			"<th scope='col'>訂單編號</th>"+
+    			       			"<th scope='col'>結帳日期</th>"+
+    			       			"<th scope='col'>總金額</th>"+
+    			       			"<th scope='col'>收貨地址</th>"+
+    			       			"<th scope='col'>備註</th>"+
+    			       			"</tr>"+
+    			   			"</thead>"+
+    			   			"<tbody>"+
+    			   				"<tr class='h4'><th scope='row'>"+n[0]+"</th>"+
+    			    				"<td>"+n[1]+"</td>"+
+    			    				"<td>"+n[2]+"&nbspNT</td>"+
+    			    				"<td>"+n[3]+"</td>"+
+    			    				"<td>"+n[4]+"</td></tr>"+
+    			    					"<thead class='h4' style='background-color:#EA7500;''>"+
+    			     					"<tr>"+
+    			       					"<th scope='col' colspan='3'>商品名稱</th>"+
+    			       					"<th scope='col'>商品單價</th>"+
+    			       					"<th scope='col' >數量</th>"+
+    			   					"</thead></tbody></table>");
+    					$("#ordertable").append("<hr class='hhr'/>");
+    				}
+    				if(n[0]==test){
+    					$("#"+test+"").append("<tbody>"+
+    			   				"<tr class='h4'><th scope='row' colspan='3'><a href='shop.jsp?product="+n[8]+"'>"+n[5]+"</a></th>"+
+    			    				"<td>"+n[6]+"</td>"+
+    			    				"<td>"+n[7]+"</td></tr></tbody></table>");
+    				}
+    				$("#result").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
+    			});
+    		},
+    		error:function(){
+    			$("#result").html("");
+    			$("#ordertable").append("<div class='row justify-content-center h3'>該分頁沒有資料</div>");
+    		}
+    		
+    	});
+    	
+    }
     
 	</script>
 

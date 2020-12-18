@@ -79,7 +79,7 @@
 		
 		<div class="row justify-content-center">
 		
-		<div class="card" style="width: 18rem; margin:5px;">
+		<div class="card" style="width: 18rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
@@ -89,7 +89,7 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem;margin:5px;">
+		<div class="card" style="width: 18rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
@@ -99,17 +99,7 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem;margin:5px;">
-  			<img src="image/shark.jpg" class="card-img-top" alt="...">
-  			<hr>
-  			<div class="card-body">
-    			<h5 class="card-title">店家</h5>
-    			<p class="card-text">我應該會放店家</p>
-    			<a href="#" class="btn btn-primary">Go somewhere</a>
-  			</div>
-		</div>
-		
-		<div class="card" style="width: 18rem;margin:5px;">
+		<div class="card" style="width: 18rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
@@ -128,7 +118,7 @@
   		
   		<div class="row justify-content-center">
   		
-  		<div class="card" style="width: 18rem; margin:5px;">
+  		<div class="card" style="width: 18rem;">
   			<img src="image/ame.png" class="card-img-top" alt="...">
   			<div class="card-body">
   			<h2>我是商品</h2>
@@ -136,7 +126,7 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem; margin:5px;">
+		<div class="card" style="width: 18rem;">
   			<img src="image/ame.png" class="card-img-top" alt="...">
   			<div class="card-body">
   			<h2>我是商品</h2>
@@ -144,15 +134,7 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem; margin:5px;">
-  			<img src="image/ame.png" class="card-img-top" alt="...">
-  			<div class="card-body">
-  			<h2>我是商品</h2>
-    			<p class="card-text">商品商品商品商品商品商品商品商品商品</p>
-  			</div>
-		</div>
-		
-		<div class="card" style="width: 18rem; margin:5px;">
+		<div class="card" style="width: 18rem;">
   			<img src="image/ame.png" class="card-img-top" alt="...">
   			<div class="card-body">
   			<h2>我是商品</h2>

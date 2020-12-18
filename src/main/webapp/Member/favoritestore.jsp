@@ -102,6 +102,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 			</div>
 			
+			<div class="d-flex justify-content-center" >
+			<div class="h4" id="favorite2"></div>
+			</div>
+			
   			</div>
 	
   		</div>
@@ -162,6 +166,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 				
 			});
+		},
+		error:function(){
+			$("#favorite2").html("沒有收藏商品");
 		}
 	});
     
@@ -169,6 +176,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#favorite").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
+    	$("#favorite2").html("沒有收藏文章");
     	return false;
     }
     
@@ -197,6 +205,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     					}
     					
     				});
+    			},
+    			error:function(){
+    				$("#favorite2").html("沒有收藏商品");
     			}
     		});
     	return false;

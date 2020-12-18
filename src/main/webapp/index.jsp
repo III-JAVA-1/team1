@@ -33,7 +33,47 @@
 </head>
 <body>
 	
-	<jsp:include page="Header.jsp"/>
+<%-- 	<jsp:include page="Header.jsp"/> --%>
+	<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
+            <a class="navbar-brand" href="index.jsp"><img src="image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                    	<a class="nav-link" href="Store/">毛孩商城</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">寵物保姆</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">寵物店家</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a>
+                    </li>
+                    <li class="nav-item" style="color:white;">
+                        <%
+                        	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
+							{
+								out.print("<a class='nav-link' href='Member/Login.jsp'><img src='image/user.svg' width='30' height='30' alt=''></a>");
+							}else{
+								 out.print("<a class='nav-link' href='Member/Member.jsp' id='sname'></a>");
+							}
+						%>
+                    </li>
+                </ul>
+            </div>
+    </nav>
+    </header>
+	
 	
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -159,7 +199,7 @@
 	$("#gotop").click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
-        },10);
+        },1000);
     });
     $(window).scroll(function() {
         if ( $(this).scrollTop() > 300){
@@ -169,6 +209,22 @@
         }
     });
 	
+    $().ready(function(){
+		$.ajax({
+			url:"Gusty/headercheck",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"user_id" : <%=session.getAttribute("user")%>,                     
+            },
+			success:function(data){
+				$.each(data,function(i,n){
+					$("#sname").html(n.sname+"您好");
+				});
+			}
+		});
+	});
+    
 	</script>
 	
 </body>

@@ -18,7 +18,7 @@ public class OtherFunctionDao {
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> shoporderDao(String user_id,String queue){//訂單顯示
+	public List<Object[]> shoporderDao(String user_id,String queue,Integer page){//會員頁面秀出訂單
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="";
@@ -63,16 +63,41 @@ public class OtherFunctionDao {
 					+ "and [dbo].[order_item].product_id=product.product_id\r\n"
 					+ "order by [dbo].[order].cost desc";
 		}
+		Query<Object[]> query = null;
+		if(page!=null) {
+			if(page==1) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(0).setMaxResults(10);}
+			if(page==2) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(10).setMaxResults(20);}
+			if(page==3) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(20).setMaxResults(30);}
+			if(page==4) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(30).setMaxResults(40);}
+		}else {
+			query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(0).setMaxResults(10);
+		}
 		
-		//System.out.println(user_id);
-		Query<Object[]> query= session.createSQLQuery(hql).setParameter("id", user_id);
-		System.out.println(hql);
 		list=query.list();
 		if(list.isEmpty()) {
 			return null;
 		}else {
 			return list;
 		}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> shopfavorite(String user_id){//會員頁面秀出收藏商品
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select product.product_name,product_image.img,product.product_id\r\n"
+				+ "from favorite,Member,product,product_image\r\n"
+				+ "where favorite.customer_id = :id\r\n"
+				+ "and product.product_id=favorite.product_id\r\n"
+				+ "and favorite.product_id=product_image.product_id";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+		
 	}
 
 }

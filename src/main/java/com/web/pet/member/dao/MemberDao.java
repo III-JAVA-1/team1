@@ -54,6 +54,7 @@ public class MemberDao {
 			return null;
 		}
 		else {
+			
 			return list;
 		}
 	}

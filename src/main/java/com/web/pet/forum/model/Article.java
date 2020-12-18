@@ -64,5 +64,36 @@ public class Article {
 	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
 	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Article [posterUid=");
+		builder.append(posterUid);
+		builder.append(", forumId=");
+		builder.append(forumId);
+		builder.append(", header=");
+		builder.append(header);
+		builder.append(", updatedTime=");
+		builder.append(updatedTime);
+		builder.append(", content=");
+		builder.append(content);
+		builder.append(", viewing=");
+		builder.append(viewing);
+		builder.append(", reply=");
+		builder.append(reply);
+		builder.append(", pic=");
+		builder.append(pic);
+		builder.append(", isHide=");
+		builder.append(isHide);
+//		builder.append(", member=");
+//		builder.append(member);
+//		builder.append(", comments=");
+//		builder.append(comments);
+//		builder.append(", articleLikes=");
+//		builder.append(articleLikes);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	
 }

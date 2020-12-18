@@ -42,15 +42,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                         <a class="nav-link" href="#">寵物店家</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物活動/消息</a>
+                        <a class="nav-link" href="ActIndex.jsp">寵物活動/消息</a>
                     </li>
                     <li class="nav-item" style="color:white;">
                         <%
                         	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
 							{
-								out.print("<a class='nav-link' href='Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
+								out.print("<a class='nav-link' href='../Member/Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
 							}else{
-								 out.print("<a class='nav-link' href='Member.jsp' id='headersname'></a>");
+								 out.print("<a class='nav-link' href='../Member/Member.jsp' id='headersname'></a>");
 							}
 						%>
                     </li>

@@ -1,6 +1,7 @@
 package com.web.pet.Active.model;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,7 +23,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.web.pet.member.model.Member;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,58 +34,65 @@ import lombok.Setter;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "Active2")
-public class ActBean {
-
+@Table(name = "JoinAct")
+public class JoinActBean {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer act_no;
+	private Integer jid;
+	
+//	private Integer act_no;
+//	private Integer u_id;
+	
 	@Column(name = "act_name", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_name;
-	private Date starttime;
-	private Date endtime;
-	@Column(name = "act_content", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String act_content;
-	@Column(name = "act_organize", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String act_organize;
-	@Column(name = "act_orgman", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String act_orgman;
-	private String act_orgphone;
-	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String act_type;
+
+	@Column(name = "extra", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String extra;
+	
+	@Column(name = "pettype", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String pettype;
+	
+	private Integer petnum;
+	
+	@Column(name = "join_actnow", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String join_actnow;
+
+//	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//	@JoinColumn(name="u_Id",referencedColumnName = "u_id")
+//	private Set<Member> members = new LinkedHashSet<>();
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="u_Id")
-	private Member member;
+	private Member member ;
 	
-	@OneToMany(mappedBy = "actBean",fetch = FetchType.LAZY)	
-	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>();
-
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="act_no")
+	private ActBean actBean;
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("ActBean [act_no=");
-		builder.append(act_no);
+		builder.append("JoinActBean [jid=");
+		builder.append(jid);
 		builder.append(", act_name=");
 		builder.append(act_name);
-		builder.append(", starttime=");
-		builder.append(starttime);
-		builder.append(", endtime=");
-		builder.append(endtime);
-		builder.append(", act_content=");
-		builder.append(act_content);
-		builder.append(", act_organize=");
-		builder.append(act_organize);
-		builder.append(", act_orgman=");
-		builder.append(act_orgman);
-		builder.append(", act_orgphone=");
-		builder.append(act_orgphone);
-		builder.append(", act_type=");
-		builder.append(act_type);
+		builder.append(", extra=");
+		builder.append(extra);
+		builder.append(", pettype=");
+		builder.append(pettype);
+		builder.append(", petnum=");
+		builder.append(petnum);
+		builder.append(", join_actnow=");
+		builder.append(join_actnow);
 		builder.append("]");
 		return builder.toString();
 	}
-
-
 	
+	
+	
+
 }

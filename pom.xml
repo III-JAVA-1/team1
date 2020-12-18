@@ -9,6 +9,8 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<tomcat7.version>2.2</tomcat7.version>
+		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 	<dependencies>
 
@@ -182,5 +184,28 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${tomcat7.version}</version>
+				<configuration>
+					<path>/test</path>
+					<port>8090</port>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

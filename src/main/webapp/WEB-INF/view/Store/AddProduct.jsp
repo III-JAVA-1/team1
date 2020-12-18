@@ -4,11 +4,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="Store/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../Store/js/jquery-1.12.4.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="Store/css/addProduct.css" rel="stylesheet">
+    <link href="../Store/css/addProduct.css" rel="stylesheet">
     <title>新增商品</title>
 </head>
 <body>
@@ -213,7 +213,7 @@
             data.append("file", file);
 
             $.ajax({
-                url: 'uploadImg',
+                url: '../uploadImg',
                 data: data,
                 cache: false,
                 contentType: false,
@@ -232,7 +232,7 @@
                     imgClear.width = 25
                     imgClear.height = 25
                     imgClear.classList.add("clear")
-                    imgClear.src = "Store/images/remove.svg";
+                    imgClear.src = "../Store/images/remove.svg";
 
                     imgDiv.appendChild(img);
                     imgDiv.appendChild(imgClear);

@@ -12,7 +12,7 @@
     <title>恭喜完成訂單</title>
 </head>
 <body>
-<jsp:include page="Header.jsp"/>
+<%--<jsp:include page="Header.jsp"/>--%>
 <fieldset class="success">
     <blockquote class="blockquote text-center">
         <p class="mb-0">感謝您的訂購。</p>

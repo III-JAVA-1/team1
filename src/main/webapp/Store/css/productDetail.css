@@ -95,6 +95,17 @@ body {
     cursor: pointer;
 }
 
+.cart-count{
+    position: fixed;
+    right: 13px;
+    bottom: 65px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
 .st2{
     font-size: 14pt;
     margin: 10px 30px 10px 30px;

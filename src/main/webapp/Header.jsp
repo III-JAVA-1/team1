@@ -30,7 +30,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                    	<a class="nav-link" href="Store">毛孩商城</a>
+                    	<a class="nav-link" href="Store/">毛孩商城</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物保姆</a>

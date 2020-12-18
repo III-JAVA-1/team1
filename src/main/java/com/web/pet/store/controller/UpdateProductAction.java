@@ -20,6 +20,7 @@ import java.sql.SQLException;
 @Controller
 // log要用的標籤
 @Slf4j
+@RequestMapping("/Store")
 public class UpdateProductAction {
 
     /**

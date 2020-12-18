@@ -4,12 +4,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="Store/js/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="Store/js/change-page.js"></script>
+    <script type="text/javascript" src="../Store/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../Store/js/change-page.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="Store/css/productDetail.css" rel="stylesheet">
+    <link href="../Store/css/productDetail.css" rel="stylesheet">
     <title>${productName}</title>
 </head>
 <body>
@@ -89,7 +89,8 @@
 
 
 ${modProduct}
-<img id="shopcart" width="50" height="50" onclick="goShoppingCart()" src="Store/images/shopcart.svg" alt="">
+<img id="shopcart" width="50" height="50" onclick="goShoppingCart()" src="../Store/images/shopcart.svg" alt="">
+<div id="cartCount" class="cart-count">0</div>
 
 <!-- Footer -->
 <jsp:include page="Footer.jsp"/>
@@ -112,7 +113,7 @@ ${modProduct}
             alert("請先登入")
             goLogin();
         } else {
-            window.location.href = "shoppingCart?memberId=" + memberId;
+            window.location.href = "../shoppingCart?memberId=" + memberId;
         }
     }
 
@@ -186,9 +187,9 @@ ${modProduct}
 
                     for (let i = 1; i <= 5; i++) {
                         if (i <= rateData.rateCount) {
-                            rateHtml += "<img src=\"Store/images/star.svg\" width=\"12px\" height=\"12px\">\n";
+                            rateHtml += "<img src=\"../Store/images/star.svg\" width=\"12px\" height=\"12px\">\n";
                         } else {
-                            rateHtml += "<img src=\"Store/images/noStar.svg\" width=\"12px\" height=\"12px\">\n";
+                            rateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"12px\" height=\"12px\">\n";
                         }
                     }
                     rateHtml += "</div>\n" +
@@ -202,9 +203,9 @@ ${modProduct}
                 let avgRateHtml = "<P class=\"star-rate\">" + res.avgRate + "/5.0" + "</P>\n"
                 for (let i = 1; i <= 5; i++) {
                     if (i <= res.avgRate) {
-                        avgRateHtml += "<img src=\"Store/images/star.svg\" width=\"20px\" height=\"20px\">\n";
+                        avgRateHtml += "<img src=\"../Store/images/star.svg\" width=\"20px\" height=\"20px\">\n";
                     } else {
-                        avgRateHtml += "<img src=\"Store/images/noStar.svg\" width=\"20px\" height=\"20px\">\n";
+                        avgRateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"20px\" height=\"20px\">\n";
                     }
                 }
                 avgRate.innerHTML = avgRateHtml
@@ -239,10 +240,10 @@ ${modProduct}
             success: function (res) {
                 let like = document.getElementById("like");
                 if (res.isFavorite) {
-                    like.src = "Store/images/like.svg"
+                    like.src = "../Store/images/like.svg"
                     // alert("收藏成功")
                 } else {
-                    like.src = "Store/images/noLike.svg"
+                    like.src = "../Store/images/noLike.svg"
                     // alert("取消收藏")
                 }
             },
@@ -261,13 +262,13 @@ ${modProduct}
         // 跟server post傳輸
         $.ajax({
             type: "POST",
-            url: "deleteProduct",
+            url: "../deleteProduct",
             data: req,
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
                 if(res.success){
-                    window.location.href = "/Store?memberId=" + memberId;
+                    window.location.href = "Store/?memberId=" + memberId;
                 }else{
                     alert('刪除失敗');
                 }
@@ -282,6 +283,41 @@ ${modProduct}
         window.location.href = "UpdateProduct?memberId=" + memberId
             + "&productId=" + productId;
     }
+
+    function getCartCount() {
+        let cartCountDiv = document.getElementById("cartCount");
+        if (memberId == "") {
+            cartCountDiv.style.visibility = "hidden";
+            return;
+        }
+
+        let req = JSON.stringify({
+            "memberId": memberId
+        });
+
+        // 跟server post傳輸
+        $.ajax({
+            type: "POST",
+            url: "../shoppingCartQuantity",
+            data: req,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (res) {
+                let count = res.quantity;
+                if (count === 0) {
+                    cartCountDiv.style.visibility = "hidden";
+                } else {
+                    cartCountDiv.style.visibility = "visible";
+                    cartCountDiv.innerHTML = count;
+                }
+            },
+            error: function () {
+                alert('發生了一些錯誤');
+            }
+        });
+    }
+
+    getCartCount();
 
 </script>
 

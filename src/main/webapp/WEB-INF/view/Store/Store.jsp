@@ -5,26 +5,26 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="Store/js/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="Store/js/change-page.js"></script>
+    <script type="text/javascript" src="../Store/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../Store/js/change-page.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="Store/css/store.css" rel="stylesheet">
+    <link href="../Store/css/store.css" rel="stylesheet">
     <title>毛孩商城</title>
 </head>
 <body>
 <jsp:include page="Header.jsp"/>
 <div class="d-flex justify-content-center container">
     <!-- 賣場logo -->
-    <img class="logo-img" src="Store/images/pet-logo.jpg">
+    <img class="logo-img" src="../Store/images/pet-logo.jpg">
 
     <div class="input-group mb-3 align-self-center my-searchbar">
         <input type="text" class="form-control" placeholder="請輸入關鍵字" aria-label="Recipient's username"
                aria-describedby="button-addon2" id="searchInput">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="searchButton" onclick="doSearch()">
-                <img src="Store/images/search.svg" width="20" height="20"></button>
+                <img src="../Store/images/search.svg" width="20" height="20"></button>
         </div>
     </div>
 </div>
@@ -40,13 +40,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="Store/images/dog.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/dog.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="Store/images/cat.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/cat.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="Store/images/pet.png" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/pet.png" class="d-block roll-img" alt="...">
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
 </div>
 
 
-<div id="store" class="container">
+<div id="Store" class="container">
 
     <!-- 類別選單 -->
     <div class="d-flex">
@@ -120,12 +120,12 @@
 -->
 
 <button type="button" class="btn btn-outline-primary" id="shopcart" onclick="goShoppingCart()"
-        style="background-image: url('Store/images/shopcart.svg')"></button>
+        style="background-image: url('../Store/images/shopcart.svg')"></button>
 <div id="cartCount" class="cart-count">0</div>
 <button type="button" class="btn btn-outline-primary" id="gotop"
-        style="background-image: url('Store/images/upward.svg')"></button>
+        style="background-image: url('../Store/images/upward.svg')"></button>
 <button type="button" class="btn btn-outline-primary" id="add" onclick="goAdd()"
-        style="background-image: url('Store/images/plus.svg')"></button>
+        style="background-image: url('../Store/images/plus.svg')"></button>
 
 <%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
 <%--        style="background-image: url('Store/images/home.svg')"></button>--%>
@@ -162,13 +162,14 @@
 
 
     // $(function () {//新增商品的jquery
-    //     $(window).scroll(function () {
-    //         if ($(this).scrollTop() > 300) {
-    //             $('#add').fadeIn(222);
-    //         } else {
-    //             $('#add').stop().fadeOut(222);
-    //         }
-    //     }).scroll();
+    //     // $(window).scroll(function () {
+    //             // if ($(this).scrollTop() > 300) {
+    //             //     $('#add').fadeIn(222);
+    //             // } else {
+    //             //     $('#add').stop().fadeOut(222);
+    //             // }
+    //
+    //     // }).scroll();
     // });
 
     // 查詢條件
@@ -194,7 +195,7 @@
             // 傳輸格式
             type: "POST",
             // 要傳輸的位置
-            url: "store/getCard",
+            url: "../store/getCard",
             // 要傳輸的資料(只有Post才有) body
             data: JSON.stringify(req),
             // 傳輸的格式
@@ -213,7 +214,7 @@
                 // 拆解後端回傳的卡片列表資料
                 res.cardList.forEach(function (cardData) {
                     // 如果沒有圖片自動換成預設圖,有圖片就放原本圖片
-                    let img = cardData.img == null ? "Store/images/no_picture.gif" : cardData.img;
+                    let img = cardData.img == null ? "../Store/images/no_picture.gif" : cardData.img;
                     // 組卡片資訊Html
                     cardHtml += "<div class=\"col-lg-3 col-sm-6 portfolio-item\">\n" +
                         "<div class=\"card card-click wei-grid\" onclick=\"goDetail(" + cardData.id + ")\">\n" +
@@ -225,15 +226,15 @@
                         "<h6 class=\"card-title titleName\">" + cardData.name + "</h6>\n" +
                         "</div>" +
                         "<p class=\"card-text price-string float-left my-margin\">$" + cardData.price + "</p>\n" +
-                        "<img src=\"Store/images/shopping-cart1.svg\" class=\"shopcartimg float-right my-margin\" width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "); return true\">\n";
+                        "<img src=\"../Store/images/shopping-cart1.svg\" class=\"shopcartimg float-right my-margin\" width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "); return true\">\n";
 
                     if (cardData.isFavorite) {
                         cardHtml += "<img id=\"like" + cardData.id + "\" " +
-                            "src=\"Store/images/like.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
+                            "src=\"../Store/images/like.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
                             "onclick=\"setFavorite(" + cardData.id + "); return true\">\n";
                     } else {
                         cardHtml += "<img id=\"like" + cardData.id + "\" " +
-                            "src=\"Store/images/noLike.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
+                            "src=\"../Store/images/noLike.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
                             "onclick=\"setFavorite(" + cardData.id + "); return true\">\n";
                     }
 
@@ -253,7 +254,7 @@
                             "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
                             "<div class=\"modal-content\">\n" +
                             "<div class=\"modal-header\">\n" +
-                            "<img src=\"Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
+                            "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
                             "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
                             "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n" +
                             "<span aria-hidden=\"true\">&times;</span>\n" +
@@ -428,7 +429,7 @@
             // 傳輸格式
             type: "POST",
             // 要傳輸的位置
-            url: "shoppingCart/add",
+            url: "../shoppingCart/add",
             // 要傳輸的資料(只有Post才有) body
             data: JSON.stringify(req),
             // 傳輸的格式
@@ -453,7 +454,7 @@
             alert("請先登入")
             goLogin();
         } else {
-            window.location.href = "shoppingCart?memberId=" + memberId;
+            window.location.href = "../shoppingCart?memberId=" + memberId;
         }
     }
 
@@ -473,17 +474,17 @@
         // 跟server post傳輸
         $.ajax({
             type: "POST",
-            url: "addFavorite",   //action裡的路經
+            url: "../addFavorite",   //action裡的路經
             data: req,
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
                 let like = document.getElementById("like" + productId);
                 if (res.isFavorite) {
-                    like.src = "Store/images/like.svg"
+                    like.src = "../Store/images/like.svg"
                     // alert("收藏成功")
                 } else {
-                    like.src = "Store/images/noLike.svg"
+                    like.src = "../Store/images/noLike.svg"
                     // alert("取消收藏")
                 }
             },
@@ -515,7 +516,7 @@
         // 跟server post傳輸
         $.ajax({
             type: "POST",
-            url: "shoppingCartQuantity",
+            url: "../shoppingCartQuantity",
             data: req,
             dataType: "json",
             contentType: "application/json",
@@ -545,7 +546,7 @@
         // 跟server post傳輸
         $.ajax({
             type: "POST",
-            url: "deleteProduct",
+            url: "../deleteProduct",
             data: req,
             dataType: "json",
             contentType: "application/json",

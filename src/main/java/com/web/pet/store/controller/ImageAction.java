@@ -24,7 +24,8 @@ public class ImageAction {
             @RequestParam("file") MultipartFile file) {
 
         // 要存放的資料夾路徑
-        String outputPath = "src/main/webapp/images/upload/";
+        String outputPath = "src/main/webapp/Store/images/upload/";
+
         // 要儲存的檔名(使用UUID)
         String fileName = ConvertUtils.createUUID();
         // 取得原始檔案副檔名
@@ -33,6 +34,9 @@ public class ImageAction {
         // 初始化要輸出的完整位置
         File outPutFile = new File(outputPath + fileName + extension);
 
+        // 檢查資料夾沒有的話新建
+        FileUtils.checkDir(outPutFile);
+
         try {
             // 將檔案輸出至路徑
             file.transferTo(outPutFile);
@@ -40,8 +44,8 @@ public class ImageAction {
             return "上傳失敗";
         }
 
-        // 回傳圖片顯示用的網址
-        return ContextUtils.getContextString(ContextUtils.IMG_URL) + fileName + extension;
+        // 回傳圖片顯示用的網址 這個網址現在他會抓不到 ?
+        return "http://localhost:8090/test/Store/images/upload/" + fileName + extension;
 
     }
 }

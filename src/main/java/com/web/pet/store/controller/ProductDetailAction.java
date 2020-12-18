@@ -1,9 +1,7 @@
 package com.web.pet.store.controller;
 
 
-import com.web.pet.store.dto.api.GetRateListReqDTO;
-import com.web.pet.store.dto.api.GetRateListResDTO;
-import com.web.pet.store.dto.api.RateResDTO;
+import com.web.pet.store.dto.api.*;
 import com.web.pet.util.ConvertUtils;
 import com.web.pet.util.DbUtils;
 import com.web.pet.util.ExceptionUtils;
@@ -22,6 +20,7 @@ import java.util.List;
 @EnableWebMvc
 @Controller
 @Slf4j
+@RequestMapping("/Store")
 public class ProductDetailAction {
 
     @GetMapping("/productDetail")
@@ -104,9 +103,9 @@ public class ProductDetailAction {
             sql = "SELECT COUNT(*) FROM favorite WHERE customer_id=? AND product_id=?";
             int count = dbu.selectIntList(sql, memberId, id);
             if (count == 0) {
-                model.addAttribute("likeImage", "Store/images/noLike.svg");
+                model.addAttribute("likeImage", "../Store/images/noLike.svg");
             } else {
-                model.addAttribute("likeImage", "Store/images/like.svg");
+                model.addAttribute("likeImage", "../Store/images/like.svg");
             }
 
             // 把jsp的${indicators}換成後面的值
@@ -120,15 +119,15 @@ public class ProductDetailAction {
             if (StringUtils.isNotEmpty(memberId)) {
                 model.addAttribute("memberId", memberId);
                 String modProductHtml =
-                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"Store/images/pen.svg\" alt=\"\">\n" +
-                        "<img id=\"trash\" width=\"50\" height=\"50\" src=\"Store/images/trash.svg\" alt=\"\"\n" +
+                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n" +
+                        "<img id=\"trash\" width=\"50\" height=\"50\" src=\"../Store/images/trash.svg\" alt=\"\"\n" +
                         "data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n" +
                         "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
                         "aria-hidden=\"true\">\n" +
                         "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
                         "<div class=\"modal-content\">\n" +
                         "<div class=\"modal-header\">\n" +
-                        "<img src=\"Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
+                        "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
                         "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
                         "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n" +
                         "<span aria-hidden=\"true\">&times;</span>\n" +
@@ -199,8 +198,6 @@ public class ProductDetailAction {
         return res;
     }
 
-
-
     /**
      * 碼掉中間名字
      *
@@ -223,4 +220,5 @@ public class ProductDetailAction {
         }
         return newName;
     }
+
 }

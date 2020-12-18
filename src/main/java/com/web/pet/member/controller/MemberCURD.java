@@ -68,6 +68,7 @@ public class MemberCURD {
         	list = memberService.loginService(useremail,password);
         	if(list!=null) {
         		request.getSession().setAttribute("user",list.get(0));
+        		//request.getSession().setAttribute("sname",list.get(0));
         		out.print("<script>");
         		out.print("window.alert('登入成功，轉到會員畫面'); window.location.href='../Member/Member.jsp';");
         		out.print("</script>");
@@ -103,6 +104,7 @@ public class MemberCURD {
 	@RequestMapping(value = "/headercheck")
 	@ResponseBody
 	public List<Member> ajaxLoginController(@RequestParam Integer user_id) {//AJAX取得一筆完整會員資料
+		System.out.println("user"+user_id);
 		List<Member> list = new ArrayList<Member>();
 		if(user_id!=null){
 			list = memberService.ajaxloginService(user_id);
@@ -164,6 +166,7 @@ public class MemberCURD {
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);
 		request.getSession().removeAttribute("user");
+		request.getSession().removeAttribute("sname");
 		PrintWriter out = response.getWriter();
 		out.print("<script>");
 		out.print("window.alert('登出成功，回到登入畫面'); window.location.href='../Member/Login.jsp';");

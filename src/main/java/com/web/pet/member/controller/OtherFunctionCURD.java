@@ -20,8 +20,14 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/shoporder")//會員頁面秀出訂單
 	@ResponseBody
-	public List<Object[]> shoporderController(String user_id,String queue) {
-		return otherFunctionService.shoporderService(user_id,queue);
+	public List<Object[]> shoporderController(String user_id,String queue,Integer page) {
+		return otherFunctionService.shoporderService(user_id,queue,page);
+	}
+	
+	@RequestMapping("/favoritestore")//會員頁面秀出收藏商品
+	@ResponseBody
+	public List<Object[]> favoritestoreController(String user_id) {
+		return otherFunctionService.favoritestoreService(user_id);
 	}
 
 }

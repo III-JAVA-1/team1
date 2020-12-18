@@ -151,13 +151,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var age3=0;
 	var count=0;
 	if($("#namesearch").val()==""||$("#namesearch").val()==null){
+		$("#pagedisplay").html("");
+		$("#pagedisplay").html("每頁顯示10筆資料，目前在第1頁");
 		$.ajax({
-			url:"../Gusty/logincheck",
+			url:"../Gusty/adminmembernamesearch",
 			type:"post",
 			dataType:"json",
 			async:false,
 			data : { 
-				"page":null,
+				"page":1,
 				"user_name" :null,                     
             },
 			success:function(data){
@@ -227,7 +229,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	function pagesearch(item){
 		//alert($(item).val());
 		$("#pagedisplay").html("");
-		$("#pagedisplay").html("每頁顯示10筆資料，目前在"+$(item).val()+"頁");
+		$("#pagedisplay").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
 		$("#membertable").html("");
 		$("#tip").html("");
 		$.ajax({

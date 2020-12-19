@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.pet.member.service.OtherFunctionService;
@@ -29,5 +31,7 @@ public class OtherFunctionCURD {
 	public List<Object[]> favoritestoreController(String user_id) {
 		return otherFunctionService.favoritestoreService(user_id);
 	}
+	
+	
 
 }

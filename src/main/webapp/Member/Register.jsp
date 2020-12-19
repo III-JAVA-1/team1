@@ -184,7 +184,7 @@
 	var check=[];
 	
 	let phone = /^[09]{2}[0-9]{8}$/;//手機判斷
-	document.getElementById("phone").addEventListener("change",function(){
+	document.getElementById("phone").addEventListener("mouseout",function(){
 		
 		if (!phone.test(document.getElementById("phone").value)){
 			document.getElementById("phonecheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -197,7 +197,7 @@
     });
 
     let name= /[^\u4e00-\u9fa5]/;//名字判斷
-    document.getElementById("name").addEventListener("change",function(){
+    document.getElementById("name").addEventListener("mouseout",function(){
 
     	if (!name.test(document.getElementById("name").value)&&document.getElementById("name").value.length>=2){
     		document.getElementById("namecheck").innerHTML="<img src='image/checked.png'>OK";
@@ -210,7 +210,7 @@
     });
 
 	let password=/[a-zA-z]+\d|\d+[a-zA-z]+/;//密碼判斷
-	document.getElementById("password").addEventListener("change",function(){
+	document.getElementById("password").addEventListener("mouseout",function(){
 
     	if (!password.test(document.getElementById("password").value)){
     		document.getElementById("passwordcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -236,7 +236,7 @@
 	});
     
 	let email=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;//電郵判斷
-	document.getElementById("email").addEventListener("change",function(){
+	document.getElementById("email").addEventListener("mouseout",function(){
 
     	if (!email.test(document.getElementById("email").value)){
     		document.getElementById("emailcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -295,7 +295,7 @@
     });
     
 	let ID=/^[A-Z]{1}[1-2]{1}[0-9]{8}$/;//身分證判斷
-	document.getElementById("ID").addEventListener("change",function(){
+	document.getElementById("ID").addEventListener("mouseout",function(){
 
     	if (!ID.test(document.getElementById("ID").value)){
     		document.getElementById("IDcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -308,7 +308,7 @@
     });
 
 	let today=new Date();//生日判斷
-	document.getElementById("birth").addEventListener("change",function(){
+	document.getElementById("birth").addEventListener("mouseout",function(){
 		//console.log(Date.parse(document.getElementById("birth").value).valueOf());
 		if(Date.parse(document.getElementById("birth").value).valueOf()>today){
 			//console.log("555555");
@@ -319,10 +319,14 @@
 			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
 			check[5]=1;
 		}
+		if(document.getElementById("birth").value==""){
+			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
+			check[5]=0;
+		}
 	});
 
 	let address=/^[\u4e00-\u9fff]+\d+/;//地址判斷
-	document.getElementById("address").addEventListener("change",function(){
+	document.getElementById("address").addEventListener("mouseout",function(){
 
     	if (!address.test(document.getElementById("address").value)){
     		document.getElementById("addresscheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
@@ -334,7 +338,7 @@
 		}
     });
 	
-	document.getElementById("sname1").addEventListener("change",function(){//AJAX暱稱判斷
+	document.getElementById("sname1").addEventListener("mouseout",function(){//AJAX暱稱判斷
 		if($("#sname1").val()==""){
 			$("#snamecheck").html("<img src='image/cancel.png'>格式錯誤");	
 		}

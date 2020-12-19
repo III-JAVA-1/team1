@@ -19,9 +19,9 @@ public class AdminService {
 	@Autowired
 	private AdminDao adaminDao;
 	
-	public List<Member> membernamesearch(String user_name,Integer page) {//admin member依名字查詢
+	public List<Member> membernamesearch(String user_name) {//admin member依名字查詢
 
-		return adaminDao.membernamesearchDao(user_name,page);
+		return adaminDao.membernamesearchDao(user_name);
 	}
 
 }

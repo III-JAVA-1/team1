@@ -28,10 +28,15 @@ import com.web.pet.mom.model.Mom;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -68,13 +73,13 @@ public class Member {
 	private Mom mom;
 	
 	//============================================================
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private Set<Article> articles = new LinkedHashSet<>(0);
 	
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private Set<Comment> comments = new LinkedHashSet<>(0);
 	
-	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
 	//=============================================================
 

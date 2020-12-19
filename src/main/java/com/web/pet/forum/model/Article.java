@@ -24,9 +24,12 @@ import com.web.pet.member.model.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -51,17 +54,17 @@ public class Article {
 	private Integer isHide = 0;//	預設無違規不隱藏
 	
 	//	多對一，多的一方有外鍵
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
 	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")
 	//	外鍵:"u_Id"為Member主鍵u_Id
 	private Member member;//mappedBy = "member"是參考這裡的
 	
 	//	一篇文章有多則留言，無外鍵
-	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	private Set<Comment> comments = new LinkedHashSet<>(0);
 	
 	//	一篇文章有多個會員收藏，無外鍵
-	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
 
 	@Override

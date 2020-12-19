@@ -11,17 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script src="js/forum.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">  
     
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    
   </head>
-  <body>
-  <jsp:include page="Header.jsp"/>
-  <c:url value=''></c:url>
+  <body style="background-image: url(image/bg.jpg);">
+<%--   <jsp:include page="Header.jsp"/> --%>
+  
 <!--Navbar-->
 <div class="row">
 <div class="col-9 col-sm-9 col-xl-9" id="wrapper">
@@ -45,13 +44,14 @@
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
-           <a href="forum.jsp"><img src="image/Home_logo.png"/></a>
-            <a style="border-top-color:#ccc" href="forum.jsp?forumKey=lookfor">走失協尋</a>
-            <a style="border-top-color:#39C" href="forum.jsp?forumKey=adopt">汪喵送養</a>
-            <a style="border-top-color:#ccc" href="forum.jsp?forumKey=life">汪喵日常</a>
-            <a style="border-top-color:#39C" href="forum.jsp?forumKey=topic">版主討論</a>
-            <a style="border-top-color: #ccc" href="forum.jsp?forumKey=friend">汪喵徵友</a>
-            <a style="border-top-color: #39C" href="forum.jsp?forumKey=share"> 心得分享</a>
+           <a style="border-color:#39C;" href="#" onclick="getForum('全部'); return false"><img src="image/Home_logo.png"/></a>
+           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
+            <a style="border-color:#ccc" href="#" onclick="getForum('協尋'); return false">走失協尋</a>
+            <a style="border-color:#39C;" href="#" onclick="getForum('送養');">汪喵送養</a>
+            <a style="border-color:#ccc;" href="#" onclick="getForum('日常'); return false">汪喵日常</a>
+            <a style="border-color:#39C;" href="#" onclick="getForum('主題'); return false">版主討論</a>
+            <a style="border-color:#ccc;" href="#" onclick="getForum('徵友'); return false">汪喵徵友</a>
+            <a style="border-color:#39C;" href="#" onclick="getForum('心得'); return false">心得分享</a>
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -146,21 +146,8 @@
                                 <th style="width: 20%;">發佈時間</th>
                             </tr> 
                             </thead>
-                            <tbody>
-                            <c:forEach items='${articles}' var='article'></c:forEach>
-                             <tr>
-                                <td>
-                                <h5><a class="table_h5_a" href="<c:url value='/petforum/viewPost/${article.getPosterUid()}'/>">${article.getHeader()}</a></h5>                                  
-                                </td>
-                                <td>
-                                    <div>${article.getReply()}</div>
-                                </td>
-                                <td>${article.getViewing()}</td>
-                                <td>                                        
-                                    <div><a class="table_h5_a" href="#">${article.getMember().getSname()}</a></div>
-                                    <div>${article.getUpdatedTime()}</div>
-                                </td>
-                            </tr>
+                            <tbody id="article" >
+							<!-- AJAX -->
                             </tbody>                            
                         </table>
                     </div>
@@ -247,7 +234,74 @@
 		crossorigin="anonymous"></script>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
- 
+    
+ 	<script>
+ 	
+	$().ready(function(){
+		//網頁ready文檔加載完就做
+		//網頁onload全部加載完成才做(音樂、圖片) 				
+	
+		$.ajax({
+			url:"../petforum/selectAll",
+			type:"post",		
+			dataType:"json",
+			data:{
+				"forumId":"全部"
+			},
+			success:function(data){					
+				$("#article").html("");
+				$.each(data,function(i,n){
+					
+					$("#article").append("<tr>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><div>"+n[1]+"</div></td>"+
+					"<td>"+n[2]+"</td>"+
+					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
+					"<div>"+n[4]+"</div></td>"+
+					"</tr>");
+				})
+			},
+			error:function(){
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+			}
+		})
+	});	
+ 	
+//========================================================================
+		function getForum(item){//參數來自button的value(固定用item接)			
+		$("#article").html("");
+		//console.log(item);
+		$.ajax({
+			url:"../petforum/selectForum",
+			type:"post",		
+			dataType:"json",
+			data:{
+				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
+			},
+			success:function(data){	
+				$("#article").html("");
+			
+				$.each(data,function(i,n){
+					
+					$("#article").append("<tr>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><div>"+n[1]+"</div></td>"+
+					"<td>"+n[2]+"</td>"+
+					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
+					"<div>"+n[4]+"</div></td>"+
+					"</tr>");
+				})
+			},
+			error:function(){
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+			}
+		})
+		return false;
+	}
+		
+		//==================================================================
+			
+		
+ 	</script>
   </body>
 </html>

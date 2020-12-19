@@ -233,7 +233,7 @@ ${modProduct}
         // 跟server post傳輸
         $.ajax({
             type: "POST",
-            url: "addFavorite",   //action裡的路經
+            url: "../addFavorite",   //action裡的路經
             data: req,
             dataType: "json",
             contentType: "application/json",

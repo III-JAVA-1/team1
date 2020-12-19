@@ -1,5 +1,6 @@
 package com.web.pet.store.controller;
 
+import com.web.pet.store.dto.api.ImgResDTO;
 import com.web.pet.util.ContextUtils;
 import com.web.pet.util.ConvertUtils;
 import com.web.pet.util.FileUtils;
@@ -19,11 +20,15 @@ import java.io.IOException;
 public class ImageAction {
 
     @PostMapping("/uploadImg")
-    public @ResponseBody String uploadImg(
+    public @ResponseBody
+    ImgResDTO uploadImg(
             // 設定要接收的上傳檔案
             @RequestParam("file") MultipartFile file) {
 
+        ImgResDTO res = new ImgResDTO();
+
         // 要存放的資料夾路徑
+        // FIXME: 可能會要換圖片儲存路徑
         String outputPath = "src/main/webapp/Store/images/upload/";
 
         // 要儲存的檔名(使用UUID)
@@ -40,12 +45,14 @@ public class ImageAction {
         try {
             // 將檔案輸出至路徑
             file.transferTo(outPutFile);
+            // FIXME: 可能會要換圖片取得路徑
+            res.setUrl("http://localhost:8090/test/Store/images/upload/" + fileName + extension);
         } catch (IOException e) {
-            return "上傳失敗";
+            return res;
         }
 
-        // 回傳圖片顯示用的網址 這個網址現在他會抓不到 ?
-        return "http://localhost:8090/test/Store/images/upload/" + fileName + extension;
+        // 回傳圖片顯示用的網址
+        return res;
 
     }
 }

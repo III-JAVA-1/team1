@@ -227,7 +227,7 @@
                 method: 'POST',
                 type: 'POST', // For jQuery < 1.9
                 success: function (res) {
-                    setImg(res);
+                    setImg($.parseJSON(res).url);
                     input.value = ""
                 },
                 error: function () {

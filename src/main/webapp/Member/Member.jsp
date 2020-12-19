@@ -69,7 +69,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >收藏商品/文章</a>
+  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>

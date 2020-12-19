@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.pet.Active.model.ActBean;
+import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.Active.service.ActService;
 
 
@@ -31,34 +34,50 @@ public class ActController {
 	
 	
 	@PostMapping(value="/insertActService") //新增活動
-	public void insertActController(ActBean actbean,HttpServletResponse response) throws IOException {
+	public void insertActController(ActBean actbean,HttpServletResponse response,HttpServletRequest request) throws IOException {
 		
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out= response.getWriter();
-		
-		actservice.insertActService(actbean);
+		Integer uid = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		actservice.insertActService(actbean,uid);
 		out.print("<script>");
-		out.print("window.alert('活動新增成功'); window.location.href='../Active/ActIndex.jsp;");
+		out.print("window.alert('活動新增成功'); window.location.href='../Active/ActIndex.jsp';");
+//		out.print("window.location.href='ActIndex.jsp'");
 		out.print("</script>");
 		out.close();
 	}
 	
-//	@GetMapping("/ActAll")
-//	public String list(ActBean actBean){
-//		List<ActBean> list = actservice.getAllAct();
-//		actBean.addAttribute("ActAll",list);
-//		return "ActAll";
-//		
-//	}
-	@RequestMapping(value = "/Activity")
+
+	@RequestMapping(value = "/Activity") //ajax查詢活動有哪些
 	@ResponseBody
 	public List<ActBean> ajaxActController(){
 		List<ActBean> list = new ArrayList<ActBean>();
 		list = actservice.ajaxActService();
+		return list;		
+	}
+	
+	@RequestMapping(value = "/ActDetail") //ajax查詢特定活動
+	@ResponseBody
+	public List<ActBean> ajaxActController(@RequestParam Integer act_no){
+		List<ActBean> list = new ArrayList<ActBean>();
+		list = actservice.ajaxActService(act_no);
 		return list;
+		
 		
 	}
 	
+	@PostMapping(value="/insertJoinAct") //參加活動
+	public void insertJoinController(JoinActBean joinactbean,HttpServletResponse response) throws IOException {
+		
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out= response.getWriter();
+		
+		actservice.insertJoinService(joinactbean);
+		out.print("<script>");
+		out.print("window.alert('成功參加活動');window.location.href='../Active/ActIndex.jsp';");
+		out.print("</script>");
+		out.close();
+	}
 	
 
 }

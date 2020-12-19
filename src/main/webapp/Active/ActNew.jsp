@@ -24,29 +24,19 @@
     <nav class="navbar navbar-expand-sm bg-light">
 
         <!-- Links -->
-        <ul class="navbar-nav" style="margin:auto;">
+        <ul class="navbar-nav" style="margin: auto;">
 
-             <li class="nav-item">
-                <a class="nav-link" href="ActIndex.jsp">活動首頁</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActIndex.jsp">活動首頁</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="ActAll.jsp">活動一覽</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
+			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="">活動行事曆</a>
-            </li>
-            
-            <li class="nav-item">
-            	<a class="nav-link" href="">確認參與活動</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="ActNew.jsp">新增活動</a>
-            </li>
-        </ul>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			
+		</ul>
 
     </nav>
 

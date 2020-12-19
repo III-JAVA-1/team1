@@ -108,6 +108,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
    
   		</tbody>
 	</table>
+		
+		<div class="row justify-content-center">
+			<h1 id="tip"></h1>
+		</div>
+	
 		<div class="row justify-content-center">
 		<div class="btn-group me-2" role="group" aria-label="First group">
     		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="1">1</button>
@@ -116,10 +121,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="4">4</button>
   		</div>
   		</div>
-		
-		<div class="row justify-content-center">
-			<h1 id="tip"></h1>
-		</div>
 		
 		</div>
 		
@@ -151,13 +152,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var age3=0;
 	var count=0;
 	if($("#namesearch").val()==""||$("#namesearch").val()==null){
+		$("#pagedisplay").html("");
+		$("#pagedisplay").html("每頁顯示10筆資料，目前在第1頁");
 		$.ajax({
-			url:"../Gusty/logincheck",
+			url:"../Gusty/adminmembernamesearch",
 			type:"post",
 			dataType:"json",
 			async:false,
 			data : { 
-				"page":null,
+				"page":1,
 				"user_name" :null,                     
             },
 			success:function(data){
@@ -227,7 +230,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	function pagesearch(item){
 		//alert($(item).val());
 		$("#pagedisplay").html("");
-		$("#pagedisplay").html("每頁顯示10筆資料，目前在"+$(item).val()+"頁");
+		$("#pagedisplay").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
 		$("#membertable").html("");
 		$("#tip").html("");
 		$.ajax({
@@ -294,7 +297,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	$("#gotop").click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
-        },10);
+        },1000);
     });
     $(window).scroll(function() {
         if ( $(this).scrollTop() > 300){

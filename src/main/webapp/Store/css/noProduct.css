@@ -1,0 +1,21 @@
+.success{
+    margin: 15vw;
+}
+
+.mb-0{
+    font-size: 14pt;
+    color: grey;
+}
+
+body{
+    background-color:rgb(247, 243, 243);
+}
+
+.btn1{
+    line-height: 100px;
+    margin-top: 30px;
+}
+
+.noproduct{
+    margin-bottom: 30px;
+}

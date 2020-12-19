@@ -1,0 +1,153 @@
+.fieldset1 {
+    width: 30vw;
+    height: 30vw;
+    margin: 20px 10%;
+}
+
+.roll-img {
+    width: 30vw;
+    height: 30vw;
+}
+
+.fieldset2 {
+    margin-bottom: 60px;
+
+}
+
+.div1 {
+    background-color: white;
+    border: 2px solid white;
+    margin: 50px 100px 20px 100px;  /*上右下左*/
+    padding: .9375rem .9375rem;
+}
+
+.div2 {
+    background-color: white;
+    border: 2px solid white;
+    width: 48vw;
+    margin-bottom: 15%;
+    padding: .9375rem .9375rem ;
+    margin-left: 70px;
+}
+
+.div3 {
+    background-color: white;
+    border: 2px solid white;
+    margin: 50px 100px 20px 100px;  /*上右下左*/
+    padding: .9375rem .9375rem;
+}
+
+legend {
+    background-color: rgb(247, 243, 243) !important;
+    margin: 20px 20px 20px 20px !important;
+    width: auto !important;
+    font-size: 1.125rem !important;
+    padding: .875rem !important;
+    text-transform: capitalize !important;
+}
+
+.price {
+    background-color: rgb(247, 243, 243);
+    font-size: 20pt;
+    padding: .875rem;
+    color: red;
+
+}
+
+.st1 {
+    color: rgb(116, 110, 110);
+    font-size: 12pt;
+    width: auto;
+    margin: 10px 30px 10px 30px;
+}
+
+body {
+    background-color: rgb(247, 243, 243) !important;
+}
+
+#pen { /*修改按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 171px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#trash { /*刪除按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 101px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#shopcart { /*購物車按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 31px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cart-count{
+    position: fixed;
+    right: 13px;
+    bottom: 65px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
+.st2{
+    font-size: 14pt;
+    margin: 10px 30px 10px 30px;
+}
+
+.btn1{/*星星按鈕*/
+    margin-left: 20vw;
+}
+
+.star-rate{ /*評分平均*/
+    text-align: center;
+    margin: 5px 0 5px 0;
+    font-size: 20pt;
+    color: #f6a91e;
+}
+
+.my-btn-margin{
+    margin: 0 5px 0 5px;
+}
+
+.my-div-list-margin{
+    margin-left: 20px;
+}
+
+.custom-message-area{/*留言區*/
+    margin: 0 50px;
+
+}
+
+.member-account{
+    font-size: 12pt;
+    font-weight:bold;
+    margin-bottom: 0;
+}
+
+.build-date{
+    font-size: 10pt;
+    color: grey;
+    margin-bottom: 0;
+}
+
+.message{
+    font-size: 12pt;
+    margin-bottom: 0;
+}

@@ -1,0 +1,187 @@
+/*body {*/
+/*    padding-top: 56px;*/
+/*}*/
+
+.portfolio-item {
+    margin-bottom: 30px;
+    width: auto;
+}
+
+.left-margin {
+    margin-left: 30px;
+}
+
+#gotop { /*回到top按鈕設計*/
+    position: fixed;
+    right: 30px;
+    bottom: 151px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    background-size: 50px 50px;
+}
+
+#gotop:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
+
+}
+
+#shopcart { /*購物車按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 31px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    background-size: 50px 50px;
+}
+
+#shopcart:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
+}
+
+.cart-count{
+    position: fixed;
+    right: 13px;
+    bottom: 65px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
+#add { /*新增商品按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 91px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    /*background-image: url("Store/images/plus.svg");*/
+    background-size: 50px 50px;
+}
+
+#add:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
+}
+
+/*#goindex {*/
+/*    position: fixed;*/
+/*    right: 30px;*/
+/*    bottom: 91px;*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    text-align: center;*/
+/*    border: none;*/
+/*    background-size: 50px 50px;*/
+/*}*/
+
+/*#goindex:hover { !*button滑入不要背景顏色*!*/
+/*    background-color: transparent;*/
+/*}*/
+
+.my-searchbar {
+    width: 40% !important;
+    margin-top: 20px;
+}
+
+.logo-img {
+    width: 300px;
+    height: 120px;
+    margin: 30px 5% 30px 0;
+}
+
+.fieldset1 {
+    width: 70vw;
+    height: 30vw;
+}
+
+.roll-img {
+    width: 70vw;
+    height: 30vw;
+}
+
+.div1 {
+    background-color: white;
+}
+
+.titleName {
+    font-family: "Microsoft JhengHei";
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price-string {
+    color: red;
+    font-size: 16pt;
+    font-weight: bold;
+
+}
+
+.all-button{
+    margin: 5px 5px;
+    border-radius: 30px;
+}
+
+.button-sort{
+    margin: 5px 0 ;
+    height: 40px;
+}
+
+.my-card{
+    padding: 20px 20px 10px 20px;
+}
+.my-margin {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.card-click{
+    cursor: pointer;
+}
+
+.zoom-up-img {
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.wei-grid {
+    overflow: hidden;
+}
+
+.wei-grid:hover .zoom-up-img, .wei-grid:focus .zoom-up-img {
+    transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+}
+
+.shopcartimg{
+    margin-left:10px;
+}
+
+.title-div{
+    height: 70px;
+}
+
+.noListDiv{
+    font-weight: bold;
+    font-size: 16pt;
+    line-height: 100px;
+    padding: 0 45% 0 40%;
+}
+
+.delete-btn{
+    margin:10px 0 10px 0;
+}
+
+.modify-btn{
+    margin: 0 10px 0 10px;
+}

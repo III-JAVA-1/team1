@@ -231,12 +231,12 @@ background-color: #666;
 }
 
 .table_h5_a{
-    color: #666;
+    color: #39C;
 }
 
 .table_h5_a:hover{
     text-decoration: none;
-    color: #39C;
+    color: #666;
 }
 
 

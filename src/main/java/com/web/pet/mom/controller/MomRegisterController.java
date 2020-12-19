@@ -20,10 +20,7 @@ public class MomRegisterController{
 	@PostMapping(value = "/insertMom" , produces = "application/json; charset=utf-8")
 	public void insertMom(MomBean mBean,Model model) {		
 		
-		momService.insertMom(mBean);
-		model.addAttribute("<script>");
-		model.addAttribute("window.alert('註冊成功')");
-		model.addAttribute("</script>");	
+	
 		
 	}	
 }

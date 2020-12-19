@@ -31,7 +31,5 @@ public class OtherFunctionCURD {
 	public List<Object[]> favoritestoreController(String user_id) {
 		return otherFunctionService.favoritestoreService(user_id);
 	}
-	
-	
 
 }

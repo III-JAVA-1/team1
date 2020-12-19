@@ -14,8 +14,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/theme.min.css" integrity="sha512-NIaqX+eDfmA0bIDqx/oRznvm4IYs9qfSjxdLVyDeJTP5n2YQFBGfalKsjwzduqCWeEeMMwSJfI1EoIFfLhRMhg==" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.min.css" integrity="sha512-NaCOGQe8bs7/BxJpnhZ4t4f4psMHnqsCxH/o4d3GFqBS4/0Yr/8+vZ08q675lx7pNz7lvJ6fRPfoCNHKx6d/fA==" crossorigin="anonymous" />
+	
 <title>AccompanyMe</title>
 </head>
 <body>
@@ -67,17 +66,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center">
 				<Button  type="submit" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true">登錄</Button>
 				<a href="Register.jsp" class="btn btn-success btn-lg active ml-3" role="button" aria-pressed="true">註冊</a>
-				<Button  type="button" class="btn btn-info btn-lg active ml-3" role="button" aria-pressed="true" onclick="admingo()">管理者後台</Button>
 			</div>
 			
 		</form>
-		
-		<div id="dialog" title="請輸入管理者密碼" style="display:none;">
-		<p>請輸入密碼</p>
-    		<input type="password" size="25" id="adminpassword" name="adminpassword"/>
-    	<hr>
-    		<button type="button" onclick="adminpasswordcheck()">確認</button>
-		</div>
 
 	</div><br>
 	
@@ -96,24 +87,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script
 		src="https://cdn.jsdelivr.net/gh/Gusty1/live2d-widget@latest/autoload.js"></script>
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-
 
 	<script>
-		function admingo(){
-			$("#dialog").dialog();
-		}
-		function adminpasswordcheck(){
-			if($("#adminpassword").val()=="admin"){
-				window.location.href='<c:url value='/Gusty/goadmin'/>';
-			}
-			else if($("#adminpassword").val()==""||$("#adminpassword").val()!="admin"){
-				$("#dialog").dialog("close");
-				$("#adminpassword").val("");
-				alert("密碼錯誤");
-			}
-			
-		}
+		
 		
 	</script>
 

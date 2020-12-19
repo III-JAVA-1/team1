@@ -2,6 +2,8 @@ package com.web.pet.member.model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,20 +13,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.web.pet.Active.model.ActBean;
+import com.web.pet.Active.model.JoinActBean;
+import com.web.pet.forum.model.Article;
+import com.web.pet.forum.model.ArticleLike;
+import com.web.pet.forum.model.Comment;
 import com.web.pet.mom.model.Mom;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -59,5 +72,24 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "momId",referencedColumnName = "momId")
 	private Mom mom;
+	
+
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)	
+	private Set<ActBean> actBean = new LinkedHashSet<>(0);
+	
+	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)	
+	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>(0);
+
+	//============================================================
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+	private Set<Article> articles = new LinkedHashSet<>(0);
+	
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+	private Set<Comment> comments = new LinkedHashSet<>(0);
+	
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
+	//=============================================================
 
 }
+	

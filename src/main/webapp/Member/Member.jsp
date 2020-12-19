@@ -69,7 +69,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >收藏商品/文章</a>
+  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -285,7 +285,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			async : false,//要賦值給全域變數要改false
 			dataType:"json",
 			data : { 
-				"user_id" : <%=session.getAttribute("user")%>,                     
+				"user_id" : <%=session.getAttribute("user")%>,                 
             },
 			success:function(data){
 				$.each(data,function(i,n){
@@ -360,7 +360,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     $("#gotop").click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
-        },10);
+        },1000);
     });
     $(window).scroll(function() {
         if ( $(this).scrollTop() > 300){

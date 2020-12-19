@@ -36,7 +36,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                         <a class="nav-link" href="#">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='../PetForum/lookforPet.jsp'/>">寵物討論區</a>
+                        <a class="nav-link" href="<c:url value='../PetForum/lookforPet.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物店家</a>
@@ -87,7 +87,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 			});
 		});
-
 		</script>
 </body>
 </html>

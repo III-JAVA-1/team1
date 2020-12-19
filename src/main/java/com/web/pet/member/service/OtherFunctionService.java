@@ -18,9 +18,14 @@ public class OtherFunctionService {
 	@Autowired
 	private OtherFunctionDao otherFunctionDao;
 	
-	public List<Object[]> shoporderService(String user_id,String queue){
+	public List<Object[]> shoporderService(String user_id,String queue,Integer page){//會員頁面秀出訂單
 		
-		return otherFunctionDao.shoporderDao(user_id,queue);
+		return otherFunctionDao.shoporderDao(user_id,queue,page);
+	}
+	
+	public List<Object[]> favoritestoreService(String user_id){//會員頁面秀出收藏商品
+		
+		return otherFunctionDao.shopfavorite(user_id);
 	}
 
 }

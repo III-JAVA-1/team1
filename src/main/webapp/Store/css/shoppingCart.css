@@ -1,0 +1,61 @@
+
+.tb1 {
+    margin: 100px;
+
+}
+
+body {
+    background-color: rgb(241, 237, 237);
+}
+
+tr {
+    background-color: white;
+
+}
+
+.tr1 {
+    background-color: rgb(136, 140, 145);
+    color: white;
+    margin-bottom: 30px;
+}
+
+.mycheckBox {
+    width: 20px;
+    height: 20px;
+}
+
+.btn1 {
+    text-align: right;
+    margin: 0px 20px 10px 0px;
+    padding: 10px 0px 10px 0px;
+}
+
+.total {
+    background-color: white;
+    margin: 100px;
+}
+
+.p {
+    margin-left: 55%;
+    padding-top: 30px;
+}
+
+.p1 {
+    text-align: right;
+    margin: 0px 20px 10px 0px;
+    padding-top: 10px;
+    font-size: 16pt;
+    color: red;
+}
+
+.shopping-item-name {
+    width: 30vw;
+
+}
+
+
+
+
+
+
+

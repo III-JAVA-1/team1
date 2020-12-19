@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.pet.Active.model.ActBean;
+import com.web.pet.Active.model.JoinActBean;
+import com.web.pet.member.model.Member;
 
 @Repository
 public class ActDao {
@@ -21,8 +23,9 @@ public class ActDao {
 	
 	
 	
-	public void insertActDao(ActBean actbean) {
+	public void insertActDao(ActBean actbean,Integer uid) {
 		Session session = sessionFactory.getCurrentSession();
+		actbean.setMember(session.get(Member.class, uid));
 		session.save(actbean);
 	}
 	
@@ -44,6 +47,21 @@ public class ActDao {
 		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql);
 		list=query.getResultList();
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ActBean> ajaxActDao(Integer act_no) {
+		List<ActBean> list = new ArrayList<ActBean>();
+		String hql = "FROM ActBean where act_no = :actno";
+		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql).setParameter("actno",act_no);
+		list=query.getResultList();
+		return list;
+	}
+
+	public void insertJoinDao(JoinActBean joinactbean) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(joinactbean);
+		
 	}
 	
 }

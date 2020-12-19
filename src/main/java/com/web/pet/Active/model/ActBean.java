@@ -1,23 +1,34 @@
 package com.web.pet.Active.model;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.web.pet.member.model.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -43,14 +54,38 @@ public class ActBean {
 	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
 	
-//	public void addAttribute(String string, List<ActBean> list) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="u_Id")
+	private Member member;
+	
+	@OneToMany(mappedBy = "actBean",fetch = FetchType.LAZY)	
+	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>();
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ActBean [act_no=");
+		builder.append(act_no);
+		builder.append(", act_name=");
+		builder.append(act_name);
+		builder.append(", starttime=");
+		builder.append(starttime);
+		builder.append(", endtime=");
+		builder.append(endtime);
+		builder.append(", act_content=");
+		builder.append(act_content);
+		builder.append(", act_organize=");
+		builder.append(act_organize);
+		builder.append(", act_orgman=");
+		builder.append(act_orgman);
+		builder.append(", act_orgphone=");
+		builder.append(act_orgphone);
+		builder.append(", act_type=");
+		builder.append(act_type);
+		builder.append("]");
+		return builder.toString();
+	}
+
 
 	
-
-	
-
-
 }

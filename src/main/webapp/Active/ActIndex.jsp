@@ -26,43 +26,34 @@
     <nav class="navbar navbar-expand-sm bg-light">
 
         <!-- Links -->
-        <ul class="navbar-nav" style="margin:auto;">
+        <ul class="navbar-nav" style="margin: auto;">
 
-             <li class="nav-item">
-                <a class="nav-link" href="ActIndex.jsp">活動首頁</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActIndex.jsp">活動首頁</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="ActAll.jsp">活動一覽</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
+			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="">活動行事曆</a>
-            </li>
-            
-            <li class="nav-item">
-            	<a class="nav-link" href="">確認參與活動</a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="ActNew.jsp">新增活動</a>
-            </li>
-        </ul>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			
+		</ul>
 
     </nav>
 
     <!--Nav尾-->
 
 
-	<h1 style="text-align: center">活動首頁</h1>
+	<h1 style="text-align: center">目前可用功能</h1>
 	
 	<hr>
 	<table border="1" style="margin: 0px auto;">
 		<tr height="52" bgcolor="lightblue" align="center">
 			
 			<td width="350"><p align="left"/>
-                <a href='ActAll.jsp'>活動一覽</a><BR>
+                <a href='ActAll.jsp'>活動一覽(已可瀏覽活動詳情&參加活動)</a><BR>
+                <a href='ActNew.jsp'>新增活動</a><BR>
             </td>
 		</tr>
 	</table>

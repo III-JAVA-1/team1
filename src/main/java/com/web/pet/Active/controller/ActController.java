@@ -42,7 +42,6 @@ public class ActController {
 		actservice.insertActService(actbean,uid);
 		out.print("<script>");
 		out.print("window.alert('活動新增成功'); window.location.href='../Active/ActIndex.jsp';");
-//		out.print("window.location.href='ActIndex.jsp'");
 		out.print("</script>");
 		out.close();
 	}

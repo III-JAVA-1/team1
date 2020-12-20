@@ -43,7 +43,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -78,7 +78,7 @@
 					<!-- 活動代碼 -->
 					<input type="hidden" name="act_no" id="act_no" value="<%=rqname%>" size="30" /> 
 					<!-- UserID -->
-					<input type="hidden" name="u_id" id="u_id" value="<%=session.getAttribute("user")%>">
+					<input type="hidden" name="u_Id" id="u_Id" value="<%=session.getAttribute("user")%>">
 					<!--活動名稱-->
 					<input type="hidden" name="act_name" id="act_name2" value="" >
 					<!--參加狀態 -->

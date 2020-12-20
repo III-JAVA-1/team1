@@ -51,7 +51,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -132,18 +132,18 @@
 
 
     <script>
-    	function gogo()
-    	{
-    		<%
-    			if(session.getAttribute("user")==null)
-    			{%>window.alert("請先登入"); return false;
-    			<%}else{%>
-    			return  true;
-    			<%}%>
+//     	function gogo()
+//     	{
+<%--     		<% --%>
+//     			if(session.getAttribute("user")==null)
+<%--     			{%>window.alert("請先登入"); return false; --%>
+<%--     			<%}else{%> --%>
+//     			return  true;
+<%--     			<%}%> --%>
     				
     				
-    		return false;
-    	}
+//     		return false;
+//     	}
 
     	
     	$().ready(function(){//ajax完整活動資訊

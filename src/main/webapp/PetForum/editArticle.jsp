@@ -114,7 +114,7 @@
     		 console.log(count);
     		 
     		 if(count > 0){
-    			 window.alert("文章內容不足25個字");
+    			 window.alert("文章內容不足30個字");
     			 return false; 
     		 }
     	    	

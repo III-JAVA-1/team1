@@ -9,66 +9,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--bootstrap初始規模-->
-    
-   
-    <title>ACcompanyMe</title><!--顯示文章標題--> 
-    
+        
     <title>發表新文章</title>
-    <style>
-        *{padding: 0px;
-            margin: 0px;
-        }
-    
-        .h2{
-            /* position:relative; */
-            /* top:30px;
-            left:30px; */
-            margin:10px;
-            display: inline;
-        }
-        .forumId{
-            /* position:absolute;*/
-            /* top: 80px;
-            left:30px; */
-            padding: 0.7em;
-            margin:10px;              
-         
-         } 
-         .header{
-            /* position:absolute;*/
-            /* top: 80px;
-            left:200px; */
-            padding: 0.7em;
-            margin:10px;    
-         }
-
-         .updatedTime{
-            /* top: 80px;
-            left:30px; */
-            padding: 0.7em;
-            margin:10px;      
-         }
-
-         .lb{
-            padding: 0.7em;
-            margin:10px;   
-         }
-
-         .content{
-            overflow:auto;
-            margin: 10px;
-         }
-
-         .rightBtn{
-             width: 100px;
-             height: 40px;
-             margin-left: 10px;
-         }
-         
-         .ck{
-            margin-left: 10px;
-         }         
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/forEditArticle.css">
     
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -76,47 +19,84 @@
   crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <input type="hidden" name="mode" id="mode" value="" style="display:none;" /><!-- user操作取消,草稿,預覽,發佈....修改mode -->
-        
+<body>        
     <h2 class="h2">發表新文章</h2>
     <!-- 發送/petforum/previewPost請求 -->
-
-<form:form action="previewPost" method="POST" modelAttribute="articleModel">
+<form:form action="previewPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
+	
+	<div class="control">
 	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/lookforPet.jsp'/>'">
     <input class="rightBtn" type="button" value="儲存草稿" id="store">
     <input class="rightBtn" type="button" value="回復到上次儲存" id="back">
     <input class="rightBtn" type="submit" value="預覽" id="preview" onsubmit=return check(this)>   
-    <br>
+    </div>
     
+    <div class="control">
      <form:select name="forumId" path="forumId" class="forumId" id="forumId">       
         <form:option value="請選擇子版"></form:option>
         <form:option value="協尋"></form:option>
         <form:option value="送養"></form:option>
-        <form:option value="日常"></form:option>
-        <form:option value="閒聊"></form:option>
+        <form:option value="日常"></form:option>      
         <form:option value="徵友"></form:option>
         <form:option value="心得"></form:option>       
     </form:select>
+	</div>
 	
 	<form:hidden name="posterUid" path="posterUid" />
+	
+	<div class="control">
 	<form:input name="header" path="header" size="105" placeholder="請輸入文章標題…" />
-	<label for="" class="lb">時間：</label>
-	<form:input name="updatedTime" path="updatedTime" size="115"/>
+	</div>
+	
+	<div class="control">	
+	<form:hidden name="updatedTime" path="updatedTime" size="115"/>
+	</div>
+	
+	<div class="control">
 	<label for="image" class="lb">請選擇要上傳的圖片:</label>
-	<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br>
-	<form:textarea name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…"/><br>
+	<input type="file" id="picUpload" name="pic" accept="image/gif, image/jpeg, image/png">	
+	</div>
+	
+	<div class="control">
+	<div contentEditable="true" id="iframe" name="content" path="content">
+    <img id="preview_img" src="#" width="400px" style="display:visibility"/><br/>
+    <label for="textarea" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
+    <form:textarea id="textarea" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
+	onkeyup='return countChar()'/>
+	</div>
+	
+	</div>
+	
+	<div class="control">
 	<input class="ck" type="checkbox" id="ckObey">
-	 <label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
-	  <button type="button"  onclick="window.open(
+	<label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
+	<button type="button"  onclick="window.open(
 			 'forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>
+	</div>
 </form:form>  
 
-    <script>   
+    <script>
+    //即時預覽上傳圖片    
+    $("#picUpload").change(function(){
+      //當檔案改變後，做一些事 
+     readURL(this);   // this代表<input id="picUpload">
+   });
+    
+    function readURL(input){
+    	  if(input.files && input.files[0]){
+    	    var reader = new FileReader();
+    	    reader.onload = function (e) {
+    	       $("#preview_img").attr('src', e.target.result);    	       
+    	    }
+    	    reader.readAsDataURL(input.files[0]);
+    	  }
+    	}
+    
+    //計算輸入文章內文字數
     let count;
     function countChar()
     {
-    	document.getElementById("counter").innerHTML = 25-document.getElementById("content").value.length;
+    	document.getElementById("counter").innerHTML = 30-document.getElementById("textarea").value.length;
     	 count = parseInt(document.getElementById("counter").innerHTML);
 	    if(count <= 0){
 	    	$("#counter").css("display","none");

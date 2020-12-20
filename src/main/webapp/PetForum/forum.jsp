@@ -16,7 +16,7 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
+  
   </head>
   <body style="background-image: url(image/bg.jpg);">
 <%--   <jsp:include page="Header.jsp"/> --%>
@@ -168,7 +168,7 @@
             </div> 
 
             <div class="db_line1_release">
-                <span class="db_line1_release_span"><a href="#">我要發佈</a></span>
+                <span class="db_line1_release_span"><a href=" <c:url value='/petforum/newArticle'/>">我要發佈</a></span>
             </div>
 <!--end of pagination-->
 

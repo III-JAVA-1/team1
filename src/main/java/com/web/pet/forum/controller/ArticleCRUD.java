@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.pet.forum.model.Article;
@@ -34,14 +36,14 @@ public class ArticleCRUD{
 	private static final String CHARSET_CODE = "UTF-8";
 	
 	
-	@RequestMapping("/selectForum")//按不同討論區找文章 -  click a標籤
+	@PostMapping("/selectForum")//AJAX按不同討論區找文章 -  click a標籤
 	public 	@ResponseBody List<Article> selectForum(String forumId){		
 		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
 		return list;
 	}
 	
-	@RequestMapping("/selectAll")//網頁開啟加載所有文章 - $().ready	
+	@PostMapping("/selectAll")//AJAX網頁開啟加載所有文章 - $().ready	
 	public @ResponseBody List<Article> selectAll(@RequestParam(value = "forumId",required = false) String forumId){
 		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
@@ -59,7 +61,7 @@ public class ArticleCRUD{
 	}
 	
 	
-	@RequestMapping("/viewPost")//把article帶到postDetail.jsp
+	@PostMapping("/viewPost")//AJAX把article帶到postDetail.jsp
 	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
 		if(posterUid == null) {return null;}
 		//System.out.println("===="+posterUid);		
@@ -78,7 +80,7 @@ public class ArticleCRUD{
 		return mv;
 	}
 	
-	@RequestMapping("/newArticle")//準備發表新文章
+	@GetMapping("/newArticle")//準備發表新文章
 	public ModelAndView newPost() {
 		
 		ModelAndView mv = new ModelAndView();
@@ -88,7 +90,7 @@ public class ArticleCRUD{
 		return mv;
 	}
 	
-	@RequestMapping("/previewPost")//預覽文章(AJAX)
+	@RequestMapping("/previewPost")//預覽文章
 	public ModelAndView previewPost(
 			Integer posterUid,
 			Article article) {
@@ -126,6 +128,13 @@ public class ArticleCRUD{
 		
 		return "redirect:/PetForum/lookforPet.jsp";
 	}
+	
+	@PostMapping("/insert")
+	public void insertArticleWithPic(Article article,@RequestParam(value="pic",required=false) MultipartFile pic,  
+            HttpServletRequest request) {
+		
+	}
+	
 	
  }
 	

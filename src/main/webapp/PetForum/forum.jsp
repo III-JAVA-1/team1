@@ -113,7 +113,7 @@
 <!--end of Featured-->
 
 <!--Selection-->              
-               
+               		
                     <div class="db_line1_select">
                         <select style="color: #666">
                             <option>最新回覆</option>
@@ -132,6 +132,7 @@
                             <span><a href="#">20</a></span> 
                         </div>
                     </div> 
+                   
                 
 <!--end of Selection--> 
                 
@@ -202,7 +203,7 @@
    
 </div>
 </div>
-<button type="button" class="btn btn-outline-primary" id="gotop"></button>
+
     <!--Footer-->
 <footer class="small bg-info">
     <div class="container">

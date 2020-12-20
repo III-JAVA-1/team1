@@ -28,45 +28,41 @@ public class ArticleCRUD{
 	
 	@Autowired
 	ArticleService service;
-	@Autowired
-	MemberService mbService;
+
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
 	
 	
 	@RequestMapping("/selectForum")//按不同討論區找文章 -  click a標籤
-	@ResponseBody
-	public List<Article> selectForum(String forumId){		
-		
+	public 	@ResponseBody List<Article> selectForum(String forumId){		
+		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
 		return list;
 	}
 	
-	@RequestMapping("/selectAll")//網頁開啟加載所有文章 - $().ready
-	@ResponseBody
-	public List<Article> selectAll(@RequestParam(value = "forumId",required = false) String forumId){		
+	@RequestMapping("/selectAll")//網頁開啟加載所有文章 - $().ready	
+	public @ResponseBody List<Article> selectAll(@RequestParam(value = "forumId",required = false) String forumId){
+		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
 		return list;
 	}	
 	
 	
-	@ResponseBody
+	
 	@GetMapping("/selectHeader")//按關鍵字找文章
-	public List<Article> selectHeader(@RequestParam("inputText") String inputText) {		
+	public @ResponseBody List<Article> selectHeader(@RequestParam("inputText") String inputText) {
+		if(inputText == null) {return null;}
 		List<Article> list = service.getArticleByHeaderKey(inputText);
 		
 		return list;
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping("/viewPost")//把article帶到postDetail.jsp
-	public List<Article> viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {
-		request.getParameter("posterUid");
-		if(posterUid==null) {
-			return null;
-		}
-		System.out.println("===="+posterUid);
+	public @ResponseBody List<Article> viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
+		if(posterUid == null) {return null;}
+		//System.out.println("===="+posterUid);
 		List<Article> list = new LinkedList<Article>();
 		Article article = service.getArticle(posterUid);
 		list.add(article);

@@ -21,12 +21,19 @@
 }
 /* 產生左右scroll */
 
+
+.db_line1{
+	width:100%;
+}
+
+
+
 .db_line1_left{
     margin: 20px auto;
     border-right:1px solid #ccc;
     float:left;
-    height: 1000px;
-    width:630px;
+    height: auto;
+    width:70%;
     padding: 5px;
 }
 
@@ -38,7 +45,7 @@
 }
 
 .db_line1_featured hr{
-    width:530px;      
+    width:90%;      
     float: left;
     margin-left: 10px;   
     border-color:#39C;
@@ -74,6 +81,10 @@
     color: #39C;
 }
 
+.db_line1_featured2{
+	width:90%;
+}
+
 /* 置中 */
 .db_line1_featured2 .imag{
     text-align: center;
@@ -82,8 +93,7 @@
 
 .db_line1_featured2 .imag img{
     margin-bottom: 10px;
-    width:200px;
-    height:200px;
+    width:280px;
     padding: 8px;
     margin-bottom: 0px;
 }
@@ -99,28 +109,28 @@
 
 
 .db_line1_select{
+	width:100%;
     float:left;
     margin-top: 10px;
 }
 
 .db_line1_pagination{
+	clear:left;
+	width:100%;
     float:right;
     margin-top: 10px;
 }
 
-.db_line1_table{
-    width:600px;
-    overflow: auto;    
-    clear: left;
-    float:left;
-   
+.db_line1_table{	
+    width:100%;
+    overflow: auto;
 }
 
 .db_line1_right{ 
     margin: 20px auto;
     float:right;
-    height: 1000px;
-    width:300px;
+    height: auto;
+    width:30%;
     padding: 5px;
 }
 
@@ -136,7 +146,7 @@
 }
 
 .db_line1_right_featured2 .imag img{   
-    width:250px; 
+    width:300px; 
     margin: auto; 
     padding: 8px;
     margin-bottom: 0px;

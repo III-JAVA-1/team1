@@ -22,7 +22,7 @@ public class ActDao {
 	private SessionFactory sessionFactory;
 	
 	
-	
+	//新增活動
 	public void insertActDao(ActBean actbean,Integer uid) {
 		Session session = sessionFactory.getCurrentSession();
 		actbean.setMember(session.get(Member.class, uid));
@@ -39,7 +39,8 @@ public class ActDao {
 //		return list;
 //	}
 	
-
+	
+	//ajax查詢活動有哪些
 	@SuppressWarnings("unchecked")
 	public List<ActBean> ajaxActDao(){
 		List<ActBean> list = new ArrayList<ActBean>();
@@ -49,6 +50,7 @@ public class ActDao {
 		return list;
 	}
 
+	//ajax查詢特定活動
 	@SuppressWarnings("unchecked")
 	public List<ActBean> ajaxActDao(Integer act_no) {
 		List<ActBean> list = new ArrayList<ActBean>();
@@ -58,6 +60,7 @@ public class ActDao {
 		return list;
 	}
 
+	//參加活動
 	public void insertJoinDao(JoinActBean joinactbean) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(joinactbean);

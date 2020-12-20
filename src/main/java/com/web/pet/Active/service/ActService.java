@@ -20,6 +20,7 @@ public class ActService {
 	@Autowired
 	private ActDao actDao;
 	
+	//新增活動
 	public void insertActService(ActBean actbean,Integer uid) {
 		actDao.insertActDao(actbean,uid);
 	}
@@ -28,17 +29,22 @@ public class ActService {
 //		// TODO Auto-generated method stub
 //		return actDao.getAllAct();
 //	}
-
+	
+	
+	//ajax查詢活動有哪些
 	public List<ActBean> ajaxActService() {
 		// TODO Auto-generated method stub
 		return actDao.ajaxActDao();
 	}
-
+	
+	
+	//ajax查詢特定活動
 	public List<ActBean> ajaxActService(Integer act_no) {
 		// TODO Auto-generated method stub
 		return actDao.ajaxActDao(act_no);
 	}
 
+	//參加活動
 	public void insertJoinService(JoinActBean joinactbean) {
 		// TODO Auto-generated method stub
 		actDao.insertJoinDao(joinactbean);

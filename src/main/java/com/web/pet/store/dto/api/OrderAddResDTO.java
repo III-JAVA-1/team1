@@ -6,4 +6,5 @@ import lombok.Data;
 public class OrderAddResDTO {
     private Boolean success = false;
     private String orderId;
+    private String ecpHtml;
 }

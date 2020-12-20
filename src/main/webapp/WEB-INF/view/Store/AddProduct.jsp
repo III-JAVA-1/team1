@@ -226,7 +226,7 @@
 
                     const img = document.createElement("img");
                     img.classList.add("obj");
-                    img.src = res;
+                    img.src = $.parseJSON(res).url;
 
                     const imgClear = document.createElement("img");
                     imgClear.width = 25

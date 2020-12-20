@@ -65,10 +65,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
-  					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
+  					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >收藏商品/文章</a>
+  					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -159,7 +160,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
 			  				"<img src='"+n[1]+"' class='card-img-top' alt=''>"+
 			  				"<div class='card-body'>"+
-			    				"<a href='store?product_id='"+n[2]+"><p class='card-text'>"+n[0]+"</p></a>"+
+			    				"<a href='<c:url value='../Store/productDetail?id="+n[2]+"&memberId="+n[3]+"'/>'><p class='card-text'>"+n[0]+"</p></a>"+
 			  				"</div>"+
 						"</div>");
 					name=n[0];
@@ -174,6 +175,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     function forum(){
     	$("#favorite").html("");
+    	$("#favorite2").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
     	$("#favorite2").html("沒有收藏文章");
@@ -182,6 +184,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     function store(){
     	$("#favorite").html("");
+    	$("#favorite2").html("");
     	$("#forum").removeClass("active");
     	$("#store").addClass("active");
     	 $.ajax({

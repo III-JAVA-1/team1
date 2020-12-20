@@ -30,9 +30,9 @@ public class adminCURD {
 	
 	@RequestMapping(value = "/adminmembernamesearch")
 	@ResponseBody
-	public List<Member> ajaxLoginController(@RequestParam String user_name ,@RequestParam Integer page) {//admin member依名字查詢
+	public List<Member> ajaxLoginController(@RequestParam String user_name) {//admin member依名字查詢
 		List<Member> list = new ArrayList<Member>();
-		list = adminService.membernamesearch(user_name,page);
+		list = adminService.membernamesearch(user_name);
 		if(list==null||list.isEmpty()) {
 			return null;
 		}else {

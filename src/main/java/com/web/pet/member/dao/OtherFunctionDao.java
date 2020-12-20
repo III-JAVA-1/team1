@@ -24,14 +24,14 @@ public class OtherFunctionDao {
 		String hql="";
 		if(queue==null||queue=="") {
 			hql = "select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id\r\n"
+					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
 					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
 					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
 					+ "and [dbo].[order].customer_id like :id\r\n"
 					+ "and [dbo].[order_item].product_id=product.product_id";
 		}else if(queue.equals("old")) {
 			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id\r\n"
+					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
 					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
 					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
 					+ "and [dbo].[order].customer_id like :id\r\n"
@@ -40,7 +40,7 @@ public class OtherFunctionDao {
 			
 		}else if(queue.equals("new")) {
 			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id\r\n"
+					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
 					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
 					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
 					+ "and [dbo].[order].customer_id like :id\r\n"
@@ -48,7 +48,7 @@ public class OtherFunctionDao {
 					+ "order by [dbo].[order].date desc";
 		}else if(queue.equals("low")) {
 			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id\r\n"
+					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
 					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
 					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
 					+ "and [dbo].[order].customer_id like :id\r\n"
@@ -56,7 +56,7 @@ public class OtherFunctionDao {
 					+ "order by [dbo].[order].cost";
 		}else {
 			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id\r\n"
+					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
 					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
 					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
 					+ "and [dbo].[order].customer_id like :id\r\n"
@@ -85,7 +85,7 @@ public class OtherFunctionDao {
 	public List<Object[]> shopfavorite(String user_id){//會員頁面秀出收藏商品
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select product.product_name,product_image.img,product.product_id\r\n"
+		String hql="select product.product_name,product_image.img,product.product_id,favorite.customer_id\r\n"
 				+ "from favorite,Member,product,product_image\r\n"
 				+ "where favorite.customer_id = :id\r\n"
 				+ "and product.product_id=favorite.product_id\r\n"

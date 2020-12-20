@@ -21,7 +21,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
-            <a class="navbar-brand" href="index.jsp"><img src="image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
+            <a class="navbar-brand" href="index.jsp"><img src="../image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">

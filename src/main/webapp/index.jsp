@@ -33,7 +33,6 @@
 </head>
 <body>
 	
-<%-- 	<jsp:include page="Header.jsp"/> --%>
 	<header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
             <a class="navbar-brand" href="index.jsp"><img src="image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
@@ -45,7 +44,15 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                    	<a class="nav-link" href="Store/">毛孩商城</a>
+						<%
+							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
+								out.print("<a class=\"nav-link\" href=\"Store/\">毛孩商城</a>");
+							} else {
+								out.print("<a class=\"nav-link\" href=\"Store/?memberId="
+										+ session.getAttribute("user")
+										+ "\">毛孩商城</a>");
+							}
+						%>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物保姆</a>
@@ -194,9 +201,11 @@
     </footer>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>	
+	
 		
 	<script>
-	$("#gotop").click(function(){//回最上層JQUERY
+	$('#gotop').click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
         },1000);

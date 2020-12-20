@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   </head>
-  <body>
-  <jsp:include page="Header.jsp"/>
+  <body style="background-image: url(image/bg.jpg);">
+<%--   <jsp:include page="Header.jsp"/> --%>
   
 <!--Navbar-->
 <div class="row">
@@ -43,24 +43,21 @@
             </div>            
         </div>
         <div class="hd_line2">
-                <div class="hd_line2_a">
-                <a href="/index.html"><img src="image/Home_logo.png"/></a>
-                <a style="border-top-color:#ccc" href="#">走失協尋</a>
-                <a style="border-top-color:#39C" href="#">汪喵送養</a>
-                <a style="border-top-color:#ccc" href="#">汪喵日常</a>
-                <a style="border-top-color:#39C" href="#">版主討論</a>
-                <a style="border-top-color: #ccc" href="#">輕鬆閒聊</a>
-                <a style="border-top-color: #39C" href="#"> 心得分享</a>
-                </div>
-                <div class="hd_line2_banner"></div>
-                       <img src="image/banner.png" width="100" height="60">
-                       <img src="image/step.png" width="30" height="30">
-                       <img src="image/step.png" width="30" height="30">                                     
-                       <img src="image/step01.png" width="30" height="30">
-                       <img src="image/step.png" width="30" height="30">
-                       <img src="image/step01.png" width="30" height="30">
-                </div>
-        </div>
+           <div class="hd_line2_a">
+            <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
+           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
+            
+           
+            </div>
+            <div class="hd_line2_banner"></div>
+                   <img src="image/banner.png" width="100" height="60">
+                   <img src="image/step.png" width="30" height="30">
+                   <img src="image/step.png" width="30" height="30">                              
+                   <img src="image/step01.png" width="30" height="30">
+                   <img src="image/step.png" width="30" height="30">
+                   <img src="image/step01.png" width="30" height="30">
+            </div>
+    </div>
     </div>
     </div>
     <!--end of Navbar-->
@@ -107,7 +104,7 @@
 
  <!--end of Member-->  
                     <div class="article_right">
-                        <div class="article_main">
+                        <div id="article" class="article_main">
                             <h5>二哈有夠胖，有推薦什麼方式減重？</h5>
                             <div class="article_main_span">                               
                                 <span>2020-11-24 21:59</span>
@@ -209,5 +206,65 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	
+	<script>
+		console.log(<%=request.getParameter("posterUid")%>);
+		//網頁ready文檔加載完就做
+		//網頁onload全部加載完成才做(音樂、圖片) 				
+		console.log("ccc");
+		$.ajax({
+			url:"../petforum/viewPost",
+			type:"post",		
+			dataType:"json",
+			data:{
+				"posterUid":<%=request.getParameter("posterUid")%>,
+			},
+			success:function(data){	
+				$.each(data,function(i,n){
+					//console.log(i);
+					console.log(n.content);
+					console.log(n.header);
+					console.log(n.member.sname);
+// 					  <h5>二哈有夠胖，有推薦什麼方式減重？</h5>
+//                       <div class="article_main_span">                               
+//                           <span>2020-11-24 21:59</span>
+//                           <span><img src="image/icons8-eye-50.png"/>&nbsp0</span>
+//                           <span><a href="#"><img src="image/icons8-applause-32.png"/></a>&nbsp0</span>
+//                           <span><a href="#"><img src="image/icons8-favorites-50.png"/></a>&nbsp0</span> 
+//                          <hr/>
+//                          <div class="article_main_content">
+//                           家裡養了一隻很會拆家的二哈<br>
+//                           活動量雖然頗大<br>
+//                           但一直胖下去 覺得不能再這樣<br>
+//                           想問問大家都怎麼幫胖哈減重？<br>                                
+//                          </div>                              
+//                       </div>
+					
+					$("#article").append("<h5>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?potserUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><div>"+n[1]+"</div></td>"+
+					"<td>"+n[2]+"</td>"+
+					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
+					"<div>"+n[4]+"</div></td>"+
+					"</tr>");
+				})
+			},
+			error:function(){
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+			}
+		})
+	</script>
   </body>
 </html>

@@ -1,7 +1,8 @@
 package com.web.pet.forum.dao;
 
 
-import java.util.ArrayList;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.pet.forum.model.Article;
 
@@ -33,10 +34,10 @@ public class ArticleDao {
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticles(String hql) {
 		
-		List<Article> list = new ArrayList<Article>();
-		//hql = "FROM Article";// 不是表格名稱是類別名稱
+		List<Article> list = new LinkedList<Article>();
+		//String hql = "select A.header,A.content FROM Article A";不是表格名稱是類別名稱
 		Session session = sessionFactory.getCurrentSession();
-		 Query<Article> query = session.createQuery(hql);
+		Query<Article> query = session.createQuery(hql);
 		list = query.getResultList();
 		
 		return list;
@@ -50,14 +51,28 @@ public class ArticleDao {
 		return article;
 	}
 	
-	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
-		List<Article> list = new ArrayList<Article>();
+	@SuppressWarnings("unchecked")
+	public List<Article> getArticleByForumId(@RequestParam(value = "forumId", required = false)String forumId){//按forumId找文章
+		List<Article> list = new LinkedList<Article>();
 		Session session=sessionFactory.getCurrentSession();
-		String hql = "SELECT m.sname,a.header,a.reply,a.viewing,a.updatedTime"
-				+ "FROM Member m INNER JOIN Article a ON m.u_Id = a.member.u_Id"
-				+ "WHERE a.forumId = :forumId";
-		Query<Article> query = session.createQuery(hql).setParameter("forumId", forumId);
-		list=query.getResultList();
+		String sql = "";		
+		
+		if(forumId.equals("全部")) {
+			System.out.println("123");
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
+					"from Article, Member\r\n" +					
+					"order by Article.updatedTime desc";
+			list = session.createNativeQuery(sql).getResultList();
+		}
+		else {
+			
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
+					"from Article, Member\r\n" + 
+					"where Article.forumId = :forumId\r\n" + 
+					"order by Article.updatedTime desc";	
+			list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
+		}				
+		
 		
 		if(list.isEmpty()) {return null;}		
 		else {return list;}
@@ -65,7 +80,7 @@ public class ArticleDao {
 	}
 	
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
-		List<Article> list = new ArrayList<Article>();
+		List<Article> list = new LinkedList<Article>();
 		Session session=sessionFactory.getCurrentSession();
 		inputText = "'%"+inputText+"%'";
 		String hql = "FROM Article a where a.header like" + inputText;

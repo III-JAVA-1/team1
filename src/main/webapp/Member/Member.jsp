@@ -13,6 +13,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/theme.min.css" integrity="sha512-NIaqX+eDfmA0bIDqx/oRznvm4IYs9qfSjxdLVyDeJTP5n2YQFBGfalKsjwzduqCWeEeMMwSJfI1EoIFfLhRMhg==" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.min.css" integrity="sha512-NaCOGQe8bs7/BxJpnhZ4t4f4psMHnqsCxH/o4d3GFqBS4/0Yr/8+vZ08q675lx7pNz7lvJ6fRPfoCNHKx6d/fA==" crossorigin="anonymous" />	
+	
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -66,10 +69,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母訂單查詢</a>
-  					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
+  					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >收藏商品/文章</a>
+  					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -122,6 +126,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					<button type="button" class="btn btn-info" onclick="editperson()">修改個人資料</button>
 					&nbsp&nbsp
 					<button type="button" class="btn btn-primary" onclick="editpassword()">修改密碼</button>	
+					<% if(session.getAttribute("user")!=null&&Integer.valueOf(session.getAttribute("user").toString())==1){
+							out.print("<Button  type='button' class='btn btn-info btn-lg active ml-3' role='button' aria-pressed='true' onclick='admingo()'>管理者後台</Button>");
+						}
+					%>
   				</div>
   			</div>
   			<div class="col-12" id="editpersoninfo" style="display:none;">
@@ -129,6 +137,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<div class="row justify-content-center">
 			<span class="h3">修改個人資料</span>
 			</div>
+			
+			<div id="dialog" title="請輸入管理者密碼" style="display:none;">
+				<p>請輸入密碼</p>
+    		<input type="password" size="25" id="adminpassword" name="adminpassword"/>
+    			<hr>
+    		<button type="button" onclick="adminpasswordcheck()">確認</button>
+				</div>
 			<br>
 			<form action="../Gusty/UpdateMember" method="post">
 		<div class="row justify-content-center">
@@ -207,7 +222,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			</div>
 		</div>
 		<div class="row justify-content-center">
-		<p class="h5">***請確認每筆資料無誤才以送出修改***</p>
+		<p class="h5" >***請確認每筆資料無誤才以送出修改***</p>
+		</div>
+		<div class="row justify-content-center">
+		<p class="h5" id="doublecheck"></p>
 		</div>
 		<div class="row justify-content-center">
 		<button type="submit" class="btn btn-warning" id="editbutton" disabled>確認修改</button>
@@ -261,6 +279,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 	<jsp:include page="Footer.jsp"/>
 
+	
+
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -271,12 +291,28 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-		
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+	
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 <!--     弄地址的 -->
 	
 	<script>
+	function admingo(){
+		$("#dialog").dialog();
+	}
+	function adminpasswordcheck(){
+		if($("#adminpassword").val()=="admin"){
+			window.location.href='<c:url value='/Gusty/goadmin'/>';
+		}
+		else if($("#adminpassword").val()==""||$("#adminpassword").val()!="admin"){
+			$("#dialog").dialog("close");
+			$("#adminpassword").val("");
+			alert("密碼錯誤");
+		}
+	}
+	
     function oldpasswordcheck(){
     	var xxn=false;
     	$.ajax({
@@ -309,7 +345,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	console.log(xxn);
     	return xxn;
     }
-    
+    var a;
+    var b;
+    var c;
+    var d;
+    var e;
     $().ready(function(){//AJAX秀會員資料
 		$.ajax({
 			url:"../Gusty/headercheck",
@@ -329,22 +369,22 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					}
 					$("#name").html(n.name);
 					$("#editname").val(n.name);
-					
+					a=n.name;
 					$("#gender").html(n.gender);
 					$('[name="gender"][value='+n.gender+']').attr('checked', 'checked');
 					
 					$("#phone").html(n.phone);
 					$("#editphone").val(n.phone);
-					
+					b=n.phone;
 					$("#id").html(n.id.substring(0,6)+"XXXX");
 					$("#birth").html(n.birth.substring(0,10));
 					
 					$("#email").html(n.email);
 					$("#editemail").val(n.email);
-					
+					c=n.email;
 					$("#sname2").html(n.sname);
 					$("#editsname").val(n.sname);
-					
+					d=n.sname;
 					
 					$("#address").html(n.zip+n.country+n.district+n.address);
 					$("#editaddress").val(n.address);
@@ -352,6 +392,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				    	'countySel'   : n.country,
 				    	'districtSel' : n.district
 					});
+					e=n.address;
 				});
 			}
 		});
@@ -600,6 +641,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var sumcheckgo = window.setInterval(sumcheck,100);//最後總和驗整結果判斷
 
 	function sumcheck(){
+		//console.log(a);
 		//console.log(check.length);
 		let checkn=0;
 		for(let i=0;i<check.length;i=i+1)
@@ -612,6 +654,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		//console.log(x);
 		if(checkn>=5){$("#editbutton").attr('disabled', false);}
 		else{$("#editbutton").attr('disabled', true);}
+		if($("#editname").val()==a&&$("#editphone").val()==b&&$("#editemail").val()==c&&$("#editsname").val()==d&&$("#editaddress").val()==e){
+			$("#doublecheck").html("請至少修改一筆資料才能送出");
+			$("#editbutton").attr('disabled', true);
+		}else{
+			$("#doublecheck").html("");
+			$("#editbutton").attr('disabled', false);
+		}
+			
 	}
 	</script>
 

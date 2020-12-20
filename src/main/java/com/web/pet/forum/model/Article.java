@@ -50,7 +50,7 @@ public class Article {
 	private String content;
 	private Integer viewing;
 	private Integer reply;	
-	private Blob pic;
+	private Blob pic;	
 	private Integer isHide = 0;//	預設無違規不隱藏
 	
 	//	多對一，多的一方有外鍵
@@ -65,7 +65,7 @@ public class Article {
 	
 	//	一篇文章有多個會員收藏，無外鍵
 	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
+	private Set<ArticleFavorite> articleFavorites = new LinkedHashSet<>(0);
 
 	@Override
 	public String toString() {

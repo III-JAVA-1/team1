@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.web.pet.forum.dao.ArticleLikeDao;
-import com.web.pet.forum.model.ArticleLike;
+import com.web.pet.forum.model.ArticleFavorite;
 
 @EnableTransactionManagement
 @Transactional
@@ -20,26 +20,26 @@ public class ArticleLikeService {
 	@Autowired
 	ArticleLikeDao dao;	
 	
-	public int saveArticleLike(ArticleLike articleLike) {//新增一個收藏
+	public int saveArticleLike(ArticleFavorite articleLike) {//新增一個收藏
 		return dao.saveArticleLike(articleLike);
 	}	
 	
-	public List<ArticleLike> getAllArticleLikes(String hql) {//依hql條件取得所有收藏			
-		 List<ArticleLike> list = dao.getAllArticleLikes(hql);		
+	public List<ArticleFavorite> getAllArticleLikes(String hql) {//依hql條件取得所有收藏			
+		 List<ArticleFavorite> list = dao.getAllArticleLikes(hql);		
 		return list;
 	}	
 
-	public ArticleLike getArticleLike(Integer articleLikeId) {//取得一個收藏		
-		 ArticleLike articleLike = dao.getArticleLike(articleLikeId);
+	public ArticleFavorite getArticleLike(Integer articleLikeId) {//取得一個收藏		
+		 ArticleFavorite articleLike = dao.getArticleLike(articleLikeId);
 		return articleLike;		
 	}
 	
-	public List<ArticleLike> getArticleLikeBy2Uid(Integer u_Id, Integer posterUid){//按u_Id,posterUid找收藏
-		List<ArticleLike> list = dao.getArticleLikeBy2Uid(u_Id, posterUid);
+	public List<ArticleFavorite> getArticleLikeBy2Uid(Integer u_Id, Integer posterUid){//按u_Id,posterUid找收藏
+		List<ArticleFavorite> list = dao.getArticleLikeBy2Uid(u_Id, posterUid);
 		return list;
 	}
 	
-	public int removeArticleLike(ArticleLike articleLike) {//移除收藏
+	public int removeArticleLike(ArticleFavorite articleLike) {//移除收藏
 		return dao.removeArticleLike(articleLike);
 	}
 	

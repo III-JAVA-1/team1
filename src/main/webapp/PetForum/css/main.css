@@ -82,19 +82,19 @@
 }
 
 .db_line1_featured2{
-	width:90%;
+	width:100%;
 }
 
 /* 置中 */
-.db_line1_featured2 .imag{
+.db_line1_featured2 .imag{	
     text-align: center;
     float: left;
 }
 
 .db_line1_featured2 .imag img{
+	width:200px;
     margin-bottom: 10px;
-    width:280px;
-    padding: 8px;
+     padding: 8px;
     margin-bottom: 0px;
 }
 
@@ -141,12 +141,13 @@
 
 /* 置中 */
 .db_line1_right_featured2 .imag{ 
+	width:100%;
     text-align: center;   
     
 }
 
 .db_line1_right_featured2 .imag img{   
-    width:300px; 
+    width:280px; 
     margin: auto; 
     padding: 8px;
     margin-bottom: 0px;

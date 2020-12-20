@@ -60,14 +60,11 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//把article帶到postDetail.jsp
-	public @ResponseBody List<Article> viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
+	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
 		if(posterUid == null) {return null;}
-		//System.out.println("===="+posterUid);
-		List<Article> list = new LinkedList<Article>();
-		Article article = service.getArticle(posterUid);
-		list.add(article);
-		
-		return list;
+		//System.out.println("===="+posterUid);		
+		Article article = service.getArticle(posterUid);		
+		return article;
 	}
 	
 	@RequestMapping("/modify")//準備修改文章

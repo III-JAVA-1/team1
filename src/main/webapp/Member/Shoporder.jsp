@@ -96,10 +96,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			<div class="display-4">訂單查詢</div>
   			</div><br>
   			
-  			<div class="row justify-content-center">
-    			<div class="h4" id="result">每頁顯示10筆資料，目前在第1頁</div>
-  			</div><br>
-  			
   			<div class="row justify-content-start">
   			<div class="col">
   				<p class="h4">排序方式:
@@ -220,11 +216,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     $("#queue").change(function(){
     	$("#ordertable").html("");
-    	//console.log("aaaa");
     	$.ajax({
     		url:"../Gusty/shoporder",
     		type:"post",
-    		//async : false,//要賦值給全域變數要改false
     		dataType:"json",
     		data : { 
     			"user_id" : <%=session.getAttribute("user")%>,
@@ -320,16 +314,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			    				"<td>"+n[6]+"</td>"+
     			    				"<td>"+n[7]+"</td></tr></tbody></table>");
     				}
-    				$("#result").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
     			});
     		},
     		error:function(){
     			$("#result").html("");
     			$("#ordertable").append("<div class='row justify-content-center h3'>該分頁沒有資料</div>");
     		}
-    		
     	});
-    	
     }
     
 	</script>

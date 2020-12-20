@@ -81,23 +81,23 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			<div class="display-4">商品評價</div>
   			</div><br>
   			
-  			<div class="row justify-content-start" id="">
-				<table class="table table-hover table-bordered ">
-  		<thead class="h4" style="background-color:#8600FF;">
-    		<tr>
-      			<th scope="col">商品名稱</th>
-      			<th scope="col">評價等級</th>
-      			<th scope="col">評價內容</th>
-      			<th scope="col">評價日期</th>
-    		</tr>
-  		</thead>
-  		<tbody id="">
-   			<tr><th scope="row">55</th>
-   			<td>aa</td>
-   			<td>aaa</td>
-   			<td>www</td></tr>
-  		</tbody>
-  		</table>
+  			<div class="row justify-content-start" >
+			<table class="table table-hover table-bordered ">
+  				<thead class="h4" style="background-color:#28FF28;">
+    				<tr>
+      					<th scope="col">商品名稱</th>
+      					<th scope="col">評價等級</th>
+      					<th scope="col">評價內容</th>
+      					<th scope="col">評價日期</th>
+    				</tr>
+  				</thead>
+  				<tbody id="ratetable" class="h5">
+  				</tbody>
+  			</table>
+			</div>
+			
+			<div class="d-flex justify-content-center">
+			<div class="h4" id="tip"></div>
 			</div>
 			
   			</div>
@@ -137,6 +137,48 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
+    var testid;
+    $.ajax({
+		url:"../Gusty/shoprate",
+		type:"post",
+		//async : false,//要賦值給全域變數要改false
+		dataType:"json",
+		data : { 
+			"user_id" : <%=session.getAttribute("user")%>,
+        },
+		success:function(data){
+			$.each(data,function(i,n){
+				testid=_uuid();
+				$("#ratetable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
+			   			"<td id='"+testid+"'></td>"+
+			   			"<td>"+n[2]+"</td>"+
+			   			"<td>"+n[3]+"</td></tr>");
+				for(let i=0;i<5;i=i+1){
+					if(i<n[1]){
+						$("#"+testid+"").append("★");
+					}else{
+						$("#"+testid+"").append("☆");
+					}
+				}
+				
+			});
+		},
+		error:function(){
+			$("#tip").html("沒有評價商品");
+		}
+	});
+    
+    function _uuid() {//產生UUID 因為如果一個商品留言2次ID會重複
+    	  var d = Date.now();
+    	  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+    	    d += performance.now(); //use high-precision timer if available
+    	  }
+    	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    	    var r = (d + Math.random() * 16) % 16 | 0;
+    	    d = Math.floor(d / 16);
+    	      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    	  });
+    	}
     
 	</script>
 

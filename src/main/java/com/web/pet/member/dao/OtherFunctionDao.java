@@ -86,10 +86,28 @@ public class OtherFunctionDao {
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="select product.product_name,product_image.img,product.product_id,favorite.customer_id\r\n"
-				+ "from favorite,Member,product,product_image\r\n"
+				+ "from favorite,product,product_image\r\n"
 				+ "where favorite.customer_id = :id\r\n"
 				+ "and product.product_id=favorite.product_id\r\n"
 				+ "and favorite.product_id=product_image.product_id";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> shoprateDao(String user_id){//會員頁面秀出商品評價
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select product.product_name,rate.rate,rate.message,rate.date,rate.customer_id,rate.product_id\r\n"
+				+ "from rate,product\r\n"
+				+ "where rate.product_id=product.product_id\r\n"
+				+ "and rate.customer_id=:id";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {

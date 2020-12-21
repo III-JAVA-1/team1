@@ -244,7 +244,7 @@
 	
 		$.ajax({
 			url:"../petforum/selectAll",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":"全部"
@@ -260,6 +260,8 @@
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
 					"<div>"+n[4]+"</div></td>"+
 					"</tr>");
+					
+					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid
 				})
 			},
 			error:function(){
@@ -274,7 +276,7 @@
 		//console.log(item);
 		$.ajax({
 			url:"../petforum/selectForum",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller

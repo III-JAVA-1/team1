@@ -211,30 +211,32 @@
 			dataType:"json",
 			data:{
 				"posterUid":<%=request.getParameter("posterUid")%>,
+				"u_Id":<%=request.getParameter("u_Id")%>
 			},
 			success:function(data){	
-				
+					console.log(data.member.u_Id);
 					console.log(data.content);
 					console.log(data.header);
-					console.log(data.member.sname);
-					console.log(data.member.img);
+					//console.log(data.member.sname);
+					//console.log(data.member.img);
 					
-					//如何會員沒有上傳圖像
-					var memberImg;
-					if(data.member.img == undefined){
-						memberImg = 'image/mask_dog.png';
+					//初始資料沒有會員暱稱
+					var memberSname;
+					if(data.member.sname === undefined){
+						memberSname = "Author Name";
 					}
 					else{
-						memberImg = data.member.img;
+						memberSname = data.member.sname
 					}
 					
-					//顯示會員相關信息
+					
+					//顯示會員相關信息(顯示會員圖片發送另一個請求)
 					$("#member").append("<div class='article_left_img'>"+
-					"<img src='"+memberImg+"'"+
-					"width='150px' height='150px' style='border:1px solid #666;border-radius: 15px;'>"+
+					"<img  id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data.member.u_Id+"'/>'"+
+					" style='border: 1px solid #666;border-radius: 15px;width: 150px;height: 150px;'  onerror='imgDisplay(this)'>"+
 					"</div>"+
 					"<div class='article_left_a'>"+
-					"<a href='#'>"+data.sname+"</a><br/>"+
+					"<a href='#'>"+memberSname+"</a><br/>"+
 					"<span style='border-radius: 8px;background-color: #666;color: white'>樓主</span>"+
 					"</div>");
 					
@@ -265,6 +267,12 @@
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
 			}
 		})
+		
+		
+		 function imgDisplay(noUpload) 
+		  { 
+		 	$(noUpload).attr("src","image/mask_dog.png");
+		  } 
 		
 	</script>
   </body>

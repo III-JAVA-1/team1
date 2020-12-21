@@ -45,12 +45,16 @@ public class Article {
 	private String forumId;
 	@Column(name = "header", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String header;
+	@Column(name = "updatedTime", nullable = false)
 	private Timestamp updatedTime;
 	@Column(name = "content", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String content;
-	private Integer viewing;
-	private Integer reply;	
-	private Blob pic;	
+	@Column(name = "viewing", nullable = false)
+	private Integer viewing = 0;
+	@Column(name = "reply", nullable = false)
+	private Integer reply = 0;	
+	private Blob pic;
+	@Column(name = "isHide",nullable = false)
 	private Integer isHide = 0;//	預設無違規不隱藏
 	
 	//	多對一，多的一方有外鍵

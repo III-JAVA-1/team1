@@ -20,8 +20,8 @@ public class ArticleService {
 	@Autowired
 	ArticleDao dao;	
 	
-	public int saveArticle(Article article) {//新增一篇文章
-		return dao.saveArticle(article);
+	public int saveArticle(Article article,Integer id) {//新增一篇文章
+		return dao.saveArticle(article,id);
 	}	
 	
 	public List<Article> getAllArticles(String hql) {//依hql條件取得所有文章			

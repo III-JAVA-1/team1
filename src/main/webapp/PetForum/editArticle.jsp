@@ -18,14 +18,13 @@
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
 </head>
-
 <body>        
-    <h2 class="h2">發表新文章</h2>
-    <!-- 發送/petforum/previewPost請求 -->
+ <!-- 發送/petforum/previewPost請求 -->
+    <h2 class="h2">發表文章</h2>   
 <form:form action="previewPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 	
 	<div class="control">
-	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/lookforPet.jsp'/>'">
+	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
     <input class="rightBtn" type="button" value="儲存草稿" id="store">
     <input class="rightBtn" type="button" value="回復到上次儲存" id="back">
     <input class="rightBtn" type="submit" value="預覽" id="preview" onsubmit=return check(this)>   
@@ -54,12 +53,12 @@
 	
 	<div class="control">
 	<label for="image" class="lb">請選擇要上傳的圖片:</label>
-	<input type="file" id="picUpload" name="pic" accept="image/gif, image/jpeg, image/png">	
+	<input type="file" id="picUpload" name="image" accept="image/gif, image/jpeg, image/png">	
 	</div>
 	
 	<div class="control">
 	<div contentEditable="true" id="iframe" name="content" path="content">
-    <img id="preview_img" src="#" width="400px" style="display:visibility"/><br/>
+    <img id="preview_img" src="#" width="700px" style="display:visibility"/><br/>
     <label for="textarea" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
     <form:textarea id="textarea" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
 	onkeyup='return countChar()'/>

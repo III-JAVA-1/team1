@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.pet.forum.model.Article;
+import com.web.pet.member.model.Member;
 
 
 @Repository
@@ -22,9 +23,11 @@ public class ArticleDao {
 	private SessionFactory sessionFactory;	
 	
 	
-	public int saveArticle(Article article) {
+	public int saveArticle(Article article,Integer id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
+		//session.get(Member.class,1);
+		article.setMember(session.get(Member.class,id));
 		session.save(article);
 		count++;
 		return count;
@@ -52,16 +55,19 @@ public class ArticleDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByForumId(@RequestParam(value = "forumId", required = false)String forumId){//按forumId找文章
+	public List<Article> getArticleByForumId(
+			@RequestParam(value = "forumId", required = false)String forumId
+			){//按forumId找文章
 		List<Article> list = new LinkedList<Article>();
 		Session session=sessionFactory.getCurrentSession();
 		String sql = "";		
 		
 		if(forumId.equals("全部")) {
 			System.out.println("123");
-			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
-					"from Article, Member\r\n" +					
-					"order by Article.updatedTime desc";
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\n" + 
+				  "from Article, Member\n" + 
+				  "where Article.u_Id = Member.u_Id\n" + 
+				  "order by Article.updatedTime desc";
 			list = session.createNativeQuery(sql).getResultList();
 		}
 		else {

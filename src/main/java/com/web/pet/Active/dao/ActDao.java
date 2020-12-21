@@ -44,7 +44,7 @@ public class ActDao {
 	@SuppressWarnings("unchecked")
 	public List<ActBean> ajaxActDao(){
 		List<ActBean> list = new ArrayList<ActBean>();
-		String hql = "FROM ActBean";
+		String hql = "select act_no,act_name,starttime,endtime,act_content,act_organize,act_orgman,act_orgphone,act_type FROM ActBean";
 		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql);
 		list=query.getResultList();
 		return list;
@@ -61,8 +61,10 @@ public class ActDao {
 	}
 
 	//參加活動
-	public void insertJoinDao(JoinActBean joinactbean) {
+	public void insertJoinDao(JoinActBean joinactbean,Integer uid,Integer act_no) {
 		Session session = sessionFactory.getCurrentSession();
+		joinactbean.setMember(session.get(Member.class,uid));
+		joinactbean.setActBean(session.get(ActBean.class,act_no));
 		session.save(joinactbean);
 		
 	}

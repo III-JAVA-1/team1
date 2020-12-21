@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.pet.Active.model.ActBean;
 import com.web.pet.Active.model.JoinActBean;
@@ -35,7 +36,6 @@ public class ActController {
 	
 	@PostMapping(value="/insertActService") //新增活動
 	public void insertActController(ActBean actbean,HttpServletResponse response,HttpServletRequest request) throws IOException {
-		
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out= response.getWriter();
 		Integer uid = Integer.valueOf(request.getSession().getAttribute("user").toString());
@@ -66,17 +66,28 @@ public class ActController {
 	}
 	
 	@PostMapping(value="/insertJoinAct") //參加活動
-	public void insertJoinController(JoinActBean joinactbean,HttpServletResponse response) throws IOException {
+	public void insertJoinController(JoinActBean joinactbean,HttpServletResponse response,HttpServletRequest request, Integer act_no) throws IOException {
 		
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out= response.getWriter();
 		
-		actservice.insertJoinService(joinactbean);
+		Integer uid = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		
+		actservice.insertJoinService(joinactbean,uid,act_no);
 		out.print("<script>");
 		out.print("window.alert('成功參加活動');window.location.href='../Active/ActIndex.jsp';");
 		out.print("</script>");
 		out.close();
 	}
 	
+//	@RequestMapping(value = "/WhatJoin") //ajax查詢會員參加的活動
+//	@ResponseBody
+//	public List<JoinActBean> ajaxWhatJoin(@RequestParam Integer act_no){
+//		List<JoinActBean> list = new ArrayList<JoinActBean>();
+//		list = actservice.ajaxActService(act_no);
+//		return list;
+//		
+//		
+//	}
 
 }

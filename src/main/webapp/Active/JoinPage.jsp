@@ -85,12 +85,35 @@
 					<input type="hidden" name="join_actnow" id="join_actnow" value="已參加">
 					
 					
+					
+					
+					
+					
+					<p>名字</p>
+					<div>
+					<input type="text" name="name" id="name" readonly="readonly">
+					</div>
 
+					<p>電子郵件</p>
+					<div>
+					<input type="text" name="email" id="email" >
+					</div>
 
+					<p>地址</p>
+					<div>
+					<p>市</p>
+					<input type="text" name="country" id="country" readonly="readonly">
+					<p>區</p>
+					<input type="text" name="district" id="district" readonly="readonly">
+					<p>地址</p>
+					<input type="text" name="address" id="address" >
+					</div>
+					
 
 
 
 				<br> <br> <label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>攜帶寵物種類:</label>
+				
 <!-- 				<div> -->
 <!-- 					<input type="text" name="pettype" id="pettype" maxlength="10" placeholder="輸入寵物種類名稱"> -->
 <!-- 				</div> -->
@@ -155,6 +178,26 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 			});
 			   
 		});
+		
+	$().ready(function(){
+		$.ajax({
+			url:"../Gusty/headercheck",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"user_id" : <%=session.getAttribute("user")%>,                     
+        	},
+			success:function(data){
+				$.each(data,function(i,n){
+					$("#name").val(n.name);
+					$("#email").val(n.email);
+					$("#country").val(n.country);
+					$("#district").val(n.district);
+					$("#address").val(n.address);
+				});
+			}
+		});
+	});
 
 </script>
 

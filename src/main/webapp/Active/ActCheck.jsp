@@ -30,6 +30,7 @@
 	
 	
 </head>
+<jsp:include page="Header.jsp" />
 
 <body>
  
@@ -51,7 +52,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -66,21 +67,20 @@
     <table align="center" class="checktable" style="border: 2px solid black;width: 1500px;">
         <tbody>
         	<tr>
+        	
          		<td class="acstyle" style="width: 500px;">活動名稱</td>
-                <td class="acstyle" style="width: 200px;">活動時間</td>
-                <td class="acstyle" style="width: 590px;">活動簡介</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>
         <c:forEach var="row" items="${rs.rows}">
             <tr>
              <form  action="/jsptest/ActNoJoinServlet"  method="POST">
+             
              <input type="hidden" name="act_no" id="act_no" value="<c:out value="${row.act_no}" />">
              <input type="hidden" name="U_id" id="U_id" value="<%=session.getAttribute("user")%>">
-                <td class="acstyle"><c:out value="${row.act_name}"/></td>
-                <td class="acstyle"><c:out value="${row.act_time}"/></td>
-                <td class="acstyle"><c:out value="${row.act_content}"/></td>
-                <td class="acstyle"><c:out value="${row.join_actnow}"/></td>
+
+                <td class="acstyle"><c:out value="${row.act_name}"/></td> 	<!--活動名稱 -->
+                <td class="acstyle"><c:out value="${row.join_actnow}"/></td>	<!--參加狀況 -->
                 <td class="acstyle"><button type="submit" id="BtnSend" value="cancelbt">取消參加</button></td>
                
              </form>   

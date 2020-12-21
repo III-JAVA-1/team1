@@ -7,4 +7,5 @@ public class OrderAddReqDTO {
     private String id;
     private String address;
     private String remarks;
+    private Integer payType;
 }

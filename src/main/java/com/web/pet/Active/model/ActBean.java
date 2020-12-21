@@ -37,6 +37,7 @@ import lombok.Setter;
 @Table(name = "Active2")
 public class ActBean {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer act_no;
@@ -54,12 +55,12 @@ public class ActBean {
 	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="u_Id")
+	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")
 	private Member member;
 	
 	@OneToMany(mappedBy = "actBean",fetch = FetchType.LAZY)	
-	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>();
+	private Set<JoinActBean> joinActBeans = new LinkedHashSet<>(0);
 
 	@Override
 	public String toString() {
@@ -85,6 +86,11 @@ public class ActBean {
 		builder.append("]");
 		return builder.toString();
 	}
+
+
+
+
+
 
 
 	

@@ -36,7 +36,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -53,7 +53,7 @@
 			
 			<td width="350"><p align="left"/>
                 <a href='ActAll.jsp'>活動一覽(已可瀏覽活動詳情&參加活動)</a><BR>
-                <a href='ActNew.jsp'>新增活動</a><BR>
+                <a href='ActNew.jsp' onclick="return gogo()">新增活動</a><BR>
             </td>
 		</tr>
 	</table>

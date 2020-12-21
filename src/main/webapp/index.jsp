@@ -44,7 +44,15 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                    	<a class="nav-link" href="Store/">毛孩商城</a>
+						<%
+							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
+								out.print("<a class=\"nav-link\" href=\"Store/\">毛孩商城</a>");
+							} else {
+								out.print("<a class=\"nav-link\" href=\"Store/?memberId="
+										+ session.getAttribute("user")
+										+ "\">毛孩商城</a>");
+							}
+						%>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物保姆</a>

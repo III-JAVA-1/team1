@@ -65,10 +65,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
-  					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
+  					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商品評價</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -77,33 +78,26 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<div class="col-9">
   			
   			<div class="row justify-content-center">
-    			<div class="display-4">我的收藏</div>
+    			<div class="display-4">商品評價</div>
   			</div><br>
   			
-  			<div class="row justify-content-center">
-  			<ul class="nav nav-tabs">
-  				<li class="nav-item">
-    				<a class="nav-link h3 active" aria-current="page" href="#" id="store" onclick="store(this); return false;">商品</a>
-  				</li>
-  				<li class="nav-item">
-    				<a class="nav-link h3" href="#" onclick="forum(this); return false;" id="forum">文章</a>
-  				</li>
-			</ul>
-			</div><br>
-  			
-  			<div class="row justify-content-start" id="favorite">
-  			
-<!--   			<div class="card col-4" style="width: 18rem;"> -->
-<!--   				<img src="image/title.png" class="card-img-top" alt="..."> -->
-<!--   				<div class="card-body"> -->
-<!--     				<p class="card-text">ake up the bulk of the card's content.</p> -->
-<!--   				</div> -->
-<!-- 			</div> -->
-			
+  			<div class="row justify-content-start" >
+			<table class="table table-hover table-bordered ">
+  				<thead class="h4" style="background-color:#28FF28;">
+    				<tr>
+      					<th scope="col">商品名稱</th>
+      					<th scope="col">評價等級</th>
+      					<th scope="col">評價內容</th>
+      					<th scope="col">評價日期</th>
+    				</tr>
+  				</thead>
+  				<tbody id="ratetable" class="h5">
+  				</tbody>
+  			</table>
 			</div>
 			
-			<div class="d-flex justify-content-center" >
-			<div class="h4" id="favorite2"></div>
+			<div class="d-flex justify-content-center">
+			<div class="h4" id="tip"></div>
 			</div>
 			
   			</div>
@@ -143,10 +137,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
-    
-    var name;
+    var testid;
     $.ajax({
-		url:"../Gusty/favoritestore",
+		url:"../Gusty/shoprate",
 		type:"post",
 		//async : false,//要賦值給全域變數要改false
 		dataType:"json",
@@ -155,65 +148,37 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         },
 		success:function(data){
 			$.each(data,function(i,n){
-				if(i==0||n[0]!=name){
-					$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
-			  				"<img src='"+n[1]+"' class='card-img-top' alt=''>"+
-			  				"<div class='card-body'>"+
-			    				"<a href='<c:url value='../Store/productDetail?id="+n[2]+"&memberId="+n[3]+"'/>'><p class='card-text'>"+n[0]+"</p></a>"+
-			  				"</div>"+
-						"</div>");
-					name=n[0];
+				testid=_uuid();
+				$("#ratetable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
+			   			"<td id='"+testid+"'></td>"+
+			   			"<td>"+n[2]+"</td>"+
+			   			"<td>"+n[3]+"</td></tr>");
+				for(let i=0;i<5;i=i+1){
+					if(i<n[1]){
+						$("#"+testid+"").append("★");
+					}else{
+						$("#"+testid+"").append("☆");
+					}
 				}
 				
 			});
 		},
 		error:function(){
-			$("#favorite2").html("沒有收藏商品");
+			$("#tip").html("沒有評價商品");
 		}
 	});
     
-    function forum(){
-    	$("#favorite").html("");
-    	$("#favorite2").html("");
-    	$("#store").removeClass("active");
-    	$("#forum").addClass("active");
-    	$("#favorite2").html("沒有收藏文章");
-    	return false;
-    }
-    
-    function store(){
-    	$("#favorite").html("");
-    	$("#favorite2").html("");
-    	$("#forum").removeClass("active");
-    	$("#store").addClass("active");
-    	 $.ajax({
-    			url:"../Gusty/favoritestore",
-    			type:"post",
-    			//async : false,//要賦值給全域變數要改false
-    			dataType:"json",
-    			data : { 
-    				"user_id" : <%=session.getAttribute("user")%>,
-    	        },
-    			success:function(data){
-    				$.each(data,function(i,n){
-    					if(i==0||n[0]!=name){
-    						$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
-    				  				"<img src='"+n[1]+"' class='card-img-top' alt=''>"+
-    				  				"<div class='card-body'>"+
-    				    				"<a href='store?product_id='"+n[2]+"><p class='card-text'>"+n[0]+"</p></a>"+
-    				  				"</div>"+
-    							"</div>");
-    						name=n[0];
-    					}
-    					
-    				});
-    			},
-    			error:function(){
-    				$("#favorite2").html("沒有收藏商品");
-    			}
-    		});
-    	return false;
-    }
+    function _uuid() {//產生UUID 因為如果一個商品留言2次ID會重複
+    	  var d = Date.now();
+    	  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+    	    d += performance.now(); //use high-precision timer if available
+    	  }
+    	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    	    var r = (d + Math.random() * 16) % 16 | 0;
+    	    d = Math.floor(d / 16);
+    	      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    	  });
+    	}
     
 	</script>
 

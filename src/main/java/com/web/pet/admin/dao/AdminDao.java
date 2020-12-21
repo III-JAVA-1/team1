@@ -18,21 +18,12 @@ public class AdminDao {
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
-	public List<Member> membernamesearchDao(String user_name,Integer page){//admin member依名字查詢
+	public List<Member> membernamesearchDao(String user_name){//admin member依名字查詢
 		List<Member> list = new ArrayList<Member>();
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
 		String hql = "FROM Member where name like '%"+user_name+"%'";
-		query= session.createQuery(hql).setFirstResult(0).setMaxResults(10);
-		if(page!=null) {
-			if(page==1) {query= session.createQuery(hql).setFirstResult(0).setMaxResults(10);}
-			if(page==2) {query= session.createQuery(hql).setFirstResult(10).setMaxResults(20);}
-			if(page==3) {query= session.createQuery(hql).setFirstResult(20).setMaxResults(30);}
-			if(page==4) {query= session.createQuery(hql).setFirstResult(30).setMaxResults(40);}
-		} else {
-			query= session.createQuery(hql).setFirstResult(0).setMaxResults(10);
-		}
-		
+		query= session.createQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;

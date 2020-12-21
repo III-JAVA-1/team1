@@ -80,10 +80,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
-  					<a href="shoporder.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商城訂單紀錄</a>
+  					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
-  					<a href="favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
+  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -93,10 +94,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			
   			<div class="row justify-content-center">
     			<div class="display-4">訂單查詢</div>
-  			</div><br>
-  			
-  			<div class="row justify-content-center">
-    			<div class="h4" id="result">每頁顯示10筆資料，目前在第1頁</div>
   			</div><br>
   			
   			<div class="row justify-content-start">
@@ -219,11 +216,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     $("#queue").change(function(){
     	$("#ordertable").html("");
-    	//console.log("aaaa");
     	$.ajax({
     		url:"../Gusty/shoporder",
     		type:"post",
-    		//async : false,//要賦值給全域變數要改false
     		dataType:"json",
     		data : { 
     			"user_id" : <%=session.getAttribute("user")%>,
@@ -319,16 +314,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			    				"<td>"+n[6]+"</td>"+
     			    				"<td>"+n[7]+"</td></tr></tbody></table>");
     				}
-    				$("#result").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
     			});
     		},
     		error:function(){
     			$("#result").html("");
     			$("#ordertable").append("<div class='row justify-content-center h3'>該分頁沒有資料</div>");
     		}
-    		
     	});
-    	
     }
     
 	</script>

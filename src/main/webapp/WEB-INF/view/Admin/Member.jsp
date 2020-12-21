@@ -194,7 +194,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						return;
 					}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n.name+"</td>"
 							+"<td>"+n.phone+"</td>"
 							+"<td>"+n.email+"</td>"
@@ -235,7 +235,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					return;
 				}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n.name+"</td>"
 							+"<td>"+n.phone+"</td>"
 							+"<td>"+n.email+"</td>"
@@ -272,7 +272,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					$.each(data,function(i,n){
 						if(i>$(item).val()*10-10-1&&i<$(item).val()*10){
 							$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
 									+"<td>"+n.name+"</td>"
 									+"<td>"+n.phone+"</td>"
 									+"<td>"+n.email+"</td>"
@@ -285,7 +285,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					$.each(data,function(i,n){
 						if(i<10){
 							$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
 									+"<td>"+n.name+"</td>"
 									+"<td>"+n.phone+"</td>"
 									+"<td>"+n.email+"</td>"
@@ -296,10 +296,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					});
 				}
 			
-			},
-            error:function(){
-            	$("#tip").html("此分頁沒有資料");
-            }
+			}
 		});
 	}
 		
@@ -349,6 +346,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
+    
+    function imgDisplay(substitle){
+    	$(substitle).attr('src', '../Member/image/user.png');
+    }
+    
 	</script>
 
 </body>

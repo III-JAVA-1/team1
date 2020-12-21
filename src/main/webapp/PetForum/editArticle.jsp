@@ -12,16 +12,16 @@
         
     <title>發表新文章</title>
     <link rel="stylesheet" type="text/css" href="css/forEditArticle.css">
-    
+ <c:url value=''/>   
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
 </head>
 <body>        
- <!-- 發送/petforum/previewPost請求 -->
+ <!-- 發送/petforum/insertPost請求 -->
     <h2 class="h2">發表文章</h2>   
-<form:form action="previewPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
+<form:form action="insertPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 	
 	<div class="control">
 	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
@@ -58,7 +58,7 @@
 	
 	<div class="control">
 	<div contentEditable="true" id="iframe" name="content" path="content">
-    <img id="preview_img" src="#" width="700px" style="display:visibility"/><br/>
+    <img id="preview_img" src="#" width="600px" style="display:visibility"/><br/>
     <label for="textarea" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
     <form:textarea id="textarea" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
 	onkeyup='return countChar()'/>
@@ -75,6 +75,9 @@
 </form:form>  
 
     <script>
+    //禁止回上一頁
+    window.history.forward(1);
+    
     //即時預覽上傳圖片    
     $("#picUpload").change(function(){
       //當檔案改變後，做一些事 

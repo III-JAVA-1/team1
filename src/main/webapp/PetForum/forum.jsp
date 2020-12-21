@@ -166,10 +166,12 @@
                     <span><a href="#">20</a></span> 
                 </div>
             </div> 
-
+		  <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
             <div class="db_line1_release">
-                <span class="db_line1_release_span"><a href=" <c:url value='/petforum/newArticle'/>">我要發佈</a></span>
+                <button type="submit" class="btn btn-primary" id="ckRelease">我要發表</button>            
             </div>
+          </form>
+            
 <!--end of pagination-->
 
 
@@ -303,8 +305,13 @@
 	}
 		
 		//==================================================================
-			
-		
+		//沒登入不能發表	
+		function loginStatus(){
+    		<% if(session.getAttribute("user") == null){%>
+    		window.alert("請登入！");
+    		return false;
+    		<%}else{%>return true;<%}%>
+    	}
  	</script>
   </body>
 </html>

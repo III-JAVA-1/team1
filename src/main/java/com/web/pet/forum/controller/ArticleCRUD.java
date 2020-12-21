@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +40,9 @@ import com.web.pet.util.BlobToByteArray;
 public class ArticleCRUD{
 	
 	@Autowired
-	ArticleService service;
-	
+	ArticleService service;	
 	@Autowired
 	MemberService memberService;
-
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
@@ -78,14 +77,14 @@ public class ArticleCRUD{
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
 	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
 		if(posterUid == null) {return null;}
-		//System.out.println("===="+posterUid);		
+			
 		Article article = service.getArticle(posterUid);		
 		return article;
 	}
 	
 	
 	@RequestMapping(value="/getMemberImg")//postDetail.jsp秀出會員圖片
-	public ResponseEntity<byte[]> getPicture(@RequestParam Integer u_Id) {
+	public ResponseEntity<byte[]> getAvatar(@RequestParam Integer u_Id) {
 		byte[] body = null;
 		ResponseEntity<byte[]> resp = null;
 		HttpHeaders headers = new HttpHeaders();
@@ -101,7 +100,7 @@ public class ArticleCRUD{
 		}	
 	}
 	
-	@GetMapping("/newArticle")//準備發表新文章
+	@RequestMapping("/newArticle")//準備發表新文章
 	public ModelAndView newPost() {
 		
 		ModelAndView mv = new ModelAndView();
@@ -110,83 +109,6 @@ public class ArticleCRUD{
 		
 		return mv;
 	}
-	
-	@RequestMapping("/previewPost")//預覽文章(資料來自前端)
-	public ModelAndView previewPost(
-			@RequestParam(value="posterUid", required = false) Integer posterUid,
-			Article article,
-			@RequestParam(value = "image", required=false) MultipartFile image,  
-            HttpServletRequest request,
-            HttpServletResponse response
-            ) throws IOException{		
-		
-//		System.out.println(article.getMember().getU_Id());
-		
-		Integer id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-		if (image != null && !image.isEmpty()) {
-			try {
-				byte[] b = image.getBytes();
-				Blob blob = new SerialBlob(b);
-				article.setPic(blob);
-				
-				service.saveArticle(article,id);//insertArticle
-				System.out.println("預覽成功......");
-					
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}		
-		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("articleModel", article);		
-		mv.setViewName("forward:/PetForum/preview.jsp");
-		
-		return mv;
-	}
-	
-	@RequestMapping("/modify")//準備修改文章
-	public ModelAndView editPost(Integer posterUid) {
-		
-		Article article = service.getArticle(posterUid);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("articleModel", article);	
-		mv.setViewName("forward:/PetForum/edit.jsp");
-	
-		return mv;
-	}
-	
-	
-	
-//	@RequestMapping("/commitEdit")
-//	public String commitEdit(
-//			@RequestParam("preview")String preview,
-//			Article article,
-//			HttpServletResponse response) throws IOException {
-//			PrintWriter out = response.getWriter();
-//		
-//			if("確定修改".equals(preview)) {
-//				int count = service.saveArticle(article);				
-//				if(count > 0) {					
-//					out.print("<script>");
-//					out.print("window.alert('文章修改成功');");
-//					out.print("</script>");
-//					}
-//			}
-//			else if("新增".equals(preview)) {
-//				int count = service.saveArticle(article);
-//				if(count > 0) {					
-//					out.print("<script>");
-//					out.print("window.alert('文章新增成功');");
-//					out.print("</script>");
-//					}
-//			}		
-//		
-//		return "redirect:/PetForum/lookforPet.jsp";
-//	}
-	
-	
 	
 	
  }

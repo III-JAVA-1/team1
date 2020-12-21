@@ -24,8 +24,8 @@
     <!-- 發送petforum/commitEdit請求 -->
 <form:form action="commitEdit"  method="POST" modelAttribute="articleModel"> 
                                                                                  
-	<div>
-    <p>文章標題：<c:out value="${articleModel.getHeader()}"></c:out></p>
+	<div id="article">
+    <p>文章標題：<c:out value="${articleModel.getHeader()}"/></p>
     <form:hidden name="header" path="header"/>    
     </div>
     <div>
@@ -43,18 +43,51 @@
       <form:hidden name="posterUid" path="posterUid"/>     
     </p></div>
   
-  
+ 
     <c:choose>
-    	<c:when test="${articleModel.getPosterUid() == null}">
+    	<c:when test="${editStatus.equals('新增')}">
     		<input type='submit' class='rightBtn' value='新增'  name='preview'>
-    		<input class="rightBtn" type="button" value="取消發布" id="cancel" onclick="location.href='editArticle.jsp'">	
+    		<input class="rightBtn" type='submit' value="取消發佈" name='preview'>	
     	</c:when>
     	<c:otherwise>    	  
     		<input type='submit' class='rightBtn' value='確定修改'  name='preview'>
-    		<input class="rightBtn" type="button" value="取消發布" id="cancel" onclick="location.href='edit.jsp?posterUid=${articleModel.getPosterUid()}'">
+    		<input class="rightBtn" type='submit' value="取消修改" name='preview' onclick="location.href='edit.jsp?posterUid=${articleModel.getPosterUid()}'">
     	</c:otherwise>
-    </c:choose>
-    
+    </c:choose>  
 </form:form>
+
+<script>
+		
+		//網頁ready文檔加載完就做
+		//網頁onload全部加載完成才做(音樂、圖片) 				
+		
+		$.ajax({
+			url:"../petforum/showAtPreview",//此請求回傳的資料不會用到
+			type:"POST",		
+			dataType:"json",
+			data:{
+				"posterUid":"${articleModel.getPosterUid()}",				
+			},
+			success:function(data){	
+				console.log(data.posterUid);
+					$("#article").append(
+							"<img id='imgshow' src='<c:url value='/petforum/getPetPic?posterUid="+data.posterUid+"'/>'"+
+							" style='width: 600px'  onerror='imgDisplay(this)'>");
+			},
+			error:function(){
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+			}
+		})
+		
+		 function imgDisplay(noUpload) 
+		  { 
+		 	$(noUpload).attr("src","image/mask_dog.png");
+		  } 
+		
+		
+	</script>
+
+
+
 </body>
 </html>

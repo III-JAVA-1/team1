@@ -103,6 +103,15 @@
                         </div>                       
                     </div>
                 </div>
+          <c:if test="${session.getAttribute('user')!=null && session.getAttribute('user')}">     
+          <form action="<c:url value='/petforum/modifyPost'/>" method="POST" onsubmit="return checkU_IdStatus()">
+            <div class="db_line1_release">
+                <button type="submit" class="btn btn-primary" id="ckRelease">我要修改</button>            
+            </div>
+          </form>
+          </c:if> 
+          
+          
                 <hr/>    
 <!--end of Aticle-->
 
@@ -207,11 +216,10 @@
 		
 		$.ajax({
 			url:"../petforum/viewPost",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
-				"posterUid":<%=request.getParameter("posterUid")%>,
-				"u_Id":<%=request.getParameter("u_Id")%>
+				"posterUid":<%=request.getParameter("posterUid")%>,				
 			},
 			success:function(data){	
 					console.log(data.member.u_Id);
@@ -232,7 +240,7 @@
 					
 					//顯示會員相關信息(顯示會員圖片發送另一個請求)
 					$("#member").append("<div class='article_left_img'>"+
-					"<img  id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data.member.u_Id+"'/>'"+
+					"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data.member.u_Id+"'/>'"+
 					" style='border: 1px solid #666;border-radius: 15px;width: 150px;height: 150px;'  onerror='imgDisplay(this)'>"+
 					"</div>"+
 					"<div class='article_left_a'>"+
@@ -265,15 +273,17 @@
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
-			}
+			}			
+			
 		})
 		
-		
+		//	若會員沒上傳頭像，則顯示預設圖片
 		 function imgDisplay(noUpload) 
 		  { 
 		 	$(noUpload).attr("src","image/mask_dog.png");
 		  } 
 		
+
 	</script>
   </body>
 </html>

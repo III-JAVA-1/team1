@@ -23,11 +23,13 @@ public class ArticleDao {
 	private SessionFactory sessionFactory;	
 	
 	
-	public int saveArticle(Article article,Integer id) {
+	public int saveArticle(Article article,Integer u_id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
-		//session.get(Member.class,1);
-		article.setMember(session.get(Member.class,id));
+		//Article表與Member表關聯，是透過member這個屬性欄位，
+		//所以可以透過Controller在session取得Member表的主鍵
+		//獲取特定的Member紀錄
+		article.setMember(session.get(Member.class,u_id));
 		session.save(article);
 		count++;
 		return count;
@@ -102,6 +104,14 @@ public class ArticleDao {
 		int count =0;
 		Session session = sessionFactory.getCurrentSession();
 		session.merge(article);
+		count++;
+		return count;
+	}
+	
+	public int deleteArticle(Article article) { //刪除文章
+		int count =0;
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(article);
 		count++;
 		return count;
 	}

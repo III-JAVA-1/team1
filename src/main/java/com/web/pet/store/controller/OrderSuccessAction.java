@@ -27,14 +27,28 @@ public class OrderSuccessAction {
         try (DbUtils dbu = new DbUtils()) {
             // 查備註跟地址
             String sql =
-                    "SELECT address, remarks FROM [order]\n"
+                    "SELECT address, remarks, pay_type, cost FROM [order]\n"
                             + "WHERE order_id = ? AND customer_id = ?\n";
             // 取得查詢結果
             ResultSet resultSet = dbu.queryList(sql, orderId, id);
+            int orderTotalPrice = 0;
             if (resultSet.next()) {
                 // 將取得結果傳回jsp的${}
                 model.addAttribute("address", resultSet.getString(1));
                 model.addAttribute("remarks", resultSet.getString(2));
+                switch (resultSet.getInt(3)) {
+                    case 0:
+                        // 信用卡
+                        model.addAttribute("shipping", "60");
+                        model.addAttribute("payType", "信用卡");
+                        break;
+                    case 1:
+                        // 貨到付款
+                        model.addAttribute("shipping", "65");
+                        model.addAttribute("payType", "貨到付款");
+                        break;
+                }
+                orderTotalPrice = resultSet.getInt(4);
             }
             resultSet.close();
 
@@ -49,7 +63,7 @@ public class OrderSuccessAction {
             // 初始化要裝購買項目的HTML
             StringBuilder stringBuilder = new StringBuilder();
             // 初始化總金額為0
-            int orderTotalPrice = 0;
+            int orderPrice = 0;
 
             // 拆解查詢結果
             while (resultSet.next()) {
@@ -61,7 +75,7 @@ public class OrderSuccessAction {
                 // 計算單一商品金額
                 int total = price * quantity;
                 // 計算所有商品總金額
-                orderTotalPrice += total;
+                orderPrice += total;
                 // 組出購買項目HTML
                 stringBuilder
                         .append("<tr>\n")
@@ -71,13 +85,13 @@ public class OrderSuccessAction {
                         .append("<td style=\"vertical-align:middle\">")
                         .append(productName)
                         .append("</td>\n")
-                        .append("<td style=\"vertical-align:middle\">$")
+                        .append("<td style=\"vertical-align:middle\" class=\"item-count\">$")
                         .append(price)
                         .append("</td>\n")
-                        .append("<td style=\"vertical-align:middle\">")
+                        .append("<td style=\"vertical-align:middle\" class=\"item-count\">")
                         .append(quantity)
                         .append("</td>\n")
-                        .append("<td style=\"vertical-align:middle\">$")
+                        .append("<td style=\"vertical-align:middle\" class=\"item-count\">$")
                         .append(total)
                         .append("</td>\n")
                         .append("</tr>");
@@ -87,6 +101,7 @@ public class OrderSuccessAction {
 
             // 把值傳回jsp , stringBuilder是字串組合器, 把裡面的東西轉成字串給jsp顯示
             model.addAttribute("orderItem", stringBuilder.toString());
+            model.addAttribute("orderPrice", orderPrice);
             model.addAttribute("orderTotalPrice", orderTotalPrice);
 
         } catch (SQLException e) {

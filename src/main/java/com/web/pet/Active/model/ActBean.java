@@ -54,6 +54,11 @@ public class ActBean {
 	private String act_orgphone;
 	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
+	@Column(name = "NewActNow", columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String NewActNow;
+	@Column(name = "act_where", columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String act_where;
+	private Integer viableNumber;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
 	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")
@@ -83,9 +88,17 @@ public class ActBean {
 		builder.append(act_orgphone);
 		builder.append(", act_type=");
 		builder.append(act_type);
+		builder.append(", NewActNow=");
+		builder.append(NewActNow);
+		builder.append(", viableNumber=");
+		builder.append(viableNumber);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+
+	
 
 
 

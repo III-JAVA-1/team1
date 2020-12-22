@@ -80,14 +80,20 @@ public class ActController {
 		out.close();
 	}
 	
-//	@RequestMapping(value = "/WhatJoin") //ajax查詢會員參加的活動
-//	@ResponseBody
-//	public List<JoinActBean> ajaxWhatJoin(@RequestParam Integer act_no){
-//		List<JoinActBean> list = new ArrayList<JoinActBean>();
-//		list = actservice.ajaxActService(act_no);
-//		return list;
-//		
-//		
-//	}
+	@RequestMapping(value = "/WhatJoin") //ajax查詢會員參加的活動
+	@ResponseBody
+	public List<JoinActBean> ajaxWhatJoin(@RequestParam Integer u_Id){
+//		System.out.println("user"+u_Id);
+		List<JoinActBean> list = new ArrayList<JoinActBean>();
+		list = actservice.ajaxWhatJoinService(u_Id);
+		return list;		
+	}
+	
+	@RequestMapping(value = "/NoJoin") //取消參加
+	public void NoJoin(JoinActBean joinActBean,HttpServletResponse response,@RequestParam Integer jid) throws IOException {
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();
+	}
+	
 
 }

@@ -51,5 +51,11 @@ public class ActService {
 		
 	}
 	
+	//ajax查詢會員參加的活動
+	public List<JoinActBean> ajaxWhatJoinService(Integer u_Id) {
+		// TODO Auto-generated method stub
+		return actDao.ajaxWhatJoinDao(u_Id);
+	}
+	
 	
 }

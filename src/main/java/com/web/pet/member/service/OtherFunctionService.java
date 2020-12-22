@@ -27,5 +27,10 @@ public class OtherFunctionService {
 		
 		return otherFunctionDao.shopfavorite(user_id);
 	}
+	
+	public List<Object[]> shoprateService(String user_id){//會員頁面秀出商品評價
+		
+		return otherFunctionDao.shoprateDao(user_id);
+	}
 
 }

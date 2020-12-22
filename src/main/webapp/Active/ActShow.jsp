@@ -158,7 +158,7 @@
     				$.each(data,function(i,n){
     					
     					$("#act_name").html(n.act_name);
-    					$("#act_time").html(n.starttime+" ~ "+n.endtime);
+    					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
     					$("#act_org").html(n.act_organize);
     					$("#act_orgman").html(n.act_orgman);

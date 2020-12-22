@@ -45,9 +45,9 @@ public class ActService {
 	}
 
 	//參加活動
-	public void insertJoinService(JoinActBean joinactbean) {
+	public void insertJoinService(JoinActBean joinactbean,Integer uid,Integer act_no) {
 		// TODO Auto-generated method stub
-		actDao.insertJoinDao(joinactbean);
+		actDao.insertJoinDao(joinactbean, uid, act_no);
 		
 	}
 	

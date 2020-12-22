@@ -15,7 +15,7 @@ public class AioCheckOutDTO {
 	/**
 	 * MerchantTradeNo
 	 * 合作特店交易編號(由合作特店提供)，該交易編號不可重複
-	 * limit 20(KT861訂單編號+流水號)
+	 * limit 20(訂單編號+流水號)
 	 */
 	private String MerchantTradeNo = "";
 	

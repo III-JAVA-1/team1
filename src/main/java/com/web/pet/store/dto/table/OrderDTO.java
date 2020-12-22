@@ -10,11 +10,12 @@ import java.util.Date;
  */
 @Data
 public class OrderDTO {
-    private int orderId;
+    private Integer orderId;
     private Date date;
     private String customerId;
-    private int cost;
-    private int orderStatus;
+    private Integer cost;
+    private Integer orderStatus;
     private String address;
     private String remarks;
+    private Integer ecpNo;
 }

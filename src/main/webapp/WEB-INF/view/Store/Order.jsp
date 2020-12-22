@@ -40,27 +40,55 @@
                 </p>
             </div>
         </div>
-        <p class="p1">訂單金額:$${orderTotalPrice}</p>
-        <div class="btn1">
-            <button type="submit" class="btn btn-primary" onsubmit="return false" onclick="return doOrder()">下訂單</button>
-        </div>
     </form>
 </div>
 
-<%--<div class="paytotle">--%>
-<%--    <p class="p2">付款方式--%>
-<%--        <button type="button" class="btn btn-outline-warning">貨到付款</button>--%>
-<%--    </p>--%>
-<%--    <hr>--%>
-<%--    <p class="p1">商品總金額: $xxx</p>--%>
-<%--    <p class="p1">運費總金額: $xx</p>--%>
-<%--    <p class="p1">總付款金額: $xxx</p>--%>
-<%--    <hr>--%>
-<%--</div>--%>
+<div id="payTotal" class="payTotal">
+    <p class="p2">付款方式
+        <button id="creditCardBtn" type="button" onclick="setPayType(0)" class="btn btn-outline-warning active">信用卡</button>
+        <button id="deliveryPayBtn" type="button" onclick="setPayType(1)" class="btn btn-outline-warning">貨到付款</button>
+    </p>
+
+    <hr>
+    <div class="btnborder">
+        <p class="p1">商品總金額: $${orderTotalPrice}</p>
+        <p id="shippingPrice" class="p1">運費總金額: $xx</p>
+        <p id="totalPrice" class="p1">總付款金額: $xxx</p>
+
+    </div>
+    <hr>
+    <div class="btn1 btnborder">
+        <button id="submitBtn" type="button" class="btn btn-primary" onclick="return doOrder()">下訂單</button>
+    </div>
+</div>
 
 <script>
 
     let memberId = "${memberId}";
+    let orderPrice = ${orderTotalPrice};
+    let payType = 0;
+
+    function setPayType(i) {
+        let creditCardBtn = document.getElementById("creditCardBtn");
+        let deliveryPayBtn = document.getElementById("deliveryPayBtn");
+        let shippingPrice = document.getElementById("shippingPrice");
+        let totalPrice = document.getElementById("totalPrice");
+
+        if (i === 0) {
+            payType = 0;
+            creditCardBtn.classList.add("active");
+            deliveryPayBtn.classList.remove("active");
+            shippingPrice.innerHTML="運費總金額: $60"
+            totalPrice.innerHTML= "總付款金額: $" + (orderPrice + 60);
+        } else if (i === 1) {
+            payType = 1;
+            deliveryPayBtn.classList.add("active");
+            creditCardBtn.classList.remove("active");
+            shippingPrice.innerHTML="運費總金額: $65"
+            totalPrice.innerHTML= "總付款金額: $" + (orderPrice + 65);
+        }
+    }
+    setPayType(0);
 
     /**
      * 生成訂單
@@ -75,12 +103,14 @@
         //取得輸入框的值並且判斷為空值
         if (address.value === "") {
             // 地址為空
+            alert("地址不可為空")
             return true;
         }
         let req = JSON.stringify({
             "id": memberId,
             "address": address.value,
-            "remarks": remarks.value
+            "remarks": remarks.value,
+            "payType": payType
         });
 
         // 跟server post傳輸
@@ -92,8 +122,12 @@
             contentType: "application/json",
             success: function (res) {
                 if (res.success) {
-                    goSuccess(res.orderId);
-                }else{
+                    if(payType === 0) {
+                        $("#payTotal").append(res.ecpHtml);
+                    } else if (payType === 1) {
+                        goSuccess(res.orderId);
+                    }
+                } else {
                     alert('生成訂單錯誤');
                 }
             },
@@ -108,7 +142,7 @@
      * 跳轉至成功畫面
      */
     function goSuccess(orderId) {
-        window.location.href = "orderSuccess?memberId=" + memberId + "&orderId="+ orderId;
+        window.location.href = "orderSuccess?memberId=" + memberId + "&orderId=" + orderId;
     }
 
 </script>

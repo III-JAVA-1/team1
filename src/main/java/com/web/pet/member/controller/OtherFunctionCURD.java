@@ -31,5 +31,11 @@ public class OtherFunctionCURD {
 	public List<Object[]> favoritestoreController(String user_id) {
 		return otherFunctionService.favoritestoreService(user_id);
 	}
+	
+	@RequestMapping("/shoprate")//會員頁面秀出收藏商品
+	@ResponseBody
+	public List<Object[]> shoprateController(String user_id) {
+		return otherFunctionService.shoprateService(user_id);
+	}
 
 }

@@ -5,9 +5,14 @@ import com.web.pet.store.dao.OrderItemDAO;
 import com.web.pet.store.dao.ShoppingCartDAO;
 import com.web.pet.store.dto.api.OrderAddReqDTO;
 import com.web.pet.store.dto.api.OrderAddResDTO;
+import com.web.pet.store.dto.ecpay.AioCheckOutDTO;
 import com.web.pet.store.dto.table.OrderDTO;
 import com.web.pet.store.dto.table.OrderItemDTO;
+import com.web.pet.store.service.ControlValue;
+import com.web.pet.store.service.EcpayService;
+import com.web.pet.type.OrderPayType;
 import com.web.pet.util.DbUtils;
+import com.web.pet.util.EcpayUtils;
 import com.web.pet.util.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,11 +20,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 
 /** 後端傳輸範例，可以是使用需求複製貼上後修改 */
 @EnableWebMvc
@@ -60,7 +66,7 @@ public class OrderAction {
                 // 累加至總金額
                 orderTotalPrice += total;
                 String img = resultSet.getString(6);
-                //沒圖片換預設圖
+                // 沒圖片換預設圖
                 img = img.isEmpty() ? "Store/images/no_picture.gif" : img;
                 // 組出購買項目HTML
                 stringBuilder
@@ -97,12 +103,12 @@ public class OrderAction {
 
     /**
      * 新增訂單
+     *
      * @param req 新增訂單要的資訊
      * @return 成功與否
      */
     @PostMapping("/order/add")
-    public @ResponseBody
-    OrderAddResDTO add(@RequestBody OrderAddReqDTO req) {
+    public @ResponseBody OrderAddResDTO add(@RequestBody OrderAddReqDTO req) {
         OrderAddResDTO res = new OrderAddResDTO();
 
         try (DbUtils dbu = new DbUtils()) {
@@ -120,7 +126,7 @@ public class OrderAction {
             // 初始化購買明細陣列
             List<OrderItemDTO> orderItemList = new ArrayList<>();
             // 拆解資料庫資料
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 //  初始化購買明細項目
                 OrderItemDTO orderItem = new OrderItemDTO();
                 orderItem.setProductId(resultSet.getInt(1));
@@ -131,6 +137,18 @@ public class OrderAction {
                 orderItemList.add(orderItem);
             }
             resultSet.close();
+
+            switch (req.getPayType()) {
+                case 0:
+                    totalCost += 60;
+                    orderDTO.setEcpNo(1);
+                    break;
+                case 1:
+                    totalCost += 65;
+                    break;
+                default:
+                    return res;
+            }
 
             // 設定訂單資料
             orderDTO.setCustomerId(req.getId());
@@ -143,7 +161,7 @@ public class OrderAction {
             int orderId = OrderDAO.insert(dbu, orderDTO);
 
             // 拆解訂單明細陣列
-            for (OrderItemDTO orderItem: orderItemList) {
+            for (OrderItemDTO orderItem : orderItemList) {
                 // 將訂單id給明細
                 orderItem.setOrderId(orderId);
                 // 執行儲存訂單明細
@@ -153,10 +171,34 @@ public class OrderAction {
             // 清除購物車已購買項目
             ShoppingCartDAO.deleteBought(dbu, req.getId());
 
+            // 執行ecpay
+            if (req.getPayType() == 0) {
+                AioCheckOutDTO aioDTO = new AioCheckOutDTO();
+                aioDTO.setMerchantTradeNo(String.valueOf(orderId) + 1);
+                aioDTO.setMerchantTradeDate(EcpayUtils.ecpayDateFormat(new Date()));
+                aioDTO.setTotalAmount(String.valueOf(totalCost));
+                aioDTO.setTradeDesc("毛孩商城");
+                aioDTO.setItemName("寵物用品");
+                // FIXME: 之後架到雲端可以更改路徑
+                aioDTO.setReturnURL("http://localhost:8090/test/");
+                aioDTO.setChoosePayment(OrderPayType.CREDIT_CARD.getEcpCode());
+                String backUrl =
+                        ControlValue.SERVER_URL
+                                + "orderSuccess?memberId="
+                                + req.getId()
+                                + "&orderId="
+                                + orderId;
+                aioDTO.setClientBackURL(backUrl);
+                aioDTO.setNeedExtraPaidInfo("N");
+
+                EcpayService ecpayService = new EcpayService(true);
+                res.setEcpHtml(ecpayService.genAioCheckOut(aioDTO, null));
+            }
+
             dbu.doCommit();
             res.setSuccess(true);
             res.setOrderId(String.valueOf(orderId));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             log.error(ExceptionUtils.getErrorDetail(e));
         }
 

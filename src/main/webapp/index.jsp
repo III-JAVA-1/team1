@@ -61,7 +61,7 @@
                         <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物店家</a>
+                        <a class="nav-link" href="Petshop/mainshop.jsp">寵物店家</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a>

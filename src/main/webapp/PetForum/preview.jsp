@@ -42,18 +42,11 @@
       <form:hidden name="content" path="content"/>
       <form:hidden name="posterUid" path="posterUid"/>     
     </p></div>
-  
- 
-    <c:choose>
-    	<c:when test="${editStatus.equals('新增')}">
-    		<input type='submit' class='rightBtn' value='新增'  name='preview'>
-    		<input class="rightBtn" type='submit' value="取消發佈" name='preview'>	
-    	</c:when>
-    	<c:otherwise>    	  
-    		<input type='submit' class='rightBtn' value='確定修改'  name='preview'>
-    		<input class="rightBtn" type='submit' value="取消修改" name='preview' onclick="location.href='edit.jsp?posterUid=${articleModel.getPosterUid()}'">
-    	</c:otherwise>
-    </c:choose>  
+    
+   	<c:if test="${editStatus.equals('新增')}">
+   		<input type='submit' class='rightBtn' value='新增'  name='preview'>
+   		<input class="rightBtn" type='submit' value="取消發佈" name='preview'>	
+   	</c:if>
 </form:form>
 
 <script>

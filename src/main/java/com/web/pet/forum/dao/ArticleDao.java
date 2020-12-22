@@ -66,7 +66,7 @@ public class ArticleDao {
 		
 		if(forumId.equals("全部")) {
 			System.out.println("123");
-			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\n" + 
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\n" + 
 				  "from Article, Member\n" + 
 				  "where Article.u_Id = Member.u_Id\n" + 
 				  "order by Article.updatedTime desc";
@@ -74,9 +74,10 @@ public class ArticleDao {
 		}
 		else {
 			
-			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
 					"from Article, Member\r\n" + 
-					"where Article.forumId = :forumId\r\n" + 
+					"where Article.forumId = :forumId\r\n" +
+					"and Article.u_Id = Member.u_Id\n" + 
 					"order by Article.updatedTime desc";	
 			list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
 		}				
@@ -100,9 +101,10 @@ public class ArticleDao {
 		
 	}
 	
-	public int modifyArticle(Article article) { //修改文章需要merge
+	public int modifyArticle(Article article, Integer u_id) { //修改文章需要merge
 		int count =0;
 		Session session = sessionFactory.getCurrentSession();
+		article.setMember(session.get(Member.class,u_id));
 		session.merge(article);
 		count++;
 		return count;

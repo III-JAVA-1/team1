@@ -120,6 +120,7 @@
                             <option>最新發佈</option>
                         </select>
                     </div>
+                    
                     <div class="db_line1_pagination">
                         <div class="pagination">
                             <span><a href="#">&laquo;</a></span>
@@ -131,7 +132,14 @@
                             <span><a href="#">&laquo;</a></span>
                             <span><a href="#">20</a></span> 
                         </div>
-                    </div> 
+          <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+            <div class="db_line1_release">
+                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
+            </div>
+          </form> 
+                    </div>
+                    
+          
                    
                 
 <!--end of Selection--> 
@@ -168,7 +176,7 @@
             </div> 
 		  <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
             <div class="db_line1_release">
-                <button type="submit" class="btn btn-primary" id="ckRelease">我要發表</button>            
+                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
             </div>
           </form>
             
@@ -256,14 +264,14 @@
 				$.each(data,function(i,n){
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
 					"<div>"+n[4]+"</div></td>"+
 					"</tr>");
 					
-					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid
+					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid,n[6]:u_Id
 				})
 			},
 			error:function(){
@@ -289,7 +297,7 @@
 				$.each(data,function(i,n){
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+

@@ -34,8 +34,8 @@ public class ArticleService {
 		return article;		
 	}
 	
-	public int modifyArticle(Article article) {//修改文章
-		return dao.modifyArticle(article);
+	public int modifyArticle(Article article,Integer u_id) {//修改文章
+		return dao.modifyArticle(article, u_id);
 	}
 	
 	public List<Article> getArticleByForumId(String forumId){//按forumId找文章

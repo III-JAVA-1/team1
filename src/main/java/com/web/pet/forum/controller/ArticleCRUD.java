@@ -1,16 +1,9 @@
 package com.web.pet.forum.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -19,13 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.pet.forum.model.Article;
@@ -75,7 +64,7 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
-	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam Integer posterUid) {		
+	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam(required = false) Integer posterUid) {		
 		if(posterUid == null) {return null;}
 			
 		Article article = service.getArticle(posterUid);		

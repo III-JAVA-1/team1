@@ -19,7 +19,7 @@
 
   </head>
   <body style="background-image: url(image/bg.jpg);">
-<%--   <jsp:include page="Header.jsp"/> --%>
+  <jsp:include page="Header.jsp"/>
   
 <!--Navbar-->
 <div class="row">
@@ -86,8 +86,10 @@
                 <div class="db_line1_left">
 
                 <div class="db_line1_message">
-                    <span class="db_line1_message_span"><a href="#">我要回覆</a></span>
-                </div>
+				<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+				    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+				</form> 
+				</div>
 
  <!--Member-->               
                 
@@ -103,16 +105,20 @@
                         </div>                       
                     </div>
                 </div>
-          <c:if test="${session.getAttribute('user')!=null && session.getAttribute('user')}">     
-          <form action="<c:url value='/petforum/modifyPost'/>" method="POST" onsubmit="return checkU_IdStatus()">
+            
+          <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
             <div class="db_line1_release">
-                <button type="submit" class="btn btn-primary" id="ckRelease">我要修改</button>            
+            <!-- 獲取StringQuery的posterUid -->
+            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+           <!-- 發文者才會看到按鈕 --> 
+         <%
+         if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
+      		out.print("<button type='submit' class='btn btn-secondary' id='ckRelease'>我要修改</button> "); 
+         }
+         %>             
             </div>
           </form>
-          </c:if> 
-          
-          
-                <hr/>    
+         <hr/>    
 <!--end of Aticle-->
 
  <!--Member-->  
@@ -144,7 +150,9 @@
     <hr/>    
 <!--end of Message-->    
 <div class="db_line1_message">
-    <span class="db_line1_message_span"><a href="#">我要回覆</a></span>
+<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+</form> 
 </div>
 
 </div>
@@ -265,10 +273,13 @@
 					"<div class='article_main_span'>"+
 					"<span>"+data.updatedTime+"</span>"+
 					"<span><img src='image/icons8-eye-50.png'/>&nbsp"+data.viewing+"</span>"+
-					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+
+					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+					
 					"<hr/>"+
 					" <div class='article_main_content'>"+
-					"<p>"+content+"</p>"+"</div>"+
+					"<p>"+content+"</p>"+
+					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+data.posterUid+"'/>'"+
+					" style='width: 600px;'>"+
+					"</div>"+
 					"</div>");			
 			},
 			error:function(){

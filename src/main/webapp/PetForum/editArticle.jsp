@@ -20,7 +20,7 @@
 </head>
 <body>        
  <!-- 發送/petforum/insertPost請求 -->
-    <h2 class="h2">發表文章</h2>   
+    <h2 class="h2">發表新文章</h2>   
 <form:form action="insertPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 	
 	<div class="control">
@@ -58,23 +58,20 @@
 	
 	<div class="control">
 	<div contentEditable="true" id="iframe" name="content" path="content">
-    <img id="preview_img" src="#" width="600px" style="display:visibility"/><br/>
+    <img id="preview_img" src="#" height="400px" /><br/>
     <label for="textarea" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
     <form:textarea id="textarea" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
 	onkeyup='return countChar()'/>
-	</div>
-	
-	</div>
 	
 	<div class="control">
 	<input class="ck" type="checkbox" id="ckObey">
 	<label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
 	<button type="button"  onclick="window.open(
 			 'forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>
-	</div>
+	</div>	
 </form:form>  
 
-    <script>
+  <script>
     //禁止回上一頁
     window.history.forward(1);
     
@@ -109,7 +106,8 @@
     }
     
     
-    $("#preview").click(function check(form){//按預覽文章 
+    $("#preview").click(function check(form){//按預覽文章   	
+    	
     	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
     		 console.log($("#ckObey").prop("checked"));
     		 console.log($("#forumId").find("option:selected").val() != null);
@@ -120,7 +118,20 @@
     			 return false; 
     		 }
     	    	
-    		 if($("#forumId").find("option:selected").val() != "請選擇子版")return true; //代表未選擇
+    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
+    				
+    		var modify = window.confirm("確定修改嗎？文章紀錄將無法復原！");    			
+		 	if (modify === false) {
+				 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+	   			
+	   			 return false;
+			} 
+  			else {
+        		
+			   	return true;//form action請求送出				  
+  			}
+    			
+    		 }
     		 else{ 
     			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
     			 return false;

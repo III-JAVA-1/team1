@@ -61,7 +61,7 @@
                         <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物店家</a>
+                        <a class="nav-link" href="Petshop/mainshop.jsp">寵物店家</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a>
@@ -126,7 +126,7 @@
 		
 		<div class="row justify-content-center">
 		
-		<div class="card" style="width: 18rem;">
+		<div class="card m-2" style="width: 15rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
@@ -136,7 +136,7 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem;">
+		<div class="card m-2" style="width: 15rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
@@ -146,12 +146,22 @@
   			</div>
 		</div>
 		
-		<div class="card" style="width: 18rem;">
+		<div class="card m-2" style="width: 15rem;">
   			<img src="image/shark.jpg" class="card-img-top" alt="...">
   			<hr>
   			<div class="card-body">
-    			<h5 class="card-title">店家</h5>
-    			<p class="card-text">我應該會放店家</p>
+    			<h5 class="card-title">活動</h5>
+    			<p class="card-text">我應該會放活動</p>
+    			<a href="#" class="btn btn-primary">Go somewhere</a>
+  			</div>
+		</div>
+		
+		<div class="card m-2" style="width: 15rem;">
+  			<img src="image/shark.jpg" class="card-img-top" alt="...">
+  			<hr>
+  			<div class="card-body">
+    			<h5 class="card-title">活動</h5>
+    			<p class="card-text">我應該會放活動</p>
     			<a href="#" class="btn btn-primary">Go somewhere</a>
   			</div>
 		</div>
@@ -160,34 +170,18 @@
 		<hr style="height:20px; color:green">
 		
 		<div class="d-flex justify-content-center">
-    		<div class="display-2">最新商品</div>
+<!--     		<div class="display-2">最新商品</div> -->
   		</div>
   		
-  		<div class="row justify-content-center">
+  		<div class="row justify-content-center" id="indexshop" >
   		
-  		<div class="card" style="width: 18rem;">
-  			<img src="image/ame.png" class="card-img-top" alt="...">
-  			<div class="card-body">
-  			<h2>我是商品</h2>
-    			<p class="card-text">商品商品商品商品商品商品商品商品商品</p>
-  			</div>
-		</div>
-		
-		<div class="card" style="width: 18rem;">
-  			<img src="image/ame.png" class="card-img-top" alt="...">
-  			<div class="card-body">
-  			<h2>我是商品</h2>
-    			<p class="card-text">商品商品商品商品商品商品商品商品商品</p>
-  			</div>
-		</div>
-		
-		<div class="card" style="width: 18rem;">
-  			<img src="image/ame.png" class="card-img-top" alt="...">
-  			<div class="card-body">
-  			<h2>我是商品</h2>
-    			<p class="card-text">商品商品商品商品商品商品商品商品商品</p>
-  			</div>
-		</div>
+<!--   		<div class="card m-2" style="width: 15rem;"> -->
+<!--   			<img src="image/ame.png" class="card-img-top" alt="..."> -->
+<!--   			<div class="card-body"> -->
+<!--   			<h2>我是商品</h2> -->
+<!--     			<p class="card-text">商品商品商品商品商品商品商品商品商品</p> -->
+<!--   			</div> -->
+<!-- 		</div> -->
 		
 		</div>
 		
@@ -229,6 +223,36 @@
 			success:function(data){
 				$.each(data,function(i,n){
 					$("#sname").html(n.sname+"您好");
+				});
+			}
+		});
+	});
+    var shopname;
+    var xx=0;
+    var userid=<%=session.getAttribute("user")%>;//商品顯示最新4筆
+    $().ready(function(){
+		$.ajax({
+			url:"Gusty/indexshop",
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				$.each(data,function(i,n){
+					if(i==0||shopname!=n[0]){
+						shopname=n[0];xx=xx+1;
+						if(xx>4){return false;}
+						$("#indexshop").append("<div class='card m-2' style='width: 15rem;'>"+
+					  			"<img src='"+n[2]+"' class='card-img-top border border-dark border-2'>"+
+					  			"<div class='card-body'>"+
+					  			"<h2 id='"+n[3]+"'></h2><hr>"+
+					    		"<p class='card-text h4'>"+n[1]+"&nbspNT</p>"+
+					  			"</div></div>");
+						if(userid==null||userid==""){
+							$("#"+n[3]+"").append("<a class='card-link' href='<c:url value='Store/productDetail?id="+n[3]+"&memberId='/>'>"+n[0]+"</a>");
+						}else{
+							$("#"+n[3]+"").append("<a class='card-link' href='<c:url value='Store/productDetail?id="+n[3]+"&memberId="+userid+"'/>'>"+n[0]+"</a>");
+						}
+						
+					}
 				});
 			}
 		});

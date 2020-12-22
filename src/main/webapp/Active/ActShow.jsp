@@ -49,9 +49,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -88,6 +88,7 @@
    					<td class="acstyle">承辦單位</td>
    					<td class="acstyle">連絡人</td>
    					<td class="acstyle">連絡電話</td>
+   					<td class="acstyle">活動地點</td>
    					
    				</tr> 
 		
@@ -95,6 +96,7 @@
    					<td class="acstyle" id="act_org"></td>
    					<td class="acstyle" id="act_orgman"></td>
    					<td class="acstyle" id="act_phone"></td>
+   					<td class="acstyle" id="act_where"></td>
    					
    				</tr> 			
 				
@@ -132,18 +134,18 @@
 
 
     <script>
-    	function gogo()
-    	{
-    		<%
-    			if(session.getAttribute("user")==null)
-    			{%>window.alert("請先登入"); return false;
-    			<%}else{%>
-    			return  true;
-    			<%}%>
+//     	function gogo()
+//     	{
+<%--     		<% --%>
+//     			if(session.getAttribute("user")==null)
+<%--     			{%>window.alert("請先登入"); return false; --%>
+<%--     			<%}else{%> --%>
+//     			return  true;
+<%--     			<%}%> --%>
     				
     				
-    		return false;
-    	}
+//     		return false;
+//     	}
 
     	
     	$().ready(function(){//ajax完整活動資訊
@@ -158,12 +160,13 @@
     				$.each(data,function(i,n){
     					
     					$("#act_name").html(n.act_name);
-    					$("#act_time").html(n.starttime+" ~ "+n.endtime);
+    					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
     					$("#act_org").html(n.act_organize);
     					$("#act_orgman").html(n.act_orgman);
     					$("#act_phone").html(n.act_orgphone);
     					$("#act_type").html(n.act_type);
+    					$("#act_where").html(n.act_where);
     					
 				
     						});

@@ -44,9 +44,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActNew.jsp">新增活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
 		</ul>
 
@@ -67,6 +67,7 @@
 				<td class="acstyle">活動簡介</td>
 				<td class="acstyle">承辦單位</td>
 				<td class="acstyle">連絡人</td>
+				<td class="acstyle">活動類別</td>
 			</tr>
 
 			<tbody id="activetable">
@@ -86,90 +87,7 @@
 	</div>
 
 	<script>
-		// var pageSize = "6";//每页行数 
-		// var currentPage = "1";//当前页 
-		// var totalPage = "0";//总页数 
-		// var rowCount = "0";//总条数 
-		// var params="";//参数
-// 		var url="../Wu/Activity.action"; 
-		// $(document).ready(function(){//jquery代码随着document加载完毕而加载 
-		// 	 //分页查询 
-		// 	 function queryForPages()
-		// 	 { 
-		// 	  $.ajax({ 
-		// 	   url:url, 
-		// 	   type:'post', 
-		// 	   dataType:'json', 
-		// 	   data:"qo.currentPage="+currentPage+"&qo.pageSize="+pageSize+params, 
-		// 	   success:function callbackFun(data)
-		// 	   { 
-		// 	    //解析json 
-		// 	    var info = eval("("+data+")"); 
-		// 	    //清空数据 
-		// 	    clearDate(); 
-		// 	    fillTable(info); 
-		// 	   } 
-		// 	  }); 
-		// 	 } 
-		// 	 //填充数据 
-		// 	 function fillTable(info)
-		// 	 { 
-		// 	  if(info.length>1)
-		// 	  { 
-		// 	   totalPage=info[info.length-1].totalPage; 
-		// 	   var tbody_content="";//不初始化字符串"",会默认"undefined" 
-		// 	   for(var i=0;i<info.length-1;i++)
-		// 	   { 
-		// 	    tbody_content +="<tr><td class='acstyle'><a href='ActShow.jsp?get="+n.act_no+"'/>"+n.act_name+"</td>"
-		// 						+"<td class='acstyle'>"+n.starttime+" ~ "+n.endtime+"</td>"
-		// 						+"<td class='acstyle'>"+n.act_content+"</td>"
-		// 						+"<td class='acstyle'>"+n.act_organize+"</td>"
-		// 						+"<td class='acstyle'>"+n.act_orgman+"</td></tr>"
-		// 						$("#activetable").html(tbody_content); 
-		// 						   }
-		// 	 		}
-		// 	  		else
-		// 	  { 
-		// 	   $("#t_head").html(""); 
-		// 	   $("#activetable").html("<div style='height: 200px;width: 700px;padding-top: 100px;' align='center'>"+info.msg+"</div>"); 
-		// 	  } 
-		// 	 } 
-		// 	 //清空数据 
-		// 	 function clearDate()
-		// 	 { 
-		// 	  $("#activetable").html(""); 
-		// 	 }
-		// 	 //搜索活动 
-		// 	 $("#searchActivity").click(function(){ 
-		// 	  queryForPages();
-		// 	 }); 
-		// 	 //首页 
-		// 	 $("#firstPage").click(function(){ 
-		// 	  currentPage="1"; 
-		// 	  queryForPages(); 
-		// 	 }); 
-		// 	 //上一页 
-		// 	 $("#previous").click(function(){ 
-		// 	  if(currentPage>1)
-		// 	  { 
-		// 	   currentPage-- ; 
-		// 	  } 
-		// 	  queryForPages(); 
-		// 	 }); 
-		// 	 //下一页 
-		// 	 $("#next").click(function(){ 
-		// 	  if(currentPage<totalPage)
-		// 	  { 
-		// 	   currentPage++ ; 
-		// 	  } 
-		// 	  queryForPages(); 
-		// 	 }); 
-		// 	 //尾页 
-		// 	 $("#last").click(function(){ 
-		// 	  currentPage = totalPage; 
-		// 	  queryForPages(); 
-		// 	 }); 
-		// 	});
+
 
 		$().ready(
 				function() {//ajax活動表格
@@ -182,17 +100,20 @@
 
 								$("#activetable").append(
 										"<tr><td class='acstyle'><a href='ActShow.jsp?get="
-												+ n.act_no + "'/>" + n.act_name
+												+ n[0] + "'/>" + n[1].substr(0,19)
 												+ "</td>"
 												+ "<td class='acstyle'>"
-												+ n.starttime + " ~ "
-												+ n.endtime + "</td>"
+												+ n[2].substr(0,10) + " ~ "
+												+ n[3].substr(0,10) + "</td>"
 												+ "<td class='acstyle'>"
-												+ n.act_content + "</td>"
+												+ n[4].substr(0,10) + "...</td>"
 												+ "<td class='acstyle'>"
-												+ n.act_organize + "</td>"
+												+ n[5].substr(0,10) + "</td>"
 												+ "<td class='acstyle'>"
-												+ n.act_orgman + "</td></tr>");
+												+ n[6].substr(0,10) + "</td>"
+												+ "<td class='acstyle'>"
+												+ n[8].substr(0,10) + "</td></tr>");
+								//console.log(n[0]);
 
 							});
 						}

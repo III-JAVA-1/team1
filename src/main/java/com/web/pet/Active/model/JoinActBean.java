@@ -45,18 +45,25 @@ public class JoinActBean {
 //	private Integer u_id;
 	
 	@Column(name = "act_name", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String act_name;
-
+	private String act_name;	
+	@Column(name = "name", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String name;	
+	@Column(name = "email", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String email;	
+	@Column(name = "country", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String country;
+	@Column(name = "district", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String district;	
+	@Column(name = "address", columnDefinition = "nvarchar(MAX)", nullable = false)
+	private String address;
 	@Column(name = "extra", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String extra;
-	
+	private String extra;	
 	@Column(name = "pettype", columnDefinition = "nvarchar(MAX)", nullable = false)
-	private String pettype;
-	
-	private Integer petnum;
-	
+	private String pettype;	
+	private Integer petnum;	
 	@Column(name = "join_actnow", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String join_actnow;
+	private String JoinTime;
 
 //	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //	@JoinColumn(name="u_Id",referencedColumnName = "u_id")
@@ -69,10 +76,7 @@ public class JoinActBean {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="act_no")
 	private ActBean actBean;
-	
-	
-	
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -80,6 +84,16 @@ public class JoinActBean {
 		builder.append(jid);
 		builder.append(", act_name=");
 		builder.append(act_name);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", country=");
+		builder.append(country);
+		builder.append(", district=");
+		builder.append(district);
+		builder.append(", address=");
+		builder.append(address);
 		builder.append(", extra=");
 		builder.append(extra);
 		builder.append(", pettype=");
@@ -88,9 +102,17 @@ public class JoinActBean {
 		builder.append(petnum);
 		builder.append(", join_actnow=");
 		builder.append(join_actnow);
+		builder.append(", JoinTime=");
+		builder.append(JoinTime);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+	
+	
+	
+	
 	
 	
 	

@@ -44,7 +44,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
@@ -67,6 +67,7 @@
 				<td class="acstyle">活動簡介</td>
 				<td class="acstyle">承辦單位</td>
 				<td class="acstyle">連絡人</td>
+				<td class="acstyle">活動類別</td>
 			</tr>
 
 			<tbody id="activetable">
@@ -99,18 +100,20 @@
 
 								$("#activetable").append(
 										"<tr><td class='acstyle'><a href='ActShow.jsp?get="
-												+ n[0] + "'/>" + n[1]
+												+ n[0] + "'/>" + n[1].substr(0,19)
 												+ "</td>"
 												+ "<td class='acstyle'>"
 												+ n[2].substr(0,10) + " ~ "
 												+ n[3].substr(0,10) + "</td>"
 												+ "<td class='acstyle'>"
-												+ n[4] + "</td>"
+												+ n[4].substr(0,10) + "...</td>"
 												+ "<td class='acstyle'>"
-												+ n[5] + "</td>"
+												+ n[5].substr(0,10) + "</td>"
 												+ "<td class='acstyle'>"
-												+ n[6] + "</td></tr>");
-// 								console.log(n[0]);
+												+ n[6].substr(0,10) + "</td>"
+												+ "<td class='acstyle'>"
+												+ n[8].substr(0,10) + "</td></tr>");
+								//console.log(n[0]);
 
 							});
 						}

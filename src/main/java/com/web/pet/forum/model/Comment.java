@@ -36,7 +36,10 @@ public class Comment {
 		private Integer commentId;
 		@Column(name = "commentContent", columnDefinition = "nvarchar(MAX)", nullable = false)
 	    private String commentContent;
+		@Column(name = "commentUpdatedtime",nullable = false)
 	    private Timestamp commentUpdatedtime;
+		@Column(name = "commentIsHide",nullable = false)
+	    private Integer commentIsHide = 0;//	預設無違規不隱藏
 	    
 //		多對一，多的一方有外鍵
 		@ManyToOne(cascade = CascadeType.ALL)

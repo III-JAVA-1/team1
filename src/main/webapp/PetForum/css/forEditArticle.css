@@ -1,0 +1,12 @@
+@charset "UTF-8";
+ *{padding: 0px;
+            margin: 0px;
+        }
+        
+#iframe{
+	
+    width:300px;
+    height:200px;
+    border: 0px solid white;
+}
+	

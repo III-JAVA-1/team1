@@ -36,16 +36,18 @@ public class ModifyWithModelAttribute {
 		
 		Article article = service.getArticle(posterUid);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("articleModel", article);//修改前的文章物件		
+		mv.addObject("articleModel", article);//修改前的文章物件 - 加到@ModelAttribute中		
 		mv.setViewName("forward:/PetForum/modifyArticle.jsp?posterUid="+posterUid);
-	
+		//將表單hidden控制項的posterUid參數以StringQuery形式傳到modifyArticle.jsp
 		return mv;
 	}
 	
 	
 	@RequestMapping("/modifyPost")//修改文章無預覽功能
 	public void modifyPost(
-			@ModelAttribute("articleModel") Article article,//引入此未修改的欄位才不會有null(來自資料庫)		
+			//	引入此未修改的欄位才不會有null(來自資料庫)	
+			//	前後端整合更新文章物件 - 從@ModelAttribute中取出與前端文章物件比對欄位
+			@ModelAttribute("articleModel") Article article,
 			@RequestParam(value = "image", required=false) MultipartFile image,
 			HttpServletRequest request,
             HttpServletResponse response                
@@ -53,22 +55,22 @@ public class ModifyWithModelAttribute {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();		
 		
-		System.out.println(article.getHeader());
-//		這裡要update一筆Article紀錄，需要u_Id主鍵
+			//		System.out.println(article.getHeader());
+			//		這裡要update一筆Article紀錄，需要Member的u_Id主鍵
 			Integer u_id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 			if (image != null && !image.isEmpty()) {
 				try {
 					byte[] b = image.getBytes();
 					Blob blob = new SerialBlob(b);
 					article.setPic(blob);					
-					service.modifyArticle(article, u_id);//updateArticle
+					service.modifyArticle(article, u_id);//updateArticle(含圖)
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 				}
 			}
-			service.modifyArticle(article, u_id);//沒有update圖片
+			service.modifyArticle(article, u_id);//沒有update圖片的文章物件
 			
 			out.print("<script>");		
 			out.print("window.alert('文章修改成功');window.location.href='../PetForum/forum.jsp';");

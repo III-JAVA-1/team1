@@ -27,7 +27,7 @@
 	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
     <input class="rightBtn" type="button" value="儲存草稿" id="store">
     <input class="rightBtn" type="button" value="回復到上次儲存" id="back">
-    <input class="rightBtn" type="submit" value="預覽" id="preview" onsubmit=return check(this)>   
+    <input class="rightBtn" type="submit" value="確定修改" id="preview" onsubmit=return check(this)>   
     </div>
     
     <div class="control">
@@ -41,7 +41,7 @@
     </form:select>
 	</div>
 	
-	<form:hidden name="posterUid" path="posterUid" />
+	<form:hidden name="posterUid" path="posterUid" /><!-- 請求url:/sendOriginalPost的控制器方法傳參posterUid給這裡用 -->
 	
 	<div class="control">
 	<form:input name="header" path="header" size="105" placeholder="請輸入文章標題…" />

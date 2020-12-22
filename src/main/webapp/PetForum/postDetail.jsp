@@ -105,7 +105,7 @@
                         </div>                       
                     </div>
                 </div>
-            
+            <!-- 這邊一定要發GET請求才不會出trouble -->
           <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
             <div class="db_line1_release">
             <!-- 獲取StringQuery的posterUid -->

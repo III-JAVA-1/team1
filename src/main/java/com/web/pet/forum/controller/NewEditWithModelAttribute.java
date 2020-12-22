@@ -55,7 +55,7 @@ public class NewEditWithModelAttribute {
 				article.setPic(blob);
 				
 				service.saveArticle(article,u_id);//insertArticle(傳Member表主鍵去Dao)
-				System.out.println("預覽成功......");					
+				System.out.println("預覽成功......");//(含圖)					
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -63,7 +63,7 @@ public class NewEditWithModelAttribute {
 			}
 		}		
 		
-		service.saveArticle(article,u_id);//沒有insert圖片
+		service.saveArticle(article,u_id);//沒有insert圖片的文章物件
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("articleModel", article);//加到@ModelAttribute中
@@ -76,8 +76,8 @@ public class NewEditWithModelAttribute {
 	
 	@RequestMapping("/showAtPreview")//為了在預覽頁面顯示寵物的圖片，依賴這個方法獲取posterUid
 	public @ResponseBody Article showAtPreview(	
-		   @RequestParam Integer posterUid,
-		   @ModelAttribute("articleModel") Article articleModel
+			   @RequestParam("posterUid") Integer posterUid,
+			   @ModelAttribute("articleModel") Article articleModel//從@ModelAttribute中取出
 			) {		
 		if(posterUid == null) {return null;}			
 		
@@ -85,7 +85,7 @@ public class NewEditWithModelAttribute {
 	}
 	
 	@RequestMapping(value="/getPetPic")//preview.jsp,postDetail.jsp秀出寵物圖片
-	public ResponseEntity<byte[]> getPetPic(@RequestParam Integer posterUid) {
+	public ResponseEntity<byte[]> getPetPic(@RequestParam("posterUid") Integer posterUid) {
 		byte[] body = null;
 		ResponseEntity<byte[]> resp = null;
 		HttpHeaders headers = new HttpHeaders();
@@ -105,9 +105,8 @@ public class NewEditWithModelAttribute {
 	
 	@RequestMapping("/commitEdit")
 	public void commitEdit(
-			@RequestParam("preview")String preview,
-			Article article,
-			@ModelAttribute("articleModel") Article articleModel,
+			@RequestParam("preview")String preview,			
+			@ModelAttribute("articleModel") Article article,//前後端整合更新文章物件
 			HttpServletResponse response) throws IOException {
 			PrintWriter out = response.getWriter();			
 			response.setContentType(CONTENT_TYPE);
@@ -122,7 +121,7 @@ public class NewEditWithModelAttribute {
 				out.print("<script>");
 				out.print("window.confirm('確定取消嗎？文章將被捨棄！'); window.location.href='../PetForum/forum.jsp';");
 				out.print("</script>");
-				service.deleteArticle(articleModel);
+				service.deleteArticle(article);
 			}
 			
 	}

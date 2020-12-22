@@ -149,7 +149,7 @@
     </div>
     <hr/>    
 <!--end of Message-->    
-<div class="db_line1_message">
+ <div class="db_line1_message">
 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
     <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
 </form> 

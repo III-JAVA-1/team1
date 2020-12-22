@@ -132,15 +132,13 @@
                             <span><a href="#">&laquo;</a></span>
                             <span><a href="#">20</a></span> 
                         </div>
-          <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
-            <div class="db_line1_release">
-                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
-            </div>
-          </form> 
-                    </div>
-                    
           
-                   
+            <div class="db_line1_release">
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+			</form>            
+            </div>
+           </div>
                 
 <!--end of Selection--> 
                 
@@ -174,11 +172,12 @@
                     <span><a href="#">20</a></span> 
                 </div>
             </div> 
-		  <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
-            <div class="db_line1_release">
-                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
+		   <div class="db_line1_release">
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+			</form>            
             </div>
-          </form>
+           </div>
             
 <!--end of pagination-->
 

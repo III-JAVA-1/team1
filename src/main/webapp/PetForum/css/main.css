@@ -182,16 +182,16 @@
 }
 
 
-.db_line1_release_span{
-    background-color:  #666;
-    border-color: #ccc;
-    padding: .5px;
-    border-radius: 4px;     
+.db_line1_release_span{	
+    background-color:  #666;     
      margin: 3px;
-     width:100px;
+     width:81px;
      height:30px;
      text-align: center;
-     float:left;
+     float:right;     
+    border-color: #ccc;
+    padding: .5px;
+    border-radius: 4px;    
 }
 
 .db_line1_release_span a{

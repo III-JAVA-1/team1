@@ -100,7 +100,7 @@ public class ActController {
 		actservice.nojoinservice(jid);
 		
 		out.print("<script>");
-		out.print("window.alert('已取消參加');window.location.href='../Active/ActCheck.jsp';");
+		out.print("window.alert('已取消');window.location.href='../Active/ActCheck.jsp';");
 		out.print("</script>");
 		out.close();
 	}

@@ -2,11 +2,13 @@ package com.web.pet.forum.dao;
 
 
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,13 +25,13 @@ public class ArticleDao {
 	private SessionFactory sessionFactory;	
 	
 	
-	public int saveArticle(Article article,Integer u_id) {
+	public int saveArticle(Article article,Integer u_Id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		//Article表與Member表關聯，是透過member這個屬性欄位，
 		//所以可以透過Controller在session取得Member表的主鍵
 		//獲取特定的Member紀錄
-		article.setMember(session.get(Member.class,u_id));
+		article.setMember(session.get(Member.class,u_Id));
 		session.save(article);
 		count++;
 		return count;
@@ -61,7 +63,7 @@ public class ArticleDao {
 			@RequestParam(value = "forumId", required = false)String forumId
 			){//按forumId找文章
 		List<Article> list = new LinkedList<Article>();
-		Session session=sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String sql = "";		
 		
 		if(forumId.equals("全部")) {
@@ -88,6 +90,29 @@ public class ArticleDao {
 		
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getArticleByPosterUid(
+			@RequestParam(value = "posterUid", required = false)Integer posterUid){//按posterUid找文章
+		List<Object[]> list = new LinkedList<Object[]>();
+		List<Object[]> list2 = new LinkedList<Object[]>();
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "";
+		
+		sql = "select m.u_Id,m.sname,a.header,a.updatedTime,a.viewing,a.content,a.posterUid\r\n" + 
+				"from Article a\r\n" + 
+				"join Member m\r\n" + 
+				"on m.u_Id = a.u_Id\r\n" + 
+				"where a.posterUid = :posterUid";			
+		list = session.createNativeQuery(sql).setParameter("posterUid", posterUid).getResultList();
+		
+		if(list.isEmpty()) {return null;}		
+		else {return list;}
+		
+	}
+	
+	
+	
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
 		List<Article> list = new LinkedList<Article>();
 		Session session=sessionFactory.getCurrentSession();
@@ -101,10 +126,10 @@ public class ArticleDao {
 		
 	}
 	
-	public int modifyArticle(Article article, Integer u_id) { //修改文章需要merge
+	public int modifyArticle(Article article, Integer u_Id) { //修改文章需要merge
 		int count =0;
 		Session session = sessionFactory.getCurrentSession();
-		article.setMember(session.get(Member.class,u_id));
+		article.setMember(session.get(Member.class,u_Id));
 		session.merge(article);
 		count++;
 		return count;

@@ -20,8 +20,8 @@ public class CommentService {
 	@Autowired
 	CommentDao dao;	
 	
-	public int saveComment(Comment comment) {//新增一則留言
-		return dao.saveComment(comment);
+	public int saveComment(Comment comment, Integer posterUid, Integer u_Id) {//新增一則留言
+		return dao.saveComment(comment, posterUid, u_Id);
 	}	
 	
 	public List<Comment> getAllComments(String hql) {//依hql條件取得所有留言			
@@ -38,8 +38,8 @@ public class CommentService {
 		return dao.modifyComment(comment);
 	}
 	
-	public List<Comment> getCommentByPosterUid(String posterUid){//按posterUid找留言
-		List<Comment> list = dao.getCommentByPosterUid(posterUid);
+	public List<Object[]> getCommentByPosterUid(Integer posterUid){//按posterUid找留言
+		List<Object[]> list = dao.getCommentByPosterUid(posterUid);
 		return list;
 	}
 	

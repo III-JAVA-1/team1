@@ -138,7 +138,7 @@ ${modProduct}
             // 傳輸格式
             type: "POST",
             // 要傳輸的位置
-            url: "shoppingCart/add",
+            url: "../shoppingCart/add",
             // 要傳輸的資料(只有Post才有) body
             data: JSON.stringify(req),
             // 傳輸的格式

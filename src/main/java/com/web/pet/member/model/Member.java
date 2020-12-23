@@ -23,7 +23,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.web.pet.Active.model.ActBean;
 import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.forum.model.Article;
-import com.web.pet.forum.model.ArticleLike;
+import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.forum.model.Comment;
 import com.web.pet.mom.model.Mom;
 
@@ -88,7 +88,7 @@ public class Member {
 	private Set<Comment> comments = new LinkedHashSet<>(0);
 	
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-	private Set<ArticleLike> articleLikes = new LinkedHashSet<>(0);
+	private Set<ArticleFavorite> articleFavorites = new LinkedHashSet<>(0);
 	//=============================================================
 
 }

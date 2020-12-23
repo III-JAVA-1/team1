@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "ArticleLike")
-public class ArticleLike {
+@Table(name = "ArticleFavorite")
+public class ArticleFavorite {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer likeId;
+	private Integer favoriteId;
 	
 //	多對一，多的一方有外鍵
 	@ManyToOne(cascade = CascadeType.ALL)

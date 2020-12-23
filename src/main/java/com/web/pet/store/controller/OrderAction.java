@@ -156,6 +156,7 @@ public class OrderAction {
             orderDTO.setOrderStatus(1);
             orderDTO.setAddress(req.getAddress());
             orderDTO.setRemarks(req.getRemarks());
+            orderDTO.setPayType(req.getPayType());
 
             // 執行儲存訂單並接收回傳訂單id
             int orderId = OrderDAO.insert(dbu, orderDTO);

@@ -93,6 +93,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <script>
+var map, geocoder;
 function initMap() {/*要用googleamp的初始參數設定*/
 	var uluru = {
 		lat : 24.95,
@@ -139,6 +140,7 @@ $.ajax({
 				    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 				    		"<p class='card-text'>"+n.phone+"</p><hr>"+
 				    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+				    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 				  			"</div></div>");
 				}else{
 					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
@@ -148,6 +150,7 @@ $.ajax({
 				    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
 				    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 				    		"<p class='card-text'>"+n.phone+"</p><hr>"+
+				    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 				  			"</div></div>");
 				}
 			}
@@ -185,15 +188,17 @@ function search(){
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
 					    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
 					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
-					    		"<p class='card-text'>"+n.address+"</p>"+
+					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
+					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}
 				}
@@ -236,15 +241,17 @@ function pagechange(page){
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
 					    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
 					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
-					    		"<p class='card-text'>"+n.address+"</p>"+
+					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
+					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}
 				}
@@ -254,6 +261,37 @@ function pagechange(page){
 			$("#tip").html("沒有相關資料");
 		}
 	});
+}
+
+
+
+function addressdisplay(address) {
+	$('html, body').scrollTop(0);
+	var uluru = {
+			lat : 24.95,
+			lng : 121.2
+		};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom : 12,
+			center : uluru
+		});
+	geocoder = new google.maps.Geocoder();
+	 console.log($(address).val().substring(0,$(address).val().indexOf(",")));
+	  geocoder.geocode({
+	    'address': $(address).val().substring(0,$(address).val().indexOf(","))
+	  }, function(results, status) {
+	    if (status == 'OK') {
+	      map.setCenter(results[0].geometry.location);
+	      var marker = new google.maps.Marker({
+	        map: map,
+	        position: results[0].geometry.location,
+	        animation: google.maps.Animation.DROP,
+	        title:$(address).val().substring($(address).val().indexOf(",")+1),
+	      });
+	    } else {
+	      console.log(status);
+	    }
+	  });
 }
 
 </script>

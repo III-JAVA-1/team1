@@ -62,7 +62,7 @@
 </div>
 
 
-<div id="Store" class="container">
+<div id="store" class="container">
 
     <!-- 類別選單 -->
     <div class="d-flex">

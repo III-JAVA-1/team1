@@ -132,7 +132,7 @@
                 }
             },
             error: function () {
-                alert('生成訂單錯誤');
+                alert('連接伺服器失敗');
             }
         });
         return false;

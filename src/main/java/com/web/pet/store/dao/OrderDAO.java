@@ -10,9 +10,9 @@ public class OrderDAO {
 
     public static int insert(DbUtils dbu, OrderDTO data) throws SQLException {
         String sql =
-                "INSERT INTO [order] (date, customer_id, cost, order_status, address, remarks,ecp_no) \n"
+                "INSERT INTO [order] (date, customer_id, cost, order_status, address, remarks,ecp_no, pay_type) \n"
                         + "OUTPUT inserted.order_id\n"
-                        + "VALUES (?,?,?,?,?,?,?)";
+                        + "VALUES (?,?,?,?,?,?,?,?)";
 
         return dbu.selectIntList(
                 sql,
@@ -22,7 +22,8 @@ public class OrderDAO {
                 data.getOrderStatus(),
                 data.getAddress(),
                 data.getRemarks(),
-                data.getEcpNo());
+                data.getEcpNo(),
+                data.getPayType());
 
     }
 

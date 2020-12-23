@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.pet.forum.model.Article;
+import com.web.pet.member.model.Member;
 
 
 @Repository
@@ -22,9 +23,13 @@ public class ArticleDao {
 	private SessionFactory sessionFactory;	
 	
 	
-	public int saveArticle(Article article) {
+	public int saveArticle(Article article,Integer u_id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
+		//Article表與Member表關聯，是透過member這個屬性欄位，
+		//所以可以透過Controller在session取得Member表的主鍵
+		//獲取特定的Member紀錄
+		article.setMember(session.get(Member.class,u_id));
 		session.save(article);
 		count++;
 		return count;
@@ -52,23 +57,27 @@ public class ArticleDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByForumId(@RequestParam(value = "forumId", required = false)String forumId){//按forumId找文章
+	public List<Article> getArticleByForumId(
+			@RequestParam(value = "forumId", required = false)String forumId
+			){//按forumId找文章
 		List<Article> list = new LinkedList<Article>();
 		Session session=sessionFactory.getCurrentSession();
 		String sql = "";		
 		
 		if(forumId.equals("全部")) {
 			System.out.println("123");
-			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
-					"from Article, Member\r\n" +					
-					"order by Article.updatedTime desc";
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\n" + 
+				  "from Article, Member\n" + 
+				  "where Article.u_Id = Member.u_Id\n" + 
+				  "order by Article.updatedTime desc";
 			list = session.createNativeQuery(sql).getResultList();
 		}
 		else {
 			
-			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid\r\n" + 
+			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
 					"from Article, Member\r\n" + 
-					"where Article.forumId = :forumId\r\n" + 
+					"where Article.forumId = :forumId\r\n" +
+					"and Article.u_Id = Member.u_Id\n" + 
 					"order by Article.updatedTime desc";	
 			list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
 		}				
@@ -92,10 +101,19 @@ public class ArticleDao {
 		
 	}
 	
-	public int modifyArticle(Article article) { //修改文章需要merge
+	public int modifyArticle(Article article, Integer u_id) { //修改文章需要merge
 		int count =0;
 		Session session = sessionFactory.getCurrentSession();
+		article.setMember(session.get(Member.class,u_id));
 		session.merge(article);
+		count++;
+		return count;
+	}
+	
+	public int deleteArticle(Article article) { //刪除文章
+		int count =0;
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(article);
 		count++;
 		return count;
 	}

@@ -9,7 +9,7 @@
     float: right;
     right: 5%;    
     max-width: 30px;
-    width: 100%;
+   
     border-color: white;
     background-color: #ccc;
     padding: .5px;
@@ -26,6 +26,7 @@ body{
     margin: 0px;   
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
     
 }
 
@@ -35,6 +36,7 @@ body{
     height: auto;
     border:1px solid #39C;
     background-color: #FFF;
+    width:100%;
    
 }
 

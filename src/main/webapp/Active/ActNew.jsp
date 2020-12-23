@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -181,7 +182,7 @@
 
 			<div class="row justify-content-center">
 			
-				<input type="hidden" id="NewActNow" name="NewActNow"  value="<%= (new java.util.Date()).toLocaleString()%>">
+				<input type="hidden" id="NewActNow" name="NewActNow"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
 				<input type="hidden" id="viableNumber" name="viableNumber"  value="1">
 				<button type="button" class="btn btn-primary btn-lg ml-3" onClick="check()">確認送出</button>
 				<button type="button" class="btn btn-primary btn-lg ml-3" onclick="history.back()">取消</button>

@@ -32,5 +32,10 @@ public class OtherFunctionService {
 		
 		return otherFunctionDao.shoprateDao(user_id);
 	}
+	
+	public List<Object[]> memberarticleService(Integer user_id){//會員頁面文章記錄
+	
+		return otherFunctionDao.articlememberDao(user_id);
+	}
 
 }

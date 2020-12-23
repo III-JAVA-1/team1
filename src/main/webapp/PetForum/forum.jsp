@@ -16,7 +16,7 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
+  
   </head>
   <body style="background-image: url(image/bg.jpg);">
 <%--   <jsp:include page="Header.jsp"/> --%>
@@ -113,13 +113,14 @@
 <!--end of Featured-->
 
 <!--Selection-->              
-               
+               		
                     <div class="db_line1_select">
                         <select style="color: #666">
                             <option>最新回覆</option>
                             <option>最新發佈</option>
                         </select>
                     </div>
+                    
                     <div class="db_line1_pagination">
                         <div class="pagination">
                             <span><a href="#">&laquo;</a></span>
@@ -131,7 +132,15 @@
                             <span><a href="#">&laquo;</a></span>
                             <span><a href="#">20</a></span> 
                         </div>
-                    </div> 
+          <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+            <div class="db_line1_release">
+                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
+            </div>
+          </form> 
+                    </div>
+                    
+          
+                   
                 
 <!--end of Selection--> 
                 
@@ -165,10 +174,12 @@
                     <span><a href="#">20</a></span> 
                 </div>
             </div> 
-
+		  <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
             <div class="db_line1_release">
-                <span class="db_line1_release_span"><a href="#">我要發佈</a></span>
+                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
             </div>
+          </form>
+            
 <!--end of pagination-->
 
 
@@ -202,7 +213,7 @@
    
 </div>
 </div>
-<button type="button" class="btn btn-outline-primary" id="gotop"></button>
+
     <!--Footer-->
 <footer class="small bg-info">
     <div class="container">
@@ -243,7 +254,7 @@
 	
 		$.ajax({
 			url:"../petforum/selectAll",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":"全部"
@@ -253,12 +264,14 @@
 				$.each(data,function(i,n){
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
 					"<div>"+n[4]+"</div></td>"+
 					"</tr>");
+					
+					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid,n[6]:u_Id
 				})
 			},
 			error:function(){
@@ -273,7 +286,7 @@
 		//console.log(item);
 		$.ajax({
 			url:"../petforum/selectForum",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
@@ -284,7 +297,7 @@
 				$.each(data,function(i,n){
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
@@ -300,8 +313,13 @@
 	}
 		
 		//==================================================================
-			
-		
+		//沒登入不能發表	
+		function loginStatus(){
+    		<% if(session.getAttribute("user") == null){%>
+    		window.alert("請登入！");
+    		return false;
+    		<%}else{%>return true;<%}%>
+    	}
  	</script>
   </body>
 </html>

@@ -65,13 +65,15 @@
        
     <table align="center" class="checktable" style="border: 2px solid black;width: 1500px;">
         
+        <tbody> 
         	<tr> 	
          		<td class="acstyle" style="width: 500px;">活動名稱</td>
                 <td class="acstyle">參加的時間</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>
-
+		</tbody>
+		 
 		<tbody id="WhatTable">
         </tbody>  
     </table>
@@ -80,6 +82,12 @@
     <div>
         <br><br>
     </div>
+    
+<!--     測試用取消參加 -->
+<!-- 				<form method='post' action='../Wu/NoJoin'>   -->
+<!-- 				<input type='text' name='jid' id='jid' value='1'/> -->
+<!-- 				<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button> -->
+<!-- 				</form> -->
 
 </body>
 <script>
@@ -94,23 +102,36 @@ $().ready(function(){//ajax完整活動資訊
 		success : function(data) {
 			$.each(data,function(i,n){
 
-				$("#WhatTable").append(
-
-						"<tr><form method='post' action='../Wu/NoJoin'><td class='acstyle'>" + n[0]+ "</td>"
-								+ "<td class='acstyle'>"
-								+ n[1] +"</td>"
-								+ "<td class='acstyle'>"
-								+ n[2] +"</td>"													
-					             +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
-								+ "<td class='acstyle'><button type='submit' id='BtnSend' value='cancelbt'>取消參加</button></td></form></tr>"
+				$("#WhatTable").append(						
+						"<tr>"						
+						+"<td class='acstyle'><a href='ActShow.jsp?get="+n[3]+"'/>" + n[0]+ "</td>"
+						+"<td class='acstyle'>"+ n[1] +"</td>"
+						+"<td class='acstyle'>"+ n[2] +"</td>"						
+						+"<td class='acstyle'>"						
+						+"<form method='post' action='../Wu/NoJoin'>"
+					    +"<input type='hidden' name='jid' id='jid' value='"+n[4]+"'/>"							
+						+"<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button>"
+						+"</form>"						
+						+"</td>"						
+						+"</tr>"						
 								);
-				
 
-// 				console.log(n[0])
 					});
 				}
 			});
 			   
 		});
+		
+		
+		function rusure()
+		{
+			if(confirm("確定要取消參加嗎?"))
+// 			alert("已取消參加");
+				return true;
+			else
+// 			alert("已取消取消操作");
+				return false;
+		}
+		
 </script>
 </html>

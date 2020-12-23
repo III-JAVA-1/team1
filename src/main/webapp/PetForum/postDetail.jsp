@@ -214,7 +214,7 @@
 		
 		//網頁ready文檔加載完就做
 		//網頁onload全部加載完成才做(音樂、圖片) 				
-		reload();
+		reload();//reload文章信息
 	
 	
 //=============================================================================================
@@ -231,7 +231,7 @@
 				$("#comment").html("");
 				$.each(data,function(i,n){					
 				
-					reload();//測試
+					reload();//reload文章信息
 					console.log(n[0]);//u_Id				
 					console.log(n[1]);//sname
 				
@@ -279,7 +279,7 @@
 				
 			},
 			error:function(){
-				$("#comment").append("<h2>"+"查無資料"+"</h2>")
+				$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
 			}
 		})
 	});
@@ -392,7 +392,7 @@
     				})
     			},
     			error:function(){
-    				$("#article").append("<h2>"+"查無資料"+"</h2>")
+    				$("#article").append("<h2>"+"查無文章資料"+"</h2>")
     			}
     		});
     	}

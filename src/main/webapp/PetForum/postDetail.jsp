@@ -19,7 +19,7 @@
 
   </head>
   <body style="background-image: url(image/bg.jpg);">
-<%--   <jsp:include page="Header.jsp"/> --%>
+  <jsp:include page="Header.jsp"/>
   
 <!--Navbar-->
 <div class="row">
@@ -86,43 +86,39 @@
                 <div class="db_line1_left">
 
                 <div class="db_line1_message">
-                    <span class="db_line1_message_span"><a href="#">我要回覆</a></span>
-                </div>
+				<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+				    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+				</form> 
+				</div>
 
  <!--Member-->               
                 
                 <div class="db_line1_left_article">
-                    <div class="article_left">
-                        <div class="article_left_img">
-                        <img src="image/mask_dog.png" width="150px" height="150px" style="border:1px solid #666;border-radius: 15px;">
-                        </div>
-                        <div class="article_left_a">
-                        <a href="#">Author Name</a><br/>
-                        <span style="border-radius: 8px;background-color: #666;color: white">樓主</span>
-                        </div>                        
+                    <div id="member" class="article_left">
+                       <!-- AJAX會員資料顯示在這裡 -->                       
                     </div>
 
  <!--end of Member-->  
                     <div class="article_right">
                         <div id="article" class="article_main">
-                            <h5>二哈有夠胖，有推薦什麼方式減重？</h5>
-                            <div class="article_main_span">                               
-                                <span>2020-11-24 21:59</span>
-                                <span><img src="image/icons8-eye-50.png"/>&nbsp0</span>
-                                <span><a href="#"><img src="image/icons8-applause-32.png"/></a>&nbsp0</span>
-                                <span><a href="#"><img src="image/icons8-favorites-50.png"/></a>&nbsp0</span> 
-                               <hr/>
-                               <div class="article_main_content">
-                                家裡養了一隻很會拆家的二哈<br>
-                                活動量雖然頗大<br>
-                                但一直胖下去 覺得不能再這樣<br>
-                                想問問大家都怎麼幫胖哈減重？<br>                                
-                               </div>                              
-                            </div>
+                      <!-- AJAX文章資料顯示在這裡 -->
                         </div>                       
                     </div>
                 </div>
-                <hr/>    
+            <!-- 這邊一定要發GET請求才不會出trouble -->
+          <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
+            <div class="db_line1_release">
+            <!-- 獲取StringQuery的posterUid -->
+            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+           <!-- 發文者才會看到按鈕 --> 
+         <%
+         if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
+      		out.print("<button type='submit' class='btn btn-secondary' id='ckRelease'>我要修改</button> "); 
+         }
+         %>             
+            </div>
+          </form>
+         <hr/>    
 <!--end of Aticle-->
 
  <!--Member-->  
@@ -154,7 +150,9 @@
     <hr/>    
 <!--end of Message-->    
 <div class="db_line1_message">
-    <span class="db_line1_message_span"><a href="#">我要回覆</a></span>
+<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
+</form> 
 </div>
 
 </div>
@@ -220,51 +218,83 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	
 	<script>
-		console.log(<%=request.getParameter("posterUid")%>);
+		
 		//網頁ready文檔加載完就做
 		//網頁onload全部加載完成才做(音樂、圖片) 				
-		console.log("ccc");
+		
 		$.ajax({
 			url:"../petforum/viewPost",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
-				"posterUid":<%=request.getParameter("posterUid")%>,
+				"posterUid":<%=request.getParameter("posterUid")%>,				
 			},
 			success:function(data){	
-				$.each(data,function(i,n){
-					//console.log(i);
-					console.log(n.content);
-					console.log(n.header);
-					console.log(n.member.sname);
-// 					  <h5>二哈有夠胖，有推薦什麼方式減重？</h5>
-//                       <div class="article_main_span">                               
-//                           <span>2020-11-24 21:59</span>
-//                           <span><img src="image/icons8-eye-50.png"/>&nbsp0</span>
-//                           <span><a href="#"><img src="image/icons8-applause-32.png"/></a>&nbsp0</span>
-//                           <span><a href="#"><img src="image/icons8-favorites-50.png"/></a>&nbsp0</span> 
-//                          <hr/>
-//                          <div class="article_main_content">
-//                           家裡養了一隻很會拆家的二哈<br>
-//                           活動量雖然頗大<br>
-//                           但一直胖下去 覺得不能再這樣<br>
-//                           想問問大家都怎麼幫胖哈減重？<br>                                
-//                          </div>                              
-//                       </div>
+					console.log(data.member.u_Id);
+					console.log(data.content);
+					console.log(data.header);
+					//console.log(data.member.sname);
+					//console.log(data.member.img);
 					
-					$("#article").append("<h5>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?potserUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
-					"<td><div>"+n[1]+"</div></td>"+
-					"<td>"+n[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
-					"<div>"+n[4]+"</div></td>"+
-					"</tr>");
-				})
+					//初始資料沒有會員暱稱
+					var memberSname;
+					if(data.member.sname === undefined){
+						memberSname = "Author Name";
+					}
+					else{
+						memberSname = data.member.sname
+					}
+					
+					
+					//顯示會員相關信息(顯示會員圖片發送另一個請求)
+					$("#member").append("<div class='article_left_img'>"+
+					"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data.member.u_Id+"'/>'"+
+					" style='border: 1px solid #666;border-radius: 15px;width: 150px;height: 150px;'  onerror='imgDisplay(this)'>"+
+					"</div>"+
+					"<div class='article_left_a'>"+
+					"<a href='#'>"+memberSname+"</a><br/>"+
+					"<span style='border-radius: 8px;background-color: #666;color: white'>樓主</span>"+
+					"</div>");
+					
+					
+					//讀取會員是否有將此文章加入最愛
+					if(data.articleFavorites.favoriteId != null){
+						$("#fav").css("background-color", "red");
+					}
+					else{
+						$("#fav").css("background-color", "transparent");
+					}
+					
+					//想辦法讓文章顯示時換行
+					var content = data.content.replace(/\n/g,'<br/>');
+					
+					//顯示文章相關信息
+					$("#article").append("<h5>"+data.header+"</h5>"+
+					"<div class='article_main_span'>"+
+					"<span>"+data.updatedTime+"</span>"+
+					"<span><img src='image/icons8-eye-50.png'/>&nbsp"+data.viewing+"</span>"+
+					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+					
+					"<hr/>"+
+					" <div class='article_main_content'>"+
+					"<p>"+content+"</p>"+
+					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+data.posterUid+"'/>'"+
+					" style='width: 600px;'>"+
+					"</div>"+
+					"</div>");			
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
-			}
+			}			
+			
 		})
+		
+		//	若會員沒上傳頭像，則顯示預設圖片
+		 function imgDisplay(noUpload) 
+		  { 
+		 	$(noUpload).attr("src","image/mask_dog.png");
+		  } 
+		
+
 	</script>
   </body>
 </html>

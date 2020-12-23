@@ -1,6 +1,7 @@
 package com.web.pet.Active.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,7 +23,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.web.pet.member.model.Member;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,6 +54,10 @@ public class ActBean {
 	private String act_orgphone;
 	@Column(name = "act_type", columnDefinition = "nvarchar(MAX)", nullable = false)
 	private String act_type;
+	private Timestamp NewActNow;	
+	@Column(name = "act_where", columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String act_where;
+	private Integer viableNumber;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
 	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")
@@ -83,9 +87,17 @@ public class ActBean {
 		builder.append(act_orgphone);
 		builder.append(", act_type=");
 		builder.append(act_type);
+		builder.append(", NewActNow=");
+		builder.append(NewActNow);
+		builder.append(", viableNumber=");
+		builder.append(viableNumber);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+
+	
 
 
 

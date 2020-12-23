@@ -44,7 +44,7 @@ public class ActDao {
 	@SuppressWarnings("unchecked")
 	public List<ActBean> ajaxActDao(){
 		List<ActBean> list = new ArrayList<ActBean>();
-		String hql = "select act_no,act_name,starttime,endtime,act_content,act_organize,act_orgman,act_orgphone,act_type FROM ActBean";
+		String hql = "select act_no,act_name,starttime,endtime,act_content,act_organize,act_orgman,act_orgphone,act_type FROM ActBean WHERE viableNumber=1";
 		Query<ActBean> query= sessionFactory.getCurrentSession().createQuery(hql);
 		list=query.getResultList();
 		return list;
@@ -67,6 +67,38 @@ public class ActDao {
 		joinactbean.setActBean(session.get(ActBean.class,act_no));
 		session.save(joinactbean);
 		
+	}
+	
+	//ajax查詢會員參加的活動
+	@SuppressWarnings("unchecked")
+	public List<Object> ajaxWhatJoinDao(Integer u_Id) {
+		List<Object> list = new ArrayList<Object>();
+		String hql = "select act_name,JoinTime,join_actnow,jid,act_no FROM JoinAct where u_Id = :userid";
+		Session session = sessionFactory.getCurrentSession();
+		Query<Object> query= session.createNativeQuery(hql).setParameter("userid",u_Id);
+		list=query.list();
+		return list;
+	}
+	
+	//ajax查詢會員參加的活動(未解問題)
+//	@SuppressWarnings("unchecked")
+//	public List<JoinActBean> ajaxWhatJoinDao(Integer u_Id) {
+//		List<JoinActBean> list = new ArrayList<JoinActBean>();
+//		String hql = "select act_name,JoinTime,join_actnow,jid,act_no FROM JoinActBean where u_Id = :userid";
+//		Session session = sessionFactory.getCurrentSession();
+//		Query<JoinActBean> query= session.createNativeQuery(hql).setParameter("userid",u_Id);
+//		list=query.getResultList();
+//		return list;
+//	}
+
+
+	//取消參加活動
+	public void nojoinDao(Integer jid) {
+		Session session = this.sessionFactory.getCurrentSession();
+		JoinActBean joinActBean=session.get(JoinActBean.class, jid);
+		joinActBean.setJoin_actnow("取消參加");
+		session.merge(joinActBean);
+		return;
 	}
 	
 }

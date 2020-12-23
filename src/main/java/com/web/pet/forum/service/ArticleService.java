@@ -20,8 +20,8 @@ public class ArticleService {
 	@Autowired
 	ArticleDao dao;	
 	
-	public int saveArticle(Article article) {//新增一篇文章
-		return dao.saveArticle(article);
+	public int saveArticle(Article article,Integer u_id) {//新增一篇文章
+		return dao.saveArticle(article,u_id);
 	}	
 	
 	public List<Article> getAllArticles(String hql) {//依hql條件取得所有文章			
@@ -34,8 +34,8 @@ public class ArticleService {
 		return article;		
 	}
 	
-	public int modifyArticle(Article article) {//修改文章
-		return dao.modifyArticle(article);
+	public int modifyArticle(Article article,Integer u_id) {//修改文章
+		return dao.modifyArticle(article, u_id);
 	}
 	
 	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
@@ -48,6 +48,8 @@ public class ArticleService {
 		return list;
 	}
 	
-
+	public int deleteArticle(Article article) { //刪除文章
+		return dao.deleteArticle(article); 
+	}
 	
 }

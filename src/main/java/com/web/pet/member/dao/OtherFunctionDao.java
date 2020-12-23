@@ -115,7 +115,25 @@ public class OtherFunctionDao {
 		}else {
 			return list; 
 		}
-		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> articlememberDao(Integer user_id){//會員頁面文章記錄
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,count(Comment.posterUid) as'留言數'\r\n"
+				+ "from Article left join Comment\r\n"
+				+ "on Article.isHide=0\r\n"
+				+ "and Article.u_Id=:id\r\n"
+				+ "and Comment.posterUid=Article.posterUid\r\n"
+				+ "group by Article.posterUid,Article.header,Article.forumId,Article.updatedTime,Article.viewing";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
 	}
 
 }

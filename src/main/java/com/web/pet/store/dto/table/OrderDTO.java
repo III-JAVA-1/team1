@@ -18,4 +18,5 @@ public class OrderDTO {
     private String address;
     private String remarks;
     private Integer ecpNo;
+    private Integer payType;
 }

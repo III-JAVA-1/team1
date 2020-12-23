@@ -74,7 +74,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		
 		$().ready(function(){
 			$.ajax({
-				url:"Gusty/headercheck",
+				url:"../Gusty/headercheck",
 				type:"post",
 				dataType:"json",
 				data : { 

@@ -66,7 +66,10 @@ public class ActController {
 	}
 	
 	@PostMapping(value="/insertJoinAct") //參加活動
-	public void insertJoinController(JoinActBean joinactbean,HttpServletResponse response,HttpServletRequest request, Integer act_no) throws IOException {
+	public void insertJoinController(JoinActBean joinactbean,
+								HttpServletResponse response,
+								HttpServletRequest request, 
+								Integer act_no) throws IOException {
 		
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out= response.getWriter();
@@ -80,14 +83,27 @@ public class ActController {
 		out.close();
 	}
 	
-//	@RequestMapping(value = "/WhatJoin") //ajax查詢會員參加的活動
-//	@ResponseBody
-//	public List<JoinActBean> ajaxWhatJoin(@RequestParam Integer act_no){
-//		List<JoinActBean> list = new ArrayList<JoinActBean>();
-//		list = actservice.ajaxActService(act_no);
-//		return list;
-//		
-//		
-//	}
+	@RequestMapping(value = "/WhatJoin") //ajax查詢會員參加的活動
+	@ResponseBody
+	public List<Object> ajaxWhatJoin(@RequestParam Integer u_Id){
+//		System.out.println("user"+u_Id);
+		List<Object> list = new ArrayList<Object>();
+		list = actservice.ajaxWhatJoinService(u_Id);
+		return list;		
+	}
+	
+	@RequestMapping(value = "/NoJoin") //取消參加活動
+	public void NoJoin(HttpServletResponse response,@RequestParam Integer jid) throws IOException {
+		System.out.println("JID = "+jid);
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();
+		actservice.nojoinservice(jid);
+		
+		out.print("<script>");
+		out.print("window.alert('已取消');window.location.href='../Active/ActCheck.jsp';");
+		out.print("</script>");
+		out.close();
+	}
+	
 
 }

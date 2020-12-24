@@ -1,5 +1,6 @@
 package com.web.pet.Active.model;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.LinkedHashSet;
@@ -58,6 +59,7 @@ public class ActBean {
 	@Column(name = "act_where", columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String act_where;
 	private Integer viableNumber;
+	private Blob act_img;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
 	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")
@@ -89,11 +91,17 @@ public class ActBean {
 		builder.append(act_type);
 		builder.append(", NewActNow=");
 		builder.append(NewActNow);
+		builder.append(", act_where=");
+		builder.append(act_where);
 		builder.append(", viableNumber=");
 		builder.append(viableNumber);
+		builder.append(", act_img=");
+		builder.append(act_img);
 		builder.append("]");
 		return builder.toString();
 	}
+
+
 
 	
 

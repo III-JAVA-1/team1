@@ -53,7 +53,7 @@
 			<H1>新增活動</H1>
 		</div>
 
-		<form name="reg" method="post" action="../Wu/insertActService">
+		<form name="reg" method="post" action="../Wu/insertActService" enctype="multipart/form-data">
 
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
@@ -163,6 +163,15 @@
 						</select>
 					</div>
 
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+			<label for="act_img" class="col-sm-3 col-form-label col-form-label-lg">上傳圖片:</label>
+					<div class="col-xs-4">
+						<input type="file" id="img" name="img" accept="image/*">							
+					</div>					
 				</div>
 			</div>
 

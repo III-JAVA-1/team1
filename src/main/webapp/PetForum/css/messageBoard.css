@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Shadows+Into+Light");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+a {
+  text-decoration: none;
+}
+
+div#editCommentInfo {
+  background-color:#ccc;  
+  font-family: "Open Sans";
+}
+
+
+
+h5 {
+  font-family: "Shadows Into Light";
+  font-size: 36px;
+  text-align: center;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 100px;
+}
+
+div.bubbleContainer {
+  position: relative;
+  width: 60vw;
+  height: 250px;
+  margin: 50px auto 0;
+}
+
+div.bubbleContainer div.bubbleBody, div.bubbleContainer::after {
+  position: absolute;
+}
+
+div.bubbleContainer div.bubbleBody {
+  width: 83%;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+}
+
+div.bubbleContainer div.bubbleBody div.divForm {
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+div.bubbleContainer div.bubbleBody div.divForm * {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #0D3544;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+div.bubbleContainer div.bubbleBody form input {
+  height: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+div.bubbleContainer div.bubbleBody form textarea {
+  height: 120px; 
+  resize: none;
+}
+
+div.bubbleContainer::after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  top: 300px;
+  left: 80px;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid white;
+}
+
+button.btnSendMessage {
+  width: 100px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  background-color: #666;
+  border: 3px solid white;
+  outline: none;
+  border-radius: 12px;
+  font-size: 20px;
+  font-family: "Shadows Into Light";
+  color: white;
+}

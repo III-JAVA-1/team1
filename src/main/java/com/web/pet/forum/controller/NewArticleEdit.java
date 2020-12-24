@@ -30,7 +30,7 @@ import com.web.pet.util.BlobToByteArray;
 
 @RequestMapping("/petforum")
 @Controller
-public class NewEditWithModelAttribute {
+public class NewArticleEdit {
 	
 	@Autowired
 	ArticleService service;	
@@ -47,14 +47,14 @@ public class NewEditWithModelAttribute {
             ) throws IOException{		
 		
 		//	這裡要insert一筆Article紀錄，不過因為尚未寫入資料庫，所以u_Id要從session取得
-		Integer u_id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		if (image != null && !image.isEmpty()) {
 			try {
 				byte[] b = image.getBytes();
 				Blob blob = new SerialBlob(b);
 				article.setPic(blob);
 				
-				service.saveArticle(article,u_id);//insertArticle(傳Member表主鍵去Dao)
+				service.saveArticle(article,u_Id);//insertArticle(傳Member表主鍵去Dao)
 				System.out.println("預覽成功......");//(含圖)					
 				
 			} catch (Exception e) {
@@ -63,7 +63,7 @@ public class NewEditWithModelAttribute {
 			}
 		}		
 		
-		service.saveArticle(article,u_id);//沒有insert圖片的文章物件
+		service.saveArticle(article,u_Id);//沒有insert圖片的文章物件
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("articleModel", article);//加到@ModelAttribute中
@@ -86,6 +86,8 @@ public class NewEditWithModelAttribute {
 	
 	@RequestMapping(value="/getPetPic")//preview.jsp,postDetail.jsp秀出寵物圖片
 	public ResponseEntity<byte[]> getPetPic(@RequestParam("posterUid") Integer posterUid) {
+		if(posterUid == null) {return null;}			
+		
 		byte[] body = null;
 		ResponseEntity<byte[]> resp = null;
 		HttpHeaders headers = new HttpHeaders();

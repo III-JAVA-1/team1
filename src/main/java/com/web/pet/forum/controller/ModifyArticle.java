@@ -3,6 +3,7 @@ package com.web.pet.forum.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Blob;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,7 @@ import com.web.pet.forum.service.ArticleService;
 
 @RequestMapping("petforum")
 @Controller
-public class ModifyWithModelAttribute {
+public class ModifyArticle {
 	
 	@Autowired
 	ArticleService service;	
@@ -33,6 +34,7 @@ public class ModifyWithModelAttribute {
 	@ModelAttribute
 	@RequestMapping("/sendOriginalPost")//傳送原始文章資料
 	public ModelAndView sendOriginalPost(@RequestParam("posterUid") Integer posterUid) {
+		if(posterUid == null) {return null;}
 		
 		Article article = service.getArticle(posterUid);
 		ModelAndView mv = new ModelAndView();
@@ -57,20 +59,21 @@ public class ModifyWithModelAttribute {
 		
 			//		System.out.println(article.getHeader());
 			//		這裡要update一筆Article紀錄，需要Member的u_Id主鍵
-			Integer u_id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+			Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
+			
 			if (image != null && !image.isEmpty()) {
 				try {
 					byte[] b = image.getBytes();
 					Blob blob = new SerialBlob(b);
 					article.setPic(blob);					
-					service.modifyArticle(article, u_id);//updateArticle(含圖)
+					service.modifyArticle(article, u_Id);//updateArticle(含圖)
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 				}
 			}
-			service.modifyArticle(article, u_id);//沒有update圖片的文章物件
+			service.modifyArticle(article, u_Id);//沒有update圖片的文章物件
 			
 			out.print("<script>");		
 			out.print("window.alert('文章修改成功');window.location.href='../PetForum/forum.jsp';");

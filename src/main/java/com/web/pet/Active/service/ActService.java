@@ -17,6 +17,7 @@ import com.web.pet.Active.model.JoinActBean;
 @Transactional
 @Service
 public class ActService {
+	
 	@Autowired
 	private ActDao actDao;
 	
@@ -24,37 +25,34 @@ public class ActService {
 	public void insertActService(ActBean actbean,Integer uid) {
 		actDao.insertActDao(actbean,uid);
 	}
-
-//	public List<ActBean> getAllAct() {
-//		// TODO Auto-generated method stub
-//		return actDao.getAllAct();
-//	}
 	
 	
 	//ajax查詢活動有哪些
 	public List<ActBean> ajaxActService() {
-		// TODO Auto-generated method stub
 		return actDao.ajaxActDao();
 	}
 	
 	
 	//ajax查詢特定活動
 	public List<ActBean> ajaxActService(Integer act_no) {
-		// TODO Auto-generated method stub
 		return actDao.ajaxActDao(act_no);
 	}
 
 	//參加活動
 	public void insertJoinService(JoinActBean joinactbean,Integer uid,Integer act_no) {
-		// TODO Auto-generated method stub
 		actDao.insertJoinDao(joinactbean, uid, act_no);
 		
 	}
 	
 	//ajax查詢會員參加的活動
-	public List<JoinActBean> ajaxWhatJoinService(Integer u_Id) {
-		// TODO Auto-generated method stub
+	public List<Object> ajaxWhatJoinService(Integer u_Id) {
 		return actDao.ajaxWhatJoinDao(u_Id);
+	}
+
+	//取消參加活動
+	public void nojoinservice( Integer jid) {
+		actDao.nojoinDao(jid);
+		return;
 	}
 	
 	

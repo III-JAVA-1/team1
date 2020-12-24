@@ -64,7 +64,7 @@ public class CommentDao {
 					 "join Article\r\n" + 
 					 "on Comment.posterUid = Article.posterUid\r\n" + 
 					 "where Article.posterUid=:posterUid\r\n"+
-					 "order by Comment.commentUpdatedtime desc";
+					 "order by Comment.commentUpdatedtime";
 		list = session.createNativeQuery(sql).setParameter("posterUid", posterUid).getResultList();
 		
 		if(list.isEmpty()) {return null;}		

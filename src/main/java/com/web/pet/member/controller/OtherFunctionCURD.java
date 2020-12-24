@@ -37,5 +37,11 @@ public class OtherFunctionCURD {
 	public List<Object[]> shoprateController(String user_id) {
 		return otherFunctionService.shoprateService(user_id);
 	}
+	
+	@RequestMapping("/memberarticle")//會員頁面文章記錄
+	@ResponseBody
+	public List<Object[]> memberarticleController(Integer user_id) {
+		return otherFunctionService.memberarticleService(user_id);
+	}
 
 }

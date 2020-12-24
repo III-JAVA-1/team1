@@ -105,9 +105,11 @@ public class ActDao {
 	}
 
 
+
 	public ActBean AllActDao(Integer act_no) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(ActBean.class,act_no);
 	}
+
 	
 }

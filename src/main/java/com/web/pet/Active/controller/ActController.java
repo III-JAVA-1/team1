@@ -137,6 +137,7 @@ public class ActController {
 		out.print("window.alert('已取消');window.location.href='../Active/ActCheck.jsp';");
 		out.print("</script>");
 		out.close();
+
 	}
 	
 	@RequestMapping(value = "/getimg")//活動的圖片
@@ -152,6 +153,7 @@ public class ActController {
 			re = new ResponseEntity<byte[]>(body,HttpStatus.OK);
 			return re;
 		}
+
 	}
 	
 

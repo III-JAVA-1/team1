@@ -17,7 +17,7 @@
 .div1 {
     background-color: white;
     border: 2px solid white;
-    margin: 50px 100px 20px 100px;  /*上右下左*/
+    margin: 50px 100px 20px 100px; /*上右下左*/
     padding: .9375rem .9375rem;
 }
 
@@ -26,14 +26,14 @@
     border: 2px solid white;
     width: 48vw;
     margin-bottom: 15%;
-    padding: .9375rem .9375rem ;
+    padding: .9375rem .9375rem;
     margin-left: 70px;
 }
 
 .div3 {
     background-color: white;
     border: 2px solid white;
-    margin: 50px 100px 20px 100px;  /*上右下左*/
+    margin: 50px 100px 50px 100px; /*上右下左*/
     padding: .9375rem .9375rem;
 }
 
@@ -95,7 +95,7 @@ body {
     cursor: pointer;
 }
 
-.cart-count{
+.cart-count {
     position: fixed;
     right: 13px;
     bottom: 65px;
@@ -106,48 +106,106 @@ body {
     font-weight: bold;
 }
 
-.st2{
+.st2 {
     font-size: 14pt;
     margin: 10px 30px 10px 30px;
 }
 
-.btn1{/*星星按鈕*/
+.btn1 { /*星星按鈕*/
     margin-left: 20vw;
 }
 
-.star-rate{ /*評分平均*/
+.star-rate { /*評分平均*/
     text-align: center;
     margin: 5px 0 5px 0;
     font-size: 20pt;
     color: #f6a91e;
 }
 
-.my-btn-margin{
+.my-btn-margin {
     margin: 0 5px 0 5px;
 }
 
-.my-div-list-margin{
+.my-div-list-margin {
     margin-left: 20px;
 }
 
-.custom-message-area{/*留言區*/
+.custom-message-area { /*留言區*/
     margin: 0 50px;
 
 }
 
-.member-account{
+.member-account {
     font-size: 12pt;
-    font-weight:bold;
+    font-weight: bold;
     margin-bottom: 0;
 }
 
-.build-date{
+.build-date {
     font-size: 10pt;
     color: grey;
     margin-bottom: 0;
 }
 
-.message{
+.message {
     font-size: 12pt;
     margin-bottom: 0;
 }
+
+.shipping-p {
+    /*margin-bottom: 0;*/
+    /*text-align: center;*/
+    padding-top: 10px;
+    float: left;
+}
+
+.truck-img {
+    margin: 8px 0px 0 10px;
+    cursor: pointer;
+}
+
+.shipping-alldiv {
+    margin: 8px;
+}
+
+.date {
+    margin-bottom: 0px !important;
+}
+
+.line-rate:hover {
+    font-size: 16px;
+    font-weight: bold;
+    color: #797777;
+    text-decoration: underline;
+}
+
+.line-p, .line-rate {
+    text-align: center;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+}
+
+.line-p1 {
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.rate-img {
+    margin-top: 13px;
+}
+
+#topStarDiv {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#like {
+    cursor: pointer;
+}
+
+.shipping-div:hover .dropdown-menu {
+    display: block;
+}
+
+/* 當滑鼠移至該元件時，才會顯示 */
+

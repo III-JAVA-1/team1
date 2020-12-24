@@ -136,24 +136,23 @@
     <div class="bubbleContainer">
 	<h5>留言</h5>
         <div class="bubbleBody">                        
-		 <form id="message" action="../petforum/commitComment" method="POST">
+		 <form id="message" action="<c:out value="../petforum/commitComment"/>" method="POST">
 		 	<div class="divForm">
 			 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
 			 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
-			 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>			 	
+<%-- 			 	<input type="hidden" name="u_Id" value="<%=request.getSession().getAttribute("u_Id") %>"/>			 	 --%>
 	            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
             </div>
-			<button class="btnSendMessage" type="submit" form="message">送出留言</button>
+			<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
          </form>
        </div>
  </div>
 </div>
 <!-- end of editComment UI -->
-
 </div>
 </div> <!--db_line1_left-->
 
-            
+           
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
                     <h5>版主主題討論</h5>                            
@@ -214,7 +213,7 @@
 		
 		//網頁ready文檔加載完就做
 		//網頁onload全部加載完成才做(音樂、圖片) 				
-		reload();
+		reload();//reload文章信息
 	
 	
 //=============================================================================================
@@ -231,7 +230,7 @@
 				$("#comment").html("");
 				$.each(data,function(i,n){					
 				
-					reload();//測試
+					reload();//reload文章信息
 					console.log(n[0]);//u_Id				
 					console.log(n[1]);//sname
 				
@@ -279,7 +278,7 @@
 				
 			},
 			error:function(){
-				$("#comment").append("<h2>"+"查無資料"+"</h2>")
+				$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
 			}
 		})
 	});
@@ -303,24 +302,37 @@
  }
 		
 		
-		//	若會員沒上傳頭像，則顯示預設圖片
-		 function imgDisplay(noUpload) 
-		  { 
-		 	$(noUpload).attr("src","image/mask_dog.png");
-		  }		
+//	若會員沒上傳頭像，則顯示預設圖片
+ function imgDisplay(noUpload) 
+  { 
+ 	$(noUpload).attr("src","image/mask_dog.png");
+  }		
 		
-		//	顯示編輯留言的介面
-		let editCommentDisplay = 0;
-    	function editComment(){
+//	顯示編輯留言的介面
+let editCommentDisplay = 0;
+  	function editComment(){
+  	
+  	if(editCommentDisplay == 0){
+  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
+  	}else{
+  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
+  	}    	
+  }
+  	
+  	//留言內容不可為空
+  	$("#sendMessage").click(function checkCommentContent(form){
+  		console.log($("#commentContent").val());
+  		
+  		if($("#commentContent").val() != ""){ 
+	   	return true;//form action請求送出				  
+		 }	 
+		else{ 
+		 window.alert("留言內容不可為空！");
+		 return false;
+		 }  		
+  	})  	
     	
-    	if(editCommentDisplay == 0){
-    		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
-    	}else{
-    		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
-    	}    	
-    }
-    	
-    	
+   //=========================================================================== 	
     	function reload(){
     		$.ajax({
     			url:"../petforum/viewPost",
@@ -392,7 +404,7 @@
     				})
     			},
     			error:function(){
-    				$("#article").append("<h2>"+"查無資料"+"</h2>")
+    				$("#article").append("<h2>"+"查無文章資料"+"</h2>")
     			}
     		});
     	}

@@ -1,6 +1,9 @@
 package com.web.pet.forum.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +25,10 @@ public class NewCommentEdit {
 	public String commitComment(
 			Comment comment,
 			@RequestParam(value = "posterUid",required = false) Integer posterUid,
-			@RequestParam(value = "u_Id",required = false) Integer u_Id
+			HttpServletRequest request
 			) {
 		//把從前端送來的Comment物件insert到資料庫
-		
+		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		System.out.println("=========="+posterUid);
 		System.out.println("----------"+u_Id);
 		System.out.println("++++++++++"+comment.getCommentContent());

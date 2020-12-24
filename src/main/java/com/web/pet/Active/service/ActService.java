@@ -56,10 +56,13 @@ public class ActService {
 	}
 
 
+
 	public ActBean AllActService(Integer act_no) {
 		
 		return actDao.AllActDao(act_no);
 	}
+
+
 	
 
 	

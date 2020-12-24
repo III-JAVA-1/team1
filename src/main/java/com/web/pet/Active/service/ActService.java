@@ -22,8 +22,8 @@ public class ActService {
 	private ActDao actDao;
 	
 	//新增活動
-	public void insertActService(ActBean actbean,Integer uid) {
-		actDao.insertActDao(actbean,uid);
+	public int insertActService(ActBean actbean,Integer uid) {
+		return actDao.insertActDao(actbean,uid);
 	}
 	
 	
@@ -54,6 +54,13 @@ public class ActService {
 		actDao.nojoinDao(jid);
 		return;
 	}
+
+
+	public ActBean AllActService(Integer act_no) {
+		
+		return actDao.AllActDao(act_no);
+	}
 	
+
 	
 }

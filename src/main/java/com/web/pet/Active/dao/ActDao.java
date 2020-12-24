@@ -23,10 +23,13 @@ public class ActDao {
 	
 	
 	//新增活動
-	public void insertActDao(ActBean actbean,Integer uid) {
+	public int insertActDao(ActBean actbean,Integer uid) {
+		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		actbean.setMember(session.get(Member.class, uid));
 		session.save(actbean);
+		count++;
+		return count;
 	}
 	
 //	@SuppressWarnings("unchecked")
@@ -99,6 +102,12 @@ public class ActDao {
 		joinActBean.setJoin_actnow("取消參加");
 		session.merge(joinActBean);
 		return;
+	}
+
+
+	public ActBean AllActDao(Integer act_no) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(ActBean.class,act_no);
 	}
 	
 }

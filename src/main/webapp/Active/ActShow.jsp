@@ -18,7 +18,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="../Styles/index.css" rel="stylesheet">
+<!--     <link href="../Styles/index.css" rel="stylesheet"> -->
 <script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 
 
@@ -61,11 +61,12 @@
     
 <div>
 			<%String getact=request.getParameter("get");%>
-
-   			
-   			
+		<div style="text-align:center;">
+<%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
+   			<img id="img" src="image/tantanEX.jpg" style="with=800px;">
+		</div>   			
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
-   			<tbody>
+   			
    				<tr>
    					<td class="acstyle">活動名稱</td>
    					<td class="acstyle">活動時間</td>
@@ -79,11 +80,11 @@
    				</tr> 			
 
    			
-   			</tbody>
+   			
    		</table>
    		<br>
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
-   			<tbody>
+   			
    				<tr>
    					<td class="acstyle">承辦單位</td>
    					<td class="acstyle">連絡人</td>
@@ -100,7 +101,7 @@
    					
    				</tr> 			
 				
-   			</tbody>
+   			
    			
    		</table>
    		<br>
@@ -134,18 +135,6 @@
 
 
     <script>
-//     	function gogo()
-//     	{
-<%--     		<% --%>
-//     			if(session.getAttribute("user")==null)
-<%--     			{%>window.alert("請先登入"); return false; --%>
-<%--     			<%}else{%> --%>
-//     			return  true;
-<%--     			<%}%> --%>
-    				
-    				
-//     		return false;
-//     	}
 
     	
     	$().ready(function(){//ajax完整活動資訊
@@ -154,11 +143,11 @@
     			type:"post",
     			dataType:"json",
     			data:{
-    				"act_no":<%=getact %>
+    				"act_no":<%=getact%>
     			},
     			success : function(data) {
     				$.each(data,function(i,n){
-    					
+    					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
     					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
@@ -175,6 +164,9 @@
     				   
     			});
          	
+ 
+    	
+    	
     </script>
     
 </body>

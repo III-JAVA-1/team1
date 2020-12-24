@@ -132,34 +132,32 @@
                             <span><a href="#">&laquo;</a></span>
                             <span><a href="#">20</a></span> 
                         </div>
-          <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+          <!-- 有登入才能看到此按鈕 -->
             <div class="db_line1_release">
-                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
-            </div>
-          </form> 
-                    </div>
-                    
-          
-                   
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
+			</form>            
+            </div>        
+           </div>
                 
 <!--end of Selection--> 
                 
 <!--Table-->
-                <div class="db_line1_table"> 
-                        <table class="tb1"> 
-                            <thead>                           
-                            <tr>
-                                <th>主題</th>
-                                <th style="width:10%">回應</th>
-                                <th style="width: 10%;">瀏覽</th>
-                                <th style="width: 20%;">發佈時間</th>
-                            </tr> 
-                            </thead>
-                            <tbody id="article" >
-							<!-- AJAX -->
-                            </tbody>                            
-                        </table>
-                    </div>
+            <div class="db_line1_table"> 
+                    <table class="tb1"> 
+                        <thead>                           
+                        <tr>
+                            <th>主題</th>
+                            <th style="width:10%">回應</th>
+                            <th style="width: 10%;">瀏覽</th>
+                            <th style="width: 20%;">發佈時間</th>
+                        </tr> 
+                        </thead>
+                        <tbody id="article" >
+			<!-- AJAX -->
+                        </tbody>                            
+                    </table>
+                </div>
 <!--end of Table-->
 <!--pagination-->
             <div class="db_line1_pagination">
@@ -174,11 +172,14 @@
                     <span><a href="#">20</a></span> 
                 </div>
             </div> 
-		  <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+            <!-- 有登入才能看到此按鈕 -->		   
             <div class="db_line1_release">
-                <button type="submit" class="btn btn-secondary" id="ckRelease">我要發表</button>            
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
+			</form>            
             </div>
-          </form>
+          
+           </div>
             
 <!--end of pagination-->
 

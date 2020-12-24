@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/article.css">
+    <link rel="stylesheet" type="text/css" href="css/messageBoard.css">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -84,76 +85,70 @@
         <div id="body">
             <div class="db_line1">
                 <div class="db_line1_left">
-
-                <div class="db_line1_message">
-				<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
-				    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
-				</form> 
+                <!-- 	有登入才能看到此按鈕，假定訪客的u_Id=0 -->
+				<%if(request.getSession().getAttribute("user") != null) {%>
+				 <div class="db_line1_message">				
+				    <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
 				</div>
-
- <!--Member-->               
+				<%}%>
+				
+              
+          <!-- Article -->
+          <div id="article" class="db_line1_left_article">
+              <!-- AJAX整個文章資料顯示在這裡 --> 
+          </div>
+          <!-- end of Article -->
                 
-                <div class="db_line1_left_article">
-                    <div id="member" class="article_left">
-                       <!-- AJAX會員資料顯示在這裡 -->                       
-                    </div>
-
- <!--end of Member-->  
-                    <div class="article_right">
-                        <div id="article" class="article_main">
-                      <!-- AJAX文章資料顯示在這裡 -->
-                        </div>                       
-                    </div>
-                </div>
             <!-- 這邊一定要發GET請求才不會出trouble -->
           <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
             <div class="db_line1_release">
             <!-- 獲取StringQuery的posterUid -->
             <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
            <!-- 發文者才會看到按鈕 --> 
-         <%
-         if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
-      		out.print("<button type='submit' class='btn btn-secondary' id='ckRelease'>我要修改</button> "); 
-         }
-         %>             
+          <%  
+          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
+         	 	if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
+            			out.print("<button type='submit' class='btn btn-secondary'>我要修改</button> "); 
+                	}
+          	}
+           %>               
             </div>
           </form>
          <hr/>    
 <!--end of Aticle-->
 
- <!--Member-->  
-<div class="db_line1_left_article">
-    <div class="article_left">
-        <div class="article_left_img">
-        <img src="image/mask_dog.png" width="150px" height="150px" style="border:1px solid #666;border-radius: 15px;">
-        </div>
-        <div class="article_left_a">
-        <a href="#">Author Name</a><br/>
-        <span style="border-radius: 8px;background-color: #666;color: white">2F</span>
-        </div>                        
-    </div>
- <!--end of Member-->  
 <!--Message-->
-    <div class="article_right">
-        <div class="article_main">            
-               <div class="article_main_content">
-                飼料減半....<br>
-                早 / 晚 / 睡前 帶出去遛遛 兼做運動...<br>
-                幫不了你<br>           
-               </div>
-            </div>
-            <div>
-                <span style="font-size: 10px;">2020-11-24 21:59</span>
-            </div>                       
-        </div>
-    </div>
-    <hr/>    
+ <div id="comment">
+     <!-- AJAX整個留言資料顯示在這裡 --> 
+ </div>
 <!--end of Message-->    
-<div class="db_line1_message">
-<form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
-    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要回覆</button></span>
-</form> 
+
+<!-- 有登入才能看到此按鈕 -->
+<%if(request.getSession().getAttribute("user") != null) {%>
+ <div class="db_line1_message">				
+    <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
 </div>
+<%}%>
+	
+
+<!-- editComment UI -->
+<div id='editCommentInfo' style='display:none;'>
+    <div class="bubbleContainer">
+	<h5>留言</h5>
+        <div class="bubbleBody">                        
+		 <form id="message" action="../petforum/commitComment" method="POST">
+		 	<div class="divForm">
+			 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
+			 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
+			 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>			 	
+	            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
+            </div>
+			<button class="btnSendMessage" type="submit" form="message">送出留言</button>
+         </form>
+       </div>
+ </div>
+</div>
+<!-- end of editComment UI -->
 
 </div>
 </div> <!--db_line1_left-->
@@ -178,8 +173,6 @@
                 </div>       
             </div>
             </div>
-        
-
    
 </div>
 </div>
@@ -221,79 +214,188 @@
 		
 		//網頁ready文檔加載完就做
 		//網頁onload全部加載完成才做(音樂、圖片) 				
+		reload();
+	
+	
+//=============================================================================================
 		
+		$().ready(function(){	
 		$.ajax({
-			url:"../petforum/viewPost",
+			url:"../petforum/viewComment",
 			type:"POST",		
 			dataType:"json",
 			data:{
-				"posterUid":<%=request.getParameter("posterUid")%>,				
+				"posterUid":<%=request.getParameter("posterUid")%>,
 			},
 			success:function(data){	
-					console.log(data.member.u_Id);
-					console.log(data.content);
-					console.log(data.header);
-					//console.log(data.member.sname);
-					//console.log(data.member.img);
-					
+				$("#comment").html("");
+				$.each(data,function(i,n){					
+				
+					reload();//測試
+					console.log(n[0]);//u_Id				
+					console.log(n[1]);//sname
+				
 					//初始資料沒有會員暱稱
 					var memberSname;
-					if(data.member.sname === undefined){
+					if(n[1] === undefined){
 						memberSname = "Author Name";
 					}
 					else{
-						memberSname = data.member.sname
+						memberSname = n[1];
 					}
 					
+					//2F....
+					var floor = (i+1)+1;
+					//想辦法讓留言顯示時換行
+					var comment = n[2].replace(/\n/g,'<br/>');
 					
-					//顯示會員相關信息(顯示會員圖片發送另一個請求)
-					$("#member").append("<div class='article_left_img'>"+
-					"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data.member.u_Id+"'/>'"+
-					" style='border: 1px solid #666;border-radius: 15px;width: 150px;height: 150px;'  onerror='imgDisplay(this)'>"+
+					//Member.u_Id,Member.sname,Comment.commentContent,Comment.commentUpdatedtime
+					//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示留言相關信息					
+					$("#comment").append("<div class='db_line1_left_article'>"+
+					"<div id='member' class='article_left'>"+
+					"<div class='article_left_img'>"+
+					"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+n[0]+"'/>'"+
+					" style='border: 1px solid #666;border-radius: 15px;width: 120px;height: 120px;'  onerror='imgDisplay(this)'>"+
 					"</div>"+
 					"<div class='article_left_a'>"+
 					"<a href='#'>"+memberSname+"</a><br/>"+
-					"<span style='border-radius: 8px;background-color: #666;color: white'>樓主</span>"+
-					"</div>");
-					
-					
-					//讀取會員是否有將此文章加入最愛
-					if(data.articleFavorites.favoriteId != null){
-						$("#fav").css("background-color", "red");
-					}
-					else{
-						$("#fav").css("background-color", "transparent");
-					}
-					
-					//想辦法讓文章顯示時換行
-					var content = data.content.replace(/\n/g,'<br/>');
-					
-					//顯示文章相關信息
-					$("#article").append("<h5>"+data.header+"</h5>"+
-					"<div class='article_main_span'>"+
-					"<span>"+data.updatedTime+"</span>"+
-					"<span><img src='image/icons8-eye-50.png'/>&nbsp"+data.viewing+"</span>"+
-					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+					
-					"<hr/>"+
-					" <div class='article_main_content'>"+
-					"<p>"+content+"</p>"+
-					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+data.posterUid+"'/>'"+
-					" style='width: 600px;'>"+
+					"<span style='border-radius: 8px;background-color: #666;color: white'>"+floor+"F</span>"+
 					"</div>"+
-					"</div>");			
+					"</div>"+
+					"<div class='article_right'>"+
+					"<div id='article' class='article_main'>"+
+					"<div class='article_main'>"+
+					"<div class='article_main_content'>"+comment+
+					"</div>"+
+					"</div>"+					
+					"<div>"+
+					"<span style='font-size: 10px;'>"+n[3]+"</span>"+
+					"</div>"+
+					"</div>"+
+					"</div>"+
+					"</div>"+
+					"<hr/>");
+				}) 
+				
 			},
 			error:function(){
-				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
-			}			
-			
+				$("#comment").append("<h2>"+"查無資料"+"</h2>")
+			}
 		})
+	});
+
+		
+		
+	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
+     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
+
+     let commentContentObj = document.getElementById("commentContent");
+     commentContentObj.addEventListener("click",function(){
+         document.getElementById("commentUpdatedtime").value = date;
+     });
+    
+
+   function getTimeStamp(now) {
+   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
+   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
+   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
+ 
+ }
+		
 		
 		//	若會員沒上傳頭像，則顯示預設圖片
 		 function imgDisplay(noUpload) 
 		  { 
 		 	$(noUpload).attr("src","image/mask_dog.png");
-		  } 
+		  }		
 		
+		//	顯示編輯留言的介面
+		let editCommentDisplay = 0;
+    	function editComment(){
+    	
+    	if(editCommentDisplay == 0){
+    		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
+    	}else{
+    		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
+    	}    	
+    }
+    	
+    	
+    	function reload(){
+    		$.ajax({
+    			url:"../petforum/viewPost",
+    			type:"POST",		
+    			dataType:"json",
+    			data:{
+    				"posterUid":<%=request.getParameter("posterUid")%>,				
+    			},
+    			success:function(data){    				
+    				$("#article").html("");			
+    				$.each(data,function(i,n){	
+    					console.log(n[0]);//u_Id
+    					console.log(n[5]);//content
+    					console.log(n[2]);//header					
+    					
+    					//初始資料沒有會員暱稱
+    					var memberSname;
+    					if(n[1] === undefined){
+    						memberSname = "Author Name";
+    					}
+    					else{
+    						memberSname = n[1];
+    					}
+    					
+    					
+    					//想辦法讓文章顯示時換行
+    					var content = n[5].replace(/\n/g,'<br/>');
+    					
+    					//Member.u_Id,Member.sname,Article.header,Article.updatedTime,Article.viewing,Article.content,Article.posterUid,ArticleFavorite.favoriteId
+    					//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示文章相關信息
+    					$("#article").append("<div class='article_left'>"+
+    					"<div class='article_left_img'>"+
+    					"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+n[0]+"'/>'"+
+    					" style='border: 1px solid #666;border-radius: 15px;width: 120px;height: 120px;'  onerror='imgDisplay(this)'>"+
+    					"</div>"+
+    					"<div class='article_left_a'>"+
+    					"<a href='#'>"+memberSname+"</a><br/>"+
+    					"<span style='border-radius: 8px;background-color: #666;color: white'>樓主</span>"+
+    					"</div>"+
+    					"</div>"+
+    					" <div class='article_right'>"+
+    					" <div class='article_main'>"+
+    					"<h5 style='color:#666;'>"+n[2]+"</h5>"+
+    					"<div class='article_main_span'>"+
+    					"<span>"+n[3]+"</span>"+
+    					"<span><img src='image/icons8-eye-50.png'/>&nbsp"+n[4]+"</span>"+
+    					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+					
+    					"<hr/>"+
+    					" <div class='article_main_content'>"+
+    					"<p>"+content+"</p>"+
+    					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+n[6]+"'/>'"+
+    					" style='width: 400px;'>"+
+    					"</div>"+
+    					"</div>"+
+    					"</div>"+
+    					"</div>"+
+    					"</div>"+
+    					"<hr/>");
+    					
+    					
+    					//讀取會員是否有將此文章加入最愛
+//     					if(n[7] != null){
+//     						$("#fav").css("background-color", "red");
+//     					}
+//     					else{
+//     						$("#fav").css("background-color", "transparent");
+//     					}
+    				
+    				})
+    			},
+    			error:function(){
+    				$("#article").append("<h2>"+"查無資料"+"</h2>")
+    			}
+    		});
+    	}
 
 	</script>
   </body>

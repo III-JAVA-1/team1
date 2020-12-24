@@ -68,6 +68,17 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex flex-row count-div">
+            <h5 class="count-p">數量</h5>
+            <div class="count-btn">
+                <input id="min" type="button" value="-" onclick="minusClick()">
+                <input id="count" oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"
+                       type="text" value="1" size="1" style="text-align:center;" onblur="setBuyCount(this)">
+                <input id="add" type="button" value="+" onclick="addClick()">
+            </div>
+            <p class="surplus-p">還剩${surplus}件</p>
+        </div>
+
 
         <div class="bd-highlight btn1">
             <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, false)">加入購物車</button>
@@ -115,7 +126,6 @@
 </div>
 
 
-
 ${modProduct}
 <img id="shopcart" width="50" height="50" onclick="goShoppingCart()" src="../Store/images/shopcart.svg" alt="">
 <div id="cartCount" class="cart-count">0</div>
@@ -135,6 +145,10 @@ ${modProduct}
 <script>
     let productId = "${productId}";
     let memberId = "${memberId}";
+    // 購買數量
+    let buyCount = 1;
+    // 剩餘數量
+    let surplus = ${surplus};
 
     function goShoppingCart() {
         if (memberId == "" || memberId == "null") {
@@ -157,7 +171,7 @@ ${modProduct}
 
         let req = {
             "productId": parseInt(productId),
-            "quantity": 1,
+            "quantity": buyCount,
             "customerId": memberId
         };
 
@@ -311,7 +325,7 @@ ${modProduct}
             contentType: "application/json",
             success: function (res) {
                 if (res.success) {
-                    window.location.href = "Store/?memberId=" + memberId;
+                    window.location.href = "../Store/?memberId=" + memberId;
                 } else {
                     alert('刪除失敗');
                 }
@@ -365,6 +379,40 @@ ${modProduct}
     function goRateArea() {
         let rateAreaDiv = document.getElementById("rateAreaDiv");
         rateAreaDiv.scrollIntoView();
+    }
+
+    function setBuyCount(input) {
+        console.log(input.value);
+        if (buyCount >= 99 || buyCount >= surplus) {
+            input.value = buyCount;
+            return;
+        }
+        let num = input.value;
+        if (num == 0) {
+            num = 1;
+            input.value = num;
+        }
+        buyCount = num;
+    }
+
+    function addClick() {
+        if (buyCount >= 99 || buyCount >= surplus) {
+            return;
+        }
+
+        let countInput = document.getElementById("count");
+        buyCount++;
+        countInput.value = buyCount;
+    }
+
+    function minusClick() {
+        if (buyCount <= 1) {
+            return;
+        }
+
+        let countInput = document.getElementById("count");
+        buyCount--;
+        countInput.value = buyCount;
     }
 
 </script>

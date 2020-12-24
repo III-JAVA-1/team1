@@ -64,20 +64,22 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
-	public @ResponseBody Article viewPost(HttpServletRequest request,@RequestParam(required = false) Integer posterUid) {		
-		if(posterUid == null) {return null;}
-			
-		Article article = service.getArticle(posterUid);		
-		return article;
+	public @ResponseBody List<Object[]> viewPost(@RequestParam(required = false) Integer posterUid) {		
+		if(posterUid == null) {return null;}			
+		List<Object[]> list = service.getArticleByPosterUid(posterUid);
+
+		return list;
 	}
 	
 	
 	@RequestMapping(value="/getMemberImg")//postDetail.jsp秀出會員圖片
 	public ResponseEntity<byte[]> getAvatar(@RequestParam Integer u_Id) {
+		if(u_Id == null) {return null;}
+		
 		byte[] body = null;
 		ResponseEntity<byte[]> resp = null;
 		HttpHeaders headers = new HttpHeaders();
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());		
 		Member member = memberService.fullmemberService(u_Id);
 		Blob blob = member.getImg();
 		if(blob==null) {

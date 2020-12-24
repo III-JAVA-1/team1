@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class GetRateListResDTO {
     private List<RateResDTO> rateList;
-    private Integer avgRate;
+    private String avgRate;
 }

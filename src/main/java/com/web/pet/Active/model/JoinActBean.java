@@ -73,8 +73,8 @@ public class JoinActBean {
 	@JoinColumn(name="u_Id")
 	private Member member ;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="act_no")
+	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="act_no",referencedColumnName = "act_no")
 	private ActBean actBean;
 
 	@Override

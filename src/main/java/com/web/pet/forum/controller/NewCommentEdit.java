@@ -28,6 +28,7 @@ public class NewCommentEdit {
 			HttpServletRequest request
 			) {
 		//把從前端送來的Comment物件insert到資料庫
+		//需要的是留言者的u_Id，非發文者的u_Id		
 		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		System.out.println("=========="+posterUid);
 		System.out.println("----------"+u_Id);

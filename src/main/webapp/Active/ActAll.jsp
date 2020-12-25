@@ -99,8 +99,12 @@
 							$.each(data, function(i, n) {
 
 								$("#activetable").append(
-										"<tr><td class='acstyle'><a href='ActShow.jsp?get="
-												+ n[0] + "'/>" + n[1].substr(0,19)
+										"<tr>"
+												
+												+"<td class='' style='border: 1px solid black; padding:5px'><a href='ActShow.jsp?get="
+												+ n[0] + "'/>"
+												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'>"
+												+ n[1].substr(0,19)
 												+ "</td>"
 												+ "<td class='acstyle'>"
 												+ n[2].substr(0,10) + " ~ "
@@ -124,5 +128,5 @@
 
 </body>
 
-<jsp:include page="Footer.jsp" />
+<%-- <jsp:include page="Footer.jsp" /> --%>
 </html>

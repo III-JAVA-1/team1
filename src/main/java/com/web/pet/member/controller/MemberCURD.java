@@ -25,7 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
 import com.web.pet.util.BlobToByteArray;
-import com.wf.captcha.GifCaptcha;
+import com.wf.captcha.ChineseGifCaptcha;
+import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
 
@@ -48,7 +49,8 @@ public class MemberCURD {
 	
 	@RequestMapping("/captcha")//顯示圖形驗證碼
 	public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		GifCaptcha gifCaptcha = new GifCaptcha(130,48,5);
+		SpecCaptcha gifCaptcha = new SpecCaptcha(130,48,5);
+		gifCaptcha.setFont(ChineseGifCaptcha.FONT_1);
         CaptchaUtil.out(gifCaptcha, request, response);
 	}
 	

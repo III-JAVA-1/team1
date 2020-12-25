@@ -104,12 +104,12 @@ $().ready(function(){//ajax完整活動資訊
 
 				$("#WhatTable").append(						
 						"<tr>"						
-						+"<td class='acstyle'><a href='ActShow.jsp?get="+n[3]+"'/>" + n[0]+ "</td>"
+						+"<td class='acstyle'><a href='ActShow.jsp?get="+n[4]+"'/>" + n[0]+ "</td>"
 						+"<td class='acstyle'>"+ n[1] +"</td>"
 						+"<td class='acstyle'>"+ n[2] +"</td>"						
 						+"<td class='acstyle'>"						
 						+"<form method='post' action='../Wu/NoJoin'>"
-					    +"<input type='hidden' name='jid' id='jid' value='"+n[4]+"'/>"							
+					    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
 						+"<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button>"
 						+"</form>"						
 						+"</td>"						

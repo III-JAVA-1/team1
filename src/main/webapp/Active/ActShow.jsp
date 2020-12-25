@@ -63,7 +63,7 @@
 			<%String getact=request.getParameter("get");%>
 		<div style="text-align:center;">
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
-   			<img id="img" src="image/tantanEX.jpg" style="with=800px;">
+   			<img id="img" style="with=800px;" src="image/tantanEX.jpg" >
 		</div>   			
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
    			

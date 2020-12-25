@@ -56,9 +56,8 @@ public class ActService {
 	}
 
 
-
-	public ActBean AllActService(Integer act_no) {
-		
+	//幫活動圖片抓全部東西
+	public ActBean AllActService(Integer act_no) {		
 		return actDao.AllActDao(act_no);
 	}
 

@@ -17,4 +17,5 @@ public class ProductDTO {
     private Date createDate = new Date();
     private String isDisplay;
     private int price;
+    private int stock;
 }

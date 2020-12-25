@@ -38,12 +38,13 @@ public class UpdateProductAction {
 
             String sql =
                     "SELECT product_name, introduction, category_id , "
-                            + "animal, price, is_display FROM product WHERE product_id=?";
+                            + "animal, price, is_display, stock FROM product WHERE product_id=?";
 
             ResultSet resultSet = dbu.queryList(sql, id);
             if (resultSet.next()) {
                 model.addAttribute("product_name", resultSet.getString(1));
                 model.addAttribute("introduction", resultSet.getString(2));
+                model.addAttribute("stock", resultSet.getInt(7));
                 int categoryId = resultSet.getInt(3);
 
                 // 組選項html字串

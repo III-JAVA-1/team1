@@ -19,12 +19,12 @@
     <fieldset class="fieldset">
         <legend>修改商品</legend>
         <div class="form-group">
-            <label for="inputName">商品名稱：</label>
+            <label for="inputName">* 商品名稱：</label>
             <input type="text" class="form-control" id="inputName" placeholder="請輸入名稱" required value="${product_name}">
 
         </div>
         <div class="form-group">
-            <label for="inputIntro">商品描述：</label>
+            <label for="inputIntro">* 商品描述：</label>
             <textarea class="form-control" id="inputIntro" rows="5" required>${introduction}</textarea>
 
         </div>
@@ -44,18 +44,26 @@
             </select>
         </div>
         <div class="count">
-            <P>價格：</P>
+            <P>* 價格：</P>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                 </div>
                 <input id="inputPrice" type="text" class="form-control"
-                       aria-label="Dollar amount (with dot and two decimal places)" required value="${price}">
+                       aria-label="Dollar amount (with dot and two decimal places)" required value="${price}"
+                       oninput="value=value.replace(/[^\d]/g,'')" onblur="setPrice(this)">
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="inputName">* 商品數量：</label>
+            <input type="text" class="form-control" id="inputStock" value="${stock}"
+                   oninput="value=value.replace(/[^\d]/g,'')" onblur="setStock(this)">
+        </div>
+
         <div class="displayDiv">
             <input type="file" id="fileUploader" class="display_none" onchange="handleFiles(this, this.files)"/>
-            <div id="upload_zone" class="upload_zone" >
+            <div id="upload_zone" class="upload_zone">
                 <P class="pChoose">選擇檔案</P>
             </div>
             <div id="preview" class="d-flex flex-wrap">
@@ -76,7 +84,7 @@
             </div>
         </div>
         <div class="button">
-            <button type="submit" class="btn btn-primary" onclick="doUpdate(); return false;">送出</button>
+            <button type="submit" class="btn btn-primary" onsubmit="return false;" onclick="return doUpdate();">送出</button>
         </div>
     </fieldset>
 </form>
@@ -85,6 +93,7 @@
 
     let uploadData = {}
     let imgList = []
+    let stock = 1
 
     let productId =${productId};
 
@@ -95,21 +104,21 @@
         //取得輸入框的值並且判斷為空值
         if (name.value === "") {
             // 姓名為空
-            return false;
+            return true;
         }
         //取得inputIntro的元件
         let introduction = document.querySelector("#inputIntro");
         //取得輸入框的值並且判斷為空值
         if (introduction.value === "") {
             // 介紹為空
-            return false;
+            return true;
         }
         //取得inputPrice的元件
         let price = document.querySelector("#inputPrice");
         //取得輸入框的值並且判斷為空值
         if (price.value === "") {
             // 價格為空
-            return false;
+            return true;
         }
 
         //取得selectCategory的元件,
@@ -143,6 +152,7 @@
         uploadData.price = price.value;
         uploadData.isDisplay = isDisplay;
         uploadData.imgList = imgList;
+        uploadData.stock = stock;
 
         // 準備後端要儲存的商品資料
         let req = JSON.stringify(uploadData);
@@ -163,8 +173,8 @@
             // success,error判斷傳輸是否成功,如果傳輸成功會跑if判斷
             success: function (res) {
                 if (res.success) {
-                    history.back();
                     alert('修改成功');
+                    history.back();
                 } else {
                     alert('修改失敗');
                 }
@@ -309,6 +319,20 @@
     }
 
     getImgs();
+
+    function setStock(input) {
+        if (input.value < 1) {
+            input.value = 1
+        }
+        stock = input.value
+    }
+
+    function setPrice(input) {
+        if (input.value < 1) {
+            input.value = 1
+        }
+    }
+
 </script>
 
 

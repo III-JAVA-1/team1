@@ -1,7 +1,9 @@
 package com.web.pet.store.controller;
 
+import com.sun.xml.bind.v2.model.core.ID;
 import com.web.pet.store.dao.OrderDAO;
 import com.web.pet.store.dao.OrderItemDAO;
+import com.web.pet.store.dao.ProductDAO;
 import com.web.pet.store.dao.ShoppingCartDAO;
 import com.web.pet.store.dto.api.OrderAddReqDTO;
 import com.web.pet.store.dto.api.OrderAddResDTO;
@@ -135,6 +137,9 @@ public class OrderAction {
                 totalCost += resultSet.getInt(2) * resultSet.getInt(3);
                 // 將項目加至購買明細陣列
                 orderItemList.add(orderItem);
+                // 修改庫存數量
+                // FIXME: 之後要判斷下單數量是否大於庫存數
+                ProductDAO.updateStock(dbu, resultSet.getInt(1), resultSet.getInt(3));
             }
             resultSet.close();
 

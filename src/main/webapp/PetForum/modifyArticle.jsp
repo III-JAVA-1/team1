@@ -17,6 +17,8 @@
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
+  <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script> 
+  
 </head>
 <body>        
  <!-- 發送/petforum/modifyPost請求 -->
@@ -41,7 +43,7 @@
     </form:select>
 	</div>
 	
-	<form:hidden name="posterUid" path="posterUid" /><!-- 請求url:/sendOriginalPost的控制器方法傳參posterUid給這裡用 -->
+	<form:hidden name="posterUid" path="posterUid" />
 	
 	<div class="control">
 	<form:input name="header" path="header" size="105" placeholder="請輸入文章標題…" />
@@ -49,31 +51,23 @@
 	
 	<div class="control">	
 	<form:hidden name="updatedTime" path="updatedTime" size="115"/>
-	</div>
+	</div>	
 	
-	<div class="control">
-	<label for="image" class="lb">請選擇要上傳的圖片:</label>
-	<input type="file" id="picUpload" name="image" accept="image/gif, image/jpeg, image/png">	
-	</div>
-	
-	<div class="control">
-	<div contentEditable="true" id="iframe" name="content" path="content">
-    <img id="preview_img" src="#" height="400px" /><br/>
-    <label for="textarea" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
-    <form:textarea id="textarea" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
-	onkeyup='return countChar()'/>
-	
+    <label for="content" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
+    <form:textarea id="content" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
+	onkeyup='return countChar()'></form:textarea>	
+
 	<div class="control">
 	<input class="ck" type="checkbox" id="ckObey">
 	<label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
 	<button type="button"  onclick="window.open(
 			 'forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>
-	</div>	
+	</div>
 </form:form>  
 
+  <script>
+	CKEDITOR.replace('content');
 	
-
-    <script>
     //禁止回上一頁
     window.history.forward(1);
     

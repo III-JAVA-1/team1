@@ -27,20 +27,20 @@
     <div id="header">
         <div class="hd_line1">
             <div class="hd_line1_logo">
-                <img src="image/petforum.png" width="60" height="40">
+                <img class="" src="image/petforum.png" width="60" height="40">
             </div>
             <div class="hd_line1_name">                
-                <h2 >汪喵討論區</h2>               
-            </div>
-            <div class="searchBox">
+                <h2>汪喵討論區</h2>               
+            </div>           
+        </div>
+        	 <div class="searchBox">
                 <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
                 <button class="searchButton" href="#">
                     <i class="material-icons">
                         <img src="image/icons8-search-24.png">
                     </i>
                 </button>
-            </div>   
-        </div>            
+            </div>               
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
@@ -262,7 +262,7 @@
 			},
 			success:function(data){					
 				$("#article").html("");
-				$.each(data,function(i,n){
+				$.each(data,function(i,n){				
 					
 					$("#article").append("<tr>"+
 					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+

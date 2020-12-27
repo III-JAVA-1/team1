@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-Hant-TW">
   <head>
@@ -12,15 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--bootstrap初始規模-->
         
     <title>發表新文章</title>
-    <link rel="stylesheet" type="text/css" href="css/forEditArticle.css">
- <c:url value=''/>   
+    <link rel="stylesheet" type="text/css" href="../PetForum/css/forEditArticle.css">
+    
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>  
-  <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script> 
- 
-  
+  crossorigin="anonymous"></script>
+   <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script> 
 </head>
 <body>        
  <!-- 發送/petforum/insertPost請求 -->
@@ -53,55 +50,30 @@
 	
 	<div class="control">	
 	<form:hidden name="updatedTime" path="updatedTime" size="115"/>
-	</div>	
+	</div>
 	
-    <label for="content" class="lb" style="color:red">至少輸入<span id="counter">30</span>字</label><br/>
+	<div class="control"> 
     <form:textarea id="content" name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
-	onkeyup='return countChar()'></form:textarea>	
-
+	onkeyup='return countChar()'></form:textarea>
+	</div>
+	
 	<div class="control">
 	<input class="ck" type="checkbox" id="ckObey">
 	<label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
 	<button type="button"  onclick="window.open(
 			 'forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>
-	</div>
+	</div>	
 </form:form>  
 
   <script>
-	CKEDITOR.replace('content');	
+  CKEDITOR.replace('content',{
+		language: 'zh-TW',//改成中文版
+	});
+  
   
     //禁止回上一頁
     window.history.forward(1);
     
-    //即時預覽上傳圖片    
-    $("#picUpload").change(function(){
-      //當檔案改變後，做一些事 
-     readURL(this);   // this代表<input id="picUpload">
-   });
-    
-    function readURL(input){
-    	  if(input.files && input.files[0]){
-    	    var reader = new FileReader();
-    	    reader.onload = function (e) {
-    	       $("#preview_img").attr('src', e.target.result);    	       
-    	    }
-    	    reader.readAsDataURL(input.files[0]);
-    	  }
-    	}
-    
-    //計算輸入文章內文字數
-    let count;
-    function countChar()
-    {
-    	document.getElementById("counter").innerHTML = 30-document.getElementById("textarea").value.length;
-    	 count = parseInt(document.getElementById("counter").innerHTML);
-	    if(count <= 0){
-	    	$("#counter").css("display","none");
-	    }
-	    else{
-	    	$("#counter").css("display","inline");
-	    }
-    }
     
     
     $("#preview").click(function check(form){//按預覽文章   	

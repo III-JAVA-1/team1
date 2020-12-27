@@ -66,26 +66,12 @@
 </form:form>  
 
   <script>
-	CKEDITOR.replace('content');
+	CKEDITOR.replace('content',{
+		language: 'zh-TW',//改成中文版
+	});
 	
     //禁止回上一頁
-    window.history.forward(1);
-    
-    //即時預覽上傳圖片    
-    $("#picUpload").change(function(){
-      //當檔案改變後，做一些事 
-     readURL(this);   // this代表<input id="picUpload">
-   });
-    
-    function readURL(input){
-    	  if(input.files && input.files[0]){
-    	    var reader = new FileReader();
-    	    reader.onload = function (e) {
-    	       $("#preview_img").attr('src', e.target.result);    	       
-    	    }
-    	    reader.readAsDataURL(input.files[0]);
-    	  }
-    	}
+    window.history.forward(1);   
     
     //計算輸入文章內文字數
     let count;

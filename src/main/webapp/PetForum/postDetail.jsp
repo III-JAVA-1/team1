@@ -155,7 +155,7 @@
            
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
-                    <h5>版主主題討論</h5>                            
+                    <h5 style='color:#666;text-align:left'>版主主題討論</h5>                            
                 </div>
             <div class="db_line1_right_featured2">
                 <div class="imag">

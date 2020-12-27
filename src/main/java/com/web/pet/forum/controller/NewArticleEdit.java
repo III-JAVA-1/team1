@@ -41,34 +41,19 @@ public class NewArticleEdit {
 	@ModelAttribute
 	@RequestMapping("/insertPost")//送到預覽頁面
 	public ModelAndView insertPost(			
-			Article article,//資料來自前端
-			@RequestParam(value = "image", required=false) MultipartFile image,  
+			Article article,//資料來自前端			
             HttpServletRequest request                
-            ) throws IOException{		
+            ) {		
 		
 		//	這裡要insert一筆Article紀錄，不過因為尚未寫入資料庫，所以u_Id要從session取得
 		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-		if (image != null && !image.isEmpty()) {
-			try {
-				byte[] b = image.getBytes();
-				Blob blob = new SerialBlob(b);
-				article.setPic(blob);
-				
-				service.saveArticle(article,u_Id);//insertArticle(傳Member表主鍵去Dao)
-				System.out.println("預覽成功......");//(含圖)					
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}		
-		
-		service.saveArticle(article,u_Id);//沒有insert圖片的文章物件
+
+		service.saveArticle(article,u_Id);//不用insert圖片的文章物件
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("articleModel", article);//加到@ModelAttribute中
 		mv.addObject("editStatus","新增");
-		mv.setViewName("forward:/PetForum/preview.jsp");
+		mv.setViewName("forward:/PetForum/editArticle.jsp");
 		
 		return mv;
 	}

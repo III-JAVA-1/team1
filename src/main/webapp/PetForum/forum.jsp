@@ -44,14 +44,14 @@
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
-           <a style="border-color:#39C;" href="#" onclick="getForum('全部'); return false"><img src="image/Home_logo.png"/></a>
+           <a style="border-color:#39C;" href="#table" onclick="getForum('全部'); "><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
-            <a style="border-color:#ccc" href="#" onclick="getForum('協尋'); return false">走失協尋</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('送養');">汪喵送養</a>
-            <a style="border-color:#ccc;" href="#" onclick="getForum('日常'); return false">汪喵日常</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('主題'); return false">版主討論</a>
-            <a style="border-color:#ccc;" href="#" onclick="getForum('徵友'); return false">汪喵徵友</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('心得'); return false">心得分享</a>
+            <a style="border-color:#ccc" href="#table" onclick="getForum('協尋'); ">走失協尋</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('送養');">汪喵送養</a>
+            <a style="border-color:#ccc;" href="#table" onclick="getForum('日常');">汪喵日常</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('主題');">版主討論</a>
+            <a style="border-color:#ccc;" href="#table" onclick="getForum('徵友'); ">汪喵徵友</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('心得'); ">心得分享</a>
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -143,7 +143,7 @@
 <!--end of Selection--> 
                 
 <!--Table-->
-            <div class="db_line1_table"> 
+            <div id="table" class="db_line1_table"> 
                     <table class="tb1"> 
                         <thead>                           
                         <tr>

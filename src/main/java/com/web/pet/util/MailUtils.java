@@ -35,15 +35,15 @@ public class MailUtils {
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("a0985209465", "abcd4899510");
+				return new PasswordAuthentication("EEIT125Team1", "cry55555");
 			}
 		};
 		Session session = Session.getInstance(props, auth);
 		// 2.创建一个Message，它相当于是邮件内容
 		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress("a0985209465@gmail.com")); // 设置发送者
+		message.setFrom(new InternetAddress("EEIT125Team1@gmail.com")); // 设置发送者
 		message.setRecipient(RecipientType.TO, new InternetAddress(email)); // 设置发送方式与接收者
-		message.setSubject("MOLIHUB官方");
+		message.setSubject("AccompanyMe官方");
 		message.setContent(emailMsg, "text/html;charset=utf-8");
 		// 3.创建 Transport用于将邮件发送
 		Transport.send(message);

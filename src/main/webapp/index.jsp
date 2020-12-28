@@ -55,7 +55,7 @@
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='mom/registerMom.jsp'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>
@@ -92,19 +92,19 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -170,7 +170,7 @@
 		<hr style="height:20px; color:green">
 		
 		<div class="d-flex justify-content-center">
-    		<div class="display-2">最新商品</div>
+<!--     		<div class="display-2">最新商品</div> -->
   		</div>
   		
   		<div class="row justify-content-center" id="indexshop" >

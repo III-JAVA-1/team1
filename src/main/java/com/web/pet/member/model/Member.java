@@ -27,7 +27,9 @@ import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.forum.model.Article;
 import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.forum.model.Comment;
+import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.Raing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -97,6 +99,7 @@ public class Member {
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private Set<ArticleFavorite> articleFavorites = new LinkedHashSet<>(0);
 	//=============================================================
+
 
 }
 	

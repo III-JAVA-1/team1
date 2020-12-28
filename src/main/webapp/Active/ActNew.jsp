@@ -192,7 +192,7 @@
 			<div class="row justify-content-center">
 			
 				<input type="hidden" id="NewActNow" name="NewActNow"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
-				<input type="hidden" id="viableNumber" name="viableNumber"  value="1">
+				<input type="hidden" id="viableNumber" name="viableNumber"  value="0">
 				<button type="button" class="btn btn-primary btn-lg ml-3" onClick="check()">確認送出</button>
 				<button type="button" class="btn btn-primary btn-lg ml-3" onclick="history.back()">取消</button>
 			</div>
@@ -222,5 +222,5 @@ function check(){
 </script>
 
 </body>
-<jsp:include page="Footer.jsp"/>
+<%-- <jsp:include page="Footer.jsp"/> --%>
 </html>

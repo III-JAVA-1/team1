@@ -152,19 +152,26 @@ body {
     margin-bottom: 0;
 }
 
-.shipping-p {
-    /*margin-bottom: 0;*/
-    /*text-align: center;*/
+.shipping-p,.count-p {
     padding-top: 10px;
     float: left;
 }
 
-.truck-img {
+.surplus-p {
+    padding: 10px 0 0 10px;
+    float: left;
+}
+
+.truck-img { /*運費圖片*/
     margin: 8px 0px 0 10px;
     cursor: pointer;
 }
 
-.shipping-alldiv {
+.count-btn{
+    margin: 8px 0 0 10px;
+}
+
+.shipping-alldiv,.count-div {
     margin: 8px;
 }
 
@@ -203,9 +210,7 @@ body {
     cursor: pointer;
 }
 
-.shipping-div:hover .dropdown-menu {
+.shipping-div:hover .dropdown-menu {/* 當滑鼠移至該元件時，才會顯示 */
     display: block;
 }
-
-/* 當滑鼠移至該元件時，才會顯示 */
 

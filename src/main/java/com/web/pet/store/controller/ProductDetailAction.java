@@ -35,7 +35,7 @@ public class ProductDetailAction {
             String sql =
                     "SELECT a.product_name, a.introduction, \n"
                             + "       b.category_name, a.animal, a.create_date,\n"
-                            + "       a.price\n"
+                            + "       a.price, a.stock\n"
                             + "FROM product a, product_category b\n"
                             + "WHERE a.category_id = b.category_id \n"
                             + "AND a.product_id = ?\n";
@@ -50,6 +50,7 @@ public class ProductDetailAction {
                 model.addAttribute("category", rs.getString(3));
                 model.addAttribute("animal", rs.getString(4).equals("0") ? "狗" : "貓");
                 model.addAttribute("introduction", rs.getString(2));
+                model.addAttribute("surplus", rs.getInt(7));
             }
             rs.close();
 
@@ -68,7 +69,7 @@ public class ProductDetailAction {
             if (imgList.isEmpty()) {
                 carousel.append(
                         "<div class=\"carousel-item active\">\n"
-                                + "<img src=\"Store/images/no_picture.gif\" class=\"d-block roll-img\" alt=\"...\">\n"
+                                + "<img src=\"images/no_picture.gif\" class=\"d-block roll-img\" alt=\"...\">\n"
                                 + "</div>");
                 indicators.append(
                         "<li data-target=\"#carouselExampleIndicators\" data-slide-to=\"0\" class=\"active\"></li>\n");

@@ -66,11 +66,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
-  					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
+  					<a href="Action.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商品評價</a>
-  					<a href="Article.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >論壇紀錄查詢</a>
+  					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
   			</div>
@@ -78,22 +78,26 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<div class="col-9">
   			
   			<div class="row justify-content-center">
-    			<div class="display-4">論壇紀錄</div>
+    			<div class="display-4">活動/課程紀錄</div>
+  			</div><br>
+  			
+  			<div class="row justify-content-center">
+    			<div class="h4">更改活動參加狀態請前往<a href="../Active/ActIndex.jsp">活動首頁</a></div>
   			</div><br>
   			
   			<div class="row justify-content-center h4">
     			<ul class="nav nav-pills nav-fill">
   					<li class="nav-item">
-    					<a class="nav-link active" aria-current="page" id="article" href="#" onclick="return articlechange('發文')">發文</a>
+    					<a class="nav-link active" aria-current="page" id="action" href="#" onclick="return actionchange('活動')">活動</a>
   					</li>
   					<li class="nav-item">
-    					<a class="nav-link" href="#" id="comment" onclick="return articlechange('留言')">留言</a>
+    					<a class="nav-link" href="#" id="join" onclick="return actionchange('參加')">參加</a>
   					</li>
 				</ul>
   			</div><br>
   			
   			<div class="row justify-content-start h5" id="mainsearch">
-    			依名字搜尋文章:<input type="text" id="search" name="search">
+    			依名字搜尋活動:<input type="text" id="search" name="search">
   			</div>
   			
 			<table class="table table-hover table-bordered " id="maintable">	
@@ -141,119 +145,119 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         }
     });
     
-    $("#maintable").append("<thead class='h4' style='background-color:#EA0000;'><tr>"+
-			"<th scope='col'>文章名稱</th>"+
-			"<th scope='col'>文章子版</th>"+
-			"<th scope='col'>發文時間</th>"+
-			"<th scope='col'>點閱率</th>"+
-			"<th scope='col'>留言數</th></tr>"+
+    $("#maintable").append("<thead class='h4' style='background-color:#FF60AF;'><tr>"+
+			"<th scope='col'>活動名稱</th>"+
+			"<th scope='col'>活動內容</th>"+
+			"<th scope='col'>活動時間</th>"+
+			"<th scope='col'>活動地址</th></tr>"+
 	"</thead>"+
-	"<tbody id='articletable' class='h5'></tbody>");
+	"<tbody id='actiontable' class='h5'></tbody>");
     
     var userid=<%=session.getAttribute("user")%>
     
     $.ajax({
-		url:"../Gusty/memberarticle",
+		url:"../Gusty/memberaction",
 		type:"post",
 		//async : false,//要賦值給全域變數要改false
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
 			"search":$("#search").val()
-        },//<a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a
+        },
 		success:function(data){
 			$.each(data,function(i,n){
-				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[5]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
-			   			"<td>"+n[1]+"</td>"+
-			   			"<td>"+n[2]+"</td>"+
-			   			"<td>"+n[3]+"</td>"+
+				$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
+						"<td>"+n[1].substring(0,20)+".....</td>"+
+			   			"<td>"+n[2]+"~"+n[3]+"</td>"+
 			   			"<td>"+n[4]+"</td></tr>");
 			});
 		},
 		error:function(){
-			$("#tip").html("沒有發表文章");
+			$("#tip").html("沒有新增活動");
 		}
 	});
     
     
-    function articlechange(title){
+    function actionchange(title){
     	//alert(title);
-    	if(title=='留言'){
-    		$("#article").removeClass("active");
-    		$("#comment").addClass("active");
+    	if(title=='參加'){
+    		console.log("asd");
+    		$("#action").removeClass("active");
+    		$("#join").addClass("active");
     		$("#maintable").html("");
     		$("#mainsearch").css("display","none");
-    		$("#maintable").append("<thead class='h4' style='background-color:#FFD1A4;'><tr>"+
-    				"<th scope='col'>文章名稱</th>"+
-    				"<th scope='col'>留言內容</th>"+
-    				"<th scope='col'>留言時間</th></tr>"+
+    		$("#maintable").append("<thead class='h4' style='background-color:#FFFF93;'><tr>"+
+    				"<th scope='col'>活動名稱</th>"+
+    				"<th scope='col'>備註</th>"+
+    				"<th scope='col'>參加狀態</th>"+
+    				"<th scope='col'>攜帶寵物數量</th></tr>"+
     		"</thead>"+
-    		"<tbody id='articletable' class='h5'></tbody>");
-    		$.ajax({
-        		url:"../Gusty/membermessage",
-        		type:"post",
-        		//async : false,//要賦值給全域變數要改false
-        		dataType:"json",
-        		data : { 
-        			"user_id" : <%=session.getAttribute("user")%>,
-                },
-                success:function(data){
-        			$.each(data,function(i,n){
-        				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[3]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
-        			   			"<td>"+n[1]+"</td>"+
-        			   			"<td>"+n[2]+"</td></tr>");
-        			});
-        		},
-        		error:function(){
-        			$("#tip").html("沒有留言紀錄");
-        		}
-        	});
+    		"<tbody id='actiontable' class='h5'></tbody>");
     		
+    		$.ajax({
+    			url:"../Gusty/memberjoin",
+    			type:"post",
+    			//async : false,//要賦值給全域變數要改false
+    			dataType:"json",
+    			data : { 
+    				"user_id" : <%=session.getAttribute("user")%>,
+    	        },
+    			success:function(data){
+    				$.each(data,function(i,n){
+    					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
+    							"<td>"+n[1]+"</td>"+
+    				   			"<td>"+n[2]+"</td>"+
+    				   			"<td>"+n[3]+"&nbsp&nbsp數量:&nbsp"+n[4]+"</td></tr>");
+    				});
+    			},
+    			error:function(){
+    				$("#tip").html("沒有參加活動");
+    			}
+    		});
+    		return false;
     	}else{
     		$("#mainsearch").css("display","");
-    		$("#comment").removeClass("active");
-    		$("#article").addClass("active");
+    		$("#join").removeClass("active");
+    		$("#action").addClass("active");
     		$("#maintable").html("");
-    		$("#maintable").append("<thead class='h4' style='background-color:#EA0000;'><tr>"+
-				"<th scope='col'>文章名稱</th>"+
-				"<th scope='col'>文章子版</th>"+
-				"<th scope='col'>發文時間</th>"+
-				"<th scope='col'>點閱率</th>"+
-				"<th scope='col'>留言數</th></tr>"+
+    		$("#maintable").append("<thead class='h4' style='background-color:#FF60AF;'><tr>"+
+				"<th scope='col'>活動名稱</th>"+
+				"<th scope='col'>活動內容</th>"+
+				"<th scope='col'>活動時間</th>"+
+				"<th scope='col'>活動地址</th></tr>"+
 		"</thead>"+
-		"<tbody id='articletable' class='h5'></tbody>");
+		"<tbody id='actiontable' class='h5'></tbody>");
     		$.ajax({
-        		url:"../Gusty/memberarticle",
-        		type:"post",
-        		//async : false,//要賦值給全域變數要改false
-        		dataType:"json",
-        		data : { 
-        			"user_id" : <%=session.getAttribute("user")%>,
-        			"search":$("#search").val(),
-                },
-                success:function(data){
-        			$.each(data,function(i,n){
-        				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[5]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
-        			   			"<td>"+n[1]+"</td>"+
-        			   			"<td>"+n[2]+"</td>"+
-        			   			"<td>"+n[3]+"</td>"+
-        			   			"<td>"+n[4]+"</td></tr>");
-        			});
-        		},
-        		error:function(){
-        			$("#tip").html("沒有發表文章");
-        		}
-        	});
+    			url:"../Gusty/memberaction",
+    			type:"post",
+    			//async : false,//要賦值給全域變數要改false
+    			dataType:"json",
+    			data : { 
+    				"user_id" : <%=session.getAttribute("user")%>,
+    				"search":$("#search").val()
+    	        },
+    			success:function(data){
+    				$.each(data,function(i,n){
+    					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
+    				   			"<td>"+n[1].substring(0,20)+".....</td>"+
+    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
+    				   			"<td>"+n[4]+"</td></tr>");
+    				});
+    			},
+    			error:function(){
+    				$("#tip").html("沒有新增活動");
+    			}
+    		});
     	}
+    	return false;
     }
-    
-    
+
     	$("#search").change(function(){
     		$("#tip").html("");
-    		$("#articletable").html("");
+    		$("#actiontable").html("");
     		//console.log("aaaaa");
     		$.ajax({
-        		url:"../Gusty/memberarticle",
+        		url:"../Gusty/memberaction",
         		type:"post",
         		//async : false,//要賦值給全域變數要改false
         		dataType:"json",
@@ -263,12 +267,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 },
         		success:function(data){
         			$.each(data,function(i,n){
-        				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[5]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
-        			   			"<td>"+n[1]+"</td>"+
-        			   			"<td>"+n[2]+"</td>"+
-        			   			"<td>"+n[3]+"</td>"+
-        			   			"<td>"+n[4]+"</td></tr>");
-        			});
+    					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
+    				   			"<td>"+n[1].substring(0,20)+".....</td>"+
+    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
+    				   			"<td>"+n[4]+"</td></tr>");
+    				});
         		},
         		error:function(){
         			$("#tip").html("查無資料");

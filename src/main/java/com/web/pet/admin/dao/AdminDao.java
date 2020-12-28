@@ -22,8 +22,8 @@ public class AdminDao {
 		List<Member> list = new ArrayList<Member>();
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
-		String hql = "FROM Member where name like '%"+user_name+"%'";
-		query= session.createQuery(hql);
+		String hql = "select u_id,name,phone,email,sname,zip,country,district,address,momId,gender,birth FROM Member where name like '%"+user_name+"%'";
+		query= session.createNativeQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;

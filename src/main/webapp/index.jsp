@@ -92,19 +92,19 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:500px;">
+            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -170,7 +170,7 @@
 		<hr style="height:20px; color:green">
 		
 		<div class="d-flex justify-content-center">
-<!--     		<div class="display-2">最新商品</div> -->
+    		<div class="display-2">最新商品</div>
   		</div>
   		
   		<div class="row justify-content-center" id="indexshop" >

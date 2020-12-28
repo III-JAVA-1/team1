@@ -9,6 +9,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.pet.store.dto.table.OrderDTO;
+
 
 
 @Repository
@@ -18,62 +20,33 @@ public class OtherFunctionDao {
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> shoporderDao(String user_id,String queue,Integer page){//會員頁面秀出訂單
+	public List<OrderDTO> shoporderDao(String userid){//會員頁面秀出訂單
+		Session session = sessionFactory.getCurrentSession();
+		List<OrderDTO> list = new ArrayList<OrderDTO>();
+		String hql="select order_id,date,cost,order_status,address,remarks \r\n"
+				+ "from [dbo].[order] \r\n"
+				+ "where customer_id=:userid";
+		Query<OrderDTO> query = session.createNativeQuery(hql).setParameter("userid", userid);
+		
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> shoporderdeatilDao(Integer orderid){//會員頁面秀出訂單詳細資料
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="";
-		if(queue==null||queue=="") {
-			hql = "select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
-					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
-					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
-					+ "and [dbo].[order].customer_id like :id\r\n"
-					+ "and [dbo].[order_item].product_id=product.product_id";
-		}else if(queue.equals("old")) {
-			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
-					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
-					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
-					+ "and [dbo].[order].customer_id like :id\r\n"
-					+ "and [dbo].[order_item].product_id=product.product_id\r\n"
-					+ "order by [dbo].[order].date ";
-			
-		}else if(queue.equals("new")) {
-			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
-					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
-					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
-					+ "and [dbo].[order].customer_id like :id\r\n"
-					+ "and [dbo].[order_item].product_id=product.product_id\r\n"
-					+ "order by [dbo].[order].date desc";
-		}else if(queue.equals("low")) {
-			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
-					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
-					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
-					+ "and [dbo].[order].customer_id like :id\r\n"
-					+ "and [dbo].[order_item].product_id=product.product_id\r\n"
-					+ "order by [dbo].[order].cost";
-		}else {
-			hql="select [dbo].[order].order_id,[dbo].[order].date,[dbo].[order].cost,[dbo].[order].address,[dbo].[order].remarks,\r\n"
-					+ "product.product_name,product.price,[dbo].[order_item].quantity,product.product_id,[dbo].[order].customer_id\r\n"
-					+ "from [dbo].[order],[dbo].[order_item],product\r\n"
-					+ "where [dbo].[order].order_id=[dbo].[order_item].order_id\r\n"
-					+ "and [dbo].[order].customer_id like :id\r\n"
-					+ "and [dbo].[order_item].product_id=product.product_id\r\n"
-					+ "order by [dbo].[order].cost desc";
-		}
-		Query<Object[]> query = null;
-		if(page!=null) {
-			if(page==1) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(0).setMaxResults(10);}
-			if(page==2) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(10).setMaxResults(20);}
-			if(page==3) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(20).setMaxResults(30);}
-			if(page==4) {query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(30).setMaxResults(40);}
-		}else {
-			query= session.createSQLQuery(hql).setParameter("id", user_id).setFirstResult(0).setMaxResults(10);
-		}
+		String hql="select order_item.product_id,order_item.quantity,product.product_name,product.price \r\n"
+				+ "from order_item,product\r\n"
+				+ "where order_id=:orderid\r\n"
+				+ "and order_item.product_id=product.product_id";
+		Query<Object[]> query = session.createNativeQuery(hql).setParameter("orderid", orderid);
 		
-		list=query.list();
+		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
 		}else {
@@ -85,11 +58,12 @@ public class OtherFunctionDao {
 	public List<Object[]> shopfavorite(String user_id){//會員頁面秀出收藏商品
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select product.product_name,product_image.img,product.product_id,favorite.customer_id\r\n"
-				+ "from favorite,product,product_image\r\n"
-				+ "where favorite.customer_id = :id\r\n"
-				+ "and product.product_id=favorite.product_id\r\n"
-				+ "and favorite.product_id=product_image.product_id";
+		String hql="select product.product_id,product.product_name,product.price,product_image.img\r\n"
+				+ "from favorite,product_image,product\r\n"
+				+ "where favorite.customer_id=:id\r\n"
+				+ "and favorite.product_id=product.product_id\r\n"
+				+ "and product.product_id=product_image.product_id\r\n"
+				+ "and product.is_display='T'";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -101,13 +75,22 @@ public class OtherFunctionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public int delteloveDao(String product_id){//會員頁面取消收藏商品
+		Session session = sessionFactory.getCurrentSession();
+		String hql="delete from favorite where product_id=:id";
+		int result = session.createSQLQuery(hql).setParameter("id", product_id).executeUpdate();
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Object[]> shoprateDao(String user_id){//會員頁面秀出商品評價
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="select product.product_name,rate.rate,rate.message,rate.date,rate.customer_id,rate.product_id\r\n"
 				+ "from rate,product\r\n"
 				+ "where rate.product_id=product.product_id\r\n"
-				+ "and rate.customer_id=:id";
+				+ "and rate.customer_id=:id\r\n"
+				+ "and product.is_display='T'";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -118,15 +101,34 @@ public class OtherFunctionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> articlememberDao(Integer user_id){//會員頁面文章記錄
+	public List<Object[]> articlememberDao(Integer user_id,String search){//會員頁面文章記錄
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,count(Comment.posterUid) as'留言數'\r\n"
-				+ "from Article left join Comment\r\n"
-				+ "on Article.isHide=0\r\n"
-				+ "and Article.u_Id=:id\r\n"
-				+ "and Comment.posterUid=Article.posterUid\r\n"
-				+ "group by Article.posterUid,Article.header,Article.forumId,Article.updatedTime,Article.viewing";
+		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,count(Comment.posterUid) as'留言數',Article.posterUid\r\n"
+				+ "from Article, Comment\r\n"
+				+ "where Article.isHide=0\r\n"
+				+ "and Article.u_Id=:id \r\n"
+				+ "and Article.header like '%"+search+"%'\r\n"
+				+ "group by Article.posterUid,Article.header,\r\n"
+				+ "Article.forumId,Article.updatedTime,Article.viewing";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面留言
+	public List<Object[]> membermessageDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select Article.header,Comment.commentContent,Comment.commentUpdatedtime,Comment.posterUid\r\n"
+				+ "from Comment,Article\r\n"
+				+ "where Comment.u_Id=:id\r\n"
+				+ "and commentIsHide=0\r\n"
+				+ "and Comment.posterUid=Article.posterUid";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -136,4 +138,39 @@ public class OtherFunctionDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked") //會員頁面活動
+	public List<Object[]> memberactionDao(Integer user_id,String search){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select act_name,act_content,starttime,endtime,act_where,act_no\r\n"
+				+ "from Active2\r\n"
+				+ "where u_Id=:id\r\n"
+				+ "and viableNumber=1\r\n"
+				+ "and act_name like '%"+search+"%'";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面參加
+	public List<Object[]> memberjoinDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select JoinAct.act_name,JoinAct.extra,join_actnow,JoinAct.pettype,JoinAct.petnum,JoinAct.act_no\r\n"
+				+ "from JoinAct,Active2\r\n"
+				+ "where JoinAct.u_Id=:id\r\n"
+				+ "and Active2.act_no=JoinAct.act_no\r\n"
+				+ "and Active2.viableNumber=1";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
 }

@@ -230,7 +230,7 @@
 				
 					reload();//reload文章信息
 					console.log(n[0]);//u_Id				
-					console.log(n[1]);//sname
+					console.log(n[1]);//snamef
 				
 					//初始資料沒有會員暱稱
 					var memberSname;
@@ -353,7 +353,7 @@ let editCommentDisplay = 0;
     					}
     					else{
     						memberSname = n[1];
-    					}
+    					}				
     					
     					
     					//想辦法讓文章顯示時換行
@@ -377,7 +377,7 @@ let editCommentDisplay = 0;
     					"<div class='article_main_span'>"+
     					"<span>"+n[3]+"</span>"+
     					"<span><img src='image/icons8-eye-50.png'/>&nbsp"+n[4]+"</span>"+
-    					" <span id='fav'><a href='#'><img src='image/icons8-favorites-50.png'/></a></span>"+					
+    					"<span><a id='ahref' onclick='favorites("+n[6]+"); return false;' href='#'><img id='fav' src='image/favorites_1.png'/></a></span>"+					
     					"<hr/>"+
     					" <div class='article_main_content'>"+
     					"<p>"+content+"</p>"+
@@ -388,17 +388,11 @@ let editCommentDisplay = 0;
     					"</div>"+
     					"</div>"+
     					"</div>"+
-    					"<hr/>");
+    					"<hr/>"); 
     					
-    					
-    					//讀取會員是否有將此文章加入最愛
-//     					if(n[7] != null){
-//     						$("#fav").css("background-color", "red");
-//     					}
-//     					else{
-//     						$("#fav").css("background-color", "transparent");
-//     					}
-    				
+    					if(n[7] != null){
+    						$("#fav").attr("src","image/favorites_2.png");
+    					}
     				})
     			},
     			error:function(){
@@ -407,6 +401,39 @@ let editCommentDisplay = 0;
     		});
     	}
 
+  		//讀取會員是否有將此文章加入最愛	
+  		function favorites(item){
+  			
+  			<%if(request.getSession().getAttribute("user").toString() == null){%>  			
+  				alert("請登入！");
+  				return;
+  			<%}%>
+  			
+  			$.ajax({
+    			url:"../petforum/searchFavoriteRecord",
+    			type:"POST",		
+    			dataType:"json",
+    			data:{
+    				"posterUid":item,				
+    			},
+    			success:function(data){   				 					
+    			console.log("isFavorite="+data);
+    			
+	    			if(data){
+	    				$("#fav").attr("src", "image/favorites_2.png");
+	    			}
+	    			else{
+	    				$("#fav").attr("src", "image/favorites_1.png");
+	    			}
+    			},
+    			error:function(){
+    				 alert("查無收藏紀錄！");
+    			}
+  			});	
+			
+		}
+
+  		
 	</script>
   </body>
 </html>

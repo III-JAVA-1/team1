@@ -37,7 +37,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="確定修改" id="preview" onsubmit=return check(this)/>
+					    	<input class="btn btn-secondary" type="submit" value="編輯" id="modify" onsubmit=return check(this)/>
 					    </div>
 				   	</div>
 			    </div>
@@ -153,7 +153,7 @@
     //禁止回上一頁
     window.history.forward(1);  
     
-    $("#preview").click(function check(form){//按預覽文章   	
+    $("#modify").click(function check(form){//按預覽文章   	
     	
     	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
     		 console.log($("#ckObey").prop("checked"));

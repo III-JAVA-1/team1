@@ -31,7 +31,7 @@ import com.web.pet.util.BlobToByteArray;
 
 @RequestMapping("/petforum")
 @Controller
-public class NewArticleEdit {
+public class NewArticle {
 	
 	@Autowired
 	ArticleService service;	
@@ -41,36 +41,26 @@ public class NewArticleEdit {
 	
 
 	@RequestMapping("/insertPost")//送到預覽頁面
-	public ModelAndView insertPost(			
+	public void insertPost(			
 			Article article,//資料來自前端			
-            HttpServletRequest request                
-            ) {		
+            HttpServletRequest request,
+            HttpServletResponse response 
+            ) throws IOException {
+		
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();	
 		
 		//	這裡要insert一筆Article紀錄，不過因為尚未寫入資料庫，所以u_Id要從session取得
 		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 
 		service.saveArticle(article,u_Id);//不用insert圖片的文章物件
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("articleModel", article);
-		mv.addObject("editStatus","新增");
-		mv.setViewName("forward:/PetForum/preview.jsp");
-		
-		return mv;
-	}
+		out.print("<script>");		
+		out.print("window.alert('文章新增成功');window.location.href='../PetForum/forum.jsp';");
+		out.print("</script>");
+	}	
 	
-	
-	@RequestMapping("/showAtPreview")
-	public @ResponseBody List<Object[]> showAtPreview(	
-			   @RequestParam("posterUid") Integer posterUid			   
-			) {		
-		if(posterUid == null) {return null;}
-		
-		List<Object[]> list = service.getArticleByPosterUid(posterUid);
-		return list;
-	}
-	
-	@RequestMapping(value="/getPetPic")//preview.jsp,postDetail.jsp秀出寵物圖片
+	@RequestMapping(value="/getPetPic")//postDetail.jsp秀出寵物圖片
 	public ResponseEntity<byte[]> getPetPic(@RequestParam("posterUid") Integer posterUid) {
 		if(posterUid == null) {return null;}			
 		
@@ -87,33 +77,6 @@ public class NewArticleEdit {
 			resp = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 			return resp;
 		}	
-	}
-	
-	
-	
-	@RequestMapping("/commitEdit")
-	public void commitEdit(
-			@RequestParam("preview")String preview,			
-			@ModelAttribute("articleModel") Article article,//前後端整合更新文章物件
-			HttpServletResponse response) throws IOException {
-			PrintWriter out = response.getWriter();			
-			response.setContentType(CONTENT_TYPE);
-		
-			if("新增".equals(preview)) {
-					//文章預覽時，就已insert		
-					out.print("<script>");
-					out.print("window.alert('文章新增成功');"
-							+ "window.location.href='../PetForum/forum.jsp';");
-					out.print("</script>");	
-			}
-			else if("取消發佈".equals(preview)) {//從資料庫刪除
-				out.print("<script>");
-				out.print("window.confirm('確定取消嗎？文章將被捨棄！');"
-						+ "window.location.href='../PetForum/forum.jsp';");
-				out.print("</script>");
-				service.deleteArticle(article);
-			}
-			
 	}
 	
 }

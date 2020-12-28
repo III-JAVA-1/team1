@@ -16,7 +16,7 @@ import com.web.pet.forum.service.CommentService;
 
 @RequestMapping("/petforum")
 @Controller
-public class NewCommentEdit {
+public class NewComment {
 
 	@Autowired
 	CommentService service;	

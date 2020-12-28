@@ -49,8 +49,7 @@ public class ModifyArticle {
 	public void modifyPost(
 			//	引入此未修改的欄位才不會有null(來自資料庫)	
 			//	前後端整合更新文章物件 - 從@ModelAttribute中取出與前端文章物件比對欄位
-			@ModelAttribute("articleModel") Article article,
-			@RequestParam(value = "image", required=false) MultipartFile image,
+			@ModelAttribute("articleModel") Article article,			
 			HttpServletRequest request,
             HttpServletResponse response                
             ) throws IOException{
@@ -61,18 +60,6 @@ public class ModifyArticle {
 			//		這裡要update一筆Article紀錄，需要Member的u_Id主鍵
 			Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
 			
-			if (image != null && !image.isEmpty()) {
-				try {
-					byte[] b = image.getBytes();
-					Blob blob = new SerialBlob(b);
-					article.setPic(blob);					
-					service.modifyArticle(article, u_Id);//updateArticle(含圖)
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-				}
-			}
 			service.modifyArticle(article, u_Id);//沒有update圖片的文章物件
 			
 			out.print("<script>");		

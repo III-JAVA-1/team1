@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.web.pet.member.dao.OtherFunctionDao;
+import com.web.pet.store.dto.table.OrderDTO;
 
 @EnableTransactionManagement
 @Transactional
@@ -18,9 +19,14 @@ public class OtherFunctionService {
 	@Autowired
 	private OtherFunctionDao otherFunctionDao;
 	
-	public List<Object[]> shoporderService(String user_id,String queue,Integer page){//會員頁面秀出訂單
+	public List<OrderDTO> shoporderService(String userid){//會員頁面秀出訂單
 		
-		return otherFunctionDao.shoporderDao(user_id,queue,page);
+		return otherFunctionDao.shoporderDao(userid);
+	}
+	
+	public List<Object[]> shoporderdetailService(Integer orderid){//會員頁面秀出訂單
+		
+		return otherFunctionDao.shoporderdeatilDao(orderid);
 	}
 	
 	public List<Object[]> favoritestoreService(String user_id){//會員頁面秀出收藏商品
@@ -28,14 +34,34 @@ public class OtherFunctionService {
 		return otherFunctionDao.shopfavorite(user_id);
 	}
 	
+	public int deleteloveService(String product_id){//會員頁面取消收藏商品
+		
+		return otherFunctionDao.delteloveDao(product_id);
+	}
+	
 	public List<Object[]> shoprateService(String user_id){//會員頁面秀出商品評價
 		
 		return otherFunctionDao.shoprateDao(user_id);
 	}
 	
-	public List<Object[]> memberarticleService(Integer user_id){//會員頁面文章記錄
+	public List<Object[]> memberarticleService(Integer user_id,String search){//會員頁面文章記錄
 	
-		return otherFunctionDao.articlememberDao(user_id);
+		return otherFunctionDao.articlememberDao(user_id,search);
+	}
+	
+	public List<Object[]> membermessageService(Integer user_id){//會員頁面文章留言
+		
+		return otherFunctionDao.membermessageDao(user_id);
+	}
+	
+	public List<Object[]> memberactionService(Integer user_id,String search){//會員頁面活動紀錄
+		
+		return otherFunctionDao.memberactionDao(user_id, search);
+	}
+	
+	public List<Object[]> memberjoinService(Integer user_id){//會員頁面活動紀錄
+		
+		return otherFunctionDao.memberjoinDao(user_id);
 	}
 
 }

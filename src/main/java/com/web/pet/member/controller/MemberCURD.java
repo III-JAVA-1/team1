@@ -2,10 +2,15 @@ package com.web.pet.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.GeneralSecurityException;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
@@ -22,10 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
 import com.web.pet.util.BlobToByteArray;
-import com.wf.captcha.GifCaptcha;
+import com.web.pet.util.MailUtils;
+import com.wf.captcha.ChineseGifCaptcha;
+import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
 
@@ -48,35 +60,73 @@ public class MemberCURD {
 	
 	@RequestMapping("/captcha")//顯示圖形驗證碼
 	public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		GifCaptcha gifCaptcha = new GifCaptcha(130,48,5);
+		//String s = UUID.randomUUID().toString();
+		SpecCaptcha gifCaptcha = new SpecCaptcha(130,48,5);
+		gifCaptcha.setFont(ChineseGifCaptcha.FONT_1);
         CaptchaUtil.out(gifCaptcha, request, response);
 	}
 	
 	@RequestMapping("/login")//登入判斷
-    public void loginController(String useremail,String password,String verCode,HttpServletRequest request,HttpServletResponse response) throws IOException{
+    public void loginController(String useremail,String password,String 
+    		verCode,HttpServletRequest request,
+    		HttpServletResponse response) throws IOException{
         PrintWriter out = response.getWriter();
         List<Member> list = new ArrayList<Member>();
         response.setContentType(CONTENT_TYPE);
         request.setCharacterEncoding(CHARSET_CODE);
 		if (!CaptchaUtil.ver(verCode, request)) {
             CaptchaUtil.clear(request);  // 清除session中的验证码
-            out.print("<script>");
-    		out.print("window.alert('驗證碼錯誤'); window.location.href='../Member/Login.jsp';");
+            
+            out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '驗證碼錯誤，請重新輸入',\r\n"
+    				+ "icon: 'error',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Login.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
     		out.print("</script>");
+    		out.print("</html></body>");
         }
         else {
         	list = memberService.loginService(useremail,password);
         	if(list!=null) {
         		request.getSession().setAttribute("user",list.get(0));
         		//request.getSession().setAttribute("sname",list.get(0));
+        		out.print("<html><body>");
+        		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
         		out.print("<script>");
-        		out.print("window.alert('登入成功，轉到會員畫面'); window.location.href='../Member/Member.jsp';");
+        		out.print("Swal.fire({\r\n"
+        				+ "title: '登入成功',\r\n"
+        				+ "icon: 'success',\r\n"
+        				+ "confirmButtonText: '確定'\r\n"
+        				+ "}).then((result) => {\r\n"
+        				+ "if (result.isConfirmed) {\r\n"
+        				+ "window.location.href='../Member/Member.jsp';\r\n"
+        				+ "}\r\n"
+        				+ "})");
         		out.print("</script>");
+        		out.print("</html></body>");
         	}
         	else {
+        		out.print("<html><body>");
+        		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
         		out.print("<script>");
-        		out.print("window.alert('登入失敗，請重新登入'); window.location.href='../Member/Login.jsp';");
+        		out.print("Swal.fire({\r\n"
+        				+ "title: '登入失敗，請重新登入',\r\n"
+        				+ "icon: 'error',\r\n"
+        				+ "confirmButtonText: '確定'\r\n"
+        				+ "}).then((result) => {\r\n"
+        				+ "if (result.isConfirmed) {\r\n"
+        				+ "window.location.href='../Member/Login.jsp';\r\n"
+        				+ "}\r\n"
+        				+ "})");
         		out.print("</script>");
+        		out.print("</html></body>");
         	}
         }
 		out.close();
@@ -87,9 +137,20 @@ public class MemberCURD {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		memberService.insertMemberService(member);
+		out.print("<html><body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
-		out.print("window.alert('註冊成功，轉回登入畫面'); window.location.href='../Member/Login.jsp';");
+		out.print("Swal.fire({\r\n"
+				+ "title: '註冊成功',\r\n"
+				+ "icon: 'success',\r\n"
+				+ "confirmButtonText: '確定'\r\n"
+				+ "}).then((result) => {\r\n"
+				+ "if (result.isConfirmed) {\r\n"
+				+ "window.location.href='../Member/Login.jsp';\r\n"
+				+ "}\r\n"
+				+ "})");
 		out.print("</script>");
+		out.print("</html></body>");
 		out.close();
 	}
 	
@@ -129,9 +190,20 @@ public class MemberCURD {
 				Blob blob = new SerialBlob(b);
 				member.setImg(blob);
 				if(memberService.uploadimgService(member)>0) {
-					out.print("<script>");
-					out.print("window.alert('上傳成功'); window.location.href='../Member/Member.jsp';");
-					out.print("</script>");
+					out.print("<html><body>");
+	        		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+	        		out.print("<script>");
+	        		out.print("Swal.fire({\r\n"
+	        				+ "title: '上傳成功',\r\n"
+	        				+ "icon: 'success',\r\n"
+	        				+ "confirmButtonText: '確定'\r\n"
+	        				+ "}).then((result) => {\r\n"
+	        				+ "if (result.isConfirmed) {\r\n"
+	        				+ "window.location.href='../Member/Member.jsp';\r\n"
+	        				+ "}\r\n"
+	        				+ "})");
+	        		out.print("</script>");
+	        		out.print("</html></body>");
 				}
 				
 			} catch (Exception e) {
@@ -140,9 +212,20 @@ public class MemberCURD {
 			}
 		}
 		else {
-			out.print("<script>");
-			out.print("window.alert('請選擇照片'); window.location.href='../Member/Member.jsp';");
-			out.print("</script>");
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '請選擇照片',\r\n"
+    				+ "icon: 'error',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Member.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
 		}
 		out.close();
 	}
@@ -168,9 +251,20 @@ public class MemberCURD {
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("sname");
 		PrintWriter out = response.getWriter();
+		out.print("<html><body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
-		out.print("window.alert('登出成功，回到登入畫面'); window.location.href='../Member/Login.jsp';");
+		out.print("Swal.fire({\r\n"
+				+ "title: '登出成功',\r\n"
+				+ "icon: 'success',\r\n"
+				+ "confirmButtonText: '確定'\r\n"
+				+ "}).then((result) => {\r\n"
+				+ "if (result.isConfirmed) {\r\n"
+				+ "window.location.href='../Member/Login.jsp';\r\n"
+				+ "}\r\n"
+				+ "})");
 		out.print("</script>");
+		out.print("</html></body>");
 		out.close();
 	}
 	
@@ -183,18 +277,39 @@ public class MemberCURD {
 		Integer id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		Member originmember = memberService.fullmemberService(id);
 		member.setPassword(originmember.getPassword());
-		member.setBirth(originmember.getBirth());
-		member.setId(originmember.getId());
+		//member.setBirth(originmember.getBirth());
 		member.setImg(originmember.getImg());
 		if(memberService.updatememberService(member)>0) {
-			out.print("<script>");
-			out.print("window.alert('個人資料更新成功'); window.location.href='../Member/Member.jsp';");
-			out.print("</script>");
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '個人資料更新成功',\r\n"
+    				+ "icon: 'success',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Member.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
 		}
 		else {
-			out.print("<script>");
-			out.print("window.alert('個人資料更新失敗'); window.location.href='../Member/Member.jsp';");
-			out.print("</script>");
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '個人資料更新成功',\r\n"
+    				+ "icon: 'error',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Member.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
 		}
 		out.close();
 	}
@@ -209,16 +324,166 @@ public class MemberCURD {
 		member.setPassword(password);
 		if(memberService.uploadimgService(member)>0) {
 			request.getSession().removeAttribute("user");
-			out.print("<script>");
-			out.print("window.alert('密碼更新成功，請重新登入'); window.location.href='../Member/Login.jsp';");
-			out.print("</script>");
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '密碼更新成功，請重新登入',\r\n"
+    				+ "icon: 'success',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Login.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
 		}
 		else {
-			out.print("<script>");
-			out.print("window.alert('密碼更新失敗'); window.location.href='../Member/Member.jsp';");
-			out.print("</script>");
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '密碼更新失敗',\r\n"
+    				+ "icon: 'error',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Member.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
 		}
 	}
 	
+	@RequestMapping(value = "/googleVerify", method = RequestMethod.POST)//GOOGLE第三方登入
+	public void verifyToken(String idtokenstr,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		//System.out.println(idtokenstr);
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();
+		int dupilate=0;
+		Member member = new Member();
+		List<Member> list = new ArrayList<Member>();
+		list = memberService.ajaxloginService();
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+				new NetHttpTransport(), JacksonFactory.getDefaultInstance())
+				.setAudience(Collections.singletonList("343913388884-d9vp78dklqeej4slebrsgqhbk7jq0bbg.apps.googleusercontent.com")).build();
+		GoogleIdToken idToken = null;
+		try {
+			idToken = verifier.verify(idtokenstr);
+		} catch (GeneralSecurityException e) {
+			System.out.println("驗證時出現GeneralSecurityException異常");
+		} catch (IOException e) {
+			System.out.println("驗證時出現IOException異常");
+		}
+		if (idToken != null) {
+			//System.out.println("驗證成功.");
+			Payload payload = idToken.getPayload();
+			//System.out.println("User ID: " + userId);
+			String email = payload.getEmail();
+			//boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+			String name = (String) payload.get("name");
+			String pictureUrl = (String) payload.get("picture");
+			System.out.println(email);
+			System.out.println(name);
+			System.out.println(pictureUrl);
+			for(int i=0;i<list.size();i=i+1) {
+				if(email.equalsIgnoreCase(list.get(i).getEmail().trim())) {
+					if(list.get(i).getPassword().contains("http")) {
+						request.getSession().setAttribute("user",list.get(i).getU_Id());
+						out.print("成功");
+						dupilate=2;
+						break;
+					}else {
+						dupilate=1;
+						break;
+					}
+				}
+			}
+			if(dupilate==1) {
+				out.print("重複");
+			}else if(dupilate==0){
+				//java.util.Date today = Date
+				member.setName(name);
+				member.setEmail(email);
+				member.setPassword(pictureUrl);
+				member.setSname("Google登入者");
+				member.setBirth(new java.sql.Date(new java.util.Date().getTime()));
+				memberService.insertMemberService(member);
+				list = memberService.ajaxloginService();
+				for(int i=0;i<list.size();i=i+1) {
+					if(list.get(i).getEmail().equals(email)) {
+						request.getSession().setAttribute("user",list.get(i).getU_Id());
+					}
+				}
+				out.print("成功");
+			}
+			
+		} else {
+			System.out.println("Invalid ID token.");
+		}
+		out.close();
+	}
+	
+	@RequestMapping("/forget")//忘記密碼
+	public void forgetpassword(@RequestParam String forgetemail,HttpServletResponse response) throws IOException {
+		int faker=0;
+		response.setContentType(CONTENT_TYPE);
+		Member member = new Member();
+		PrintWriter out = response.getWriter();
+		String s = UUID.randomUUID().toString();
+		//System.out.println(s.substring(0,s.indexOf("-")));
+		List<Member> list = new ArrayList<Member>();
+		list = memberService.ajaxloginService();
+		for(int i=0;i<list.size();i=i+1) {
+			if(list.get(i).getEmail().equals(forgetemail)) {
+				faker=list.get(i).getU_Id();
+				break;
+			}
+		}
+		if(faker==0) {
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '錯誤電子郵件',\r\n"
+    				+ "icon: 'error',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Login.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
+		}else {
+			member=memberService.fullmemberService(faker);
+			member.setPassword(s.substring(0,s.indexOf("-")));
+			memberService.uploadimgService(member);
+			try {
+				MailUtils.sendMail(forgetemail, "你的新密碼:"+s.substring(0,s.indexOf("-")));
+			} catch (AddressException e) {
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+    				+ "title: '新密碼已送出到信箱，請使用新密碼登入',\r\n"
+    				+ "icon: 'success',\r\n"
+    				+ "confirmButtonText: '確定'\r\n"
+    				+ "}).then((result) => {\r\n"
+    				+ "if (result.isConfirmed) {\r\n"
+    				+ "window.location.href='../Member/Login.jsp';\r\n"
+    				+ "}\r\n"
+    				+ "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
+		}
+		out.close();
+	}
 	
 }

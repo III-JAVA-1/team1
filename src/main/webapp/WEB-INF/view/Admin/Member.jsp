@@ -57,9 +57,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 	<div class="container">
 		
-		<div class="row" >
+		<div class="row" style="box-shadow:8px 8px 9px 10px #cccccc;">
 		
-		<div class="col-6" >
+		<div class="col-6" style="border:5px black solid;padding:20px;background-color:	#84C1FF;">
 		<div class="row justify-content-center">
 		<h1>會員男女比例</h1>
 		</div>
@@ -67,7 +67,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</canvas>
 		</div>
 		
-		<div class="col-6" >
+		<div class="col-6" style="border:5px black solid;padding:20px;background-color:yellow;">
 		<div class="row justify-content-center">
 		<h1>會員年齡比例</h1>
 		</div>
@@ -95,7 +95,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<table class="table table-hover table-bordered ">
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
-      			<th scope="col">u_Id</th>
+      			<th scope="col">編號</th>
       			<th scope="col" style="width:100px;height:50px;">大頭貼</th>
       			<th scope="col">姓名</th>
       			<th scope="col">手機</th>
@@ -112,12 +112,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center">
 			<h1 id="tip"></h1>
 		</div>
-	
-		<div class="row justify-content-center">
-		<div class="btn-group me-2" role="group" aria-label="First group" id="page">
-    		<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="1">1</button>
-  		</div>
-  		</div>
 		
 		</div>
 		
@@ -148,38 +142,25 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	var age2=0;
 	var age3=0;
 	var count=0;
-	if($("#namesearch").val()==""||$("#namesearch").val()==null){
-		$("#pagedisplay").html("");
-		$("#pagedisplay").html("每頁顯示10筆資料，目前在第1頁");
+
 		$.ajax({
 			url:"../Gusty/adminmembernamesearch",
 			type:"post",
 			dataType:"json",
 			async:false,
 			data : { 
-				"page":1,
 				"user_name" :null,                     
             },
 			success:function(data){
-				if(data.length%10>=1){
-					for(let i=2;i<=data.length%10+1;i=i+1)
-					{
-						$("#page").append('<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="'+i+'">'+i+'</button>');
-					}
-				}
-				else{
-					$("#page").html("");
-					$("#page").append('<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="1">1</button>');
-				}
 			$.each(data,function(i,n){
 				count=data.length;
-					if(n.gender=="男"){
+					if(n[10]=="男"){
 						boy=boy+1;
 					}
-					if(n.gender=="女"){
+					if(n[10]=="女"){
 						girl=girl+1;
 					}
-					var oldbirth = new Date(n.birth);
+					var oldbirth = new Date(n[11]);
 					if((nowdate.getYear() - oldbirth.getYear())<=30){
 						age1++;
 					}
@@ -189,117 +170,80 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					if((nowdate.getYear() - oldbirth.getYear())>=51){
 						age3++;
 					}
-					
-					if(i>9){
-						return;
-					}
-					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-							+"<td>"+n.name+"</td>"
-							+"<td>"+n.phone+"</td>"
-							+"<td>"+n.email+"</td>"
-							+"<td>"+n.sname+"</td>"
-							+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
+					if(i>4){return;}
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
+							+"<td>"+n[1]+"</td>"
+							+"<td>"+n[2]+"</td>"
+							+"<td>"+n[3]+"</td>"
+							+"<td>"+n[4]+"</td>"
+							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td></tr>"
 					);
 				});
 			}
 		});
-	}
-	
 	
 	$("#namesearch").change(function(){
-		$("#membertable").html("");
-		$("#tip").html("");
 		$.ajax({
 			url:"../Gusty/adminmembernamesearch",
 			type:"post",
 			dataType:"json",
-			//async:false,
+			async:false,
 			data : { 
-
-				"user_name" : $("#namesearch").val(),                     
+				"user_name" :$("#namesearch").val(),                     
             },
 			success:function(data){
-				if(data.length%10>=1&&data.length>10){
-					for(let i=2;i<=data.length%10+1;i=i+1)
-					{
-						$("#page").append('<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="'+i+'">'+i+'</button>');
-					}
-					
-				}else{
-					$("#page").html("");
-					$("#page").append('<button type="button" class="btn btn-primary" onclick="pagesearch(this)" value="1">1</button>');
-				}
-			$.each(data,function(i,n){
-				if(i>9){
-					return;
-				}
-					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-							+"<td>"+n.name+"</td>"
-							+"<td>"+n.phone+"</td>"
-							+"<td>"+n.email+"</td>"
-							+"<td>"+n.sname+"</td>"
-							+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
+				$("#membertable").html("");
+			$.each(data,function(i,n){				
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
+							+"<td>"+n[1]+"</td>"
+							+"<td>"+n[2]+"</td>"
+							+"<td>"+n[3]+"</td>"
+							+"<td>"+n[4]+"</td>"
+							+"<td>"+n[5]+n[6]+n[7]+"</td></tr>"
 					);
-					
 				});
-			},
-            error:function(){
-            	$("#page").html("");
-            	$("#tip").html("查無相關資料");
-            }
+			}
 		});
 	});
 	
-	function pagesearch(item){
-		//alert($(item).val());
-		$("#pagedisplay").html("");
-		$("#pagedisplay").html("每頁顯示10筆資料，目前在第"+$(item).val()+"頁");
-		$("#membertable").html("");
-		$("#tip").html("");
-		$(item).val();
-		$.ajax({
-			url:"../Gusty/adminmembernamesearch",
-			type:"post",
-			dataType:"json",
-			//async:false,
-			data : { 
-				"user_name" : $("#namesearch").val(),                     
-            },
-			success:function(data){
-				if($(item).val()!=1){
-					$.each(data,function(i,n){
-						if(i>$(item).val()*10-10-1&&i<$(item).val()*10){
-							$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-									+"<td>"+n.name+"</td>"
-									+"<td>"+n.phone+"</td>"
-									+"<td>"+n.email+"</td>"
-									+"<td>"+n.sname+"</td>"
-									+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
-							);
-						}	
-					});
-				}else{
-					$.each(data,function(i,n){
-						if(i<10){
-							$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n.u_Id+"</th>"
-									+"<td><img src='<c:url value='/Gusty/getallimg?id="+n.u_Id+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-									+"<td>"+n.name+"</td>"
-									+"<td>"+n.phone+"</td>"
-									+"<td>"+n.email+"</td>"
-									+"<td>"+n.sname+"</td>"
-									+"<td>"+n.zip+n.country+n.district+n.address+"</td></tr>"
-							);
-						}	
-					});
+	var page=4;
+	$(window).scroll(function(){
+	     //最後一頁scrollTop=body-window，50是預留空間
+	     last=$("body").height()-$(window).height()-50
+	     if($(window).scrollTop()>=last){
+	     	//console.log("aaa");
+	     	$.ajax({
+				url:"../Gusty/adminmembernamesearch",
+				type:"post",
+				dataType:"json",
+				async:false,
+				data : { 
+					"user_name" :null,                     
+	            },
+				success:function(data){
+				page=page+5;
+				$.each(data,function(i,n){
+				if(i>page-5&&i<=page){
+					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
+							+"<td>"+n[1]+"</td>"
+							+"<td>"+n[2]+"</td>"
+							+"<td>"+n[3]+"</td>"
+							+"<td>"+n[4]+"</td>"
+							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td></tr>"
+						);	
 				}
-			
-			}
-		});
-	}
-		
+				});
+				if(page>data.length){
+					$("#tip").html("已經是最底");
+				}
+				}
+			});
+	     }
+	})
+	
 	$("#count").html("會員總數:"+count);
 	
 	var ctx = document.getElementById("boyandgirl").getContext('2d');//顯示男女比例

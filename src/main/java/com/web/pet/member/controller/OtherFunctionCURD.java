@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.pet.member.service.OtherFunctionService;
+import com.web.pet.store.dto.table.OrderDTO;
 
 @RequestMapping("/Gusty")
 @Controller
@@ -22,8 +23,14 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/shoporder")//會員頁面秀出訂單
 	@ResponseBody
-	public List<Object[]> shoporderController(String user_id,String queue,Integer page) {
-		return otherFunctionService.shoporderService(user_id,queue,page);
+	public List<OrderDTO> shoporderController(String userid) {
+		return otherFunctionService.shoporderService(userid);
+	}
+	
+	@RequestMapping("/shoporderdetail")//會員頁面秀出訂單詳細資料
+	@ResponseBody
+	public List<Object[]> shoporderdetailController(Integer orderid) {
+		return otherFunctionService.shoporderdetailService(orderid);
 	}
 	
 	@RequestMapping("/favoritestore")//會員頁面秀出收藏商品
@@ -32,7 +39,13 @@ public class OtherFunctionCURD {
 		return otherFunctionService.favoritestoreService(user_id);
 	}
 	
-	@RequestMapping("/shoprate")//會員頁面秀出收藏商品
+	@RequestMapping("/deletlove")//會員頁面取消收藏商品
+	@ResponseBody
+	public int deleteloveController(String product_id) {
+		return otherFunctionService.deleteloveService(product_id);
+	}
+	
+	@RequestMapping("/shoprate")//會員頁面秀出商品評價
 	@ResponseBody
 	public List<Object[]> shoprateController(String user_id) {
 		return otherFunctionService.shoprateService(user_id);
@@ -40,8 +53,26 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/memberarticle")//會員頁面文章記錄
 	@ResponseBody
-	public List<Object[]> memberarticleController(Integer user_id) {
-		return otherFunctionService.memberarticleService(user_id);
+	public List<Object[]> memberarticleController(Integer user_id,String search) {
+		return otherFunctionService.memberarticleService(user_id,search);
+	}
+	
+	@RequestMapping("/membermessage")//會員頁面文章留言
+	@ResponseBody
+	public List<Object[]> membermessageController(Integer user_id){
+		return otherFunctionService.membermessageService(user_id);
+	}
+	
+	@RequestMapping("/memberaction")//會員頁面活動紀錄
+	@ResponseBody
+	public List<Object[]> memberactionController(Integer user_id,String search){
+		return otherFunctionService.memberactionService(user_id, search);
+	}
+	
+	@RequestMapping("/memberjoin")//會員頁面活動參加紀錄
+	@ResponseBody
+	public List<Object[]> memberjoinController(Integer user_id){
+		return otherFunctionService.memberjoinService(user_id);
 	}
 
 }

@@ -140,7 +140,7 @@ public class ActController {
 
 	}
 	
-	@RequestMapping(value = "/getimg")//活動的圖片
+	@RequestMapping(value = "/getimg")//幫活動圖片抓全部東西
 	public ResponseEntity<byte[]> getPicture(@RequestParam Integer act_no){
 		byte[] body= null;
 		ResponseEntity<byte[]> re = null;

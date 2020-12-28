@@ -23,9 +23,10 @@ public class OtherFunctionDao {
 	public List<OrderDTO> shoporderDao(String userid){//會員頁面秀出訂單
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
-		String hql="select order_id,date,cost,order_status,address,remarks \r\n"
-				+ "from [dbo].[order] \r\n"
-				+ "where customer_id=:userid";
+		String hql="select order_id,date,cost,order_status,address,remarks\r\n"
+				+ "from [dbo].[order]\r\n"
+				+ "where customer_id=:userid\r\n"
+				+ "order by date desc";
 		Query<OrderDTO> query = session.createNativeQuery(hql).setParameter("userid", userid);
 		
 		list=query.getResultList();
@@ -90,7 +91,8 @@ public class OtherFunctionDao {
 				+ "from rate,product\r\n"
 				+ "where rate.product_id=product.product_id\r\n"
 				+ "and rate.customer_id=:id\r\n"
-				+ "and product.is_display='T'";
+				+ "and product.is_display='T'\r\n"
+				+ "order by rate.date desc";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -104,13 +106,14 @@ public class OtherFunctionDao {
 	public List<Object[]> articlememberDao(Integer user_id,String search){//會員頁面文章記錄
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,count(Comment.posterUid) as'留言數',Article.posterUid\r\n"
-				+ "from Article, Comment\r\n"
+		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,sum(CASE WHEN Comment.posterUid = Article.posterUid THEN 1 ELSE 0 END ) as'留言數',Article.posterUid\r\n"
+				+ "from Article,Comment\r\n"
 				+ "where Article.isHide=0\r\n"
-				+ "and Article.u_Id=:id \r\n"
+				+ "and Article.u_Id=:id\r\n"
 				+ "and Article.header like '%"+search+"%'\r\n"
 				+ "group by Article.posterUid,Article.header,\r\n"
-				+ "Article.forumId,Article.updatedTime,Article.viewing";
+				+ "Article.forumId,Article.updatedTime,Article.viewing\r\n"
+				+ "order by Article.updatedTime desc";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -128,7 +131,8 @@ public class OtherFunctionDao {
 				+ "from Comment,Article\r\n"
 				+ "where Comment.u_Id=:id\r\n"
 				+ "and commentIsHide=0\r\n"
-				+ "and Comment.posterUid=Article.posterUid";
+				+ "and Comment.posterUid=Article.posterUid\r\n"
+				+ "order by Comment.commentUpdatedTime desc";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -146,7 +150,8 @@ public class OtherFunctionDao {
 				+ "from Active2\r\n"
 				+ "where u_Id=:id\r\n"
 				+ "and viableNumber=1\r\n"
-				+ "and act_name like '%"+search+"%'";
+				+ "and act_name like '%"+search+"%'\r\n"
+				+ "order by starttime desc";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {

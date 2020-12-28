@@ -81,6 +81,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			<div class="display-4">論壇紀錄</div>
   			</div><br>
   			
+  			<div class="row justify-content-center">
+    			<div class="h4">編輯文章請前往<a href="../PetForum/forum.jsp">文章首頁</a></div>
+  			</div><br>
+  			
   			<div class="row justify-content-center h4">
     			<ul class="nav nav-pills nav-fill">
   					<li class="nav-item">

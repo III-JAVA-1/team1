@@ -168,7 +168,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){
 				$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
 						"<td>"+n[1].substring(0,20)+".....</td>"+
-			   			"<td>"+n[2]+"~"+n[3]+"</td>"+
+			   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
 			   			"<td>"+n[4]+"</td></tr>");
 			});
 		},
@@ -240,7 +240,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
+    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
     				   			"<td>"+n[4]+"</td></tr>");
     				});
     			},
@@ -269,7 +269,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
+    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
     				   			"<td>"+n[4]+"</td></tr>");
     				});
         		},

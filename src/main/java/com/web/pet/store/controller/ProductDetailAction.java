@@ -117,7 +117,7 @@ public class ProductDetailAction {
             // 把jsp的${id}換成後面的值
             model.addAttribute("id", id);
 
-            if (StringUtils.isNotEmpty(memberId)) {
+            if (StringUtils.isNotEmpty(memberId) && memberId.equals("1")) {
                 model.addAttribute("memberId", memberId);
                 String modProductHtml =
                         "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n"

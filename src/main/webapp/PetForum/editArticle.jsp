@@ -18,10 +18,7 @@
 
  <!-- 發送/petforum/insertPost請求 -->
 <div class="col-12">
-	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">
-		<div class="row justify-content-center">
-			<h2>發表新文章</h2>
-		</div>
+	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">		
 		<form:form action="insertPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 			
 			<div class="row justify-content-center">
@@ -37,7 +34,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="預覽" id="preview" onsubmit=return check(this)/>
+					    	<input class="btn btn-secondary" type="submit" value="新增" id="new" onsubmit=return check(this)/>
 					    </div>
 				   	</div>
 			    </div>
@@ -154,27 +151,36 @@
     //禁止回上一頁
     window.history.forward(1);
     
-    $("#preview").click(function check(form){//按預覽文章
+    $("#new").click(function check(form){//按預覽文章   	
     	
-    	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){   		 
-    		 console.log($("#ckObey").prop("checked"));
-    		 console.log($("#forumId").find("option:selected").val() != null);
-    	    	
-    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
-    			
-			   	return true;//form action請求送出				  
-	  			}
-	   		 else{
-	   			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
+   		 console.log($("#ckObey").prop("checked"));
+   		 console.log($("#forumId").find("option:selected").val() != null);
+   	    	
+   		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
+   				
+   		var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
+		 	if (modify === false) {
+				 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+	   			
 	   			 return false;
-	   			 }    
-    	 }
-    	else{
+			} 
+ 			else {
+       		
+			   	return true;//form action請求送出				  
+ 			}
+   			
+   		 }
+   		 else{ 
+   			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   			 return false;
+   			 }
+   
+   		}else{
    	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
    	    	return false;
    	    	}
-    	
-    });
+   });
    
     	    
         let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態

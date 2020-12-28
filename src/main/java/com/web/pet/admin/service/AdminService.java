@@ -23,5 +23,13 @@ public class AdminService {
 
 		return adaminDao.membernamesearchDao(user_name);
 	}
+	
+	public  List<Object[]> storetop10(Integer month) {//商品銷售Top10
+		return adaminDao.storetop10(month);
+	}
+	
+	public  List<Object[]> allsales(Integer month) {//銷售總金額
+		return adaminDao.allsales(month);
+	}
 
 }

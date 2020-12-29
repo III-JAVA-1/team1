@@ -55,7 +55,7 @@
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='mom/extar'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>

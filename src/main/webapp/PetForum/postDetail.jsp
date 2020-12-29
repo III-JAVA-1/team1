@@ -81,37 +81,37 @@
 <!--Aticle-->
 <div>
     <div class="row">
-    <div class="col-9 col-sm-9 col-xl-9 forum-col" id="main_wrapper">
-        <div id="body">
-            <div class="db_line1">
-                <div class="db_line1_left">
-                <!-- 	有登入才能看到此按鈕，假定訪客的u_Id=0 -->
-				<%if(request.getSession().getAttribute("user") != null) {%>
-				 <div class="db_line1_message">				
-				    <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
-				</div>
-				<%}%>
+    	<div class="col-9 col-sm-9 col-xl-9 forum-col" id="main_wrapper">
+        	<div id="body">
+            	<div class="db_line1">
+                	<div class="db_line1_left">
+                	<!-- 	有登入才能看到此按鈕，假定訪客的u_Id=0 -->
+					<%if(request.getSession().getAttribute("user") != null) {%>
+					 <div class="db_line1_message">				
+					    <span class="db_line1_message_span"><button type="button"  onclick="editComment();location.href='#editCommentInfo'" style='background-color:#666;color:white';">我要回覆</button></span>				
+					</div>
+					<%}%>
 				
               
-          <!-- Article -->
-          <div id="article" class="db_line1_left_article">
-              <!-- AJAX整個文章資料顯示在這裡 --> 
-          </div>
-          <!-- end of Article -->
+			          <!-- Article -->
+			          <div id="article" class="db_line1_left_article">
+			              <!-- AJAX整個文章資料顯示在這裡 --> 
+			          </div>
+			          <!-- end of Article -->
                 
-            <!-- 這邊一定要發GET請求才不會出trouble -->
-          <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
-            <div class="db_line1_release">
-            <!-- 獲取StringQuery的posterUid -->
-            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
-           <!-- 發文者才會看到按鈕 --> 
-          <%  
-          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
-         	 	if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
-            			out.print("<button type='submit' class='btn btn-secondary'>我要修改</button> "); 
-                	}
-          	}
-           %>               
+		            <!-- 這邊一定要發GET請求才不會出trouble -->
+		          <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
+		            <div class="db_line1_release">
+		            <!-- 獲取StringQuery的posterUid -->
+		            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+		           <!-- 發文者才會看到按鈕 --> 
+		          <%  
+		          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
+		         	 	if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
+		            			out.print("<button type='submit' class='btn btn-secondary'>我要修改</button> "); 
+		                	}
+		          	}
+		           %>               
             </div>
           </form>
          <hr/>    
@@ -134,49 +134,47 @@
 <!-- editComment UI -->
 <div id='editCommentInfo' style='display:none;'>
     <div class="bubbleContainer">
-	<h5>留言</h5>
-        <div class="bubbleBody">                        
-		 <form id="message" action="<c:out value="../petforum/commitComment"/>" method="POST">
-		 	<div class="divForm">
-			 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
-			 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
-<%-- 			 	<input type="hidden" name="u_Id" value="<%=request.getSession().getAttribute("u_Id") %>"/>			 	 --%>
-	            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
-            </div>
-			<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
-         </form>
-       </div>
- </div>
+		<h5>留言</h5>
+	        <div class="bubbleBody">                        
+			 <form id="message" action="<c:out value="../petforum/commitComment"/>" method="POST">
+			 	<div class="divForm">
+				 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
+				 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
+		            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
+	            </div>
+				<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
+	         </form>
+	       </div>
+ 	</div>
 </div>
 <!-- end of editComment UI -->
 </div>
 </div> <!--db_line1_left-->
 
            
-            <div class="db_line1_right">
-                <div class="db_line1_right_featured">
-                    <h5>版主主題討論</h5>                            
-                </div>
-            <div class="db_line1_right_featured2">
-                <div class="imag">
-                    <a href="#"><img src="image/featured_img1.jpg"/></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>
-                <div class="imag" style="padding: 0px 8px">
-                    <a href="#"><img src="image/featured_img2.jpg" /></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>
-                <div class="imag">
-                    <a href="#"><img src="image/featured_img3.jpg" /></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>       
-            </div>
-            </div>
+	            <div class="db_line1_right">
+	                <div class="db_line1_right_featured">
+	                    <h5 style='color:#666;text-align:left'>版主主題討論</h5>                            
+	                </div>
+		            <div class="db_line1_right_featured2">
+		                <div class="imag">
+		                    <a href="#"><img src="image/featured_img1.jpg"/></a>
+		                    <br/><a href="#">美麗的寵物</a>
+		                </div>
+		                <div class="imag" style="padding: 0px 8px">
+		                    <a href="#"><img src="image/featured_img2.jpg" /></a>
+		                    <br/><a href="#">美麗的寵物</a>
+		                </div>
+		                <div class="imag">
+		                    <a href="#"><img src="image/featured_img3.jpg" /></a>
+		                    <br/><a href="#">美麗的寵物</a>
+		                </div>       
+		            </div>
+	            </div>
    
-</div>
-</div>
-   
-</div>
+			</div>
+		</div>	   
+	</div>
 </div>
     <!--Footer-->
 <footer class="small bg-info">

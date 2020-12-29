@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.pet.forum.dao.ArticleDao;
 import com.web.pet.forum.model.Article;
+import com.web.pet.forum.model.ListWithPaging;
 
 @EnableTransactionManagement
 @Transactional
@@ -50,9 +51,9 @@ public class ArticleService {
 		return dao.modifyArticle(article, u_Id);
 	}
 	
-	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
-		List<Article> list = dao.getArticleByForumId(forumId);
-		return list;
+	public ListWithPaging getArticleByForumId(String forumId, Integer page){//按forumId找文章
+		ListWithPaging res = dao.getArticleByForumId(forumId, page);
+		return res;
 	}
 	
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章

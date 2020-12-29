@@ -337,7 +337,8 @@ let editCommentDisplay = 0;
     			type:"POST",		
     			dataType:"json",
     			data:{
-    				"posterUid":<%=request.getParameter("posterUid")%>,				
+    				"posterUid":<%=request.getParameter("posterUid")%>,	
+    				"u_Id":<%=request.getParameter("u_Id")%>//發文者u_Id	
     			},
     			success:function(data){    				
     				$("#article").html("");			

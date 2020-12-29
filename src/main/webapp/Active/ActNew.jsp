@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -30,9 +31,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
@@ -51,8 +52,9 @@
 		<div class="row justify-content-center">
 			<H1>新增活動</H1>
 		</div>
+		
 
-		<form name="reg" method="post" action="../Wu/insertActService">
+		<form name="reg" method="post" action="../Wu/insertActService" enctype="multipart/form-data">
 
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
@@ -75,7 +77,8 @@
 					<div class="col-xs-4">
 						<p>開始:</p>
 						<input type="date" class="form-control form-control-lg"
-							id="act_start" name="starttime"> <br>
+							id="act_start" name="starttime">
+							<br>
 						<p>結束:</p>
 						<input type="date" class="form-control form-control-lg"
 							id="act_end" name="endtime">
@@ -114,6 +117,20 @@
 				</div>
 			</div>
 
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+
+					<label for="act_where"
+						class="col-sm-3 col-form-label col-form-label-lg">活動地點:</label>
+
+					<div class="col-xs-4">
+						<input type="text" class="form-control form-control-lg"
+							id="act_where" name="act_where">
+					</div>
+
+				</div>
+			</div>
+
 
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
@@ -123,9 +140,12 @@
 
 					<div class="col-xs-4">
 						<input type="text" class="form-control form-control-lg"
-							id="act_orgphone" name="act_orgphone">
+							id="act_orgphone" name="act_orgphone" maxLength="10"
+							oninput="value=value.replace(/[^\d]/g,'')" 
+							placeholder="請輸入純數字">							
+							<!-- oninput="value=value.replace(/[^\d]/g,'')"  -->
 					</div>
-
+					
 				</div>
 			</div>
 
@@ -150,12 +170,21 @@
 
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
+			<label for="act_img" class="col-sm-3 col-form-label col-form-label-lg">上傳圖片:</label>
+					<div class="col-xs-4">
+						<input type="file" id="img" name="img" accept="image/*">							
+					</div>					
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
 
 					<label for="content"
 						class="col-sm-3 col-form-label col-form-label-lg">活動簡介:</label>
 
 					<div class="col-xs-4">
-						<textarea style="resize: none; width: 500px; height: 130px;"
+						<textarea Wrap="hard" style="resize: none; width: 500px; height: 130px;"
 							id="act_content" name="act_content"></textarea>
 					</div>
 
@@ -163,9 +192,11 @@
 			</div>
 
 			<div class="row justify-content-center">
+			
+				<input type="hidden" id="NewActNow" name="NewActNow"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
+				<input type="hidden" id="viableNumber" name="viableNumber"  value="0">
 				<button type="button" class="btn btn-primary btn-lg ml-3" onClick="check()">確認送出</button>
 				<button type="button" class="btn btn-primary btn-lg ml-3" onclick="history.back()">取消</button>
-				
 			</div>
 
 		</form>
@@ -175,15 +206,19 @@
 
 <script>
 
+
 function check(){
 	if(reg.act_name.value == ""||reg.starttime.value == ""||reg.endtime.value == ""||reg.act_organize.value == ""
-			||reg.act_orgman.value == ""||reg.act_orgphone.value == ""||reg.act_content.value == "") 
+			||reg.act_orgman.value == ""||reg.act_orgphone.value == ""||reg.act_content.value == ""||reg.act_where.value == "") 
     {
             alert("所有欄位皆須填寫");
-    }
+    }else if
+    	(Date.parse(reg.endtime.value) < Date.parse(reg.starttime.value)){ 
+    		alert("請確認開始結束日期是否錯誤"); 
+    		} 
+    
 	else reg.submit();
 }
-
 
 
 </script>

@@ -65,11 +65,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
+  					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
+  					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
   			</div>
@@ -128,6 +128,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 	<script>
 	
@@ -145,6 +146,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     });
     
     var name;
+    var userid=<%=session.getAttribute("user")%>
     $.ajax({
 		url:"../Gusty/favoritestore",
 		type:"post",
@@ -155,14 +157,16 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         },
 		success:function(data){
 			$.each(data,function(i,n){
-				if(i==0||n[0]!=name){
+				if(i==0||n[1]!=name){
 					$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
-			  				"<img src='"+n[1]+"' class='card-img-top' alt=''>"+
+			  				"<img src='"+n[3]+"' class='card-img-top' alt=''>"+
 			  				"<div class='card-body'>"+
-			    				"<a href='<c:url value='../Store/productDetail?id="+n[2]+"&memberId="+n[3]+"'/>'><p class='card-text'>"+n[0]+"</p></a>"+
-			  				"</div>"+
+			    				"<a class='h5' href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'><p class='card-text'>"+n[1]+"</p></a>"+
+			  					"<p class='h4'>價格:&nbsp"+n[2]+"NT</p>"+
+			  					"<button type='button' onclick='deletelove("+n[0]+")' class='btn btn-danger'>取消收藏</button>"+
+			    			"</div>"+
 						"</div>");
-					name=n[0];
+					name=n[1];
 				}
 				
 			});
@@ -196,16 +200,17 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	        },
     			success:function(data){
     				$.each(data,function(i,n){
-    					if(i==0||n[0]!=name){
+    					if(i==0||n[1]!=name){
     						$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
-    				  				"<img src='"+n[1]+"' class='card-img-top' alt=''>"+
+    				  				"<img src='"+n[3]+"' class='card-img-top' alt=''>"+
     				  				"<div class='card-body'>"+
-    				    				"<a href='store?product_id='"+n[2]+"><p class='card-text'>"+n[0]+"</p></a>"+
-    				  				"</div>"+
+    				    				"<a class='h5' href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'><p class='card-text'>"+n[1]+"</p></a>"+
+    				  					"<p class='h4'>價格:&nbsp"+n[2]+"NT</p>"+
+    				  					"<button type='button' onclick='deletelove("+n[0]+")' class='btn btn-danger'>取消收藏</button>"+
+    				    			"</div>"+
     							"</div>");
-    						name=n[0];
+    						name=n[1];
     					}
-    					
     				});
     			},
     			error:function(){
@@ -213,6 +218,31 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			}
     		});
     	return false;
+    }
+    
+    function deletelove(pid){
+    	//alert(pid);
+    	$.ajax({
+			url:"../Gusty/deletlove",
+			type:"post",
+			//async : false,//要賦值給全域變數要改false
+			dataType:"json",
+			data : { 
+				"product_id" : pid,
+	        },
+			success:function(data){
+				if(data==1){
+					Swal.fire({
+	    			title: '取消收藏成功',
+	    			icon: 'success',
+	    			confirmButtonText: '確定'
+	    			}).then((result) => {
+	    			if (result.isConfirmed) {
+	    				store()
+	    			}})			
+				}
+			},
+		});
     }
     
 	</script>

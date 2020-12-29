@@ -18,7 +18,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="../Styles/index.css" rel="stylesheet">
+<!--     <link href="../Styles/index.css" rel="stylesheet"> -->
 <script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 
 
@@ -28,6 +28,26 @@
 	border: 1px solid black;
 	text-align: center;
 	}
+		
+		
+	.js-social-share {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-left: 0;
+    line-height: 1;
+    list-style: none;
+  }
+  .js-social-share li {
+    padding-right: 1rem;
+    height: 22px;
+  }	
+		
+		
+		
 		
 	</style>
 
@@ -47,9 +67,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
@@ -60,12 +80,18 @@
     <!--Nav尾-->
     
 <div>
-			<%String getact=request.getParameter("get");%>
+   		<div id="fb-root"></div>
+     		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v9.0" nonce="bZUjiJpf"></script>
+			<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 
-   			
-   			
+			<%String getact=request.getParameter("get");%>
+		<div style="text-align:center;">
+<%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
+   			<img id="img" style="width=800px;" src="image/tantanEX.jpg" >
+		</div>
+		<br>   			
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
-   			<tbody>
+   			
    				<tr>
    					<td class="acstyle">活動名稱</td>
    					<td class="acstyle">活動時間</td>
@@ -79,15 +105,16 @@
    				</tr> 			
 
    			
-   			</tbody>
+   			
    		</table>
    		<br>
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
-   			<tbody>
+   			
    				<tr>
    					<td class="acstyle">承辦單位</td>
    					<td class="acstyle">連絡人</td>
    					<td class="acstyle">連絡電話</td>
+   					<td class="acstyle">活動地點</td>
    					
    				</tr> 
 		
@@ -95,10 +122,11 @@
    					<td class="acstyle" id="act_org"></td>
    					<td class="acstyle" id="act_orgman"></td>
    					<td class="acstyle" id="act_phone"></td>
+   					<td class="acstyle" id="act_where"></td>
    					
    				</tr> 			
 				
-   			</tbody>
+   			
    			
    		</table>
    		<br>
@@ -121,6 +149,22 @@
         <input type="submit" name="send" id="joinbut"  value="點我報名" />
         </form>
    		</div>	
+		<div style="text-align: center;">
+   		<div id="google">
+<!--    		<a href="http://www.google.com/calendar/event?action=TEMPLATE&text=你聽得懂貓星人說什麼嗎?   -->
+<!--    		&dates=20200810T183000/20200810T235900 -->
+<!--    		&details=喵星人你怎麼說？當貓奴遇到了喵星人，其實牠沒有你想像中的難搞！歡迎聆聽寵物專家陳貓貓的詳細講解。  -->
+<!--    		&location=新北市林口區信義路99號  -->
+<!--    		&trp=false">加入日曆<a/> -->
+   		</div>
+   		
+   		
+   		<div class="fb-like" data-href="http://localhost:8080/PetProject_Final/Active/ActShow.jsp?get=1" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>  		
+ 		<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/PetProject_Final/Active/ActShow.jsp?get=1" data-color="default" data-size="small" data-count="true" style="display: none;">
+ 		</div>
+   		</div>
+ 			
+ 		
 </div>
 
     
@@ -132,18 +176,6 @@
 
 
     <script>
-//     	function gogo()
-//     	{
-<%--     		<% --%>
-//     			if(session.getAttribute("user")==null)
-<%--     			{%>window.alert("請先登入"); return false; --%>
-<%--     			<%}else{%> --%>
-//     			return  true;
-<%--     			<%}%> --%>
-    				
-    				
-//     		return false;
-//     	}
 
     	
     	$().ready(function(){//ajax完整活動資訊
@@ -152,11 +184,13 @@
     			type:"post",
     			dataType:"json",
     			data:{
-    				"act_no":<%=getact %>
+    				"act_no":<%=getact%>
     			},
     			success : function(data) {
+
+    				
     				$.each(data,function(i,n){
-    					
+    					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
     					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
@@ -164,7 +198,17 @@
     					$("#act_orgman").html(n.act_orgman);
     					$("#act_phone").html(n.act_orgphone);
     					$("#act_type").html(n.act_type);
-    					
+    					$("#act_where").html(n.act_where);
+    				
+    				$("#google").append(
+    						"<a href='http://www.google.com/calendar/event?action=TEMPLATE"
+    							+"&text="+n.act_name
+    							+"&dates="+n.starttime.substr(0,10).replace(/\-/g, "")+"T000000/"+n.endtime.substr(0,10).replace(/\-/g, "")+"T000000"
+    							+"&details="+n.act_content
+    							+"&location="+n.act_where 
+    							+"&trp=false' target='_blank'>加入日曆<a/>"
+    				
+    				)
 				
     						});
     					}
@@ -172,6 +216,12 @@
     				   
     			});
          	
+ 
+    	
+
+    	
+    	
+    	
     </script>
     
 </body>

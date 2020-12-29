@@ -29,46 +29,38 @@
         <thead>
         <tr class="tr1">
             <th colspan="2">訂單商品</th>
-            <th scope="col">單價</th>
-            <th scope="col">數量</th>
-            <th scope="col">總價</th>
+            <th scope="col" class="item-count">單價</th>
+            <th scope="col" class="item-count">數量</th>
+            <th scope="col" class="item-count">總價</th>
         </tr>
         </thead>
         <tbody>
         ${orderItem}
         </tbody>
     </table>
-    <hr>
     <form class="btnborder">
+        <hr>
         <div class="row">
-            <div class="col">
-                <p class="message">備註:<br>
-                   ${remarks}
+            <div class="col my-col">
+                <p class="message">備註: ${remarks}
+
                 </p>
             </div>
-            <div class="col">
-                <p class="address">寄送資訊:<br>
-                    ${address}
+            <div class="col my-col">
+                <p class="address">寄送資訊: ${address}
+
                 </p>
             </div>
         </div>
-        <p class="p1">訂單金額:$${orderTotalPrice}</p>
+        <hr>
+        <p class="p3">小計: $${orderPrice}</p>
+        <p class="p3">付款方式: ${payType}</p>
+        <p class="p3">運費: $${shipping}</p>
+        <hr>
+        <p class="p1">訂單金額: $${orderTotalPrice}</p>
     </form>
 </div>
 
-<%--<div class="paytotle">--%>
-<%--    <p class="p2">付款方式--%>
-<%--        <button type="button" class="btn btn-outline-warning">貨到付款</button>--%>
-<%--        <button type="button" class="btn btn-outline-warning">銀行轉帳</button>--%>
-<%--        <button type="button" class="btn btn-outline-warning">信用卡/金融卡</button>--%>
-<%--    </p>--%>
-<%--    <hr>--%>
-<%--    <p class="p1">商品總金額: $xxx</p>--%>
-<%--    <p class="p1">運費總金額: $xxx</p>--%>
-<%--    <p class="p1">總付款金額: $xxx</p>--%>
-<%--    <hr>--%>
-<%--    --%>
-<%--</div>--%>
 
 <!-- Footer -->
 <jsp:include page="Footer.jsp"/>

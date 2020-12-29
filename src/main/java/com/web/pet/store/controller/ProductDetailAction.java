@@ -1,6 +1,5 @@
 package com.web.pet.store.controller;
 
-
 import com.web.pet.store.dto.api.*;
 import com.web.pet.util.ConvertUtils;
 import com.web.pet.util.DbUtils;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,15 +26,16 @@ public class ProductDetailAction {
     @GetMapping("/productDetail")
     public String init(
             Model model,
-            @RequestParam("id") String id, //商品編號
-            @RequestParam(value = "memberId", required = false) String memberId) { //會員編號不一定要帶也可查詢商品
+            @RequestParam("id") String id, // 商品編號
+            @RequestParam(value = "memberId", required = false)
+                    String memberId) { // 會員編號不一定要帶也可查詢商品
         model.addAttribute("productId", id);
         model.addAttribute("memberId", memberId);
         try (DbUtils dbu = new DbUtils()) {
             String sql =
                     "SELECT a.product_name, a.introduction, \n"
                             + "       b.category_name, a.animal, a.create_date,\n"
-                            + "       a.price\n"
+                            + "       a.price, a.stock\n"
                             + "FROM product a, product_category b\n"
                             + "WHERE a.category_id = b.category_id \n"
                             + "AND a.product_id = ?\n";
@@ -49,6 +50,7 @@ public class ProductDetailAction {
                 model.addAttribute("category", rs.getString(3));
                 model.addAttribute("animal", rs.getString(4).equals("0") ? "狗" : "貓");
                 model.addAttribute("introduction", rs.getString(2));
+                model.addAttribute("surplus", rs.getInt(7));
             }
             rs.close();
 
@@ -67,7 +69,7 @@ public class ProductDetailAction {
             if (imgList.isEmpty()) {
                 carousel.append(
                         "<div class=\"carousel-item active\">\n"
-                                + "<img src=\"Store/images/no_picture.gif\" class=\"d-block roll-img\" alt=\"...\">\n"
+                                + "<img src=\"images/no_picture.gif\" class=\"d-block roll-img\" alt=\"...\">\n"
                                 + "</div>");
                 indicators.append(
                         "<li data-target=\"#carouselExampleIndicators\" data-slide-to=\"0\" class=\"active\"></li>\n");
@@ -115,36 +117,39 @@ public class ProductDetailAction {
             // 把jsp的${id}換成後面的值
             model.addAttribute("id", id);
 
-
-            if (StringUtils.isNotEmpty(memberId)) {
+            if (StringUtils.isNotEmpty(memberId) && memberId.equals("1")) {
                 model.addAttribute("memberId", memberId);
                 String modProductHtml =
-                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n" +
-                        "<img id=\"trash\" width=\"50\" height=\"50\" src=\"../Store/images/trash.svg\" alt=\"\"\n" +
-                        "data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n" +
-                        "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
-                        "aria-hidden=\"true\">\n" +
-                        "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
-                        "<div class=\"modal-content\">\n" +
-                        "<div class=\"modal-header\">\n" +
-                        "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
-                        "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
-                        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n" +
-                        "<span aria-hidden=\"true\">&times;</span>\n" +
-                        "</button>\n" +
-                        "</div>\n" +
-                        "<div class=\"modal-body\">\n" +
-                        "確認是否要刪除商品\n" +
-                        "</div>\n" +
-                        "<div class=\"modal-footer\">\n" +
-                        "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n" +
-                        "<button type=\"button\" class=\"btn btn-danger\" onclick=\"doDelete()\">刪除</button>\n" +
-                        "</div>\n" +
-                        "</div>\n" +
-                        "</div>\n" +
-                        "</div>";
+                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n"
+                                + "<img id=\"trash\" width=\"50\" height=\"50\" src=\"../Store/images/trash.svg\" alt=\"\"\n"
+                                + "data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n"
+                                + "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n"
+                                + "aria-hidden=\"true\">\n"
+                                + "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n"
+                                + "<div class=\"modal-content\">\n"
+                                + "<div class=\"modal-header\">\n"
+                                + "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n"
+                                + "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n"
+                                + "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n"
+                                + "<span aria-hidden=\"true\">&times;</span>\n"
+                                + "</button>\n"
+                                + "</div>\n"
+                                + "<div class=\"modal-body\">\n"
+                                + "確認是否要刪除商品\n"
+                                + "</div>\n"
+                                + "<div class=\"modal-footer\">\n"
+                                + "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n"
+                                + "<button type=\"button\" class=\"btn btn-danger\" onclick=\"doDelete()\">刪除</button>\n"
+                                + "</div>\n"
+                                + "</div>\n"
+                                + "</div>\n"
+                                + "</div>";
                 model.addAttribute("modProduct", modProductHtml);
             }
+
+            // 產品售出量
+            sql = "SELECT SUM(quantity) FROM order_item WHERE product_id = ?";
+            model.addAttribute("saleCount", dbu.selectIntList(sql, id));
 
         } catch (SQLException e) {
             log.error(ExceptionUtils.getErrorDetail(e));
@@ -153,15 +158,14 @@ public class ProductDetailAction {
     }
 
     @PostMapping("/getRateList")
-    public @ResponseBody
-    GetRateListResDTO getRateList(@RequestBody GetRateListReqDTO req) {
+    public @ResponseBody GetRateListResDTO getRateList(@RequestBody GetRateListReqDTO req) {
         GetRateListResDTO res = new GetRateListResDTO();
         try (DbUtils dbUtils = new DbUtils(); ) {
 
             // 存放問號的值,解決問號會浮動的問題
             List<Object> args = new ArrayList<>();
             String sql =
-                    "SELECT b.Name,a.date,a.rate,a.message FROM rate a, Member b\n"
+                    "SELECT b.Sname,a.date,a.rate,a.message FROM rate a, Member b\n"
                             + "WHERE a.customer_id = b.U_Id\n"
                             + "AND a.product_id=?\n";
             args.add(req.getProductId());
@@ -191,7 +195,11 @@ public class ProductDetailAction {
 
             sql = "SELECT AVG(rate) FROM rate WHERE product_id=?";
 
-            res.setAvgRate(dbUtils.selectIntList(sql,req.getProductId()));
+            double avg = dbUtils.selectDoubleList(sql, req.getProductId());
+            DecimalFormat df = new DecimalFormat("#.0");
+            avg = Double.parseDouble(df.format(avg));
+
+            res.setAvgRate(String.valueOf(avg));
         } catch (SQLException e) {
             log.error(ExceptionUtils.getErrorDetail(e));
         }
@@ -220,5 +228,4 @@ public class ProductDetailAction {
         }
         return newName;
     }
-
 }

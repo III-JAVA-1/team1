@@ -9,146 +9,178 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!--bootstrap初始規模-->
-    
-   
-    <title>ACcompanyMe</title><!--顯示文章標題--> 
-    
+        
     <title>發表新文章</title>
-    <style>
-        *{padding: 0px;
-            margin: 0px;
-        }
+    <link rel="stylesheet" href="../PetForum/css/common.css" /> 
     
-        .h2{
-            /* position:relative; */
-            /* top:30px;
-            left:30px; */
-            margin:10px;
-            display: inline;
-        }
-        .forumId{
-            /* position:absolute;*/
-            /* top: 80px;
-            left:30px; */
-            padding: 0.7em;
-            margin:10px;              
-         
-         } 
-         .header{
-            /* position:absolute;*/
-            /* top: 80px;
-            left:200px; */
-            padding: 0.7em;
-            margin:10px;    
-         }
+</head>
+<body style="background-image: url(../PetForum/image/editArticle_bg.jpg);">
 
-         .updatedTime{
-            /* top: 80px;
-            left:30px; */
-            padding: 0.7em;
-            margin:10px;      
-         }
+ <!-- 發送/petforum/insertPost請求 -->
+<div class="col-12">
+	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">		
+		<form:form action="insertPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
+			
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+					<div class="form-row">
+						<div class="form-group col-3">
+							<input class="btn btn-secondary" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
+						</div>
+						<div class="form-group col-3">
+					    	<input class="btn btn-secondary" type="button" value="草稿" id="store">
+					    </div>
+					    <div class="form-group col-3">
+					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
+					     </div>
+					      <div class="form-group col-3">
+					    	<input class="btn btn-secondary" type="submit" value="新增" id="new" onsubmit=return check(this)/>
+					    </div>
+				   	</div>
+			    </div>
+			</div>
+			<div class="row justify-content-center">    
+			    <div class="form-group row w-50">
+				    <label class="col-sm-3 col-form-label" for="forumId">選擇子版：</label>
+				    <div class="col-xs-4">   
+					     <form:select name="forumId" path="forumId" class="form-control" id="forumId">       
+					        <form:option value="請選擇子版"></form:option>
+					        <form:option value="協尋"></form:option>
+					        <form:option value="送養"></form:option>
+					        <form:option value="日常"></form:option>      
+					        <form:option value="徵友"></form:option>
+					        <form:option value="心得"></form:option>       
+					    </form:select>
+				    </div>
+				</div>
+			</div>	
+				
+				<form:hidden name="posterUid" path="posterUid" />
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+						<label class="col-sm-3 col-form-label" for="header">文章標題：</label>
+					<div class="col-xs-4">
+						<form:input class="form-control" id="header" name="header" path="header" size="50" placeholder="請輸入文章標題…" />
+					</div> 
+				</div>
+			</div> 
+				
+				<form:hidden name="updatedTime" path="updatedTime" size="115"/>
+			
+			<div class="row justify-content-center">
+				<div class="form-group row w-50">
+					<label class="col-sm-3 col-form-label" for="content">文章內容：</label>
+					<div class="col-xs-4"> 
+					    <form:textarea id="content" name="content" path="content" class="form-control" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
+						onkeyup='return countChar()'></form:textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group row">														
+					<input class="form-check-input" type="checkbox" id="ckObey">											
+					<label class="col-sm-3 col-form-label" for="ckObey" class="form-check-label">我已閱讀過並同意遵守討論區規則，<a class='inline' href="#inline_content">按這裡檢視討論區規則</a></label>					
+				</div>
+			</div>
+		</form:form>
+	</div>	 	
+</div>
 
-         .lb{
-            padding: 0.7em;
-            margin:10px;   
-         }
-
-         .content{
-            overflow:auto;
-            margin: 10px;
-         }
-
-         .rightBtn{
-             width: 100px;
-             height: 40px;
-             margin-left: 10px;
-         }
-         
-         .ck{
-            margin-left: 10px;
-         }         
-    </style>
+<!-- This contains the hidden content for inline calls -->
+		<div style='display:none'>
+			<div id='inline_content' style='padding:10px; height:700px;background:#ccc;overflow: auto;'>
+				<!-- 討論區規則 -->
+				<p>一、基本板規：</p>
+				<p>《１》禁止不符板旨文（轉錄文章亦同）
+				違規處份★刪文並記點一次，記點達三次則水桶乙周</p>
+				<p>寵物用品事宜請移至AnimalGoods 板面發表
+				徵求寵物寄養請移至Pet_boarding板面發表
+				其他寵物相關請移至各寵物專門　板面發表</p>
+				<p>《２》不得徵求指定品種＋一年內幼犬貓(須兩條件均成立)，請參閱精華區說明
+				違規處份★刪文並劣文一則，水桶依情節重大與否處以一個月至永久水桶</p>
+				<p>精華區→4.★補充→1.《板務》徵求寵物領養的文章請注意。</p>
+				<p>《３》補貼費用請務必於文章內詳加說明用途，最高不得超過三千元新台幣。
+				違規處份★視為販賣活體動物，劣文處理並永久水桶。</p>
+				<p>精華區→4.★補充→2.《板務》關於送養文的補貼費用說明</p>
+				<p>《４》禁止有轉賣、販售、交換、惡意棄養動物行為或徵求配種用途。
+				意即禁止徵求未結紮動物。
+				違規處份★刪文並劣文一則並永久水桶</p>
+				<p>《５》禁止過短（未滿三行）或僅留下個人聯絡資料之回文。
+				違規處份★刪文並記點一次，記點達三次則水桶乙周</p>
+				<p>《６》禁止假認養名義實為賺取相關嫁妝再蓄意遺棄寵物行為。
+				違規處份★刪文且經查證屬實永久水桶</p>
+				<p>《７》三天內若重複貼文，請先刪除前文。
+				違規處份★刪文並記點一次，記點達三次則水桶乙周</p>
+				<p>《８》需留意之送/領養者皆備份並刪文、水桶。</p>
+				<p>《９》送養、認領文章一律禁止回文，違者直接刪除不另行通知。
+				請直接回原作者站內信箱。</p>
+				<p>《10》板上言論相關：
+				    1.嚴禁任何粗話、髒話，就算重點字詞消除也算。違者水桶一個月。
+				    2.嚴禁誹謗、引戰、鬧板、破壞和諧或
+				      針對特定人物、族群進行人身攻擊之文章或推文。違者水桶一個月。
+				    3.嚴禁未經推噓文者同意逕行修改或刪除其推噓文；
+				      如遇特殊情形請跟板主申請修改推噓文。違者水桶一個月。
+				    4.引導他人使之惡言相向、破壞版面和諧者，水桶半年。
+				    5.個人恩怨請私下解決，端上板面者水桶半年。</p>
+				<p>二、提醒事宜：</p>
+				<p>《１》內文聯絡資料請提供兩種以上聯絡方式，如：站上信箱、電話、手機、MAIL等。</p>
+				<p>《２》希望認領人的條件請務必填寫清楚，以避免發生糾紛。</p>
+				<p>《３》請善用認領切結書，並定期追蹤已送養寵物。格式請參考ｚ→１６→５</p>
+			</div>
+		</div>
+		
+		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+    crossorigin="anonymous">   
     
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <input type="hidden" name="mode" id="mode" value="" style="display:none;" /><!-- user操作取消,草稿,預覽,發佈....修改mode -->
-        
-    <h2 class="h2">發表新文章</h2>
-    <!-- 發送/petforum/previewPost請求 -->
-
-<form:form action="previewPost" method="POST" modelAttribute="articleModel">
-	<input class="rightBtn" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/lookforPet.jsp'/>'">
-    <input class="rightBtn" type="button" value="儲存草稿" id="store">
-    <input class="rightBtn" type="button" value="回復到上次儲存" id="back">
-    <input class="rightBtn" type="submit" value="預覽" id="preview" onsubmit=return check(this)>   
-    <br>
+   <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script>
+   
+   <link rel="stylesheet" href="../PetForum/css/colorbox.css" />   
+   <script src="../PetForum/js/jquery.colorbox.js"></script> 
+		
+  <script>
+  
+  CKEDITOR.replace('content',{
+		language: 'zh-TW',//改成中文版
+	});
+  
+    //禁止回上一頁
+    window.history.forward(1);
     
-     <form:select name="forumId" path="forumId" class="forumId" id="forumId">       
-        <form:option value="請選擇子版"></form:option>
-        <form:option value="協尋"></form:option>
-        <form:option value="送養"></form:option>
-        <form:option value="日常"></form:option>
-        <form:option value="閒聊"></form:option>
-        <form:option value="徵友"></form:option>
-        <form:option value="心得"></form:option>       
-    </form:select>
-	
-	<form:hidden name="posterUid" path="posterUid" />
-	<form:input name="header" path="header" size="105" placeholder="請輸入文章標題…" />
-	<label for="" class="lb">時間：</label>
-	<form:input name="updatedTime" path="updatedTime" size="115"/>
-	<label for="image" class="lb">請選擇要上傳的圖片:</label>
-	<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br>
-	<form:textarea name="content" path="content" rows="20" cols="120" placeholder="請輸入文章內容…"/><br>
-	<input class="ck" type="checkbox" id="ckObey">
-	 <label for="ckObey" class="lb">我已閱讀過並同意遵守討論區規則，
-	  <button type="button"  onclick="window.open(
-			 'forumIntro.html', '_blank')">按這裡檢視討論區規則</button></label>
-</form:form>  
-
-    <script>   
-    let count;
-    function countChar()
-    {
-    	document.getElementById("counter").innerHTML = 25-document.getElementById("content").value.length;
-    	 count = parseInt(document.getElementById("counter").innerHTML);
-	    if(count <= 0){
-	    	$("#counter").css("display","none");
-	    }
-	    else{
-	    	$("#counter").css("display","inline");
-	    }
-    }
-    
-    
-    $("#preview").click(function check(form){//按預覽文章 
-    	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
-    		 console.log($("#ckObey").prop("checked"));
-    		 console.log($("#forumId").find("option:selected").val() != null);
-    		 console.log(count);
-    		 
-    		 if(count > 0){
-    			 window.alert("文章內容不足25個字");
-    			 return false; 
-    		 }
-    	    	
-    		 if($("#forumId").find("option:selected").val() != "請選擇子版")return true; //代表未選擇
-    		 else{ 
-    			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-    			 return false;
-    			 }
-    
-    		}else{
-    	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-    	    	return false;
-    	    	}
-    });
+    $("#new").click(function check(form){//按預覽文章   	
+    	
+   	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
+   		 console.log($("#ckObey").prop("checked"));
+   		 console.log($("#forumId").find("option:selected").val() != null);
+   	    	
+   		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
+   				
+   		var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
+		 	if (modify === false) {
+				 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+	   			
+	   			 return false;
+			} 
+ 			else {
+       		
+			   	return true;//form action請求送出				  
+ 			}
+   			
+   		 }
+   		 else{ 
+   			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   			 return false;
+   			 }
+   
+   		}else{
+   	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   	    	return false;
+   	    	}
+   });
    
     	    
         let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
@@ -186,8 +218,9 @@
           document.querySelector("#content").value = content;
 
       });
-   
-   
+    
+      $(".inline").colorbox({inline:true, width:"50%"});
+      
     </script>
 </body>
 </html>

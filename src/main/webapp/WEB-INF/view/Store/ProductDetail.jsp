@@ -38,13 +38,54 @@
     <div class="d-flex justify-content-start flex-column bd-highlight mb-3 div2 ">
         <h3>${productName}</h3>
 
+
+        <div class="d-flex bd-highlight mb-3">
+            <p id="topRate" class="line-rate" onclick="goRateArea()">尚無評價</p>
+            <div id="topStarDiv" onclick="goRateArea()">
+            </div>
+            <div id="dashDiv" class="p-2 bd-highlight">|</div>
+            <p id="rateCount" class="line-rate" onclick="goRateArea()"></p>
+            <div class="p-2 bd-highlight">|</div>
+            <p class="line-p1">${saleCount} 已售出</p>
+        </div>
+
         <P class="price">$${price}</P>
 
-        <h5 class="h5 mb-auto p-2 bd-highlight">新增日期: ${date}</h5>
+
+        <h5 class="date p-2 bd-highlight">新增日期: ${date}</h5>
+
+        <%--運費小車車--%>
+        <div class="shipping-alldiv">
+            <h5 class="shipping-p">運費</h5>
+            <div class="btn-group dropright shipping-div">
+                <img class="dropdown-toggle truck-img" src="../Store/images/truck.svg"
+                     width="30px" height="30px"
+                     data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown-menu">
+                    <span class="dropdown-item-text">信用卡     $60</span>
+                    <span class="dropdown-item-text">貨到付款    $65</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-row count-div">
+            <h5 class="count-p">數量</h5>
+            <div class="count-btn">
+                <input id="min" type="button" value="-" onclick="minusClick()">
+                <input id="count" oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"
+                       type="text" value="1" size="1" style="text-align:center;" onblur="setBuyCount(this)">
+                <input id="add" type="button" value="+" onclick="addClick()">
+            </div>
+            <p class="surplus-p">還剩${surplus}件</p>
+        </div>
+
+
         <div class="bd-highlight btn1">
-            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, false)">加入購物車</button>
-            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, true)">直接購買</button>
-            <img id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
+            <button type="button" class="btn btn-danger shoppingCart-btn" onclick="addShoppingCart(${id}, false)" >
+                <img class="cart-img" src="../Store/images/add-shopping-cart.svg" width="18px" height="18px"/>加入購物車</button>
+            <button type="button" class="btn btn-warning shoppingCart-btn" onclick="addShoppingCart(${id}, true)">
+                <img class="cart-img" src="../Store/images/shopping-bag.svg" width="18px" height="18px"/>直接購買</button>
+            <img class="shoppingCart-btn" id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
         </div>
     </div>
 
@@ -63,7 +104,7 @@
     </div>
 </div>
 
-<div class="div3">
+<div id="rateAreaDiv" class="div3">
     <div class="st2">商品評價</div>
     <legend>
         <div class="d-flex bd-highlight">
@@ -85,7 +126,6 @@
         </div>
     </div>
 </div>
-Ï
 
 
 ${modProduct}
@@ -107,6 +147,10 @@ ${modProduct}
 <script>
     let productId = "${productId}";
     let memberId = "${memberId}";
+    // 購買數量
+    let buyCount = 1;
+    // 剩餘數量
+    let surplus = ${surplus};
 
     function goShoppingCart() {
         if (memberId == "" || memberId == "null") {
@@ -129,7 +173,7 @@ ${modProduct}
 
         let req = {
             "productId": parseInt(productId),
-            "quantity": 1,
+            "quantity": buyCount,
             "customerId": memberId
         };
 
@@ -138,7 +182,7 @@ ${modProduct}
             // 傳輸格式
             type: "POST",
             // 要傳輸的位置
-            url: "shoppingCart/add",
+            url: "../shoppingCart/add",
             // 要傳輸的資料(只有Post才有) body
             data: JSON.stringify(req),
             // 傳輸的格式
@@ -176,7 +220,12 @@ ${modProduct}
             success: function (res) {
                 let avgRate = document.getElementById("avgRate");
                 let rateListDiv = document.getElementById("rateList");
+                let topStarDiv = document.getElementById("topStarDiv");
+                let rateCount = document.getElementById("rateCount");
+                let dashDiv = document.getElementById("dashDiv");
+                let topRate = document.getElementById("topRate");
                 let rateHtml = "";
+                let topRateHtml = "";
                 res.rateList.forEach(function (rateData) {
                     rateHtml += "<div class=\"custom-message-area\">\n" +
                         "<P class=\"member-account\">"
@@ -188,8 +237,11 @@ ${modProduct}
                     for (let i = 1; i <= 5; i++) {
                         if (i <= rateData.rateCount) {
                             rateHtml += "<img src=\"../Store/images/star.svg\" width=\"12px\" height=\"12px\">\n";
+                            topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/star.svg\" width=\"15px\" height=\"15px\" \>\n"
                         } else {
-                            rateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"12px\" height=\"12px\">\n";
+                            rateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"12px\" height=\"12px\">\n"
+                            topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/noStar.svg\" width=\"15px\" height=\"15px\" \>\n"
+
                         }
                     }
                     rateHtml += "</div>\n" +
@@ -199,16 +251,23 @@ ${modProduct}
                         "</div>";
                 })
                 rateListDiv.innerHTML = rateHtml;
+                topStarDiv.innerHTML = topRateHtml;
 
                 let avgRateHtml = "<P class=\"star-rate\">" + res.avgRate + "/5.0" + "</P>\n"
                 for (let i = 1; i <= 5; i++) {
-                    if (i <= res.avgRate) {
+                    if (i <= parseInt(res.avgRate)) {
                         avgRateHtml += "<img src=\"../Store/images/star.svg\" width=\"20px\" height=\"20px\">\n";
                     } else {
                         avgRateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"20px\" height=\"20px\">\n";
                     }
                 }
-                avgRate.innerHTML = avgRateHtml
+                avgRate.innerHTML = avgRateHtml;
+                if (res.avgRate > 0) {
+                    topRate.innerHTML = res.avgRate;
+                    rateCount.innerHTML = res.rateList.length + "則評價";
+                } else {
+                    dashDiv.remove();
+                }
             },
             error: function () {
                 alert('error');
@@ -254,7 +313,7 @@ ${modProduct}
 
     }
 
-    function doDelete(){
+    function doDelete() {
         let req = JSON.stringify({
             "id": parseInt(productId)
         });
@@ -267,9 +326,9 @@ ${modProduct}
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
-                if(res.success){
-                    window.location.href = "Store/?memberId=" + memberId;
-                }else{
+                if (res.success) {
+                    window.location.href = "../Store/?memberId=" + memberId;
+                } else {
                     alert('刪除失敗');
                 }
             },
@@ -279,7 +338,7 @@ ${modProduct}
         });
     }
 
-    function goUpdate(){
+    function goUpdate() {
         window.location.href = "UpdateProduct?memberId=" + memberId
             + "&productId=" + productId;
     }
@@ -318,6 +377,45 @@ ${modProduct}
     }
 
     getCartCount();
+
+    function goRateArea() {
+        let rateAreaDiv = document.getElementById("rateAreaDiv");
+        rateAreaDiv.scrollIntoView();
+    }
+
+    function setBuyCount(input) {
+        console.log(input.value);
+        if (buyCount >= 99 || buyCount >= surplus) {
+            input.value = buyCount;
+            return;
+        }
+        let num = input.value;
+        if (num == 0) {
+            num = 1;
+            input.value = num;
+        }
+        buyCount = num;
+    }
+
+    function addClick() {
+        if (buyCount >= 99 || buyCount >= surplus) {
+            return;
+        }
+
+        let countInput = document.getElementById("count");
+        buyCount++;
+        countInput.value = buyCount;
+    }
+
+    function minusClick() {
+        if (buyCount <= 1) {
+            return;
+        }
+
+        let countInput = document.getElementById("count");
+        buyCount--;
+        countInput.value = buyCount;
+    }
 
 </script>
 

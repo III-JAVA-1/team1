@@ -16,7 +16,7 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
+  
   </head>
   <body style="background-image: url(image/bg.jpg);">
 <%--   <jsp:include page="Header.jsp"/> --%>
@@ -27,31 +27,31 @@
     <div id="header">
         <div class="hd_line1">
             <div class="hd_line1_logo">
-                <img src="image/petforum.png" width="60" height="40">
+                <img class="" src="image/petforum.png" width="60" height="40">
             </div>
             <div class="hd_line1_name">                
-                <h2 >汪喵討論區</h2>               
-            </div>
-            <div class="searchBox">
+                <h2>汪喵討論區</h2>               
+            </div>           
+        </div>
+        	 <div class="searchBox">
                 <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
                 <button class="searchButton" href="#">
                     <i class="material-icons">
                         <img src="image/icons8-search-24.png">
                     </i>
                 </button>
-            </div>   
-        </div>            
+            </div>               
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
-           <a style="border-color:#39C;" href="#" onclick="getForum('全部'); return false"><img src="image/Home_logo.png"/></a>
+           <a style="border-color:#39C;" href="#table" onclick="getForum('全部'); "><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
-            <a style="border-color:#ccc" href="#" onclick="getForum('協尋'); return false">走失協尋</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('送養');">汪喵送養</a>
-            <a style="border-color:#ccc;" href="#" onclick="getForum('日常'); return false">汪喵日常</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('主題'); return false">版主討論</a>
-            <a style="border-color:#ccc;" href="#" onclick="getForum('徵友'); return false">汪喵徵友</a>
-            <a style="border-color:#39C;" href="#" onclick="getForum('心得'); return false">心得分享</a>
+            <a style="border-color:#ccc" href="#table" onclick="getForum('協尋'); ">走失協尋</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('送養');">汪喵送養</a>
+            <a style="border-color:#ccc;" href="#table" onclick="getForum('日常');">汪喵日常</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('主題');">版主討論</a>
+            <a style="border-color:#ccc;" href="#table" onclick="getForum('徵友'); ">汪喵徵友</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('心得'); ">心得分享</a>
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -113,13 +113,14 @@
 <!--end of Featured-->
 
 <!--Selection-->              
-               
+               		
                     <div class="db_line1_select">
                         <select style="color: #666">
                             <option>最新回覆</option>
                             <option>最新發佈</option>
                         </select>
                     </div>
+                    
                     <div class="db_line1_pagination">
                         <div class="pagination">
                             <span><a href="#">&laquo;</a></span>
@@ -131,26 +132,32 @@
                             <span><a href="#">&laquo;</a></span>
                             <span><a href="#">20</a></span> 
                         </div>
-                    </div> 
+          <!-- 有登入才能看到此按鈕 -->
+            <div class="db_line1_release">
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
+			</form>            
+            </div>        
+           </div>
                 
 <!--end of Selection--> 
                 
 <!--Table-->
-                <div class="db_line1_table"> 
-                        <table class="tb1"> 
-                            <thead>                           
-                            <tr>
-                                <th>主題</th>
-                                <th style="width:10%">回應</th>
-                                <th style="width: 10%;">瀏覽</th>
-                                <th style="width: 20%;">發佈時間</th>
-                            </tr> 
-                            </thead>
-                            <tbody id="article" >
-							<!-- AJAX -->
-                            </tbody>                            
-                        </table>
-                    </div>
+            <div id="table" class="db_line1_table"> 
+                    <table class="tb1"> 
+                        <thead>                           
+                        <tr>
+                            <th>主題</th>
+                            <th style="width:10%">回應</th>
+                            <th style="width: 10%;">瀏覽</th>
+                            <th style="width: 20%;">發佈時間</th>
+                        </tr> 
+                        </thead>
+                        <tbody id="article" >
+			<!-- AJAX -->
+                        </tbody>                            
+                    </table>
+                </div>
 <!--end of Table-->
 <!--pagination-->
             <div class="db_line1_pagination">
@@ -165,10 +172,15 @@
                     <span><a href="#">20</a></span> 
                 </div>
             </div> 
-
+            <!-- 有登入才能看到此按鈕 -->		   
             <div class="db_line1_release">
-                <span class="db_line1_release_span"><a href="#">我要發佈</a></span>
+			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
+			</form>            
             </div>
+          
+           </div>
+            
 <!--end of pagination-->
 
 
@@ -202,7 +214,7 @@
    
 </div>
 </div>
-<button type="button" class="btn btn-outline-primary" id="gotop"></button>
+
     <!--Footer-->
 <footer class="small bg-info">
     <div class="container">
@@ -243,22 +255,24 @@
 	
 		$.ajax({
 			url:"../petforum/selectAll",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":"全部"
 			},
 			success:function(data){					
 				$("#article").html("");
-				$.each(data,function(i,n){
+				$.each(data,function(i,n){				
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
 					"<div>"+n[4]+"</div></td>"+
 					"</tr>");
+					
+					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid,n[6]:u_Id
 				})
 			},
 			error:function(){
@@ -273,7 +287,7 @@
 		//console.log(item);
 		$.ajax({
 			url:"../petforum/selectForum",
-			type:"post",		
+			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
@@ -284,7 +298,7 @@
 				$.each(data,function(i,n){
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"'>"+n[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
 					"<td><div>"+n[1]+"</div></td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
@@ -300,8 +314,13 @@
 	}
 		
 		//==================================================================
-			
-		
+		//沒登入不能發表	
+		function loginStatus(){
+    		<% if(session.getAttribute("user") == null){%>
+    		window.alert("請登入！");
+    		return false;
+    		<%}else{%>return true;<%}%>
+    	}
  	</script>
   </body>
 </html>

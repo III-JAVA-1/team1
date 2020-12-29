@@ -16,7 +16,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="Styles/index.css" rel="stylesheet">
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 	
 	
@@ -48,9 +47,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
@@ -59,44 +58,80 @@
     </nav>
 
     <!--Nav尾-->
+    
 
-    <H1 style="text-align: center;">我已參加的活動</H1>
-		
-	
+    <H1 style="text-align: center;">我已參加的活動</H1>	
        
     <table align="center" class="checktable" style="border: 2px solid black;width: 1500px;">
-        <tbody>
-        	<tr>
-        	
+        
+        <tbody> 
+        	<tr> 	
          		<td class="acstyle" style="width: 500px;">活動名稱</td>
+                <td class="acstyle">參加的時間</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>
-        <c:forEach var="row" items="${rs.rows}">
-            <tr>
-             <form  action="/jsptest/ActNoJoinServlet"  method="POST">
-             
-             <input type="hidden" name="act_no" id="act_no" value="<c:out value="${row.act_no}" />">
-             <input type="hidden" name="U_id" id="U_id" value="<%=session.getAttribute("user")%>">
-
-                <td class="acstyle"><c:out value="${row.act_name}"/></td> 	<!--活動名稱 -->
-                <td class="acstyle"><c:out value="${row.join_actnow}"/></td>	<!--參加狀況 -->
-                <td class="acstyle"><button type="submit" id="BtnSend" value="cancelbt">取消參加</button></td>
-               
-             </form>   
-            </tr>
-         </c:forEach>
+		</tbody>
+		 
+		<tbody id="WhatTable">
         </tbody>  
     </table>
-   
-
     
     
-    <!-- container'sfoot -->
-    <div>
-        <br><br>
+    <div>        
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
+    
+<!--     測試用取消參加 -->
+<!-- 				<form method='post' action='../Wu/NoJoin'>   -->
+<!-- 				<input type='text' name='jid' id='jid' value='1'/> -->
+<!-- 				<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button> -->
+<!-- 				</form> -->
 
 </body>
+<script>
+$().ready(function(){//ajax完整活動資訊
+	$.ajax({
+		url:"../Wu/WhatJoin",
+		type:"post",
+		dataType:"json",
+		data:{
+			"u_Id" : <%=session.getAttribute("user")%>,
+		},
+		success : function(data) {
+			$.each(data,function(i,n){
 
+				$("#WhatTable").append(						
+						"<tr>"						
+						+"<td class='acstyle'><a href='ActShow.jsp?get="+n[4]+"'/>" + n[0]+ "</td>"
+						+"<td class='acstyle'>"+ n[1] +"</td>"
+						+"<td class='acstyle'>"+ n[2] +"</td>"						
+						+"<td class='acstyle'>"						
+						+"<form method='post' action='../Wu/NoJoin'>"
+					    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
+						+"<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button>"
+						+"</form>"						
+						+"</td>"						
+						+"</tr>"						
+								);
+
+					});
+				}
+			});
+			   
+		});
+		
+		
+		function rusure()
+		{
+			if(confirm("確定要取消參加嗎?"))
+// 			alert("已取消參加");
+				return true;
+			else
+// 			alert("已取消取消操作");
+				return false;
+		}
+		
+</script>
+<jsp:include page="Footer.jsp" />
 </html>

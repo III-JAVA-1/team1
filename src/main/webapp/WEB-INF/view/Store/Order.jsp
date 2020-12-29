@@ -121,6 +121,7 @@
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
+                //console.log(res.success);
                 if (res.success) {
                     if(payType === 0) {
                         $("#payTotal").append(res.ecpHtml);
@@ -132,7 +133,7 @@
                 }
             },
             error: function () {
-                alert('生成訂單錯誤');
+                alert('連接伺服器失敗');
             }
         });
         return false;

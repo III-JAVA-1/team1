@@ -70,11 +70,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
+  					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
+  					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
   			
@@ -102,8 +102,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<div class="col-3">
   						<p class="h3">姓名:</p>
   						<p class="h3">性別:</p>	
-  						<p class="h3">手機:</p>	
-  						<p class="h3">身分證:</p>
+  						<p class="h3">手機:</p>
   						<p class="h3">生日:</p>
   						<p class="h3">電子郵件:</p>		
   						<p class="h3">暱稱:</p>
@@ -111,21 +110,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					</div>
   					
   					<div class="col-9">
-  						<p class="h3" id="name"></p>
-  						<p class="h3" id="gender"></p>
-  						<p class="h3" id="phone"></p>
-  						<p class="h3" id="id"></p>
-  						<p class="h3" id="birth"></p>
-  						<p class="h3" id="email"></p>
-  						<p class="h3" id="sname2"></p>
-  						<p class="h3" id="address"></p>
+  						<p class="h3" id="name">未輸入</p>
+  						<p class="h3" id="gender">未輸入</p>
+  						<p class="h3" id="phone">未輸入</p>
+  						<p class="h3" id="birth">未輸入</p>
+  						<p class="h3" id="email">未輸入</p>
+  						<p class="h3" id="sname2">未輸入</p>
+  						<p class="h3" id="address">未輸入</p>
   					</div>
   				</div>
   				<br>
 				<div class="row justify-content-center">	
 					<button type="button" class="btn btn-info" onclick="editperson()">修改個人資料</button>
 					&nbsp&nbsp
-					<button type="button" class="btn btn-primary" onclick="editpassword()">修改密碼</button>	
+					<button type="button" class="btn btn-primary" onclick="editpassword()" id='googlepassword'>修改密碼</button>	
 					<% if(session.getAttribute("user")!=null&&Integer.valueOf(session.getAttribute("user").toString())==1){
 							out.print("<Button  type='button' class='btn btn-info btn-lg active ml-3' role='button' aria-pressed='true' onclick='admingo()'>管理者後台</Button>");
 						}
@@ -171,6 +169,16 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				</div>
 			</div>
 		</div>	
+		
+		<div class="row justify-content-center">
+			<div class="form-group row w-50">
+				<label for="editbirth" class="col-sm-3 col-form-label col-form-label-lg">生日:</label>
+				<div class="col-xs-4">
+					<input type="date" class="form-control form-control-lg" id="editbirth" name="birth" required>
+				</div>
+				<label for="editbirth" id="birthcheck" class="col-sm-3 col-form-label col-form-label-lg"></label>
+			</div>
+		</div>
 		
 		<div class="row justify-content-center">
 			<div class="form-group row w-50">
@@ -220,9 +228,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					</div>
 					<label for="editaddress" id="editaddresscheck" class="col-sm-3 col-form-label col-form-label-lg"></label>
 			</div>
-		</div>
-		<div class="row justify-content-center">
-		<p class="h5" >***請確認每筆資料無誤才以送出修改***</p>
 		</div>
 		<div class="row justify-content-center">
 		<p class="h5" id="doublecheck"></p>
@@ -367,6 +372,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					else{
 						$("#photo").attr("src","<c:url value='/Gusty/getimg'/>");
 					}
+					if(n.password.includes("http")&&n.img==null){
+						$("#photo").attr("src",n.password);
+					}
+					if(n.password.includes("http")){
+						$("#googlepassword").css("display","none");
+					}
 					$("#name").html(n.name);
 					$("#editname").val(n.name);
 					a=n.name;
@@ -376,8 +387,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					$("#phone").html(n.phone);
 					$("#editphone").val(n.phone);
 					b=n.phone;
-					$("#id").html(n.id.substring(0,6)+"XXXX");
+					
 					$("#birth").html(n.birth.substring(0,10));
+					$("#editbirth").val(n.birth.substring(0,10));
 					
 					$("#email").html(n.email);
 					$("#editemail").val(n.email);
@@ -416,6 +428,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	//console.log("sdsdsd");
     	if(editpersondisplay==0){
     		$("#editpersoninfo").css("display","");editpersondisplay=1;
+    		$("html,body").animate({
+                scrollTop:1100
+            },1000);
     	}else{
     		$("#editpersoninfo").css("display","none");editpersondisplay=0;
     	}
@@ -427,6 +442,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	//console.log("sdsdsd");
     	if(editpassworddisplay==0){
     		$("#editpasswordinfo").css("display","");editpassworddisplay=1;
+    		$("html,body").animate({
+                scrollTop:600
+            },1000);
     	}else{
     		$("#editpasswordinfo").css("display","none");editpassworddisplay=0;
     	}
@@ -533,12 +551,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
 	let email=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;//電郵判斷
 	document.getElementById("editemail").addEventListener("mouseout",function(){
-
+	
     	if (!email.test(document.getElementById("editemail").value)){
     		document.getElementById("editemailcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
     		check[2]=0;
 		}
     	else if(email.test(document.getElementById("editemail").value)){
+    		
     		var zzn=0;
     		$.ajax({
 				url:"../Gusty/logincheck",
@@ -546,26 +565,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				dataType:"json",
 				//async: false,
 				success:function(data){
-					
 					$.each(data,function(i,n){
-						if(n.u_Id==<%=session.getAttribute("user")%>){return;}
 						if($("#editemail").val()==n.email){
+							if(n.u_Id==<%=session.getAttribute("user")%>){
+								$("#editemailcheck").html("<img src='image/checked.png'>OK");
+								return false;
+							}
+							
 							$("#editemailcheck").html("<img src='image/cancel.png'>已被註冊");
 							check[2]=0;
 							return false;	
 						}
 						else if(i==data.length-1){				
-						
+						console.log("wwwww");
 							//$("#editemailcheck").html("<img src='image/checked.png'>OK");
 							$.ajax({
-						        url: 'https://api.email-validator.net/api/verify',
-						        type: 'POST',
+								url: 'https://api.email-validator.net/api/verify',
+						        type: 'post',
 						        cache: false,
-						        //async : false,
+						        async : false,
 						        crossDomain: true,
 						        data: { EmailAddress: $("#editemail").val(), APIKey: 'ev-db4a73f10a219142ae728cca00efcb10' },
-						        dataType: 'json',
 						        success: function (json) {
+						        		console.log("aqqqqq");
 						        		if(json.info=="OK - Valid Address"){
 						        			$("#editemailcheck").html("<img src='image/checked.png'>OK");
 						        			check[2]=1;
@@ -575,6 +597,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						        			$("#editemailcheck").html("<img src='image/cancel.png'>無效電子郵件");
 						        			check[2]=0;
 						        		}
+						        },error:function(){
+						        	console.log("asdas");
 						        }
 						    });
 						}				
@@ -614,7 +638,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			//$(":contains(text)")
 			success:function(data){
 				$.each(data,function(i,n){
-					if(n.u_Id==<%=session.getAttribute("user")%>){return;}
+					if(n.u_Id==<%=session.getAttribute("user")%>){
+						$("#editsnamecheck").html("<img src='image/checked.png'>OK");
+						check[4]=1;
+						return false;
+					}
 					if($("#editsname").val()==n.sname){
 						$("#editsnamecheck").html("<img src='image/cancel.png'>已被使用");						
 						check[4]=0;
@@ -638,6 +666,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		});
     });
 	
+	var dead=2;
+    let today=new Date();//生日判斷
+	document.getElementById("editbirth").addEventListener("mouseout",function(){
+		if(Date.parse(document.getElementById("editbirth").value).valueOf()>today){
+			//console.log("555555");
+			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>未來使者";
+			check[5]=1;
+		}
+		else{
+			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
+			check[5]=0;
+		}
+	});
+	
 	var sumcheckgo = window.setInterval(sumcheck,100);//最後總和驗整結果判斷
 
 	function sumcheck(){
@@ -651,8 +693,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				//console.log(check[i]);
 			}
 		}
-		//console.log(x);
-		if(checkn>=5){$("#editbutton").attr('disabled', false);}
+		//console.log(dead);
+		if(checkn>=6){$("#editbutton").attr('disabled', false);}
 		else{$("#editbutton").attr('disabled', true);}
 		if($("#editname").val()==a&&$("#editphone").val()==b&&$("#editemail").val()==c&&$("#editsname").val()==d&&$("#editaddress").val()==e){
 			$("#doublecheck").html("請至少修改一筆資料才能送出");
@@ -661,7 +703,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$("#doublecheck").html("");
 			$("#editbutton").attr('disabled', false);
 		}
-			
 	}
 	</script>
 

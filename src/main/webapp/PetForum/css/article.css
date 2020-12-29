@@ -2,7 +2,7 @@
 .db_line1_message_span{
     background-color:  #666;     
      margin: 3px;
-     width:100px;
+     width:81px;
      height:30px;
      text-align: center;
      float:right;     
@@ -10,6 +10,7 @@
     padding: .5px;
     border-radius: 4px;     
 }
+
 
 .db_line1_message_span a{
     color: white;
@@ -20,23 +21,28 @@
     color: #39C;
 }
 
-
-.db_line1_left_article{
-    clear: both;
-    overflow: auto;
+.db_line1{
+	width:100%;	
 }
 
 .article_left{
     margin: 50px auto;
     float:left;
     text-align: center;
-    width:150px;
+    width:25%;   
 }
+
+.db_line1_left_article{
+    clear: both;
+    overflow: auto;
+    width:100%;   
+}
+
 
 .article_right{
     margin: 50px auto;
     float:right;
-    width:450px;    
+    width:75%;     
 }
 
 .article_left_a a{
@@ -54,3 +60,4 @@
     margin: 10px;
     padding-right: 10px;
 }
+

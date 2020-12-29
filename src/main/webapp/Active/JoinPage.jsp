@@ -21,7 +21,6 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
-<link href="Styles/index.css" rel="stylesheet">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 
 </head>
@@ -39,9 +38,9 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp">確認參與活動</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActNew.jsp" onclick="return gogo()">新增活動</a></li>
 			
@@ -50,7 +49,7 @@
 	</nav>
 
 	<!--Nav尾-->
-	<div style="background-color: rgb(240, 232, 219); margin-bottom: 50px; width: 1000px; margin: auto;">
+	<div style="background-color: rgb(240, 232, 219); margin-bottom: 50px; width: 800px; margin: auto;">
 		<H1 style="text-align: center;">活動報名</H1>
 
 
@@ -89,34 +88,30 @@
 					
 					
 					
-					<p>名字</p>
 					<div>
+					<span>名字:</span>
 					<input type="text" name="name" id="name" readonly="readonly">
 					</div>
 
-					<p>電子郵件</p>
+					<br>
+
 					<div>
+					<span>電子郵件:</span>
 					<input type="text" name="email" id="email" >
 					</div>
-
-					<p>地址</p>
-					<div>
-					<p>市</p>
-					<input type="text" name="country" id="country" readonly="readonly">
-					<p>區</p>
-					<input type="text" name="district" id="district" readonly="readonly">
-					<p>地址</p>
-					<input type="text" name="address" id="address" >
-					</div>
 					
+					<br>
+					
+					<div>
+					<p>地址</p>
+					<span>市</span><input type="text" name="country" id="country">
+					<span>區</span><input type="text" name="district" id="district">
+					<span>地址</span><input type="text" name="address" id="address">					
+					</div>
 
-
-
-				<br> <br> <label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>攜帶寵物種類:</label>
+					<br> 
 				
-<!-- 				<div> -->
-<!-- 					<input type="text" name="pettype" id="pettype" maxlength="10" placeholder="輸入寵物種類名稱"> -->
-<!-- 				</div> -->
+				<label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>攜帶寵物種類:</label>
 				<select name="pettype" id="pettype">
   					<option value="無">無</option>
   					<option value="貓">貓</option>
@@ -124,24 +119,23 @@
   					<option value="其他">其他</option>
 				</select>
 				
-				
-				<br> 
-				<label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>攜帶寵物數量:</label>
+				<br><br>
+					
 				<div>
-					<input type="number" name="petnum" id="petnum" min="0" placeholder="0">
+				<label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>攜帶寵物數量:</label>				
+					<input type="number" name="petnum" id="petnum" min="0" value="0">
 				</div>
+	
+				<br>
 				
-				
-				<br> 
 				<label for="extratext"><span style="color: rgb(174, 174, 240);">(非必填)</span>備註:</label>
 				<div>
 					<textarea style="resize: none; width: 500px; height: 130px;"
 							id="extra" name="extra" placeholder="可註明攜帶寵物的種類或各種事項"></textarea>
 				</div>
-				
-				
+								
 				<br> <br> 
-				
+				<input type="hidden" id="JoinTime" name="JoinTime"  value="<%= (new java.util.Date()).toLocaleString()%>">
 				<button type="submit" id="BtnSend" name="todo" value="join">送出</button>
 				
 				</form>

@@ -12,11 +12,12 @@ import java.util.List;
 public class AddProductReqDTO {
     private String name;
     private String introduction;
-    private int categoryId;
-    private int animal;
-    private int price;
+    private Integer categoryId;
+    private Integer animal;
+    private Integer price;
     private String isDisplay;
     private List<String> imgList;
+    private Integer stock;
 
     /**
      * 轉換成DB product資料表的格式
@@ -30,6 +31,7 @@ public class AddProductReqDTO {
         productDTO.setAnimal(animal);
         productDTO.setPrice(price);
         productDTO.setIsDisplay(isDisplay);
+        productDTO.setStock(stock);
 
         return productDTO;
     }

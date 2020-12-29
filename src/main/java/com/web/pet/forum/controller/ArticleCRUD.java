@@ -41,15 +41,16 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/selectForum")//AJAX按不同討論區找文章 -  click a標籤
-	public 	@ResponseBody List<Article> selectForum(String forumId){		
+	public 	@ResponseBody
+	List<Article> selectForum(String forumId){		
 		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
 		return list;
 	}
 	
 	@RequestMapping("/selectAll")//AJAX網頁開啟加載所有文章 - $().ready	
-	public @ResponseBody List<Article> selectAll(
-			@RequestParam(value = "forumId",required = false) String forumId){
+	public @ResponseBody
+	List<Article> selectAll(@RequestParam(value = "forumId",required = false) String forumId){
 		if(forumId == null) {return null;}
 		List<Article> list = service.getArticleByForumId(forumId);		
 		return list;
@@ -58,7 +59,8 @@ public class ArticleCRUD{
 	
 	
 	@GetMapping("/selectHeader")//按關鍵字找文章
-	public @ResponseBody List<Article> selectHeader(@RequestParam("inputText") String inputText) {
+	public @ResponseBody
+	List<Article> selectHeader(@RequestParam("inputText") String inputText) {
 		if(inputText == null) {return null;}
 		List<Article> list = service.getArticleByHeaderKey(inputText);
 		
@@ -67,8 +69,8 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
-	public @ResponseBody List<Object[]> viewPost(
-			@RequestParam(required = false) Integer posterUid,
+	public @ResponseBody
+	List<Object[]> viewPost(@RequestParam(required = false) Integer posterUid,
 			HttpServletRequest request) {
 		
 		if(posterUid == null) {return null;}
@@ -86,11 +88,11 @@ public class ArticleCRUD{
 				Integer favoriteId = (Integer)o;
 				
 				System.out.println("favoriteId"+favoriteId);
-				list = service.getArticleByFavoriteId(favoriteId);
+				list = service.getArticleByFavoriteId(favoriteId);//有找到收藏紀錄
 			}
 		}
 		else {
-			list = service.getArticleBy2Uid(u_Id, posterUid);
+			list = service.getArticleBy2Uid(u_Id, posterUid);//沒找到收藏紀錄
 		}
 		return list;
 	}
@@ -128,10 +130,3 @@ public class ArticleCRUD{
 	
  }
 	
-	 
-	 
-	
-	
-
-	
-

@@ -81,9 +81,11 @@
 
 
         <div class="bd-highlight btn1">
-            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, false)">加入購物車</button>
-            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, true)">直接購買</button>
-            <img id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
+            <button type="button" class="btn btn-danger shoppingCart-btn" onclick="addShoppingCart(${id}, false)" >
+                <img class="cart-img" src="../Store/images/add-shopping-cart.svg" width="18px" height="18px"/>加入購物車</button>
+            <button type="button" class="btn btn-warning shoppingCart-btn" onclick="addShoppingCart(${id}, true)">
+                <img class="cart-img" src="../Store/images/shopping-bag.svg" width="18px" height="18px"/>直接購買</button>
+            <img class="shoppingCart-btn" id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
         </div>
     </div>
 

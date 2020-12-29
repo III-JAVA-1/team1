@@ -12,13 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +25,6 @@ import com.web.pet.Active.model.ActBean;
 import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.Active.service.ActService;
 import com.web.pet.util.BlobToByteArray;
-
-import okhttp3.internal.http.HttpHeaders;
 
 
 @RequestMapping("/Wu")
@@ -158,3 +152,4 @@ public class ActController {
 	
 
 }
+

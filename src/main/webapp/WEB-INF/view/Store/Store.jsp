@@ -89,7 +89,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item sort-btn active" onclick="sortClick(this,0)">熱門商品</a>
-                    <a class="dropdown-item sort-btn" onclick="sortClick(this,1)">最新商品</a>
+                    <a id="newSortBtn" class="dropdown-item sort-btn" onclick="sortClick(this,1)">最新商品</a>
                 </div>
             </div>
         </div>
@@ -337,6 +337,12 @@
                 if(sort===1){
                     let storeDiv = document.getElementById("store");
                     storeDiv.scrollIntoView();
+                    // 將排序選單換點亮
+                    let btnList = document.querySelectorAll(".sort-btn");
+                    btnList.forEach(function (btn) {
+                        btn.classList.remove("active");
+                    })
+                    document.getElementById("newSortBtn").classList.add("active");
                 }
 
             }

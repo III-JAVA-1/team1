@@ -171,6 +171,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 ],
                 borderWidth: 2,
             }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display: false //this will remove only the label
+                    }
+                }]
+            }
         }
     });
     
@@ -183,9 +192,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             datasets: [{
                 label: '當日銷售總金額(NT)',
                 data: storeallmoney,
-                fill: false,
-                backgroundColor: 'rgba(212, 106, 106, 1)',
-                borderColor: 'rgba(212, 106, 106, 1)'
+                fill: true,
+                backgroundColor: '#00FFFF',
+                borderColor: '#CE0000',
+                borderWidth: 2
             }], 
         },
         

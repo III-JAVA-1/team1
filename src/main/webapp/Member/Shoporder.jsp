@@ -22,6 +22,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <title>AccompanyMe</title>
 <style>
 
+	a{
+    	text-decoration:none;
+	}
+
 	#title{
 		background-color: aqua;
 	}
@@ -139,7 +143,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
-    
+
     	$.ajax({
     		url:"../Gusty/shoporder",
     		type:"post",
@@ -171,7 +175,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		var userid=<%=session.getAttribute("user")%>
     		Swal.fire({
     		  title: '訂單編號:&nbsp'+oid+'詳細訂單',
-    		  html:'<table class="table table-hover table-bordered ">'+
+    		  html:"<a href='<c:url value='../productRate?orderId="+oid+"&memberId="+userid+"'/>'><button type='button' class='btn btn-info'>評價商品</button></a>"+
+    			  	'<hr>'+
+    				'<table class="table table-hover table-bordered ">'+
     				'<thead class="h5" style="background-color:#53FF53;">'+
 				'<tr>'+
 					'<th scope="col">商品名稱</th>'+
@@ -198,6 +204,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         				$("#detailtable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'>"+n[2]+"</a></th>"+
         			   		"<td>"+n[1]+"</td>"+
         			   		"<td>"+n[3]+"</td></tr>");
+        			   		//"<td></td></tr>");
         			});
         		}
         	});

@@ -21,7 +21,6 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
-<link href="Styles/index.css" rel="stylesheet">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 
 </head>
@@ -39,7 +38,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 

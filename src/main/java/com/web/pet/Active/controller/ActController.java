@@ -83,9 +83,9 @@ public class ActController {
 
 	@RequestMapping(value = "/Activity") //ajax查詢活動有哪些
 	@ResponseBody
-	public List<ActBean> ajaxActController(){
-		List<ActBean> list = new ArrayList<ActBean>();
-		list = actservice.ajaxActService();
+	public List<Object[]> ajaxActController(String acttype){
+		List<Object[]> list = new ArrayList<Object[]>();
+		list = actservice.ajaxActService(acttype);
 		return list;		
 	}
 	

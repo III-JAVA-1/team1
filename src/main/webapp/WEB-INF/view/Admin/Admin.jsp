@@ -55,7 +55,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		
 			<div class="col-4">
 			<div class="card functioncard ">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Member&admin=1'/>" class="nav-link">
+			<a href="<c:url value='/Gusty/goadminabality?abality=Member'/>" class="nav-link">
   				<img src="../Admin/image/member.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
@@ -67,7 +67,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 			<div class="col-4">
 			<div class="card functioncard ">
-			<a href="<c:url value='../Store/?memberId=admin'/>" class="nav-link">
+			<a href="<c:url value='/Gusty/goadminabality?abality=Store'/>" class="nav-link">
   				<img src="../Admin/image/shop.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">

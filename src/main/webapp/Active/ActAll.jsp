@@ -42,7 +42,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -56,7 +56,18 @@
 
 
 
-
+		<div class="d-flex justify-content-center">
+		<select class="form-select" aria-label="Default select example" id="acttype" name="acttype" style="width:200px;">
+  				<option selected value="">請選擇</option>
+  				<option value="展覽">展覽</option>
+				<option value="演講">演講</option>
+				<option value="比賽">比賽</option>
+				<option value="課程">課程</option>
+				<option value="其他">其他</option>
+		</select>		
+<!-- 		<button type="button" class="btn btn-primary" style="width:80px;" onclick="search()">搜尋</button> -->
+		</div>
+		<br>
 
 	<div class="container">
 		<table style="border: 2px solid black; margin: auto; width: 1000px;">
@@ -72,8 +83,10 @@
 
 			<tbody id="activetable">
 			</tbody>
+			<div class="h4" id="tip" style="text-align: center;">
+			</div>
 		</table>
-
+			
 		<!-- 		<div style="text-align:center;"> -->
 		<!-- 		<input type="button" id="firstPage" value="首頁" /> -->
 		<!-- 		<input type="button" id="previous" value="上一頁" /> -->
@@ -83,14 +96,16 @@
 
 		<br>
 		<br>
+		<br>
+		<br>
 
 	</div>
 
 	<script>
 
 
-		$().ready(
-				function() {//ajax活動表格
+		
+				//ajax活動表格
 					$.ajax({
 						url : "../Wu/Activity",
 						type : "post",
@@ -117,16 +132,66 @@
 												+ n[6].substr(0,10) + "</td>"
 												+ "<td class='acstyle'>"
 												+ n[8].substr(0,10) + "</td></tr>");
-								//console.log(n[0]);
+												
+								
 
 							});
 						}
 					});
 
-				});
+				
+		
+		
+		
+	$("#acttype").change(function(){
+			$("#tip").html("");
+			$("#activetable").html("");
+			$.ajax({
+				url : "../Wu/Activity",
+				type : "post",
+				async : false,
+				dataType : "json",
+				data:{
+					"acttype": $("#acttype").val()
+				},
+				success:function(data){
+					$.each(data, function(i, n) {
+
+						$("#activetable").append(
+								"<tr>"	
+								+"<td class='' style='border: 1px solid black; padding:5px'><a href='ActShow.jsp?get="
+								+ n[0] + "'/>"
+								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'>"
+								+ n[1].substr(0,19)
+								+ "</td>"
+								+ "<td class='acstyle'>"
+								+ n[2].substr(0,10) + " ~ "
+								+ n[3].substr(0,10) + "</td>"
+								+ "<td class='acstyle'>"
+								+ n[4].substr(0,10) + "...</td>"
+								+ "<td class='acstyle'>"
+								+ n[5].substr(0,10) + "</td>"
+								+ "<td class='acstyle'>"
+								+ n[6].substr(0,10) + "</td>"
+								+ "<td class='acstyle'>"
+								+ n[8].substr(0,10) + "</td></tr>"
+										
+						);
+										
+					});
+				},
+				error:function(){
+        			$("#tip").html("查無資料");
+        			}
+			});
+			
+		});
+		
+		
+		
 	</script>
 
 </body>
 
-<%-- <jsp:include page="Footer.jsp" /> --%>
+<jsp:include page="Footer.jsp" />
 </html>

@@ -31,12 +31,16 @@ public class ArticleService {
 	
 	
 	
-	public List<Object[]> getArticleByPosterUid(Integer posterUid){//按posterUid找文章
-		List<Object[]> list = dao.getArticleByPosterUid(posterUid);		
+	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){//按favoriteId找文章
+		List<Object[]> list = dao.getArticleByFavoriteId(favoriteId);		
 		return list;
 	}
 	
-
+	public List<Object[]> getArticleBy2Uid(Integer u_Id, Integer posterUid){//按favoriteId找文章
+		List<Object[]> list = dao.getArticleBy2Uid(u_Id, posterUid);		
+		return list;
+	}
+	
 	public Article getArticle(Integer posterUid) {//取得一篇文章		
 		Article article = dao.getArticle(posterUid);
 		return article;		

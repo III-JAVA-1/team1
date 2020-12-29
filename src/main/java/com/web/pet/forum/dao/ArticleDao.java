@@ -3,7 +3,7 @@ package com.web.pet.forum.dao;
 
 
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,7 +41,7 @@ public class ArticleDao {
 	@SuppressWarnings("unchecked")
 	public List<Article> getAllArticles(String hql) {
 		
-		List<Article> list = new LinkedList<Article>();
+		List<Article> list = new ArrayList<Article>();
 		//String hql = "select A.header,A.content FROM Article A";不是表格名稱是類別名稱
 		Session session = sessionFactory.getCurrentSession();
 		Query<Article> query = session.createQuery(hql);
@@ -59,10 +59,8 @@ public class ArticleDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByForumId(
-			@RequestParam(value = "forumId", required = false)String forumId
-			){//按forumId找文章
-		List<Article> list = new LinkedList<Article>();
+	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
+		List<Article> list = new ArrayList<Article>();
 		Session session = sessionFactory.getCurrentSession();
 		String sql = "";		
 		
@@ -82,8 +80,7 @@ public class ArticleDao {
 					"and Article.u_Id = Member.u_Id\n" + 
 					"order by Article.updatedTime desc";	
 			list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
-		}				
-		
+		}
 		
 		if(list.isEmpty()) {return null;}		
 		else {return list;}
@@ -92,10 +89,32 @@ public class ArticleDao {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getArticleByPosterUid(
-			@RequestParam(value = "posterUid", required = false)Integer posterUid){//按posterUid找文章
-		List<Object[]> list = new LinkedList<Object[]>();
-		List<Object[]> list2 = new LinkedList<Object[]>();
+	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){//按favoriteId找文章
+		
+		if(favoriteId == null) {return null;}
+		List<Object[]> list = new ArrayList<Object[]>();		
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "";
+		
+		sql = "select m.u_Id,m.sname,a.header,a.updatedTime,a.viewing,a.content,a.posterUid, af.favoriteId\r\n" + 
+				"from Article a\r\n" + 
+				"join Member m\r\n" + 
+				"on m.u_Id = a.u_Id\r\n" + 
+				"join ArticleFavorite af\r\n" + 
+				"on af.posterUid = a.posterUid\r\n" + 
+				"where af.favoriteId = :favoriteId";
+		list = session.createNativeQuery(sql).setParameter("favoriteId", favoriteId).getResultList();
+		
+		if(list.isEmpty()) {return null;}
+		else {return list;}		
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getArticleBy2Uid(Integer u_Id, Integer posterUid){//按2Uid找文章
+		
+		List<Object[]> list = new ArrayList<Object[]>();		
 		Session session = sessionFactory.getCurrentSession();
 		String sql = "";
 		
@@ -105,16 +124,15 @@ public class ArticleDao {
 				"on m.u_Id = a.u_Id\r\n" + 
 				"where a.posterUid = :posterUid";			
 		list = session.createNativeQuery(sql).setParameter("posterUid", posterUid).getResultList();
-		
-		if(list.isEmpty()) {return null;}		
+
+		if(list.isEmpty()) {return null;}
 		else {return list;}
-		
+				
 	}
 	
-	
-	
+		
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
-		List<Article> list = new LinkedList<Article>();
+		List<Article> list = new ArrayList<Article>();
 		Session session=sessionFactory.getCurrentSession();
 		inputText = "'%"+inputText+"%'";
 		String hql = "FROM Article a where a.header like" + inputText;

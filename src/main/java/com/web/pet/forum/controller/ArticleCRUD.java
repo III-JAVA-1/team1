@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.pet.forum.model.Article;
+import com.web.pet.forum.service.ArticleFavoriteService;
 import com.web.pet.forum.service.ArticleService;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
@@ -32,6 +33,8 @@ public class ArticleCRUD{
 	ArticleService service;	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	ArticleFavoriteService favoriteService;
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
@@ -64,10 +67,31 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
-	public @ResponseBody List<Object[]> viewPost(@RequestParam(required = false) Integer posterUid) {		
-		if(posterUid == null) {return null;}			
-		List<Object[]> list = service.getArticleByPosterUid(posterUid);
-
+	public @ResponseBody List<Object[]> viewPost(
+			@RequestParam(required = false) Integer posterUid,
+			HttpServletRequest request) {
+		
+		if(posterUid == null) {return null;}
+		System.out.println("posterUid"+posterUid);
+		//需要的是閱讀者的u_Id，非發文者的u_Id		
+		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		System.out.println("u_Id"+u_Id);
+		
+		List<Object[]> list = null;
+		//取得favoriteId
+		List<Object[]> temp = favoriteService.getArticleFavoriteBy2Uid(u_Id, posterUid);
+		if(temp != null) {
+			for(Object o: temp) {
+				System.out.println("123");
+				Integer favoriteId = (Integer)o;
+				
+				System.out.println("favoriteId"+favoriteId);
+				list = service.getArticleByFavoriteId(favoriteId);
+			}
+		}
+		else {
+			list = service.getArticleBy2Uid(u_Id, posterUid);
+		}
 		return list;
 	}
 	

@@ -16,7 +16,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="Styles/index.css" rel="stylesheet">
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 	
 	
@@ -48,7 +47,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -79,8 +78,8 @@
     </table>
     
     
-    <div>
-        <br><br>
+    <div>        
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     
 <!--     測試用取消參加 -->
@@ -134,4 +133,5 @@ $().ready(function(){//ajax完整活動資訊
 		}
 		
 </script>
+<jsp:include page="Footer.jsp" />
 </html>

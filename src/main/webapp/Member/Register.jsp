@@ -75,16 +75,6 @@
 		
 		<div class="row justify-content-center">
 			<div class="form-group row w-50">
-				<label for="ID" class="col-sm-3 col-form-label col-form-label-lg">*身分證:</label>
-				<div class="col-xs-4">
-					<input type="text" class="form-control form-control-lg" id="ID" name="id" required maxlength="10" pattern="[a-zA-Z]{1}[1-2]{1}\d{8}" autocomplete="off">
-				</div>
-				<label for="ID" id="IDcheck" class="col-sm-3 col-form-label col-form-label-lg">
-			</div>
-		</div>
-		
-		<div class="row justify-content-center">
-			<div class="form-group row w-50">
 				<label for="phone" class="col-sm-3 col-form-label col-form-label-lg">*手機:</label>
 				<div class="col-xs-4">
 					<input type="tel" class="form-control form-control-lg" id="phone" name="phone" required minlength="10" maxlength="10" autocomplete="off">
@@ -263,9 +253,9 @@
 							
 							$.ajax({
 						        url: 'https://api.email-validator.net/api/verify',
-						        type: 'POST',
+						        type: 'post',
 						        cache: false,
-						        //async : false,
+						        async : false,
 						        crossDomain: true,
 						        data: { EmailAddress: $("#email").val(), APIKey: 'ev-db4a73f10a219142ae728cca00efcb10' },
 						        dataType: 'json',
@@ -280,6 +270,8 @@
 						        			check[3]=0;
 						        			return false;
 						        		}
+						        },error: function(){
+						        	conosle.log("error");
 						        }
 						    });
 						}
@@ -294,18 +286,6 @@
     	}
     });
     
-	let ID=/^[A-Z]{1}[1-2]{1}[0-9]{8}$/;//身分證判斷
-	document.getElementById("ID").addEventListener("change",function(){
-
-    	if (!ID.test(document.getElementById("ID").value)){
-    		document.getElementById("IDcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
-    		check[4]=0;
-		}
-		else{
-			document.getElementById("IDcheck").innerHTML="<img src='image/checked.png'>OK";
-			check[4]=1;
-		}
-    });
 
 	let today=new Date();//生日判斷
 	document.getElementById("birth").addEventListener("change",function(){
@@ -313,11 +293,15 @@
 		if(Date.parse(document.getElementById("birth").value).valueOf()>today){
 			//console.log("555555");
 			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>未來使者";
-			check[5]=0;
+			check[4]=0;
 		}
 		else{
 			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
-			check[5]=1;
+			check[4]=1;
+		}
+		if(document.getElementById("birth").value==""){
+			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
+			check[4]=0;
 		}
 	});
 
@@ -326,11 +310,11 @@
 
     	if (!address.test(document.getElementById("address").value)){
     		document.getElementById("addresscheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
-    		check[6]=0;
+    		check[5]=0;
 		}
 		else{
 			document.getElementById("addresscheck").innerHTML="<img src='image/checked.png'>OK";
-			check[6]=1;
+			check[5]=1;
 		}
     });
 	
@@ -350,18 +334,18 @@
 						//console.log("重複使用");
 						$("#snamecheck").html("<img src='image/cancel.png'>已被使用");						
 						//document.getElementById("passwordcheck").innerHTML="<img src='image/cancel.png'>格式錯誤";
-						check[7]=0;
+						check[6]=0;
 						return false;
 					}
 					else if(i==data.length-1){
 						$("#snamecheck").html("<img src='image/checked.png'>OK");
-						check[7]=1;
+						check[6]=1;
 						return;
 					}
 				});
 				if(data==""&&$("#sname1").val()!=""){
 					$("#snamecheck").html("<img src='image/checked.png'>OK");
-					check[7]=1;
+					check[6]=1;
 				}
 			}
 		});
@@ -381,7 +365,7 @@
 			}
 		}
 		//console.log(x);
-		if(x>=8){$("#gogo").attr('disabled', false);}
+		if(x>=7){$("#gogo").attr('disabled', false);}
 		else{$("#gogo").attr('disabled', true);}
 	}
 	

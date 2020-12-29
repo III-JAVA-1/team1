@@ -30,13 +30,21 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                    	<a class="nav-link" href="#">毛孩商城</a>
+                    	<%
+							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
+								out.print("<a class=\"nav-link\" href=\"Store/\">毛孩商城</a>");
+							} else {
+								out.print("<a class=\"nav-link\" href=\"Store/?memberId="
+										+ session.getAttribute("user")
+										+ "\">毛孩商城</a>");
+							}
+						%>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='../PetForum/lookforPet.jsp'/>">寵物討論區</a>
+                        <a class="nav-link" href="<c:url value='../PetForum/forum.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#">寵物店家</a>
@@ -87,7 +95,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 			});
 		});
-
 		</script>
 </body>
 </html>

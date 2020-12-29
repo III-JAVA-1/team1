@@ -4,6 +4,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Store;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -57,8 +59,21 @@ public class adminCURD {
 		}	
 	}
 	
+	@RequestMapping("/storetop10")//商品銷售top10
+	@ResponseBody
+	public List<Object[]> Storetop10(Integer month){
+		return adminService.storetop10(month);
+	}
+	
+	@RequestMapping("/allsaless")//商品銷售top10
+	@ResponseBody
+	public List<Object[]> allsales(Integer month){
+		return adminService.allsales(month);
+	}
+	
 	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
-	public String goadmin() {
+	public String goadmin(){
+		
 		return "Admin/Admin";
 	}
 	

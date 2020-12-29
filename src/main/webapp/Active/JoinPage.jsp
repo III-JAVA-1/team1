@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -136,7 +137,9 @@
 								
 				<br> <br> 
 				<input type="hidden" id="JoinTime" name="JoinTime"  value="<%= (new java.util.Date()).toLocaleString()%>">
-				<button type="submit" id="BtnSend" name="todo" value="join">送出</button>
+				<input type="hidden" name="now" id="now" value="<%= new Date(new java.util.Date().getTime())%>" /> 
+				<input type="hidden" id="stt" name="stt" >
+				<button type="submit" id="BtnSend" name="todo" value="join" onClick="check()">送出</button>
 				
 				</form>
 			</div>
@@ -166,6 +169,12 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 				
 				$("#	").html(n.act_name);
 				$("#act_name2").val(n.act_name);
+				$("#stt").val(n.starttime);
+				
+				if (Date.parse(stt.value) < Date.parse(now.value)){
+					alert("活動已經截止報名");window.history.back(-1);
+				}
+				
 						
 					});
 				}
@@ -188,11 +197,25 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 					$("#country").val(n.country);
 					$("#district").val(n.district);
 					$("#address").val(n.address);
+					
 				});
 			}
 		});
 	});
- 
+
+	
+	
+	
+	function check(){//檢查填入資訊
+		if(stt.value == "") 
+	    {
+	            alert("非正常活動參與");
+	    }
+	    
+		else submit();
+	}
+
+
 </script>
 
 </html>

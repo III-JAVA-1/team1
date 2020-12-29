@@ -1,7 +1,10 @@
+<%@page import="java.sql.Date"%>
+<%@page import="com.google.api.client.util.DateTime"%>
 <%@page import="com.sun.java.swing.plaf.windows.resources.windows"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@page import="java.sql.Timestamp"%>
 <!doctype html>
 <html lang="zh-Hant-TW">
 
@@ -142,11 +145,13 @@
    		
    		<br>
    		
+        <input type="hidden" name="starttime" id="starttime"/>    
+        <input type="hidden" name="now" id="now" value="<%= new Date(new java.util.Date().getTime())%>" />    
    		
-   		<div style="text-align: center;">
-   		<form name=""  action="JoinPage.jsp" method="post" onsubmit="return gogo()">
-        <input type="hidden" name="name" value="<%=getact %>" size="30" />    
-        <input type="submit" name="send" id="joinbut"  value="點我報名" />
+   		<div id="baomin" style="text-align: center;">
+<!--    		<form name="gojoin"  action="JoinPage.jsp" method="post" onsubmit="return gogo()"> -->
+<%--         <input type="hidden" name="name" value="<%=getact %>" size="30" />     --%>
+<!--         <input type="submit" name="send" id="joinbut"  value="點我報名" /> -->
         </form>
    		</div>	
 		<div style="text-align: center;">
@@ -199,6 +204,7 @@
     					$("#act_phone").html(n.act_orgphone);
     					$("#act_type").html(n.act_type);
     					$("#act_where").html(n.act_where);
+    					$("#starttime").val(n.starttime.substr(0,10));
     				
     				$("#google").append(
     						"<a href='http://www.google.com/calendar/event?action=TEMPLATE"
@@ -207,8 +213,18 @@
     							+"&details="+n.act_content
     							+"&location="+n.act_where 
     							+"&trp=false' target='_blank'>加入日曆<a/>"
+    							
     				
     				)
+    							if (Date.parse(starttime.value) > Date.parse(now.value)){
+    								$("#baomin").append(
+    										"<form name='gojoin'  action='JoinPage.jsp' method='post' onsubmit='return gogo()'>"
+    								        +"<input type='hidden' name='name' value='"+n.act_no+"' size='30' />"    
+    								        +"<input type='submit' name='send' id='joinbut'  value='點我報名' />"    			    							
+    			    				
+    			    				)
+    					        	
+    							}
 				
     						});
     					}

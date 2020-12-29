@@ -86,7 +86,7 @@ public class ActDao {
 	@SuppressWarnings("unchecked")
 	public List<Object> ajaxWhatJoinDao(Integer u_Id) {
 		List<Object> list = new ArrayList<Object>();
-		String hql = "select act_name,JoinTime,join_actnow,jid,act_no FROM JoinAct where u_Id = :userid";
+		String hql = "select act_name,extra,join_actnow,jid,act_no FROM JoinAct where u_Id = :userid";
 		Session session = sessionFactory.getCurrentSession();
 		Query<Object> query= session.createNativeQuery(hql).setParameter("userid",u_Id);
 		list=query.list();

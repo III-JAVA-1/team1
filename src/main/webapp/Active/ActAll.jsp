@@ -94,10 +94,9 @@
 		<!-- 		<input type="button" id="last"  value="最後頁" /> -->
 		<!-- 		</div> -->
 
-		<br>
-		<br>
-		<br>
-		<br>
+	<div>        
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
 
 	</div>
 

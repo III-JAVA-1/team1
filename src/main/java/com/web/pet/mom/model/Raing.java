@@ -33,6 +33,6 @@ public class Raing {
 	private Integer star;
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "u_Id")
-	private Member member;
+	@JoinColumn(name = "mom_Id")
+	private Mom Mom;
 }

@@ -47,7 +47,11 @@ public class Mom{
 	private Blob pic;	
 	
 	@OneToOne(mappedBy = "mom",cascade = CascadeType.ALL)
-	private Member member;
+	private PetMomOrder petMomOrder;
+	
+	@OneToOne(mappedBy = "mom",cascade = CascadeType.ALL)
+	private Raing raing;
+
 	
 	
 }

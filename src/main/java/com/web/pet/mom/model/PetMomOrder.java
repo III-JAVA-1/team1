@@ -55,7 +55,7 @@ public class PetMomOrder {
 	private Integer service;	
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name = "u_Id")
-	private Member member;
+	@JoinColumn(name = "mom_Id")
+	private Mom Mom;
 
 }

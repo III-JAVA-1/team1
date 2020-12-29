@@ -19,7 +19,7 @@ import com.web.pet.mom.service.PetMomOrderService;
 //@WebServlet("/MomRegister")
 @Controller
 @RequestMapping("/mom")
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class MomController{
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class MomController{
 	PetMomOrderService petMomOrderService;
 	
 	@PostMapping(value = "/insertMom" , produces = "application/json; charset=utf-8")
-	public String insertMom(@ModelAttribute("user") Mom mom) {
+	public String insertMom(Mom mom) {
 		momService.insertMom(mom);
 		return "insertMom";			
 	}	

@@ -207,7 +207,7 @@
 <script>
 
 
-function check(){
+function check(){//檢查填入資訊
 	if(reg.act_name.value == ""||reg.starttime.value == ""||reg.endtime.value == ""||reg.act_organize.value == ""
 			||reg.act_orgman.value == ""||reg.act_orgphone.value == ""||reg.act_content.value == ""||reg.act_where.value == "") 
     {

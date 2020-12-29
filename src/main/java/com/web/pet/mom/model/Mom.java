@@ -7,27 +7,37 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.web.pet.Active.model.ActBean;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.web.pet.member.model.Member;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicInsert
+@DynamicUpdate
+@Getter
+@Setter
 @Entity
 @Table(name="MOM")
 public class Mom{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer momId;	
+	private Integer mom_Id;	
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String petContent;
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
@@ -51,14 +61,16 @@ public class Mom{
 	
 	private Blob pic;	
 	
-	@OneToOne(mappedBy = "member",fetch = FetchType.LAZY)	
+	@OneToOne	
+	@JoinColumn(name="u_Id",referencedColumnName = "u_Id")	
 	private Member member;
 	
 	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
-	private PetMomOrder petMomOrder;
+	private Set<PetMomOrder> orders = new LinkedHashSet<>(0);
 	
 	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
-	private Raing raing;
+	private Set<Raing> raings = new LinkedHashSet<>(0);
+	
 
 	
 	

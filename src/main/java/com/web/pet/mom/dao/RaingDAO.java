@@ -25,8 +25,8 @@ public class RaingDAO {
 	
 	public List<Raing> ajaxSearchRaing(int uId) { //查詢一筆評論
 		List<Raing> list = new ArrayList<>();
-		String hql = "FROM Raing WHERE u_id = :uId";
-		Query<Raing> query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("uId",uId);
+		String hql = "FROM Raing WHERE momId = :uId";
+		Query<Raing> query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("momId",uId);
 		list = query.getResultList();
 		return list;
 	}

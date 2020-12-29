@@ -170,7 +170,7 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 		success : function(data) {
 			$.each(data,function(i,n){
 				
-				$("#act_name").html(n.act_name);
+				$("#	").html(n.act_name);
 				$("#act_name2").val(n.act_name);
 						
 					});
@@ -198,7 +198,7 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 			}
 		});
 	});
-
+ 
 </script>
 
 </html>

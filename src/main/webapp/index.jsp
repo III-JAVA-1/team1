@@ -39,7 +39,7 @@
     	cursor: pointer;
     	z-index: 1000;
 	}
-	#service{
+	#servicee{
 		width:65px;
 		height:65px;
     	position: fixed;
@@ -200,7 +200,7 @@ input[type=button] {
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="chat.jsp">寵物保姆</a>
+                        <a class="nav-link" href="#">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='PetForum/forum.jsp'/>">汪喵討論區</a>
@@ -210,7 +210,7 @@ input[type=button] {
                     </li>
                     <li class="nav-item ">
 <!--                     	<a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a> -->
-                        <a class="nav-link" href="chat2.jsp">寵物活動/消息</a>
+                        <a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a>
                     </li>
                     <li class="nav-item" style="color:white;">
                         <%
@@ -238,19 +238,19 @@ input[type=button] {
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/U1.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -315,7 +315,7 @@ input[type=button] {
 		</div>
 		<hr style="height:20px; color:green">
 		
-		<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center" >
     		<div class="display-2">最新商品</div>
   		</div>
   		
@@ -324,8 +324,8 @@ input[type=button] {
 		
 	</div><br>
 	
-	<div id="chatroom" class="row justify-content-center" style="">
-	<div class="col-3" style="border:3px solid green;">
+	<div  id="chatroom" class="row justify-content-center" style="display:none;">
+	<div class="col-6" style="border:3px solid green;">
 		<p class="h4">即時聊天客服</p>
     	<div id="content"></div>
     	<input type="text" placeholder="請輸入要詢問的事情" id="msg" class="msg" onkeydown="send(event)">
@@ -337,13 +337,13 @@ input[type=button] {
 	<div id="gotop">
 	</div>
 	
-	<div id="service">
+	<div id="servicee">
 	</div>
 	
 	<footer class="py-5 bg-dark">
         <p class="m-0 text-center text-white h2">AccompanyMe │ 有你陪伴 &copy Designed by Eva .</p>
     </footer>
-	
+    
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>	
 	
@@ -362,42 +362,25 @@ input[type=button] {
         }
     });
     var chat=0;
-    $("#service").click(function(){
-    	console.log("sdsd")
+    $("#servicee").click(function(){
     	if(chat==0){
-    		console.log("sdsdss")
-    		$("#chatroom").css("dispaly","");
+    		document.getElementById("chatroom").style.display="";
+    		$("html,body").animate({
+                scrollTop:1800
+            },100);
     		chat=1;
     	}else{
-    		$("#chatroom").css("dispaly","none");
+    		document.getElementById("chatroom").style.display="none";
     		chat=0;
     	}
 
     })
     <%session.removeAttribute("uid");%>
-   	var uid
-    if(<%=session.getAttribute("user")%>==null||<%=session.getAttribute("user")%>==""){
-    	uid = 0
-    }else{
-    	uid = <%=session.getAttribute("user")%>;
-    }
-   	<%
-   		if(session.getAttribute("user")==null||session.getAttribute("user")==""){
-   			session.setAttribute("uid", 0); 
-   		}else{
-   			session.setAttribute("uid",session.getAttribute("user")); 
-   		}
-   		
-   	%>
-	console.log(uid);
+   	var uid =0 
+   	<%session.setAttribute("uid",0);%>
     var path = '<%=basePath%>';
-    var from=uid;
-    if(uid==0){
-    	var fromName='Guest';
-    }else{
-    	var fromName='III';
-    }
-    
+    var from=uid; 
+    var fromName='Guest';
     var to="1";
     
     var websocket;
@@ -480,7 +463,6 @@ input[type=button] {
         function clearAll(){
             $("#content").empty();
         }
-    
 	
     $().ready(function(){
 		$.ajax({

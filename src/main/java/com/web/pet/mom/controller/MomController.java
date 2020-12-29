@@ -18,7 +18,7 @@ import com.web.pet.mom.service.PetMomOrderService;
 
 //@WebServlet("/MomRegister")
 @Controller
-@RequestMapping("/i19")
+@RequestMapping("/mom")
 @SessionAttributes("user")
 public class MomController{
 	
@@ -34,11 +34,11 @@ public class MomController{
 		return "insertMom";			
 	}	
 	
-	@GetMapping("/extar")
+	@GetMapping(value = "/extar" , produces = "application/json; charset=utf-8")
 	public String list(Model model) {
 		List<Mom> list = momService.getAllMoms();
 		model.addAttribute("mom" , list);
-		return "extar";
+		return "mom/extar";
 	}
 	
 	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")

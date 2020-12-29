@@ -45,7 +45,7 @@
 
 <body>
 
-	<jsp:include page="Header.jsp"/>
+	<jsp:include page="Header.jsp" />
 
 	<div class="container">
 
@@ -61,16 +61,19 @@
 			<!-- The slideshow -->
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="Images/fkpofpeffe.jpg" style="width:1100px; height:325px;">
+					<img src="Images/fkpofpeffe.jpg"
+						style="width: 1100px; height: 325px;">
 				</div>
 				<div class="carousel-item">
-					<img src="Images/dogcover.jpg" style="width:1100px; height:325px;">
+					<img src="Images/dogcover.jpg"
+						style="width: 1100px; height: 325px;">
 				</div>
 				<div class="carousel-item">
-					<img src="Images/cat-spot-in-Japan-2.jpg" style="width:1100px; height:325px;">
+					<img src="Images/cat-spot-in-Japan-2.jpg"
+						style="width: 1100px; height: 325px;">
 				</div>
-					<div class="carousel-item">
-					<img src="Images/寵物-背版2.jpg " style="width:1100px; height:325px;">
+				<div class="carousel-item">
+					<img src="Images/寵物-背版2.jpg " style="width: 1100px; height: 325px;">
 				</div>
 			</div>
 
@@ -84,39 +87,70 @@
 
 		<div class="row justify-content-center">
 			<!--保母搜尋框框自己改-->
-			<input type="text"><input type="button" value="搜尋">
+			<div class="row">
+				<div class="col-md-4">
+					<select name="selArea" id="selectArea" class="form-control">
+						<option value="0">台北市</option>
+						<option value="1">新北市</option>
+						<option value="2">桃園市</option>
+						<option value="3">台中市</option>
+						<option value="4">台南市</option>
+						<option value="5">高雄市</option>
+						<option value="6">基隆市</option>
+						<option value="7">新竹市</option>
+						<option value="8">新竹縣</option>
+						<option value="9">嘉義市</option>
+						<option value="10">嘉義縣</option>
+						<option value="11">苗栗縣</option>
+						<option value="12">彰化縣</option>
+						<option value="13">南投縣</option>
+						<option value="14">雲林縣</option>
+						<option value="15">屏東縣</option>
+						<option value="16">宜蘭縣</option>
+						<option value="17">花蓮縣</option>
+						<option value="18">台東縣</option>
+						<option value="19">澎湖縣</option>
+					</select>
+				</div>
+				<div class="col-md-5">
+					<input type="text" class="form-control">
+				</div>
+				<div class="col-md-3">
+					<input type="button" value="搜尋" class="btn btn-primary">
+				</div>
+			</div>
 
-		</div>
-		<div class="row justify-content-center">
-			<button type="button" name="reg" id="reg" onclick="go()">註冊保姆</button>
+			<button class="btn btn-secondary" type="button" name="reg" id="reg"
+				onclick="go()">註冊保姆</button>
+			<div class="col-md-7"></div>
 		</div>
 
-		<script>
+	</div>
+	<script>
 			function go() {
 		<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
 			window.alert("請先登入");
 		<%} else {%>
-			location.href = "registerMom.jsp?userID=<%=session.getAttribute("user").toString()%>";
+			location.href = "registerMom.jsp?userID=<%=session.getAttribute("user").toString()%>
+			";
 		<%}%>
 			}
-			
 		</script>
 
 
-		<div class="row">
-			<article class="col-8">
-			</article>
+	<div class="row">
+		<article class="col-8"></article>
 
-			<div class="col">
-				<!--右邊google地圖 剩下自己設定-->
+		<div class="col">
+			<!--右邊google地圖 剩下自己設定-->
 
-				<div id="map"></div>
+			<div id="map"></div>
 
-			</div>
 		</div>
 	</div>
+	</div>
 
-	<div w3-include-html="footer.html"></div>
+	<jsp:include page="Footer.jsp" />
 	<!--要include 的地方-->
 
 	<button type="button" class="btn btn-outline-primary" id="gotop"></button>
@@ -165,6 +199,19 @@
 					$('#gotop').stop().fadeOut(222);
 				}
 			}).scroll();
+		});
+	</script>
+
+	<!-- TWzipcode的js -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+	<script>
+		$("#twzipcode_My").twzipcode({
+			css : [ "city form-control", "town form-control" ],
+			countyName : "city", // 自訂城市 select 標籤的 name 值
+			districtName : "town", // 自訂地區 select 標籤的 name 值
 		});
 	</script>
 

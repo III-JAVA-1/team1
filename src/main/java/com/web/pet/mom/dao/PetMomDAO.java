@@ -29,7 +29,6 @@ public class PetMomDAO {
     	list = sessionFactory.getCurrentSession().createQuery(hql).getResultList();
     	
     	return list;
-		
 	}
     
     

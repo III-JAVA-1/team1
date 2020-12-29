@@ -1,16 +1,21 @@
 package com.web.pet.mom.model;
 
 import java.sql.Blob;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.web.pet.Active.model.ActBean;
 import com.web.pet.member.model.Member;
 
 import lombok.Data;
@@ -46,10 +51,13 @@ public class Mom{
 	
 	private Blob pic;	
 	
-	@OneToOne(mappedBy = "mom",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "member",fetch = FetchType.LAZY)	
+	private Member member;
+	
+	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
 	private PetMomOrder petMomOrder;
 	
-	@OneToOne(mappedBy = "mom",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
 	private Raing raing;
 
 	

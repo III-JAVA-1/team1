@@ -220,7 +220,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard">
-			<a href="Member.jsp" class="nav-link">
+			<a href="<c:url value='/Gusty/goadminabality?abality=Action'/>" class="nav-link">
   				<img src="../Admin/image/activity.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">

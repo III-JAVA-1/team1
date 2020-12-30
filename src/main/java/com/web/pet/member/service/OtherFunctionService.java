@@ -34,9 +34,9 @@ public class OtherFunctionService {
 		return otherFunctionDao.shopfavorite(user_id);
 	}
 	
-	public int deleteloveService(String product_id){//會員頁面取消收藏商品
+	public int deleteloveService(String product_id,Integer user_id){//會員頁面取消收藏商品
 		
-		return otherFunctionDao.delteloveDao(product_id);
+		return otherFunctionDao.delteloveDao(product_id,user_id);
 	}
 	
 	public List<Object[]> shoprateService(String user_id){//會員頁面秀出商品評價
@@ -62,6 +62,14 @@ public class OtherFunctionService {
 	public List<Object[]> memberjoinService(Integer user_id){//會員頁面活動紀錄
 		
 		return otherFunctionDao.memberjoinDao(user_id);
+	}
+	
+	public List<Object[]> memberlovearticleService(Integer user_id) {//會員頁面文章收藏
+		return otherFunctionDao.memberlovearticleDao(user_id);
+	}
+	
+	public int deletelovearticleService(Integer posteruid,Integer user_id) {//會員頁面收藏文章刪除
+		return otherFunctionDao.deletelovearticleDao(posteruid, user_id);
 	}
 
 }

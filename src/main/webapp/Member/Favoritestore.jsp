@@ -155,7 +155,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     $.ajax({
 		url:"../Gusty/favoritestore",
 		type:"post",
-		//async : false,//要賦值給全域變數要改false
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
@@ -186,7 +185,35 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#favorite2").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
-    	$("#favorite2").html("沒有收藏文章");
+    	$("#favorite").append("<table class='table table-hover table-bordered'><thead class='h4' style='background-color:#8F4586;'><tr>"+
+    			"<th scope='col'>文章名稱</th>"+
+    			"<th scope='col'>文章子版</th>"+
+    			"<th scope='col'>發文時間</th>"+
+    			"<th scope='col'>點閱率</th></tr>"+
+    	"</thead>"+
+    	"<tbody id='articlelove' class='h5'></tbody></table>");
+    	$.ajax({
+			url:"../Gusty/lovearticle",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"user_id" : <%=session.getAttribute("user")%>,
+	        },
+			success:function(data){
+				$.each(data,function(i,n){
+					
+					$("#articlelove").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[4]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
+				   			"<td>"+n[1]+"</td>"+
+				   			"<td>"+n[2]+"</td>"+
+				   			"<td>"+n[3]+"</td>"+
+				   			"<td><button type='button' class='btn btn-info' onclick='deletearticle("+n[4]+")'>取消收藏</button></td>></tr");
+					
+				});
+			},
+			error:function(){
+				$("#favorite2").html("沒有收藏文章");
+			}
+		});
     	return false;
     }
     
@@ -198,7 +225,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	 $.ajax({
     			url:"../Gusty/favoritestore",
     			type:"post",
-    			//async : false,//要賦值給全域變數要改false
     			dataType:"json",
     			data : { 
     				"user_id" : <%=session.getAttribute("user")%>,
@@ -230,24 +256,48 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$.ajax({
 			url:"../Gusty/deletlove",
 			type:"post",
-			//async : false,//要賦值給全域變數要改false
 			dataType:"json",
 			data : { 
 				"product_id" : pid,
+				"user_id":userid,
 	        },
 			success:function(data){
-				if(data==1){
-					Swal.fire({
-	    			title: '取消收藏成功',
-	    			icon: 'success',
-	    			confirmButtonText: '確定'
-	    			}).then((result) => {
-	    			if (result.isConfirmed) {
-	    				store()
-	    			}})			
-				}
+				Swal.fire({
+	    		title: '取消收藏成功',
+	    		icon: 'success',
+	    		confirmButtonText: '確定'
+	    		}).then((result) => {
+	    		if (result.isConfirmed) {
+	    			store()
+	    		}})			
 			},
 		});
+    }
+    
+    function deletearticle (posid){
+    	
+    	//alert(posid);
+    	$.ajax({
+			url:"../Gusty/deletelovearticle",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"posteruid" : posid,
+				"user_id":userid,
+	        },
+			success:function(data){
+				Swal.fire({
+	    		title: '取消收藏成功',
+	    		icon: 'success',
+	    		confirmButtonText: '確定'
+	    		}).then((result) => {
+	    		if (result.isConfirmed) {
+	    			forum()
+	    		}})			
+			},
+		});
+    	
+    	
     }
     
 	</script>

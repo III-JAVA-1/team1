@@ -31,5 +31,21 @@ public class AdminService {
 	public  List<Object[]> allsales(Integer month) {//銷售總金額
 		return adaminDao.allsales(month);
 	}
+	
+	public  List<Object[]> activehottimeService(Integer month) {//活動顯示時間熱度
+		return adaminDao.activehottimeDao(month);
+	}
+	
+	public  List<Object[]> activejointop3Service(Integer month) {//活動顯示參加人數top3
+		return adaminDao.activejointop3Dao(month);
+	}
+	
+	public  List<Object[]> activetypeService() {//活動顯示類型比例
+		return adaminDao.activetypeDao();
+	}
+	
+	public List<Object[]> activeallService(){//活動顯示全部活動
+		return adaminDao.activeallDao();
+	}
 
 }

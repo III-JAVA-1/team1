@@ -41,8 +41,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/deletlove")//會員頁面取消收藏商品
 	@ResponseBody
-	public int deleteloveController(String product_id) {
-		return otherFunctionService.deleteloveService(product_id);
+	public int deleteloveController(String product_id,Integer user_id) {
+		return otherFunctionService.deleteloveService(product_id,user_id);
 	}
 	
 	@RequestMapping("/shoprate")//會員頁面秀出商品評價
@@ -73,6 +73,17 @@ public class OtherFunctionCURD {
 	@ResponseBody
 	public List<Object[]> memberjoinController(Integer user_id){
 		return otherFunctionService.memberjoinService(user_id);
+	}
+	
+	@RequestMapping("lovearticle")//會員頁面文章收藏
+	@ResponseBody
+	public List<Object[]> memberlovearticleController(Integer user_id){
+		return otherFunctionService.memberlovearticleService(user_id);
+	}
+	
+	@RequestMapping("deletelovearticle")//會員頁面收藏文章刪除
+	@ResponseBody int deletelovearticleController(Integer posteruid,Integer user_id) {
+		return otherFunctionService.deletelovearticleService(posteruid, user_id);
 	}
 
 }

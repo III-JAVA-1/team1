@@ -32,25 +32,25 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                     <li class="nav-item ">
                     	<%
 							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
-								out.print("<a class=\"nav-link\" href=\"Store/\">毛孩商城</a>");
+								out.print("<a class=\"nav-link\" href=\"../Store/\">毛孩商城</a>");
 							} else {
-								out.print("<a class=\"nav-link\" href=\"Store/?memberId="
+								out.print("<a class=\"nav-link\" href=\"../Store/?memberId="
 										+ session.getAttribute("user")
 										+ "\">毛孩商城</a>");
 							}
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='mom/extar.jsp'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='../PetForum/forum.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物店家</a>
+                        <a class="nav-link" href="../Petshop/mainshop.jsp">寵物店家</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物活動/消息</a>
+                        <a class="nav-link" href="../Active/ActIndex.jsp">寵物活動/消息</a>
                     </li>
                     <li class="nav-item" style="color:white;">
                         <%

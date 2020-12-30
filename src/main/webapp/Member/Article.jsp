@@ -104,7 +104,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			依名字搜尋文章:<input type="text" id="search" name="search">
   			</div>
   			
-			<table class="table table-hover table-bordered " id="maintable">	
+			<table class="table table-hover table-bordered" id="maintable">	
   			</table>
   			
   			<div class="row justify-content-center" >

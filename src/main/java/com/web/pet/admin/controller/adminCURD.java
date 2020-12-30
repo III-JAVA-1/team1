@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.web.pet.Active.model.ActBean;
+import com.web.pet.Active.service.ActService;
 import com.web.pet.admin.service.AdminService;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
@@ -29,6 +31,8 @@ public class adminCURD {
 	private AdminService adminService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private ActService actservice;
 	
 	@RequestMapping(value = "/adminmembernamesearch")
 	@ResponseBody
@@ -65,22 +69,57 @@ public class adminCURD {
 		return adminService.storetop10(month);
 	}
 	
-	@RequestMapping("/allsaless")//商品銷售top10
+	@RequestMapping("/allsaless")//當月銷售業績
 	@ResponseBody
 	public List<Object[]> allsales(Integer month){
 		return adminService.allsales(month);
 	}
 	
-	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
-	public String goadmin(){
-		
-		return "Admin/Admin";
+	@RequestMapping("/activehottime")//活動顯示時間熱度
+	@ResponseBody
+	public List<Object[]> activegottimeController(Integer month){
+		return adminService.activehottimeService(month);
+	}
+	
+	@RequestMapping("/activejointop3")//活動顯示參加人數top3
+	@ResponseBody
+	public List<Object[]> activejointop3Controller(Integer month){
+		return adminService.activejointop3Service(month);
+	}
+	
+	@RequestMapping("/activetype")//活動顯示參加人數top3
+	@ResponseBody
+	public List<Object[]> activetypeController(){
+		return adminService.activetypeService();
+	}
+	
+	@RequestMapping("/activeall")//活動顯示全部活動
+	@ResponseBody
+	public List<Object[]> activeallController(){
+		return adminService.activeallService();
+	}
+	
+	@RequestMapping(value = "/getactiveimg")//幫活動圖片抓全部東西
+	public ResponseEntity<byte[]> getactivePicture(@RequestParam Integer act_no){
+		byte[] body= null;
+		System.out.println(act_no);
+		ResponseEntity<byte[]> re = null;
+		ActBean actBean = actservice.AllActService(act_no);
+		Blob blob = actBean.getAct_img();
+		body = BlobToByteArray.blobToByteArray(blob);
+		re = new ResponseEntity<byte[]>(body,HttpStatus.OK);
+		return re;
+
 	}
 	
 	
+	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
+	public String goadmin(){
+		return "Admin/Admin";
+	}
+	
 	@RequestMapping(value="/goadminabality")//Admin其他功能的超連結
 	public String goadminfunction(@RequestParam String abality) {
-		
 		return "Admin/"+abality;
 	}
 	

@@ -76,10 +76,10 @@ public class OtherFunctionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public int delteloveDao(String product_id){//會員頁面取消收藏商品
+	public int delteloveDao(String product_id,Integer user_id){//會員頁面取消收藏商品
 		Session session = sessionFactory.getCurrentSession();
-		String hql="delete from favorite where product_id=:id";
-		int result = session.createSQLQuery(hql).setParameter("id", product_id).executeUpdate();
+		String hql="delete from favorite where product_id=:id and customer_id=:uid";
+		int result = session.createSQLQuery(hql).setParameter("id", product_id).setParameter("uid", user_id).executeUpdate();
 		return result;
 	}
 	
@@ -177,5 +177,34 @@ public class OtherFunctionDao {
 		}else {
 			return list; 
 		}
+	}
+	
+	@SuppressWarnings("unchecked")//會員頁面文章收藏
+	public List<Object[]> memberlovearticleDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,ArticleFavorite.posterUid\r\n"
+				+ "from ArticleFavorite,Article\r\n"
+				+ "where ArticleFavorite.posterUid=Article.posterUid\r\n"
+				+ "and Article.isHide=0\r\n"
+				+ "and ArticleFavorite.u_Id=:id";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public int deletelovearticleDao(Integer posteruid,Integer user_id) {//會員頁面刪除收藏文章
+		int result=0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql="delete \r\n"
+				+ "from ArticleFavorite\r\n"
+				+ "where posterUid=:pid\r\n"
+				+ "and u_Id=:uid";
+		result=session.createSQLQuery(hql).setParameter("pid", posteruid).setParameter("uid", user_id).executeUpdate();
+		return result;
 	}
 }

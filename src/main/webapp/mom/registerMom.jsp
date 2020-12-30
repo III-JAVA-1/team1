@@ -79,7 +79,7 @@ input[type="text"] {
 			<div class="col-md-2 bg"></div>
 			<article class="col-md-8">
 
-				<form action="../i19/insertMom" method="POST">
+				<form action="../mom/insertMom" method="POST">
 					<b>
 						<div style="text-align: center;">
 							<h4>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!doctype html>
 <html lang="zh-Hant-TW">
 <head>
@@ -47,6 +48,11 @@
 
 	<jsp:include page="Header.jsp" />
 
+
+
+
+
+
 	<div class="container">
 
 		<div id="demo" class="carousel slide" data-ride="carousel">
@@ -89,7 +95,7 @@
 			<!--保母搜尋框框自己改-->
 			<div class="row">
 				<div class="col-md-4">
-					<select name="selArea" id="selectArea" class="form-control">
+					<select name="country" id="selectArea" class="form-control">
 						<option value="0">台北市</option>
 						<option value="1">新北市</option>
 						<option value="2">桃園市</option>
@@ -113,7 +119,7 @@
 					</select>
 				</div>
 				<div class="col-md-5">
-					<input type="text" class="form-control">
+					<input type="text" name="title" class="form-control">
 				</div>
 				<div class="col-md-3">
 					<input type="button" value="搜尋" class="btn btn-primary">
@@ -122,33 +128,52 @@
 
 			<button class="btn btn-secondary" type="button" name="reg" id="reg"
 				onclick="go()">註冊保姆</button>
+
 			<div class="col-md-7"></div>
 		</div>
 
-	</div>
-	<script>
-			function go() {
-		<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
-			window.alert("請先登入");
-		<%} else {%>
-			location.href = "registerMom.jsp?userID=<%=session.getAttribute("user").toString()%>
-			";
-		<%}%>
-			}
-		</script>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="Images/test.jpg" alt="">
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-7">
+						<h5 id="title"></h5>
+						<br> <small id="momName"></small> <br> 
+						<small id="type"></small> <br>
+						<small id="notices"></small>
 
+						<button class="btn btn-secondary" type="button" name="reg"
+							id="reg" onclick="goTo()" style="position: absolute; bottom: 10px; right: 10px;">預約</button>
+					</div>
+				</div>
+			</div>
 
-	<div class="row">
-		<article class="col-8"></article>
-
-		<div class="col">
-			<!--右邊google地圖 剩下自己設定-->
-
-			<div id="map"></div>
-
+			<div class="col-md-4">
+				    <div id="map"></div>
+					<!--右邊google地圖 剩下自己設定-->
+			
+			</div>
 		</div>
 	</div>
-	</div>
+	<script>
+		function go() {
+	<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
+		window.alert("請先登入");
+	<%} else {%>
+		location.href = "registerMom.jsp"
+	<%}%>
+		}
+
+		function goTo() {
+			location.href = "reservtion.jsp"
+		}
+	</script>
+
+
 
 	<jsp:include page="Footer.jsp" />
 	<!--要include 的地方-->
@@ -200,8 +225,33 @@
 				}
 			}).scroll();
 		});
-	</script>
 
+		$().ready(function() {
+			$.ajax({
+				url : "../mom/allMom",
+				type : "post",
+				dataType : "json",
+				data : {
+					"country" :"",
+					"title" : "",
+				},
+				success : function(data) {
+					$.each(data, function(n, m) {
+						$("#title").append(m[1]);
+						$("#momName").append(m[2]);
+						$("#type").append(m[3]);
+						$("#type").append(m[4]);
+						$("#type").append(m[5]);
+						$("#notices").append(m[6]);
+					})
+				}
+
+			});
+		});
+	</script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
 	<!-- TWzipcode的js -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>

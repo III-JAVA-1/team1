@@ -68,8 +68,8 @@ public class Mom{
 	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
 	private Set<PetMomOrder> orders = new LinkedHashSet<>(0);
 	
-	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
-	private Set<Raing> raings = new LinkedHashSet<>(0);
+//	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
+//	private Set<Raing> raings = new LinkedHashSet<>(0);
 	
 
 	

@@ -106,6 +106,8 @@
 		            <div class="db_line1_release">
 		            <!-- 獲取StringQuery的posterUid -->
 		            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+		            <!-- 獲取StringQuery的viewing -->
+		            <input type='hidden' value='<%=request.getParameter("viewing") %>' name='viewing'>
 		           <!-- 發文者才會看到按鈕 --> 
 		          <%  
 		          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
@@ -339,7 +341,7 @@ let editCommentDisplay = 0;
     			dataType:"json",
     			data:{
     				"posterUid":<%=request.getParameter("posterUid")%>,	
-    				"u_Id":<%=request.getParameter("u_Id")%>//發文者u_Id	
+    				"u_Id":<%=request.getParameter("u_Id")%>//發文者u_Id    			
     			},
     			success:function(data){    				
     				$("#article").html("");			
@@ -349,17 +351,17 @@ let editCommentDisplay = 0;
     					console.log(n[2]);//header					
     					
     					//初始資料沒有會員暱稱
-    					var memberSname;
+    					let memberSname;
     					if(n[1] === undefined){
     						memberSname = "Author Name";
     					}
     					else{
     						memberSname = n[1];
-    					}				
+    					}
     					
     					
     					//想辦法讓文章顯示時換行
-    					var content = n[5].replace(/\n/g,'<br/>');
+    					let content = n[5].replace(/\n/g,'<br/>');
     					
     					//Member.u_Id,Member.sname,Article.header,Article.updatedTime,Article.viewing,Article.content,Article.posterUid,ArticleFavorite.favoriteId
     					//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示文章相關信息

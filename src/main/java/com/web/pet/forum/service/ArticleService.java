@@ -3,6 +3,7 @@ package com.web.pet.forum.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -30,10 +31,13 @@ public class ArticleService {
 		return list;
 	}	
 	
-	
-	
 	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){//按favoriteId找文章
 		List<Object[]> list = dao.getArticleByFavoriteId(favoriteId);		
+		return list;
+	}	
+	
+	public List<Article> getArticleByPosterUid(Integer posterUid){//按posterUid找文章
+		List<Article> list = dao.getArticleByPosterUid(posterUid);
 		return list;
 	}
 	
@@ -59,6 +63,10 @@ public class ArticleService {
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
 		List<Article> list = dao.getArticleByHeaderKey(inputText);
 		return list;
+	}
+	
+	public int increaseViewing(Article article) {//增加瀏覽率		
+		return dao.increaseViewing(article);
 	}
 	
 	public int deleteArticle(Article article) { //刪除文章

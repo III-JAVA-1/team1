@@ -24,7 +24,6 @@ public class ArticleFavoriteDao {
 	@Autowired
 	private SessionFactory sessionFactory;	
 	
-	
 	public int saveArticleFavorite(Integer posterUid, Integer u_Id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();

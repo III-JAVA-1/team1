@@ -51,9 +51,9 @@ public class NewArticle {
 		PrintWriter out = response.getWriter();	
 		
 		//	這裡要insert一筆Article紀錄，不過因為尚未寫入資料庫，所以u_Id要從session取得
-		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		Integer sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 
-		service.saveArticle(article,u_Id);//不用insert圖片的文章物件
+		service.saveArticle(article, sessionU_Id);//不用insert圖片的文章物件
 		
 		out.print("<script>");		
 		out.print("window.alert('文章新增成功');window.location.href='../PetForum/forum.jsp';");

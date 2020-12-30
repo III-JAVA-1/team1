@@ -84,7 +84,7 @@ public class ArticleCRUD{
 	public @ResponseBody
 	List<Object[]> viewPost(
 			@RequestParam(value="posterUid", required = false) Integer posterUid,
-			@RequestParam(value="u_Id",required = false) Integer u_Id,
+			@RequestParam(value="u_Id",required = false) Integer u_Id,			
 			HttpServletRequest request) {
 		
 		if(posterUid == null) {return null;}
@@ -98,10 +98,18 @@ public class ArticleCRUD{
 		
 		List<Object[]> list = null;
 		List<Object[]> temp = null;
+		
+		List<Article> articleList = service.getArticleByPosterUid(posterUid);
+		for(Article article: articleList) {
+			Integer viewing = article.getViewing()+1;
+			article.setViewing(viewing);
+			service.increaseViewing(article);
+		}		
+		
 		//取得favoriteId
 		if(sessionU_Id != null) {
 			temp = favoriteService.getArticleFavoriteBy2Uid(sessionU_Id, posterUid);
-			System.out.println("BBB"+Arrays.asList(temp));
+			System.out.println("BBB"+Arrays.asList(temp));		
 		}
 		if(temp != null) {
 			for(Object o: temp) {
@@ -109,15 +117,15 @@ public class ArticleCRUD{
 				Integer favoriteId = (Integer)o;
 				
 				System.out.println("favoriteId"+favoriteId);
-				list = service.getArticleByFavoriteId(favoriteId);//有找到收藏紀錄
+				list = service.getArticleByFavoriteId(favoriteId);//有找到收藏紀錄				
 				System.out.println("CCC"+Arrays.asList(list));
 			}
 		}
 		else {
 			System.out.println("=========u_Id"+u_Id);
-			list = service.getArticleBy2Uid(u_Id, posterUid);//沒找到收藏紀錄
+			list = service.getArticleBy2Uid(u_Id, posterUid);//沒找到收藏紀錄		
 			System.out.println("DDD"+Arrays.asList(list));
-		}
+		}		
 		return list;
 	}
 	

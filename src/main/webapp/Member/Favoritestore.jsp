@@ -22,6 +22,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <title>AccompanyMe</title>
 <style>
+	
+	a{
+    	text-decoration:none;
+	}
+
 	#title{
 		background-color: aqua;
 	}

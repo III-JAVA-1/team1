@@ -196,6 +196,7 @@ ${modProduct}
                     goShoppingCart();
                 } else {
                     alert('成功加入購物車');
+                    getCartCount();
                 }
             },
             // 失敗時要做的事
@@ -227,6 +228,10 @@ ${modProduct}
                 let rateHtml = "";
                 let topRateHtml = "";
                 res.rateList.forEach(function (rateData) {
+
+                    // 用三源檢查rateData.date是不是空
+                    let rateMsg = rateData.message == null ? "": rateData.message;
+
                     rateHtml += "<div class=\"custom-message-area\">\n" +
                         "<P class=\"member-account\">"
                         + rateData.name
@@ -246,7 +251,7 @@ ${modProduct}
                     }
                     rateHtml += "</div>\n" +
                         "<P class=\"message\">\n" +
-                        rateData.message +
+                        rateMsg +
                         "<hr>\n" +
                         "</div>";
                 })

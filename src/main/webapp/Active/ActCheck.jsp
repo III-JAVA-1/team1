@@ -67,7 +67,7 @@
         <tbody> 
         	<tr> 	
          		<td class="acstyle" style="width: 500px;">活動名稱</td>
-                <td class="acstyle">參加的時間</td>
+                <td class="acstyle">備註欄</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>

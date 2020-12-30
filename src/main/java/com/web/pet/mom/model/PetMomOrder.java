@@ -36,8 +36,9 @@ public class PetMomOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer listId;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
-	private String listCreate;
+	
+	private Timestamp listCreate;
+	
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String status;
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
@@ -61,8 +62,10 @@ public class PetMomOrder {
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String connPhone;
 	
-	private Timestamp chooseStart;
-	private Timestamp chooseEnd;
+	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String chooseStart;
+	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String chooseEnd;
 	
 	private Integer service;	
 	

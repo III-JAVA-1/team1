@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.pet.member.model.Member;
 import com.web.pet.petshop.model.Salon_reservBean;
 
 
@@ -15,10 +16,12 @@ public class Salon_reservDAO {
 	@Autowired 
 	private SessionFactory sessionFactory;
 	
-	public void insertSalon_reserv(Salon_reservBean salon_reservBean) {
-		//salon_reservBean.setMember(null);
-		//Session session = sessionFactory.getCurrentSession();
+	public void insertSalon_reserv(Salon_reservBean salon_reservBean,Integer uid) {
+		
+		
 		Session session=sessionFactory.getCurrentSession();
+		
+		salon_reservBean.setMember(session.get(Member.class, uid));
 		session.save(salon_reservBean);
 		
 		
@@ -35,18 +38,18 @@ public class Salon_reservDAO {
 		count++;
 		return count;
 	}
-//	public int  updaSalon_reserv(String name,  Date  datee) {
-//		
-//		int count=0;
-//		Session session=sessionFactory.getCurrentSession();
-//		String hql="update from Salon_reservBean where  "
-//		count=session.createQuery(hql).setParameter("", datee).executeUpdate();
-//		count++;
-//		return count;
-//	
-//	}
+	public int  updaSalon_reserv( Salon_reservBean salon_reservBean,Integer id) {
+		
+		int count=0;
+		Session session=sessionFactory.getCurrentSession();
+		
+		session.merge(salon_reservBean);
+		//count=session.createQuery(hql).setParameter("date", datee).executeUpdate();
+		//session.merge();
+		count++;
+		return count;
 	
-	
+	}
 	
 	
 	

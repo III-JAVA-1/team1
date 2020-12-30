@@ -77,8 +77,10 @@
     </style>
 <script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 </head>
+<jsp:include page="Header.jsp" />
 
 <body>
+
 <sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB"
 	user="scott" password="tiger"/>
@@ -93,59 +95,7 @@
 	<!--<c:out value="${useridd}"/>-->
 	
     <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
-            <a class="navbar-brand" href="../index.jsp"><img src="../Gusty/Images/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="">寵物商城</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="../zseqw123/extar.jsp">寵物保姆</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="">寵物討論區</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="index.jsp">寵物店家</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="../Wu/activitymain.jsp">寵物活動/消息</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link left-margin" href=""><img src="Images/shopping-cart.svg" width="30" height="30"
-                                alt=""></a>
-                    </li>
-                    <li class="nav-item" style="color:white;">
-                        <%
-                        	if(session.getAttribute("user")==null)
-							{
-								out.print("<a class='nav-link' href='../Gusty/index.jsp'><img src='../Gusty/Images/user.svg' width='30' height='30' alt=''></a>");
-							}
-							else{%>
-								<%out.print("<a href='../Gr.jsp'>"); %>
-								<c:if test="${useridd > 0}">
-								<sql:query dataSource="${ds}" var="rs">
-   								select * from Member where U_id = ?
-   								<sql:param value="${useridd}" />
-   								</sql:query>
-   								<c:forEach var="row" items="${rs.rows}">
-   								<c:out value="${row.Sname}"/>
-   								</c:forEach>
-								</c:if>								
-							<% out.print("您好</a>"); %>	
-						<% 		
-							}
-						%>
-                    </li>
-                </ul>
-            </div>
-    </nav>
+    
     </header>
     
 <div class="container">
@@ -156,33 +106,84 @@
 
 
 
-    </div>
-    <form class="formgroup"  method="post" action="../Henry/update">
-       
+    
+    <div class="container">
+
+    <div class="title">
+      
         
+
+  <h3></h3>  
+
+    </div>
+    <form class="formgroup"  method="post" action="../Henry/update"  onsubmit="return gogo()" name="res">
+    <div><%=request.getParameter("storename")%></div>
+    <input type="hidden" name="u_Id" id="u_Id" value="<%=session.getAttribute("user")%>">
+      <input type="hidden" name="storename" value="<%=request.getParameter("storename")%>">
+       
         <fieldset>
              
            
          <div><label for="exampleFormControlInput1">飼主姓名</label>
-            <input type="text" class="form-control" id="name" placeholder="請輸入姓名" name="name" required="required">
+            <input type="text" class="form-control" id="name" placeholder="請輸入姓名" name="name" required="required" >
          </div>
-        <div>
-            <label for="">修改時間</label>
-            <input type="datetime-local" id="date" name="time" required="required">
+         <div>
+            <label for="exampleFormControlInput1">飼主電話</label>
+            <input type="number" class="form-control" id="phone" placeholder="請輸入電話" name="phone"  required="required">
          </div>
-            
-            
-            <div class="submit">
-                <input type="submit" value="送出"  name="update"> 
-               
-              	
+         <div>
+            <label for="exampleFormControlInput1">飼主地址</label>
+            <input type="text" class="form-control" id="address" placeholder="請輸入地址"  name="address" required="required">
+    
+         </div>
+         <div>
+             <label for="">種類:</label>
+             <label><input type="radio" name="type"  id="cat" value="貓" >貓
+             <input type="radio" name="type"   id="dog" value="狗" >狗</label>
+         </div>
+         <div>
+            <label for="">修改服務項目:（洗澡、剪毛、SPA、其他）</label>
+            <div>
+            <select  id="service" name="item">
+                <option value="洗澡" >洗澡</option>
+                <option value="美容" >美容</option>
+                <option value="除毛" >除毛</option>
+                <option value="spa">spa</option>
+				<option value="其他">其他</option>
+            </select>
+
             </div>
+
+
+         </div>
+         <div>
+            <label for="">修改預約時間</label>
+            <input type="datetime-local" id="date" name="datee">
+         </div>
+         
+        <input type="hidden" id="thistime"  name="thistimee">
+    	
+            <div class="text">
+                    <p>備註</p>
+                    <textarea name="other" id="text" cols="60" rows="10" style="margin-top: 2px;" ></textarea>
+    
+    
+            </div>
+<!--             <div class="submit"> -->
+<!--                 <input type="submit" value="送出"  name="submit">  -->
+<!--                 <input type="reset" value="重製"> -->
+              	
+<!--             </div> -->
+            <div class="row justify-content-center">
+				<button type="button" class="btn btn-primary btn-lg ml-3" onClick="check()">確認送出</button>
+				<button type="button" class="btn btn-primary btn-lg ml-3" onclick="history.back()">取消</button>
+				
+			</div>
             
         </fieldset>
     </form>
   
 </div> 
-
 
 
 

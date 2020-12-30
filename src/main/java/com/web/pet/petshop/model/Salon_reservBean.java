@@ -47,7 +47,10 @@ public class Salon_reservBean {
 	private String type;
 	@Column(columnDefinition = "nvarchar(50)", nullable = true)
 	private String item;
-	private Date datee;
+	@Column(columnDefinition = "smalldatetime", nullable = true)
+	private Timestamp date;
+	@Column(columnDefinition = "smalldatetime", nullable = true)
+	private Timestamp thistime;
 	@Column(columnDefinition = "nvarchar(300)", nullable = true)
 	private String other;
 	
@@ -76,12 +79,17 @@ public class Salon_reservBean {
 		builder.append(type);
 		builder.append(", item=");
 		builder.append(item);
-		builder.append(", datee=");
-		builder.append(datee);
+		builder.append(", date=");
+		builder.append(date);
+		builder.append(", thistime=");
+		builder.append(thistime);
 		builder.append(", other=");
 		builder.append(other);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
+
+
+	
 	
 }

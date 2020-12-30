@@ -162,6 +162,7 @@
 <!--                             <span><a href="#">&laquo;</a></span> -->
 <!--                             <span><a href="#">20</a></span>  -->
                 </div>
+               
             </div> 
             <!-- 有登入才能看到此按鈕 -->		   
             <div class="db_line1_release">
@@ -290,7 +291,8 @@
 				        }
 				    }
 				    
-				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"
+				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+				    "<h4>共"+arr.totalCounts+"筆</h4>";
 				    
 				    pageUI.innerHTML = pageHtml;
 					
@@ -356,7 +358,8 @@
 				        }
 				    }
 				    
-				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"
+				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+				    "<h4>共"+arr.totalCounts+"筆</h4>";
 				    
 				    pageUI.innerHTML = pageHtml;
 					

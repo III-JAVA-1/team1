@@ -11,5 +11,6 @@ import lombok.Setter;
 public class ListWithPaging {
 	
 	private List<Object> articleList;
-    private Integer totalPages;
+	private Integer totalPages;
+    private Integer totalCounts;
 }

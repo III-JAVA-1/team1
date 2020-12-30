@@ -74,9 +74,9 @@ public class ArticleDao {
 				  "from Article, Member\n" + 
 				  "where Article.u_Id = Member.u_Id\n" + 
 				  "order by Article.updatedTime desc";
-			//list = session.createNativeQuery(sql).getResultList();
+			
 			list = session.createNativeQuery(sql)									
-									.setFirstResult(page*8-1)
+									.setFirstResult(8*(page-1))
 									.setMaxResults(8)
 									.getResultList();			
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
@@ -87,10 +87,15 @@ public class ArticleDao {
 					"from Article");			
 			Long total1 = (Long)query.uniqueResult();
 			Double totalCounts = total1.doubleValue();
-			Double total2 = Math.ceil(totalCounts / 8) ;
-			Integer totalPages = total2.intValue();
+			System.out.println("=========totalCounts"+totalCounts);
+			double total2 = totalCounts / 8.0;
+			System.out.println(total2);
+			Integer totalPages =  (int) Math.ceil(total2);
+			System.out.println("=======totalPages"+totalPages);	
+			
 			System.out.println("totalPages"+totalPages);			
 			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+			res.setTotalCounts(totalCounts.intValue());
 				
 		}
 		else {
@@ -99,12 +104,11 @@ public class ArticleDao {
 					"from Article, Member\r\n" + 
 					"where Article.forumId = :forumId\r\n" +
 					"and Article.u_Id = Member.u_Id\n" + 
-					"order by Article.updatedTime desc";
+					"order by Article.updatedTime desc";			
 			
-			//list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
 			list = session.createNativeQuery(sql)
 					.setParameter("forumId", forumId)
-					.setFirstResult(page*8-1)
+					.setFirstResult(8*(page-1))
 					.setMaxResults(8)
 					.getResultList();
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
@@ -114,12 +118,17 @@ public class ArticleDao {
 			Object total1 = session.createSQLQuery(
 					"select count(*) from Article where Article.forumId= :forumId")
 					.setParameter("forumId", forumId).uniqueResult();
-			//Long total1 = (Long)query.uniqueResult();
+			
 			Integer totalCounts = (Integer)total1;
-			Double total2 = Math.ceil(totalCounts / 8) ;
-			Integer totalPages = total2.intValue();
-			System.out.println("=======totalPages"+totalPages);			
+			
+			//System.out.println("=========totalCounts"+totalCounts);
+			double total2 = totalCounts / 8.0;
+			//System.out.println(total2);
+			Integer totalPages =  (int) Math.ceil(total2);			
+			//System.out.println("=======totalPages"+totalPages);			
+			
 			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+			res.setTotalCounts(totalCounts);
 		}
 		
 		if(list.isEmpty()) {return null;}		

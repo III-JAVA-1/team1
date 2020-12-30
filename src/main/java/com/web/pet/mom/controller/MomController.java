@@ -49,15 +49,16 @@ public class MomController{
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
 		out.print("Swal.fire({\r\n"
-				+ "  position: 'top-end',\r\n"
 				+ "  icon: 'success',\r\n"
 				+ "  title: '註冊成功',\r\n"
 				+ "  showConfirmButton: false,\r\n"
 				+ "  timer: 1500\r\n"
+				+ "}).then((result) => {\r\n"
+				+ "window.location.href='../mom/extar.jsp';\r\n"
 				+ "})");
 		out.print("</script>");
 		out.print("</body>");
-		out.print("<html>");
+		out.print("</html>");
 	}	
 	
 	@RequestMapping("/allMom")
@@ -95,14 +96,15 @@ public class MomController{
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
 		out.print("Swal.fire({\r\n"
-				+ "  position: 'top-end',\r\n"
 				+ "  icon: 'success',\r\n"
 				+ "  title: '預約成功',\r\n"
 				+ "  showConfirmButton: false,\r\n"
 				+ "  timer: 1500\r\n"
+				+ "}).then((result) => {\r\n"
+				+ "window.location.href='../mom/extar.jsp';\r\n"
 				+ "})");
 		out.print("</script>");
 		out.print("</body>");
-		out.print("<html>");
+		out.print("</html>");
 	}	
 }

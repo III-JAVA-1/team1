@@ -193,7 +193,7 @@ public class ProductDetailAction {
             resultSet.close();
             res.setRateList(dataList);
 
-            sql = "SELECT AVG(rate) FROM rate WHERE product_id=?";
+            sql = "SELECT AVG(CAST(rate AS FLOAT)) FROM rate WHERE product_id=?";
 
             double avg = dbUtils.selectDoubleList(sql, req.getProductId());
             DecimalFormat df = new DecimalFormat("#.0");

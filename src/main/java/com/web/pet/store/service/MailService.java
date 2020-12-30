@@ -1,6 +1,5 @@
 package com.web.pet.store.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
@@ -14,7 +13,6 @@ import java.util.List;
  *
  * @author Jimmy Kang
  */
-@Slf4j
 public class MailService {
 
     public enum MailType {
@@ -26,7 +24,7 @@ public class MailService {
      * 初始化
      *
      * @param sendMail 寄件人信箱
-     * @param mailPwd 寄件人信箱密碼(或金鑰)
+     * @param mailPwd  寄件人信箱密碼(或金鑰)
      */
     public static MailBuilder initMail(String sendMail, String mailPwd) {
         return new MailBuilder(sendMail, mailPwd);
@@ -58,7 +56,7 @@ public class MailService {
          * 初始化
          *
          * @param sendMail 寄件人信箱
-         * @param mailPwd 寄件人信箱密碼(或金鑰)
+         * @param mailPwd  寄件人信箱密碼(或金鑰)
          */
         public MailBuilder(String sendMail, String mailPwd) {
             mail = sendMail;
@@ -78,10 +76,10 @@ public class MailService {
         /**
          * 設定內文
          *
-         * @param context 內容文字
+         * @param content 內容文字
          */
-        public MailBuilder addContext(String context) {
-            this.content.append(context);
+        public MailBuilder addContent(String content) {
+            this.content.append(content);
             return this;
         }
 
@@ -174,7 +172,6 @@ public class MailService {
         public void sendMail(MailType mailType) throws EmailException {
             if (MailType.TEXT.equals(mailType)) simpleEmail();
             if (MailType.HTML.equals(mailType)) htmlEmail();
-            log.info("已發送信件至 - " + sendList.toString());
         }
 
         /**
@@ -184,13 +181,13 @@ public class MailService {
          */
         public void sendMailOnThread(MailType mailType) {
             new Thread(
-                            () -> {
-                                try {
-                                    sendMail(mailType);
-                                } catch (EmailException e) {
-                                    log.error("信件寄送失敗: " + sendList.toString());
-                                }
-                            })
+                    () -> {
+                        try {
+                            sendMail(mailType);
+                        } catch (EmailException e) {
+                            e.printStackTrace();
+                        }
+                    })
                     .start();
         }
 
@@ -203,7 +200,7 @@ public class MailService {
                 // TLS安全檢驗
                 email.setStartTLSEnabled(isTLSEnabled);
                 // SSL安全連線
-//                email.setSSLOnConnect(isSSLOnConnect);
+                email.setSSLOnConnect(isSSLOnConnect);
                 // HOSTNAME
                 email.setHostName(mailHost);
                 // PORT
@@ -234,7 +231,7 @@ public class MailService {
                 // TLS安全檢驗
                 email.setStartTLSEnabled(isTLSEnabled);
                 // SSL安全連線
-//                email.setSSLOnConnect(isSSLOnConnect);
+                email.setSSLOnConnect(isSSLOnConnect);
                 // HOSTNAME
                 email.setHostName(mailHost);
                 // PORT

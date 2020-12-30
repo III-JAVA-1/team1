@@ -37,13 +37,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="../Store/images/dog.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/banner-2.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../Store/images/cat.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/banner-1.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../Store/images/pet.png" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/banner-3.jpg" class="d-block roll-img" alt="...">
                 </div>
             </div>
 

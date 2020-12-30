@@ -58,9 +58,9 @@ public class ModifyArticle {
 		
 			//		System.out.println(article.getHeader());
 			//		這裡要update一筆Article紀錄，需要Member的u_Id主鍵
-			Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
+			Integer sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
 			
-			service.modifyArticle(article, u_Id);//沒有update圖片的文章物件
+			service.modifyArticle(article, sessionU_Id);//沒有update圖片的文章物件
 			
 			out.print("<script>");		
 			out.print("window.alert('文章修改成功');window.location.href='../PetForum/forum.jsp';");

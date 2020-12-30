@@ -19,7 +19,7 @@ import com.web.pet.forum.service.CommentService;
 public class NewComment {
 
 	@Autowired
-	CommentService service;	
+	CommentService service;
 
 	@RequestMapping("/commitComment")
 	public String commitComment(
@@ -29,13 +29,15 @@ public class NewComment {
 			) {
 		//把從前端送來的Comment物件insert到資料庫
 		//需要的是留言者的u_Id，非發文者的u_Id		
-		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-		System.out.println("=========="+posterUid);
-		System.out.println("----------"+u_Id);
-		System.out.println("++++++++++"+comment.getCommentContent());
-		service.saveComment(comment, posterUid, u_Id);
+		Integer sessionU_Id = null;
+		if(request.getSession().getAttribute("user")!=null){
+			sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());		
+			System.out.println("sessionU_Id"+sessionU_Id);
+		}
 		
-		return "redirect:/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id;
+		service.saveComment(comment, posterUid, sessionU_Id);
+		
+		return "redirect:/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+sessionU_Id;
 	}
 	
 	

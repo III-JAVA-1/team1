@@ -1,6 +1,7 @@
 package com.web.pet.forum.controller;
 
 import java.sql.Blob;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.pet.forum.model.Article;
+import com.web.pet.forum.model.ListWithPaging;
 import com.web.pet.forum.service.ArticleFavoriteService;
 import com.web.pet.forum.service.ArticleService;
 import com.web.pet.member.model.Member;
@@ -40,25 +42,37 @@ public class ArticleCRUD{
 	private static final String CHARSET_CODE = "UTF-8";
 	
 	
+	
+	
 	@RequestMapping("/selectForum")//AJAX按不同討論區找文章 -  click a標籤
-	public 	@ResponseBody List<Article> selectForum(String forumId){		
+	public 	@ResponseBody
+	ListWithPaging selectForum(
+			@RequestParam(value = "forumId",required = false) String forumId,
+			@RequestParam(value = "page", required = false) Integer page
+			){
+			System.out.println("=======page"+page);
+			System.out.println("========forumId"+forumId);
 		if(forumId == null) {return null;}
-		List<Article> list = service.getArticleByForumId(forumId);		
-		return list;
+		ListWithPaging res = service.getArticleByForumId(forumId, page);		
+		return res;
 	}
 	
 	@RequestMapping("/selectAll")//AJAX網頁開啟加載所有文章 - $().ready	
-	public @ResponseBody List<Article> selectAll(
-			@RequestParam(value = "forumId",required = false) String forumId){
+	public @ResponseBody
+	ListWithPaging selectAll(
+			@RequestParam(value = "forumId",required = false) String forumId,
+			@RequestParam(value = "page", required = false) Integer page
+			){
 		if(forumId == null) {return null;}
-		List<Article> list = service.getArticleByForumId(forumId);		
-		return list;
+		ListWithPaging res = service.getArticleByForumId(forumId, page);		
+		return res;
 	}	
 	
 	
 	
 	@GetMapping("/selectHeader")//按關鍵字找文章
-	public @ResponseBody List<Article> selectHeader(@RequestParam("inputText") String inputText) {
+	public @ResponseBody
+	List<Article> selectHeader(@RequestParam("inputText") String inputText) {
 		if(inputText == null) {return null;}
 		List<Article> list = service.getArticleByHeaderKey(inputText);
 		
@@ -67,30 +81,42 @@ public class ArticleCRUD{
 	
 	
 	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
-	public @ResponseBody List<Object[]> viewPost(
-			@RequestParam(required = false) Integer posterUid,
+	public @ResponseBody
+	List<Object[]> viewPost(
+			@RequestParam(value="posterUid", required = false) Integer posterUid,
+			@RequestParam(value="u_Id",required = false) Integer u_Id,
 			HttpServletRequest request) {
 		
 		if(posterUid == null) {return null;}
 		System.out.println("posterUid"+posterUid);
-		//需要的是閱讀者的u_Id，非發文者的u_Id		
-		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-		System.out.println("u_Id"+u_Id);
+		//需要的是閱讀者的u_Id，非發文者的u_Id
+		Integer sessionU_Id = null;
+		if(request.getSession().getAttribute("user")!=null){
+			sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());		
+			System.out.println("sessionU_Id"+sessionU_Id);
+		}		
 		
 		List<Object[]> list = null;
+		List<Object[]> temp = null;
 		//取得favoriteId
-		List<Object[]> temp = favoriteService.getArticleFavoriteBy2Uid(u_Id, posterUid);
+		if(sessionU_Id != null) {
+			temp = favoriteService.getArticleFavoriteBy2Uid(sessionU_Id, posterUid);
+			System.out.println("BBB"+Arrays.asList(temp));
+		}
 		if(temp != null) {
 			for(Object o: temp) {
-				System.out.println("123");
+				System.out.println("======AAA");
 				Integer favoriteId = (Integer)o;
 				
 				System.out.println("favoriteId"+favoriteId);
-				list = service.getArticleByFavoriteId(favoriteId);
+				list = service.getArticleByFavoriteId(favoriteId);//有找到收藏紀錄
+				System.out.println("CCC"+Arrays.asList(list));
 			}
 		}
 		else {
-			list = service.getArticleBy2Uid(u_Id, posterUid);
+			System.out.println("=========u_Id"+u_Id);
+			list = service.getArticleBy2Uid(u_Id, posterUid);//沒找到收藏紀錄
+			System.out.println("DDD"+Arrays.asList(list));
 		}
 		return list;
 	}
@@ -128,10 +154,3 @@ public class ArticleCRUD{
 	
  }
 	
-	 
-	 
-	
-	
-
-	
-

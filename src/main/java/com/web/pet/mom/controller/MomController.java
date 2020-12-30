@@ -1,6 +1,12 @@
 package com.web.pet.mom.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.pet.mom.model.Mom;
@@ -22,6 +29,10 @@ import com.web.pet.mom.service.PetMomOrderService;
 //@SessionAttributes("user")
 public class MomController{
 	
+	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
+
+	private static final String CHARSET_CODE = "UTF-8";
+	
 	@Autowired
 	MomService momService;
 	
@@ -29,21 +40,51 @@ public class MomController{
 	PetMomOrderService petMomOrderService;
 	
 	@PostMapping(value = "/insertMom" , produces = "application/json; charset=utf-8")
-	public String insertMom(Mom mom) {
-		momService.insertMom(mom);
-		return "insertMom";			
+	public void insertMom(Mom mom ,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		
+		request.setCharacterEncoding(CHARSET_CODE);
+		response.setContentType(CONTENT_TYPE);
+		
+		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		momService.insertMom(mom,u_Id);
+		PrintWriter out= response.getWriter();
+		out.print("<script>");
+		out.print("window.alert('成功');window.location.href='../mom/extar.jsp'");
+		out.print("</script>");
 	}	
 	
-	@GetMapping(value = "/extar" , produces = "application/json; charset=utf-8")
-	public String list(Model model) {
-		List<Mom> list = momService.getAllMoms();
-		model.addAttribute("mom" , list);
-		return "mom/extar";
+	@RequestMapping("/allMom")
+	@ResponseBody
+	public List<Mom> allMom(String country  ,String title){
+		List<Mom> list = new ArrayList<Mom>();
+		list = momService.getAllMoms(country,title);
+		return list;
 	}
 	
-	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
-	public String insertPetMomOrder(@ModelAttribute("user") PetMomOrder petMomOrder) {
-		petMomOrderService.insertPetMomOrder(petMomOrder);
-		return "reservtionMom";			
-	}	
+//	@GetMapping(value = "/extar.jsp" , produces = "application/json; charset=utf-8")
+//	public String list(Model model) {
+//		List<Mom> list = momService.getAllMoms();
+//		model.addAttribute("mom" , list);
+//		return "mom/extar.jsp";
+//	}
+	
+//	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
+//	public String insertPetMomOrder(@ModelAttribute("user") PetMomOrder petMomOrder) {
+//		petMomOrderService.insertPetMomOrder(petMomOrder);
+//		return "reservtionMom";			
+//	}	
+	
+//	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
+//	public void insertMom(PetMomOrder petMomOrder ,HttpServletResponse response,HttpServletRequest request) throws IOException {
+//		
+//		request.setCharacterEncoding(CHARSET_CODE);
+//		response.setContentType(CONTENT_TYPE);
+//		
+//		Integer mom_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+//		petMomOrderService.insertPetMomOrder(petMomOrder,u_Id);
+//		PrintWriter out= response.getWriter();
+//		out.print("<script>");
+//		out.print("window.alert('成功');window.location.href='../mom/extar.jsp'");
+//		out.print("</script>");
+//	}	
 }

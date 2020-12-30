@@ -17,11 +17,11 @@ public class MomService {
 	@Autowired
     private PetMomDAO petMomDAO;
 	
-    public void insertMom(Mom mom){
-       petMomDAO.insertMom(mom);
+    public void insertMom(Mom mom , Integer u_Id){
+       petMomDAO.insertMom(mom , u_Id);
     }
     
-    public List<Mom> getAllMoms(){
-    	return petMomDAO.getAllMoms();
+    public List<Mom> getAllMoms(String country, String title){
+    	return petMomDAO.getAllMoms(country,title);
     }
 }

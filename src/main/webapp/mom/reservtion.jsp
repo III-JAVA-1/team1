@@ -80,7 +80,7 @@
             </div>
             <article class="col-md-8">
 
-                <form action="/jsptest/MomRegisterServlet" method="POST" style="margin: auto;" onsubmit="goTime()">
+                <form action="/mom/reservtionMom" method="POST" style="margin: auto;" onsubmit="goTime()">
                     <b>
                         <h4>
                             <b>聯絡</b>

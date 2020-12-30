@@ -209,7 +209,6 @@ input[type=button] {
                         <a class="nav-link" href="Petshop/mainshop.jsp">寵物店家</a>
                     </li>
                     <li class="nav-item ">
-<!--                     	<a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a> -->
                         <a class="nav-link" href="Active/ActIndex.jsp">寵物活動/消息</a>
                     </li>
                     <li class="nav-item" style="color:white;">
@@ -239,9 +238,13 @@ input[type=button] {
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <div class="carousel-caption d-none d-md-block">
+                        <h3>你聽得懂貓星人說什麼嗎?</h3>
+                        <p>喵星人你怎麼說？當貓奴遇到了喵星人，其實牠沒有你想像中的...</p>
+             </div>
           </div>
           <div class="carousel-item">
-            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/banner-3.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
             <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">

@@ -25,7 +25,8 @@ public class PetMomDAO {
         session.save(mom);     
     }
     
-    public List<Mom> getAllMoms(String country ,String title) {
+    @SuppressWarnings("unchecked") //依縣市標題
+	public List<Mom> getAllMoms(String country ,String title) {
     	String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1"
     			+ ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.notices"
     			+ ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3"

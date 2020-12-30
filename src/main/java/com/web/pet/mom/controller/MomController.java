@@ -10,13 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.PetMomOrder;
@@ -26,7 +23,6 @@ import com.web.pet.mom.service.PetMomOrderService;
 //@WebServlet("/MomRegister")
 @Controller
 @RequestMapping("/mom")
-//@SessionAttributes("user")
 public class MomController{
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -48,9 +44,20 @@ public class MomController{
 		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		momService.insertMom(mom,u_Id);
 		PrintWriter out= response.getWriter();
+		out.print("<html>");
+		out.print("<body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
-		out.print("window.alert('成功');window.location.href='../mom/extar.jsp'");
+		out.print("Swal.fire({\r\n"
+				+ "  position: 'top-end',\r\n"
+				+ "  icon: 'success',\r\n"
+				+ "  title: '註冊成功',\r\n"
+				+ "  showConfirmButton: false,\r\n"
+				+ "  timer: 1500\r\n"
+				+ "})");
 		out.print("</script>");
+		out.print("</body>");
+		out.print("<html>");
 	}	
 	
 	@RequestMapping("/allMom")
@@ -74,17 +81,28 @@ public class MomController{
 //		return "reservtionMom";			
 //	}	
 	
-//	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
-//	public void insertMom(PetMomOrder petMomOrder ,HttpServletResponse response,HttpServletRequest request) throws IOException {
-//		
-//		request.setCharacterEncoding(CHARSET_CODE);
-//		response.setContentType(CONTENT_TYPE);
-//		
-//		Integer mom_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-//		petMomOrderService.insertPetMomOrder(petMomOrder,u_Id);
-//		PrintWriter out= response.getWriter();
-//		out.print("<script>");
-//		out.print("window.alert('成功');window.location.href='../mom/extar.jsp'");
-//		out.print("</script>");
-//	}	
+	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
+	public void insertPetMomOrder(PetMomOrder petMomOrder ,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		
+		request.setCharacterEncoding(CHARSET_CODE);
+		response.setContentType(CONTENT_TYPE);
+		
+		Integer mom_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		petMomOrderService.insertPetMomOrder(petMomOrder,mom_Id);
+		PrintWriter out= response.getWriter();
+		out.print("<html>");
+		out.print("<body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+		out.print("<script>");
+		out.print("Swal.fire({\r\n"
+				+ "  position: 'top-end',\r\n"
+				+ "  icon: 'success',\r\n"
+				+ "  title: '預約成功',\r\n"
+				+ "  showConfirmButton: false,\r\n"
+				+ "  timer: 1500\r\n"
+				+ "})");
+		out.print("</script>");
+		out.print("</body>");
+		out.print("<html>");
+	}	
 }

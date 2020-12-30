@@ -116,7 +116,7 @@
 										"<tr>"
 												
 												+"<td class='' style='border: 1px solid black; padding:5px'><a href='ActShow.jsp?get="
-												+ n[0] + "'/>"
+												+ n[0] + "'style='text-decoration:none;'/>"
 												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'>"
 												+ n[1].substr(0,19)
 												+ "</td>"
@@ -159,7 +159,7 @@
 						$("#activetable").append(
 								"<tr>"	
 								+"<td class='' style='border: 1px solid black; padding:5px'><a href='ActShow.jsp?get="
-								+ n[0] + "'/>"
+								+ n[0] + "'style='text-decoration:none;'/>"
 								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'>"
 								+ n[1].substr(0,19)
 								+ "</td>"

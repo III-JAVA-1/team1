@@ -213,14 +213,12 @@
 	<script>
 		
 		//網頁ready文檔加載完就做
-		//網頁onload全部加載完成才做(音樂、圖片) 				
-		reload();//reload文章信息
-	
-	
-//=============================================================================================
+		//網頁onload全部加載完成才做(音樂、圖片) 
+		loadArticle();//加載文章信息
+		loadComment();//加載留言信息
 		
-		$().ready(function(){	
-		$.ajax({
+		function loadComment(){	
+  		$.ajax({
 			url:"../petforum/viewComment",
 			type:"POST",		
 			dataType:"json",
@@ -229,11 +227,9 @@
 			},
 			success:function(data){	
 				$("#comment").html("");
-				$.each(data,function(i,n){					
-				
-					reload();//reload文章信息
+				$.each(data,function(i,n){						
 					console.log(n[0]);//u_Id				
-					console.log(n[1]);//snamef
+					console.log(n[1]);//sname
 				
 					//初始資料沒有會員暱稱
 					var memberSname;
@@ -282,59 +278,10 @@
 				$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
 			}
 		})
-	});
-
-		
-		
-	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
-     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
-
-     let commentContentObj = document.getElementById("commentContent");
-     commentContentObj.addEventListener("click",function(){
-         document.getElementById("commentUpdatedtime").value = date;
-     });
-    
-
-   function getTimeStamp(now) {
-   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
-   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
-   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
- 
- }
-		
-		
-//	若會員沒上傳頭像，則顯示預設圖片
- function imgDisplay(noUpload) 
-  { 
- 	$(noUpload).attr("src","image/mask_dog.png");
-  }		
-		
-//	顯示編輯留言的介面
-let editCommentDisplay = 0;
-  	function editComment(){
-  	
-  	if(editCommentDisplay == 0){
-  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
-  	}else{
-  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
-  	}    	
-  }
-  	
-  	//留言內容不可為空
-  	$("#sendMessage").click(function checkCommentContent(form){
-  		console.log($("#commentContent").val());
-  		
-  		if($("#commentContent").val() != ""){ 
-	   	return true;//form action請求送出				  
-		 }	 
-		else{ 
-		 window.alert("留言內容不可為空！");
-		 return false;
-		 }  		
-  	})  	
-    	
-   //=========================================================================== 	
-    	function reload(){
+  	}		
+	
+//=============================================================================================	
+	 	function loadArticle(){
     		$.ajax({
     			url:"../petforum/viewPost",
     			type:"POST",		
@@ -404,6 +351,56 @@ let editCommentDisplay = 0;
     			}
     		});
     	}
+		
+	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
+     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
+
+     let commentContentObj = document.getElementById("commentContent");
+     commentContentObj.addEventListener("click",function(){
+         document.getElementById("commentUpdatedtime").value = date;
+     });
+    
+
+   function getTimeStamp(now) {
+   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
+   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
+   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
+ 
+ }
+		
+		
+//	若會員沒上傳頭像，則顯示預設圖片
+ function imgDisplay(noUpload) 
+  { 
+ 	$(noUpload).attr("src","image/mask_dog.png");
+  }		
+		
+//	顯示編輯留言的介面
+let editCommentDisplay = 0;
+  	function editComment(){
+  	
+  	if(editCommentDisplay == 0){
+  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
+  	}else{
+  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
+  	}    	
+  }
+  	
+  	//留言內容不可為空
+  	$("#sendMessage").click(function checkCommentContent(form){
+  		console.log($("#commentContent").val());
+  		
+  		if($("#commentContent").val() != ""){ 
+  			return true;//傳送form
+		 }	 
+		else{ 
+		 window.alert("留言內容不可為空！");
+		 return false;
+		 }  		
+  	})  	
+    	
+   //=========================================================================== 	
+   
 
   		//讀取會員是否有將此文章加入最愛	
   		function favorites(item){

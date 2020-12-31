@@ -73,6 +73,8 @@
     <!--要include 的程式 最下面還有-->
 
 <body>
+	<%String getMom=request.getParameter("mom_Id");%>
+<%-- 	<input type="text" value='<%=getMom%>'> --%>
 
     <div class="container">
         <div class="row">
@@ -201,10 +203,11 @@
                         <div class="col-md-3">
                             <select class="custom-select" name="petType">
                                 <option>貓或狗</option>
-                                <option>小型犬(0~10kg)</option>
-                                <option>中型犬(10~24kg)</option>
-                                <option>大型犬(24kg以上)</option>
-                                <option>貓(0~10kg)</option>
+                       
+                                <option id="type1">小型犬(0~10kg)</option>
+                                <option id="type2">中型犬(10~24kg)</option>
+                                <option id="type3">大型犬(24kg以上)</option>
+                                <option id="type4">貓(0~10kg)</option>
                             </select>
                         </div>
                     </div>
@@ -218,7 +221,15 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <label for="type">服務價格</label>
+                            <label for="type">服務種類</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="custom-select" name="proPrice">
+                                <option>服務種類</option>
+                                <option id="pro1">到府遛狗</option>
+                                <option id="pro2">安親照顧</option>
+                                <option id="pro3">寄宿照顧</option>
+                            </select>
                         </div>
                     </div>
 
@@ -306,6 +317,29 @@
             countyName: "country", // 自訂城市 select 標籤的 name 值
             districtName: "district", // 自訂地區 select 標籤的 name 值
         });
+    </script>
+    
+    <script>
+    $().ready(function() {
+		$.ajax({
+			url : "../mom/showReservtion",
+			type : "post",
+			dataType : "json",
+			data : {
+				"mom_Id" : <%=getMom%>
+			},
+			success : function(data) {
+				$.each(data, function(n, m) {	
+					$("#pro1").append(m[7])
+					$("#pro2").append(m[8])
+					$("#pro3").append(m[9])
+
+				});
+			}
+
+		});
+	});
+    
     </script>
 
     <script>

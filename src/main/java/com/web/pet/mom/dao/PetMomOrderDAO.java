@@ -14,12 +14,10 @@ public class PetMomOrderDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	public void insertPetMomOrder(PetMomOrder petMomOrder , Integer mom_Id) {
+	public void insertPetMomOrder(PetMomOrder petMomOrder , Integer mom_Id) {//填預約
 		Session session = sessionFactory.getCurrentSession();
 		petMomOrder.setMom(session.get(Mom.class, mom_Id));
 		session.save(petMomOrder);
 	}
-
-	
 }
 

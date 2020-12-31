@@ -79,7 +79,7 @@ input[type="text"] {
 			<div class="col-md-2 bg"></div>
 			<article class="col-md-8">
 
-				<form action="../mom/insertMom" method="POST">
+				<form action="../mom/insertMom" method="POST" enctype="multipart/form-data">
 					<b>
 						<div style="text-align: center;">
 							<h4>
@@ -169,10 +169,10 @@ input[type="text"] {
 							style="height: 150px; border-radius: 5px; background-color: white; border: solid rgb(199, 197, 197) 1px;">
 							<div>
 								<div style="margin-top: 5px;">
-									<input type="file" id="showimg" multiple />
-									<div class='row'>
-										<div id='previewMultiple'></div>
-									</div>
+									<input type="file" id="showimg" name="myPic"/>
+<!-- 									<div class='row'> -->
+<!-- 										<div id='previewMultiple'></div> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 						</div>
@@ -304,34 +304,7 @@ input[type="text"] {
 		}
 	</script>
 
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$("#showimg").change(function() {
-								$("#previewMultiple").html(""); // 清除預覽
-								readURL(this);
-							});
 
-							function readURL(input) {
-								if (input.files && input.files.length >= 0) {
-									for (var i = 0; i < input.files.length; i++) {
-										var reader = new FileReader();
-										reader.onload = function(e) {
-
-											var img = '<div class=col-md-6><div class=thumbnail><img src="' + e.target.result + '"></div></div>';
-											$("#previewMultiple").append(img);
-										}
-										reader.readAsDataURL(input.files[i]);
-									}
-								} else {
-									var noPictures = $("<p>目前沒有圖片</p>");
-									$("#previewMultiple").append(noPictures);
-								}
-							}
-
-						});
-	</script>
 
 	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"

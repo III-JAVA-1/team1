@@ -132,25 +132,30 @@
 			<div class="col-md-7"></div>
 		</div>
 
+		
 		<br>
 		<div class="row">
+		
 			<div class="col-md-8">
-				<div class="row">
-					<div class="col-md-4">
-						<img src="Images/test.jpg" alt="">
-					</div>
-					<div class="col-md-1"></div>
-					<div class="col-md-7">
-						<h5 id="title"></h5>
-						<br> <small id="momName"></small> <br> 
-						<small id="type"></small> <br>
-						<small id="notices"></small>
+			
+				<div class="row" id="showMom">
+<!-- 					<div class="col-md-4"> -->
+<!-- 						<img src="Images/test.jpg" alt=""> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-1"></div> -->
+<!-- 					<div class="col-md-7"> -->
+<!-- 						<h5 id="title"></h5> -->
+<!-- 						<br> <small id="momName"></small> <br>  -->
+<!-- 						<small id="type"></small> <br> -->
+<!-- 						<small id="notices"></small> -->
 
-						<button class="btn btn-secondary" type="button" name="reg"
-							id="reg" onclick="goTo()" style="position: absolute; bottom: 10px; right: 10px;">預約</button>
-					</div>
+<!-- 						<button class="btn btn-secondary" type="button" name="reg" -->
+<!-- 							id="reg" onclick="goTo()" style="position: absolute; bottom: 10px; right: 10px;">預約</button> -->
+<!-- 					</div> -->
 				</div>
 			</div>
+			
+					
 
 			<div class="col-md-4">
 				    <div id="map"></div>
@@ -167,9 +172,13 @@
 		location.href = "registerMom.jsp"
 	<%}%>
 		}
-
+	
 		function goTo() {
-			location.href = "reservtion.jsp"
+			<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
+			window.alert("請先登入");
+		<%} else {%>
+		location.href = "reservtion.jsp"
+		<%}%>
 		}
 	</script>
 
@@ -236,14 +245,27 @@
 					"title" : "",
 				},
 				success : function(data) {
-					$.each(data, function(n, m) {
-						$("#title").append(m[1]);
-						$("#momName").append(m[2]);
-						$("#type").append(m[3]);
-						$("#type").append(m[4]);
-						$("#type").append(m[5]);
-						$("#notices").append(m[6]);
-					})
+					$.each(data, function(n, m) {	
+				$("#showMom").append(
+					"<div class='col-md-4' >"
+							+"<img src='Images/test.jpg'>"
+						+"</div>"
+						+"<div class='col-md-1'></div>"
+						+"<div class='col-md-7'>"
+							+"<h5 >"+m[1]+"</h5>"
+							+"<br> <small >"+m[2]+"</small> <br>" 
+							+"<small >"+m[3]+"</small> <br>"
+							+"<small >"+m[4]+"</small> <br>"
+							+"<small >"+m[5]+"</small> <br>"
+							+"<small >"+m[6]+"</small>" 
+
+							+"<button class='btn btn-secondary' type='button' name='reg'"
+								+"id='reg' onclick='goTo()' style='position: absolute; bottom: 10px; right: 20px;'>預約</button>"
+								+"<hr>"
+												
+					);
+
+					});
 				}
 
 			});

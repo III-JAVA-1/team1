@@ -21,7 +21,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.web.pet.member.model.Member;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

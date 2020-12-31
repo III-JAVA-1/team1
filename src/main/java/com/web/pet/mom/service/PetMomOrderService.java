@@ -15,7 +15,7 @@ public class PetMomOrderService {
 	@Autowired
 	PetMomOrderDAO petMomOrderDAO;
 
-//	public void insertPetMomOrder(PetMomOrder petMomOrder , Integer momId) {
-//		petMomOrderDAO.insertPetMomOrder(petMomOrder, momId);
-//	}
+	public void insertPetMomOrder(PetMomOrder petMomOrder , Integer mom_Id) {
+		petMomOrderDAO.insertPetMomOrder(petMomOrder, mom_Id);
+	}
 }

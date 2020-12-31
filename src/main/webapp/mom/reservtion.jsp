@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@page import="java.sql.Timestamp"%>
 <!doctype html>
 <html lang="zh-Hant-TW">
 
@@ -80,7 +80,7 @@
             </div>
             <article class="col-md-8">
 
-                <form action="/mom/reservtionMom" method="POST" style="margin: auto;" onsubmit="goTime()">
+                <form action="../mom/reservtionMom" method="POST" style="margin: auto;" onsubmit="goTime()">
                     <b>
                         <h4>
                             <b>聯絡</b>
@@ -94,6 +94,8 @@
                     </b>
 
                     <br>
+                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
+				<input type="hidden" name="status"  value="處理中">
 
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -301,8 +303,8 @@
         $("#twzipcode_My").twzipcode({
             zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
             css: ["city form-control", "town form-control"],
-            countyName: "city", // 自訂城市 select 標籤的 name 值
-            districtName: "town", // 自訂地區 select 標籤的 name 值
+            countyName: "country", // 自訂城市 select 標籤的 name 值
+            districtName: "district", // 自訂地區 select 標籤的 name 值
         });
     </script>
 

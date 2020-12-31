@@ -215,7 +215,7 @@ public class OrderAction {
                             "$content_url", ControlValue.SERVER_URL + "Member/Shoporder.jsp");
             MailService.initMail(ControlValue.SEND_EMAIL, ControlValue.EMAIL_TOKEN)
                     .setTitle("AccompanyMe訂單成立通知信")
-                    .addContext(content)
+                    .addContent(content)
                     .setSendName("毛孩商城")
                     .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com")
                     .sendMailOnThread(MailService.MailType.HTML);

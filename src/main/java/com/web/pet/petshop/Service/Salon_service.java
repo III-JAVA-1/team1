@@ -15,33 +15,25 @@ public class Salon_service {
 	Salon_reservDAO salon_reservDAO;
  
 	
-//	public int insertSalon_reserv(Salon_reservContoller salon_reservBean) {
-//		return salon_reservDAO.insertSalon_reserv(salon_reservBean);
-//		
-//	}
-	
-//	public int insertSalon() {
-//		return salon_reservDAO.insertSalon_reserv(salon_reservBean);
-//	}
-//	
+
 	
 	
-	public void insertSalin(Salon_reservBean salon_reservBean) {
-		salon_reservDAO.insertSalon_reserv(salon_reservBean);
+	public void insertSalin(Salon_reservBean salon_reservBean,Integer uid) {
+		salon_reservDAO.insertSalon_reserv(salon_reservBean,uid);
 		
 	}
 	
 	public int deleteSalon_reserv(String name,String phone) {
 		return salon_reservDAO.deleteSalon_reserv(name,phone);
 		
-//	}
+	}
 //	public void  updaSalon_reserv(Salon_reservBean salon_reservBean) {
 //		
 //		
-//		 salon_reservDAO.updaSalon_reserv(salon_reservBean);
+//	salon_reservDAO.updaSalon_reserv(salon_reservBean);
 //		
 //	}
+//	
 	
-	
-	}	
+
 }

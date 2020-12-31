@@ -34,8 +34,8 @@ public class ArticleFavoriteService {
 		return articleFavorite;		
 	}
 	
-	public List<Object[]> getArticleFavoriteBy2Uid(Integer u_Id, Integer posterUid){//按u_Id,posterUid找收藏
-		List<Object[]> list = dao.getArticleFavoriteBy2Uid(u_Id, posterUid);
+	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){//按u_Id,posterUid找收藏
+		List<Object[]> list = dao.getArticleFavoriteBy2Uid(sessionU_Id, posterUid);
 		return list;
 	}
 	

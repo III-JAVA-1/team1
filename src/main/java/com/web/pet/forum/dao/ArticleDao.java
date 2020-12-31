@@ -1,20 +1,17 @@
 package com.web.pet.forum.dao;
 
-
-
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.web.pet.forum.model.Article;
+import com.web.pet.forum.model.ListWithPaging;
 import com.web.pet.member.model.Member;
 
 
@@ -59,8 +56,11 @@ public class ArticleDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
-		List<Article> list = new ArrayList<Article>();
+	public ListWithPaging getArticleByForumId(String forumId, Integer page){//按forumId找文章
+		
+		ListWithPaging res = new ListWithPaging();
+		
+		List<Object> list = new ArrayList<Object>();
 		Session session = sessionFactory.getCurrentSession();
 		String sql = "";		
 		
@@ -70,20 +70,65 @@ public class ArticleDao {
 				  "from Article, Member\n" + 
 				  "where Article.u_Id = Member.u_Id\n" + 
 				  "order by Article.updatedTime desc";
-			list = session.createNativeQuery(sql).getResultList();
+			
+			list = session.createNativeQuery(sql)									
+									.setFirstResult(8*(page-1))
+									.setMaxResults(8)
+									.getResultList();			
+			res.setArticleList(list);//將文章集合加入ListWithPaging物件
+			
+			@SuppressWarnings("rawtypes")
+			Query query = session.createQuery(
+					"select count(*)\r\n" + 
+					"from Article");			
+			Long total1 = (Long)query.uniqueResult();
+			Double totalCounts = total1.doubleValue();
+			System.out.println("=========totalCounts"+totalCounts);
+			double total2 = totalCounts / 8.0;
+			System.out.println(total2);
+			Integer totalPages =  (int) Math.ceil(total2);
+			System.out.println("=======totalPages"+totalPages);	
+			
+			System.out.println("totalPages"+totalPages);			
+			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+			res.setTotalCounts(totalCounts.intValue());
+				
 		}
 		else {
-			
+			System.out.println("456");
 			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
 					"from Article, Member\r\n" + 
 					"where Article.forumId = :forumId\r\n" +
 					"and Article.u_Id = Member.u_Id\n" + 
-					"order by Article.updatedTime desc";	
-			list = session.createNativeQuery(sql).setParameter("forumId", forumId).getResultList();
+					"order by Article.updatedTime desc";			
+			
+			list = session.createNativeQuery(sql)
+					.setParameter("forumId", forumId)
+					.setFirstResult(8*(page-1))
+					.setMaxResults(8)
+					.getResultList();
+			res.setArticleList(list);//將文章集合加入ListWithPaging物件
+			System.out.println("list==null"+list.isEmpty());
+			
+			
+			Object total1 = session.createSQLQuery(
+					"select count(*) from Article where Article.forumId= :forumId")
+					.setParameter("forumId", forumId).uniqueResult();
+			
+			Integer totalCounts = (Integer)total1;
+			
+			//System.out.println("=========totalCounts"+totalCounts);
+			double total2 = totalCounts / 8.0;
+			//System.out.println(total2);
+			Integer totalPages =  (int) Math.ceil(total2);			
+			//System.out.println("=======totalPages"+totalPages);			
+			
+			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+			res.setTotalCounts(totalCounts);
 		}
 		
 		if(list.isEmpty()) {return null;}		
-		else {return list;}
+		else {return res;}
 		
 	}
 	
@@ -126,11 +171,23 @@ public class ArticleDao {
 		list = session.createNativeQuery(sql).setParameter("posterUid", posterUid).getResultList();
 
 		if(list.isEmpty()) {return null;}
-		else {return list;}
-				
+		else {return list;}				
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Article> getArticleByPosterUid(Integer posterUid){//按posterUid找文章
+		List<Article> list = new ArrayList<Article>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "";
+		hql = "FROM Article a where a.posterUid = :posterUid";
+		Query<Article> query = session.createQuery(hql).setParameter("posterUid", posterUid);
+		list = query.getResultList();
+		return list;
 	}
 	
 		
+	@SuppressWarnings("unchecked")
 	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
 		List<Article> list = new ArrayList<Article>();
 		Session session=sessionFactory.getCurrentSession();
@@ -145,7 +202,7 @@ public class ArticleDao {
 	}
 	
 	public int modifyArticle(Article article, Integer u_Id) { //修改文章需要merge
-		int count =0;
+		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		article.setMember(session.get(Member.class,u_Id));
 		session.merge(article);
@@ -153,8 +210,17 @@ public class ArticleDao {
 		return count;
 	}
 	
+	
+	public int increaseViewing(Article article) {//增加瀏覽率
+		int count = 0;
+		Session session = sessionFactory.getCurrentSession();		
+		session.merge(article);
+		count++;
+		return count;
+	}
+	
 	public int deleteArticle(Article article) { //刪除文章
-		int count =0;
+		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(article);
 		count++;

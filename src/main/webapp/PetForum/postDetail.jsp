@@ -48,6 +48,8 @@
             <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
             
+            
+            
            
             </div>
             <div class="hd_line2_banner"></div>
@@ -86,7 +88,7 @@
             	<div class="db_line1">
                 	<div class="db_line1_left">
                 	<!-- 	有登入才能看到此按鈕，假定訪客的u_Id=0 -->
-					<%if(request.getSession().getAttribute("user") != null) {%>
+					<%if(session.getAttribute("user") != null) {%>
 					 <div class="db_line1_message">				
 					    <span class="db_line1_message_span"><button type="button"  onclick="editComment();location.href='#editCommentInfo'" style='background-color:#666;color:white';">我要回覆</button></span>				
 					</div>
@@ -104,6 +106,8 @@
 		            <div class="db_line1_release">
 		            <!-- 獲取StringQuery的posterUid -->
 		            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+		            <!-- 獲取StringQuery的viewing -->
+		            <input type='hidden' value='<%=request.getParameter("viewing") %>' name='viewing'>
 		           <!-- 發文者才會看到按鈕 --> 
 		          <%  
 		          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
@@ -124,7 +128,7 @@
 <!--end of Message-->    
 
 <!-- 有登入才能看到此按鈕 -->
-<%if(request.getSession().getAttribute("user") != null) {%>
+<%if(session.getAttribute("user") != null) {%>
  <div class="db_line1_message">				
     <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
 </div>
@@ -191,9 +195,8 @@
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -337,7 +340,8 @@ let editCommentDisplay = 0;
     			type:"POST",		
     			dataType:"json",
     			data:{
-    				"posterUid":<%=request.getParameter("posterUid")%>,				
+    				"posterUid":<%=request.getParameter("posterUid")%>,	
+    				"u_Id":<%=request.getParameter("u_Id")%>//發文者u_Id    			
     			},
     			success:function(data){    				
     				$("#article").html("");			
@@ -347,17 +351,17 @@ let editCommentDisplay = 0;
     					console.log(n[2]);//header					
     					
     					//初始資料沒有會員暱稱
-    					var memberSname;
+    					let memberSname;
     					if(n[1] === undefined){
     						memberSname = "Author Name";
     					}
     					else{
     						memberSname = n[1];
-    					}				
+    					}
     					
     					
     					//想辦法讓文章顯示時換行
-    					var content = n[5].replace(/\n/g,'<br/>');
+    					let content = n[5].replace(/\n/g,'<br/>');
     					
     					//Member.u_Id,Member.sname,Article.header,Article.updatedTime,Article.viewing,Article.content,Article.posterUid,ArticleFavorite.favoriteId
     					//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示文章相關信息
@@ -404,7 +408,7 @@ let editCommentDisplay = 0;
   		//讀取會員是否有將此文章加入最愛	
   		function favorites(item){
   			
-  			<%if(request.getSession().getAttribute("user").toString() == null){%>  			
+  			<%if(session.getAttribute("user") == null){%>  			
   				alert("請登入！");
   				return;
   			<%}%>

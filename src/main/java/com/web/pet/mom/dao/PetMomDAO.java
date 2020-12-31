@@ -21,7 +21,7 @@ public class PetMomDAO {
 	
 	/**
 	 * 
-	 * 寫入註冊保母資料的方法
+	 * 寫入註冊保母資料
 	 * @param mom
 	 * @param u_Id
 	 */

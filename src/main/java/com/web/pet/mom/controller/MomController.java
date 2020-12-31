@@ -29,7 +29,6 @@ import com.web.pet.mom.service.MomService;
 import com.web.pet.mom.service.PetMomOrderService;
 import com.web.pet.util.BlobToByteArray;
 
-//@WebServlet("/MomRegister")
 @Controller
 @RequestMapping("/mom")
 public class MomController{

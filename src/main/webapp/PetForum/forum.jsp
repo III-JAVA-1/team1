@@ -265,7 +265,7 @@
 					console.log(val[0]);
 					
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
 					"<td><div>"+val[1]+"</div></td>"+
 					"<td>"+val[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
@@ -333,7 +333,7 @@
 					$.each(item,function(j,val){ 
 						console.log(val[0]);
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
 					"<td><div>"+val[1]+"</div></td>"+
 					"<td>"+val[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+

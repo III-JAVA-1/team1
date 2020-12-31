@@ -21,7 +21,8 @@ public class DoFavorite {
 	
 	
 	@RequestMapping("/searchFavoriteRecord")
-	public @ResponseBody Boolean searchFavoriteRecord(
+	public @ResponseBody
+	Boolean searchFavoriteRecord(
 			@RequestParam(value="posterUid",required = false) Integer posterUid,			
 			HttpServletRequest request) {
 		

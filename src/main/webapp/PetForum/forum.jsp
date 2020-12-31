@@ -257,47 +257,45 @@
 				$("#article").html("");				
 				
 				let totalPages = arr.totalPages;				
+					
+				$.each(arr.articleList,function(i,val){ 
 				
-				$.each(arr,function(i,item){
-					
-					$.each(item,function(j,val){ 
-					
-					console.log(val[0]);
-					
-					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
-					"<td><div>"+val[1]+"</div></td>"+
-					"<td>"+val[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
-					"<div>"+val[4]+"</div></td>"+
-					"</tr>");
-					
-					//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
-					
-					
-					// 頁碼元件
-				    let pageUI = document.getElementById("page");
-				 	// 要組頁碼的Html
-				    let previousPage = page === 1 ? 1 : page - 1;
-				    let nextPage = page === totalPages ? totalPages : page + 1;
-				    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-				    
-				    for (let i = 1; i <= totalPages; i++) {
-				        if (i === page) {
-				            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        } 
-				        else {
-				            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        }
-				    }
-				    
-				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-				    "<h4>共"+arr.totalCounts+"筆</h4>";
-				    
-				    pageUI.innerHTML = pageHtml;
-					
-					})
+				console.log("123"+val[1]);
+				
+				$("#article").append("<tr>"+
+				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
+				"<td><div>"+val[1]+"</div></td>"+
+				"<td>"+val[2]+"</td>"+
+				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<div>"+val[4]+"</div></td>"+
+				"</tr>");
+				
+				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
+				
+				
+				// 頁碼元件
+			    let pageUI = document.getElementById("page");
+			 	// 要組頁碼的Html
+			    let previousPage = page === 1 ? 1 : page - 1;
+			    let nextPage = page === totalPages ? totalPages : page + 1;
+			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+			    
+			    for (let i = 1; i <= totalPages; i++) {
+			        if (i === page) {
+			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        } 
+			        else {
+			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        }
+			    }
+			    
+			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+			    "<h4>共"+arr.totalCounts+"筆</h4>";
+			    
+			    pageUI.innerHTML = pageHtml;
+				
 				})
+				
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
@@ -308,8 +306,7 @@
 
 
 	//load 全部文章(分頁)
-	selectAll();
- 	
+	$().load(selectAll());
 //========================================================================	
 	
 		function getForum(item){//參數來自button的value(固定用item接)	

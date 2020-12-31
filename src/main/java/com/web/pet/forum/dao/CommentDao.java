@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,12 @@ import com.web.pet.forum.model.Comment;
 import com.web.pet.member.model.Member;
 
 
+
+
+/**
+ * @author ching
+ *
+ */
 @Repository
 public class CommentDao {
 	
@@ -72,7 +79,11 @@ public class CommentDao {
 		
 	}
 	
-	public int modifyComment(Comment comment) { //修改留言需要merge
+	/**
+	 * @author ching
+	 *	修改留言需要merge
+	 */
+	public int modifyComment(Comment comment) {
 		int count =0;
 		Session session = sessionFactory.getCurrentSession();
 		session.merge(comment);

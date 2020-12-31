@@ -18,11 +18,18 @@
     <!-- Custom styles for this template -->
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 	
+	<script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
+	
 	
 	<style>
 	
 	.acstyle{
-	border: 1px solid black;
+	border: 1px solid #ACD6FF;
+	}
+	.checktable{
+	border: 2px solid #000093;
+	width: 1500px;
 	}
 		
 	</style>
@@ -62,7 +69,7 @@
 
     <H1 style="text-align: center;">我已參加的活動</H1>	
        
-    <table align="center" class="checktable" style="border: 2px solid black;width: 1500px;">
+    <table align="center" class="checktable" style="">
         
         <tbody> 
         	<tr> 	
@@ -109,12 +116,15 @@ $().ready(function(){//ajax完整活動資訊
 						+"<td class='acstyle'>"						
 						+"<form method='post' action='../Wu/NoJoin'>"
 					    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
-						+"<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button>"
+						+"<button type='submit' id='BtnSend' class='btn btn-primary btn-sm' value='cancelbt'  onclick='return rusure()'>取消參加</button>"
 						+"</form>"						
 						+"</td>"						
-						+"</tr>"						
+						+"</tr>"
 								);
 
+// 				if(n[2]=="取消參加"){
+// 					$("#BtnSend").attr("disabled","disabled")
+// 				}
 					});
 				}
 			});
@@ -130,6 +140,8 @@ $().ready(function(){//ajax完整活動資訊
 			else
 // 			alert("已取消取消操作");
 				return false;
+				
+				
 		}
 		
 </script>

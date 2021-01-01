@@ -21,6 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.web.pet.member.model.Member;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,8 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name="MOM")
 public class Mom{
@@ -44,9 +44,14 @@ public class Mom{
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String title;
 	
+	
+
 	private Integer experience;
+
 	private Integer proPrice1;
+
 	private Integer proPrice2;
+
 	private Integer proPrice3;
 	
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
@@ -69,6 +74,7 @@ public class Mom{
 	
 //	@OneToMany(mappedBy = "mom",cascade = CascadeType.ALL)
 //	private Set<Raing> raings = new LinkedHashSet<>(0);
+	
 	
 
 	

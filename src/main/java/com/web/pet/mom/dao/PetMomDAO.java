@@ -54,11 +54,10 @@ public class PetMomDAO {
     			+ "where MOM.u_Id=Member.u_Id\r\n"
     			+ "and Member.country like '%"+country+"%'\r\n"
     			+ "and MOM.title like '%"+title+"%'";
-    	List<Mom> list =new ArrayList<Mom>();
+
     	Session session = sessionFactory.getCurrentSession();
-    	list = session.createNativeQuery(sql).getResultList();
-    	
-    	return list;
+
+		return (List<Mom>) session.createNativeQuery(sql).getResultList();
 	}
     /**
      * 

@@ -5,21 +5,24 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.pet.Active.model.ActBean;
@@ -36,6 +39,7 @@ public class MomController{
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 
 	private static final String CHARSET_CODE = "UTF-8";
+	
 	
 	@Autowired
 	MomService momService;
@@ -119,6 +123,7 @@ public class MomController{
 	@RequestMapping("/showReservtion")
 	@ResponseBody
 	public List<Mom> getReservtion(Integer mom_Id){
+	
 		List<Mom> list = new ArrayList<Mom>();
 		list = momService.getReservtion(mom_Id);
 		return list;
@@ -170,7 +175,7 @@ public class MomController{
 	 */
 	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
 	public void insertPetMomOrder(PetMomOrder petMomOrder ,HttpServletResponse response,HttpServletRequest request) throws IOException {
-		
+		System.out.println("start insertPetMomOrder"+petMomOrder.toString());
 		//亂碼處理
 		request.setCharacterEncoding(CHARSET_CODE);
 		response.setContentType(CONTENT_TYPE);

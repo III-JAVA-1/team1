@@ -54,8 +54,7 @@ public class ArticleCRUD{
 	ListWithPaging selectForum(
 			@RequestParam(value = "forumId",required = false) String forumId,
 			@RequestParam(value = "page", required = false) Integer page
-			){
-			
+			){			
 		if(forumId == null) {return null;}
 		ListWithPaging res = service.getArticleByForumId(forumId, page);		
 		return res;
@@ -133,7 +132,6 @@ public class ArticleCRUD{
 		}
 		else {			
 			list = service.getArticleBy2Uid(u_Id, posterUid);//沒找到收藏紀錄		
-			System.out.println("DDD"+Arrays.asList(list));
 		}		
 		return list;
 	}

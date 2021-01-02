@@ -33,7 +33,7 @@ import com.web.pet.util.BlobToByteArray;
  */
 @RequestMapping("/petforum")
 @Controller
-public class ArticleCRUD{
+public class ArticleCURD{
 	
 	@Autowired
 	ArticleService service;	
@@ -83,10 +83,24 @@ public class ArticleCRUD{
 	 */
 	@GetMapping("/selectHeader")
 	public @ResponseBody
-	List<Article> selectHeader(@RequestParam("inputText") String inputText) {
+	ListWithPaging selectHeader(
+			@RequestParam("inputText") String inputText,
+			@RequestParam(value = "page", required = false) Integer page) {
+	
 		if(inputText == null) {return null;}
-		List<Article> list = service.getArticleByHeaderKey(inputText);
-		
+		ListWithPaging list = service.getArticleByHeaderKey(inputText, page);		
+		return list;
+	}
+	
+	/**
+	 * @author ching
+	 *	找最新回覆文章
+	 */
+	@GetMapping("/lastestReply")
+	public @ResponseBody
+	ListWithPaging selectLastestReply(			
+			@RequestParam(value = "page", required = false) Integer page) {		
+		ListWithPaging list = service.getArticleByLatestComment(page);		
 		return list;
 	}
 	

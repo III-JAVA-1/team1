@@ -199,18 +199,89 @@ public class ArticleDao {
 	 *	按關鍵字找文章
 	 */	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByHeaderKey(String inputText){
-		List<Article> list = new ArrayList<Article>();
-		Session session=sessionFactory.getCurrentSession();
+	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){
 		inputText = "'%"+inputText+"%'";
-		String hql = "FROM Article a where a.header like" + inputText;
-		Query<Article> query = session.createQuery(hql);
-		list=query.getResultList();
+		ListWithPaging res = new ListWithPaging();		
+		List<Object> list = new ArrayList<Object>();
+		String sql = "";
+		Session session = sessionFactory.getCurrentSession();
+		sql="select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
+			"from Article, Member\r\n" + 
+			"where Article.header like"+inputText+"\r\n" + 
+			"and Article.u_Id = Member.u_Id\r\n" + 
+			"order by Article.updatedTime desc";
+		
+		//分頁
+		list = session.createNativeQuery(sql)				
+				.setFirstResult(8*(page-1))
+				.setMaxResults(8)
+				.getResultList();
+		res.setArticleList(list);//將文章集合加入ListWithPaging物件
+		System.out.println("list==null"+list.isEmpty());
+		
+		//計算總頁數
+		Object total1 = session.createSQLQuery(
+				"select count(*) FROM Article a where a.header like"+ inputText)
+				.uniqueResult();
+		
+		Integer totalCounts = (Integer)total1;			
+		double total2 = totalCounts / 8.0;			
+		Integer totalPages =  (int) Math.ceil(total2);	
+		
+		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+		res.setTotalCounts(totalCounts);
 		
 		if(list.isEmpty()) {return null;}		
-		else {return list;}
-		
+		else {return res;}
 	}
+	
+	
+	/**
+	 * @author ching
+	 *	按關鍵字找文章
+	 */	
+	@SuppressWarnings("unchecked")
+	public ListWithPaging getArticleByLatestComment(Integer page){		
+		ListWithPaging res = new ListWithPaging();		
+		List<Object> list = new ArrayList<Object>();
+		String sql = "";
+		Session session = sessionFactory.getCurrentSession();
+		sql="select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
+			"from Article\r\n" + 
+			"join Member\r\n" + 
+			"on Article.u_Id = Member.u_Id\r\n" + 
+			"join Comment\r\n" + 
+			"on Article.posterUid = Comment.posterUid\r\n" + 
+			"order by Comment.commentUpdatedTime desc";
+		
+		//分頁
+		list = session.createSQLQuery(sql)				
+				.setFirstResult(8*(page-1))
+				.setMaxResults(8)
+				.getResultList();
+		res.setArticleList(list);//將文章集合加入ListWithPaging物件
+		System.out.println("list==null"+list.isEmpty());
+		
+		//計算總頁數
+		Object total1 = session.createSQLQuery(
+				"select count(*)\r\n" + 
+				"from Article\r\n" + 
+				"join Member\r\n" + 
+				"on Article.u_Id = Member.u_Id\r\n" + 
+				"join Comment\r\n" + 
+				"on Article.posterUid = Comment.posterUid").uniqueResult();
+		
+		Integer totalCounts = (Integer)total1;			
+		double total2 = totalCounts / 8.0;			
+		Integer totalPages =  (int) Math.ceil(total2);	
+		
+		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
+		res.setTotalCounts(totalCounts);
+		
+		if(list.isEmpty()) {return null;}		
+		else {return res;}
+	}
+	
 	
 	/**
 	 * @author ching

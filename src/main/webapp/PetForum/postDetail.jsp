@@ -33,14 +33,7 @@
                 <div class="hd_line1_name">                
                     <h2 >汪喵討論區</h2>               
                 </div>
-                <div class="searchBox">
-                    <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
-                    <button class="searchButton" href="#">
-                        <i class="material-icons">
-                            <img src="image/icons8-search-24.png">
-                        </i>
-                    </button>
-                </div>   
+               
             </div>            
         </div>
         <div class="hd_line2">

@@ -71,9 +71,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
-  					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
+  					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >我的收藏</a>
-  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商品評價</a>
+  					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商品評價</a>
   					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
   					<a href="<c:url value='/Gusty/logout'/>" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >登出</a>
 				</div>
@@ -82,20 +82,27 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<div class="col-9">
   			
   			<div class="row justify-content-center">
-    			<div class="display-4">商品評價</div>
+    			<div class="display-4">店家預約服務訂單</div>
   			</div><br>
+  			
+  			<div class="row justify-content-start h5" id="mainsearch">
+    			依店家名稱搜尋:<input type="text" id="search" name="search">
+  			</div>
   			
   			<div class="row justify-content-start" >
 			<table class="table table-hover table-bordered ">
-  				<thead class="h4" style="background-color:#5CADAD;">
+  				<thead class="h4" style="background-color:#DCB5FF;">
     				<tr>
-      					<th scope="col">商品名稱</th>
-      					<th scope="col">評價等級</th>
-      					<th scope="col">評價內容</th>
-      					<th scope="col">評價日期</th>
+      					<th scope="col">預約店家</th>
+      					<th scope="col">預約日期</th>
+      					<th scope="col">預約姓名</th>
+      					<th scope="col">手機</th>
+      					<th scope="col">預約服務</th>
+      					<th scope="col">地址</th>
+      					<th scope="col">操作</th>
     				</tr>
   				</thead>
-  				<tbody id="ratetable" class="h5">
+  				<tbody id="petshoptable" class="h5">
   				</tbody>
   			</table>
 			</div>
@@ -126,6 +133,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 	<script>
 	
@@ -141,48 +149,84 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
-    var testid;
+    
+    $("#search").change(function(){
+    	$("#tip").html("")
+    	$("#petshoptable").html("");
+    	$.ajax({
+    		url:"../Gusty/memberpetshop",
+    		type:"post",
+    		dataType:"json",
+    		data : { 
+    			"user_id" : <%=session.getAttribute("user")%>,
+        		"search": $("#search").val(),
+            },
+    		success:function(data){
+    			$("#tip").html("");
+    			$.each(data,function(i,n){
+    				$("#petshoptable").append("<tr><th scope='row'>"+n[0]+"</th>"+
+    			   		"<td>"+n[1]+"</td>"+
+    			   		"<td>"+n[2]+"</td>"+
+    			   		"<td>"+n[3]+"</td>"+
+    			   		"<td>"+n[4]+"</td>"+
+    			   		"<td>"+n[5]+"</td>"+
+    					"<td><button type='button' class='btn btn-info' onclick='editorder("+n[6]+")'>修改訂單</button>"+
+    			   		"<button type='button' class='btn btn-danger' onclick='orderdelete("+n[6]+")'>刪除訂單</button></td></tr>");
+    			});
+    		},error:function(){
+    			$("#tip").html("查無相關資料")
+    		}
+    	});
+    })
+    
+    function editorder(oid){
+    	alert(oid)
+    }
+    
+    function orderdelete(oid){
+    	$.ajax({
+    		url:"../Gusty/memberpetshopdelete",
+    		type:"post",
+    		dataType:"json",
+    		data : { 
+    			"id":oid
+            },
+    		success:function(data){
+    			Swal.fire({
+    				title: '訂單刪除成功',
+    				icon: 'success',
+    				confirmButtonText: '確定'
+    			}).then((result) => {
+    				if (result.isConfirmed) {
+        				window.location.href='Petshop.jsp';
+        			}
+        		})
+    		}
+    	});
+    }
+    
     $.ajax({
-		url:"../Gusty/shoprate",
+		url:"../Gusty/memberpetshop",
 		type:"post",
-		//async : false,//要賦值給全域變數要改false
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
+    		"search":""
         },
 		success:function(data){
+			$("#tip").html("");
 			$.each(data,function(i,n){
-				testid=_uuid();
-				$("#ratetable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
-			   			"<td id='"+testid+"'></td>"+
-			   			"<td>"+n[2]+"</td>"+
-			   			"<td>"+n[3]+"</td></tr>");
-				for(let i=0;i<5;i=i+1){
-					if(i<n[1]){
-						$("#"+testid+"").append("★");
-					}else{
-						$("#"+testid+"").append("☆");
-					}
-				}
-				
+				$("#petshoptable").append("<tr><th scope='row'>"+n[0]+"</th>"+
+			   		"<td>"+n[1]+"</td>"+
+			   		"<td>"+n[2]+"</td>"+
+			   		"<td>"+n[3]+"</td>"+
+			   		"<td>"+n[4]+"</td>"+
+			   		"<td>"+n[5]+"</td>"+
+					"<td><button type='button' class='btn btn-info' onclick='editorder("+n[6]+")'>修改訂單</button>"+
+			   		"<button type='button' class='btn btn-danger' onclick='orderdelete("+n[6]+")'>刪除訂單</button></td></tr>");
 			});
-		},
-		error:function(){
-			$("#tip").html("沒有評價商品");
 		}
 	});
-    
-    function _uuid() {//產生UUID 因為如果一個商品留言2次ID會重複
-    	  var d = Date.now();
-    	  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-    	    d += performance.now(); //use high-precision timer if available
-    	  }
-    	  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    	    var r = (d + Math.random() * 16) % 16 | 0;
-    	    d = Math.floor(d / 16);
-    	      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    	  });
-    	}
     
 	</script>
 

@@ -53,9 +53,7 @@ public class ActController {
 			byte[] b = img.getBytes();
 			Blob blob = new SerialBlob(b);
 			actbean.setAct_img(blob);
-			
 			if(actservice.insertActService(actbean,uid)>0) {		
-				
 				out.print("<html><body>");
 	    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 	    		out.print("<script>");
@@ -70,8 +68,6 @@ public class ActController {
 	    				+ "})");
 	    		out.print("</script>");
 	    		out.print("</html></body>");
-	    		
-				
 			}						
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,8 +115,6 @@ public class ActController {
 		Integer uid = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		
 		actservice.insertJoinService(joinactbean,uid,act_no);
-		
-
 		out.print("<script>");
 		out.print("window.alert('成功參加活動');window.location.href='../Active/ActIndex.jsp';");
 		out.print("</script>");
@@ -142,7 +136,6 @@ public class ActController {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		actservice.nojoinservice(jid);
-	
 		out.print("<html><body>");
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");

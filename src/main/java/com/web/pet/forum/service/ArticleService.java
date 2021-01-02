@@ -60,8 +60,13 @@ public class ArticleService {
 		return res;
 	}
 	
-	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
-		List<Article> list = dao.getArticleByHeaderKey(inputText);
+	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){//按關鍵字找文章
+		ListWithPaging list = dao.getArticleByHeaderKey(inputText, page);
+		return list;
+	}
+	
+	public ListWithPaging getArticleByLatestComment(Integer page){	
+		ListWithPaging list = dao.getArticleByLatestComment(page);
 		return list;
 	}
 	

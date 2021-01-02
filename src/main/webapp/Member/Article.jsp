@@ -23,6 +23,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <title>AccompanyMe</title>
 <style>
 
+	a{
+    	text-decoration:none;
+	}
+	
 	#title{
 		background-color: aqua;
 	}
@@ -79,6 +83,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			
   			<div class="row justify-content-center">
     			<div class="display-4">論壇紀錄</div>
+  			</div><br>
+  			
+  			<div class="row justify-content-center">
+    			<div class="h4">編輯文章請前往<a href="../PetForum/forum.jsp">文章首頁</a></div>
   			</div><br>
   			
   			<div class="row justify-content-center h4">
@@ -208,7 +216,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$("#tip").html("沒有留言紀錄");
         		}
         	});
-    		
+    		return false;
     	}else{
     		$("#mainsearch").css("display","");
     		$("#comment").removeClass("active");
@@ -244,6 +252,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$("#tip").html("沒有發表文章");
         		}
         	});
+    		return false;
     	}
     }
     

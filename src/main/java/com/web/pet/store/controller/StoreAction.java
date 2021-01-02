@@ -1,6 +1,5 @@
 package com.web.pet.store.controller;
 
-
 import com.web.pet.store.dto.api.*;
 import com.web.pet.util.DbUtils;
 import com.web.pet.util.ExceptionUtils;
@@ -22,7 +21,9 @@ public class StoreAction {
     // 可以自己命名網址路徑位置
     @GetMapping("/Store")
     public String init(
-            Model model, @RequestParam(value = "memberId", required = false) String memberId) {
+            Model model,
+            @RequestParam(value = "memberId", required = false) String memberId,
+            @RequestParam(value = "sort", required = false) String sort) {
 
         // 資料庫連線處理
         try (DbUtils dbu = new DbUtils()) {
@@ -57,6 +58,15 @@ public class StoreAction {
             if (StringUtils.isNotEmpty(memberId)) {
                 model.addAttribute("memberId", memberId);
             }
+            if (StringUtils.isNotEmpty(sort)) {
+                try {
+                    model.addAttribute("sort", Integer.valueOf(sort));
+                } catch (Exception e) {
+                    model.addAttribute("sort", 0);
+                }
+            } else {
+                model.addAttribute("sort", 0);
+            }
         } catch (SQLException e) {
             log.error(ExceptionUtils.getErrorDetail(e));
         }
@@ -65,8 +75,7 @@ public class StoreAction {
     }
 
     @PostMapping("/store/getCard")
-    public @ResponseBody
-    GetCardResDTO test(@RequestBody GetCardReqDTO req) {
+    public @ResponseBody GetCardResDTO test(@RequestBody GetCardReqDTO req) {
 
         GetCardResDTO res = new GetCardResDTO();
         // 查詢條件的值存放陣列
@@ -81,7 +90,7 @@ public class StoreAction {
                         + "(SELECT count(*)\n"
                         + "FROM favorite\n"
                         + "WHERE product_id = a.product_id\n"
-                        + "AND customer_id = ?)\n"
+                        + "AND customer_id = ?), a.is_display\n"
                         + "FROM product a\n"
                         + "WHERE 1 = 1\n";
         args.add(req.getMemberId());
@@ -89,8 +98,9 @@ public class StoreAction {
         List<Object> countArgs = new ArrayList<>();
         String countSql = "SELECT count(*)\n" + "FROM product a\n" + "WHERE 1 = 1\n";
 
-        // FIXME:之後條件要補檢查會員身分
-        if (true) {
+        // 檢查是否為管理者
+        if (!StringUtils.isNotEmpty(req.getMemberId()) || !req.getMemberId().equals("1")) {
+            // 不是管理者身分要加限制條件
             sql += "AND a.is_display='T'\n";
             countSql += "AND a.is_display='T'\n";
         }
@@ -151,6 +161,7 @@ public class StoreAction {
                 data.setPrice(resultSet.getInt(3));
                 data.setImg(resultSet.getString(4));
                 data.setIsFavorite(resultSet.getInt(5) == 1);
+                data.setIsDisplay(resultSet.getString(6).equals("T"));
                 dataList.add(data);
             }
 
@@ -178,8 +189,7 @@ public class StoreAction {
     }
 
     @PostMapping("/shoppingCartQuantity")
-    public @ResponseBody
-    ShoppingCartQuantityResDTO shoppingCartQuantity(
+    public @ResponseBody ShoppingCartQuantityResDTO shoppingCartQuantity(
             @RequestBody ShoppingCartQuantityReqDTO req) {
         ShoppingCartQuantityResDTO res = new ShoppingCartQuantityResDTO();
         try (DbUtils dbu = new DbUtils()) {

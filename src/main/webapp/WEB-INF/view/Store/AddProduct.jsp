@@ -171,7 +171,11 @@
             success: function (res) {
                 if (res.success) {
                     alert('新增成功');
-                    history.back();
+                    if (document.referrer.indexOf("&sort=1") === -1) {
+                        window.location = document.referrer + "&sort=1";
+                    } else {
+                        window.location = document.referrer;
+                    }
                 } else {
                     alert('新增失敗');
                 }
@@ -235,12 +239,14 @@
                 method: 'POST',
                 type: 'POST', // For jQuery < 1.9
                 success: function (res) {
+                    let imgUrl = $.parseJSON(res).url;
+
                     const imgDiv = document.createElement("div");
                     imgDiv.classList.add("imgDiv");
 
                     const img = document.createElement("img");
                     img.classList.add("obj");
-                    img.src = $.parseJSON(res).url;
+                    img.src = imgUrl;
 
                     const imgClear = document.createElement("img");
                     imgClear.width = 25
@@ -252,7 +258,7 @@
                     imgDiv.appendChild(imgClear);
 
                     imgClear.addEventListener("click", (event => {
-                        const index = imgList.indexOf(res);
+                        const index = imgList.indexOf(imgUrl);
                         if (index > -1) {
                             imgList.splice(index, 1);
                         }
@@ -261,7 +267,7 @@
 
                     preview.appendChild(imgDiv); // 將圖片加到 preview 上
 
-                    imgList.push(res);
+                    imgList.push(imgUrl);
                     input.value = ""
                 },
                 error: function () {

@@ -31,7 +31,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -52,6 +52,7 @@
 		<div class="row justify-content-center">
 			<H1>新增活動</H1>
 		</div>
+		
 
 		<form name="reg" method="post" action="../Wu/insertActService" enctype="multipart/form-data">
 
@@ -76,7 +77,8 @@
 					<div class="col-xs-4">
 						<p>開始:</p>
 						<input type="date" class="form-control form-control-lg"
-							id="act_start" name="starttime"> <br>
+							id="act_start" name="starttime">
+							<br>
 						<p>結束:</p>
 						<input type="date" class="form-control form-control-lg"
 							id="act_end" name="endtime">
@@ -182,7 +184,7 @@
 						class="col-sm-3 col-form-label col-form-label-lg">活動簡介:</label>
 
 					<div class="col-xs-4">
-						<textarea style="resize: none; width: 500px; height: 130px;"
+						<textarea Wrap="hard" style="resize: none; width: 500px; height: 130px;"
 							id="act_content" name="act_content"></textarea>
 					</div>
 
@@ -205,7 +207,7 @@
 <script>
 
 
-function check(){
+function check(){//檢查填入資訊
 	if(reg.act_name.value == ""||reg.starttime.value == ""||reg.endtime.value == ""||reg.act_organize.value == ""
 			||reg.act_orgman.value == ""||reg.act_orgphone.value == ""||reg.act_content.value == ""||reg.act_where.value == "") 
     {
@@ -222,5 +224,5 @@ function check(){
 </script>
 
 </body>
-<%-- <jsp:include page="Footer.jsp"/> --%>
+<jsp:include page="Footer.jsp"/>
 </html>

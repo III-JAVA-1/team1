@@ -48,7 +48,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                         <%
                         	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
 							{
+
 								out.print("<a class='nav-link' href='../Member/Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
+
 							}else{
 								 out.print("<a class='nav-link' href='../Member/Member.jsp' id='sname'></a>");
 							}

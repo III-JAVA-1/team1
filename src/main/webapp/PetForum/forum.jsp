@@ -19,7 +19,7 @@
   
   </head>
   <body style="background-image: url(image/bg.jpg);">
-<%--   <jsp:include page="Header.jsp"/> --%>
+  <jsp:include page="Header.jsp"/>
   
 <!--Navbar-->
 <div class="row">

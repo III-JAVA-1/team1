@@ -23,7 +23,7 @@ public class OtherFunctionDao {
 	public List<OrderDTO> shoporderDao(String userid){//會員頁面秀出訂單
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
-		String hql="select order_id,date,cost,order_status,address,remarks\r\n"
+		String hql="select order_id,date,cost,order_status,address,remarks,pay_type\r\n"
 				+ "from [dbo].[order]\r\n"
 				+ "where customer_id=:userid\r\n"
 				+ "order by date desc";
@@ -102,6 +102,8 @@ public class OtherFunctionDao {
 		}
 	}
 	
+	/////////////////////////會員商城功能////////////////////////////////	
+	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> articlememberDao(Integer user_id,String search){//會員頁面文章記錄
 		Session session = sessionFactory.getCurrentSession();
@@ -141,43 +143,6 @@ public class OtherFunctionDao {
 			return list; 
 		}
 	}
-
-	@SuppressWarnings("unchecked") //會員頁面活動
-	public List<Object[]> memberactionDao(Integer user_id,String search){
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select act_name,act_content,starttime,endtime,act_where,act_no\r\n"
-				+ "from Active2\r\n"
-				+ "where u_Id=:id\r\n"
-				+ "and viableNumber=1\r\n"
-				+ "and act_name like '%"+search+"%'\r\n"
-				+ "order by starttime desc";
-		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
-		list = query.list();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list; 
-		}
-	}
-	
-	@SuppressWarnings("unchecked") //會員頁面參加
-	public List<Object[]> memberjoinDao(Integer user_id){
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select JoinAct.act_name,JoinAct.extra,join_actnow,JoinAct.pettype,JoinAct.petnum,JoinAct.act_no\r\n"
-				+ "from JoinAct,Active2\r\n"
-				+ "where JoinAct.u_Id=:id\r\n"
-				+ "and Active2.act_no=JoinAct.act_no\r\n"
-				+ "and Active2.viableNumber=1";
-		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
-		list = query.list();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list; 
-		}
-	}
 	
 	@SuppressWarnings("unchecked")//會員頁面文章收藏
 	public List<Object[]> memberlovearticleDao(Integer user_id){
@@ -207,4 +172,91 @@ public class OtherFunctionDao {
 		result=session.createSQLQuery(hql).setParameter("pid", posteruid).setParameter("uid", user_id).executeUpdate();
 		return result;
 	}
+	
+	/////////////////////////會員論壇功能////////////////////////////////	
+
+	@SuppressWarnings("unchecked") //會員頁面活動
+	public List<Object[]> memberactionDao(Integer user_id,String search){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select Active2.act_name,Active2.act_content,Active2.starttime,Active2.endtime,act_where,Active2.act_no , sum( case when JoinAct.act_no=Active2.act_no then 1 else 0 end) as '參加人數'\r\n"
+				+ "from Active2 , JoinAct\r\n"
+				+ "where Active2.u_Id=:id\r\n"
+				+ "and viableNumber=1\r\n"
+				+ "and Active2.act_name like '%"+search+"%'\r\n"
+				+ "group by Active2.act_name,Active2.act_content,Active2.starttime,Active2.endtime,act_where,Active2.act_no\r\n"
+				+ "order by starttime desc";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面參加
+	public List<Object[]> memberjoinDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select JoinAct.act_name,JoinAct.extra,join_actnow,JoinAct.pettype,JoinAct.petnum,JoinAct.act_no\r\n"
+				+ "from JoinAct,Active2\r\n"
+				+ "where JoinAct.u_Id=:id\r\n"
+				+ "and Active2.act_no=JoinAct.act_no\r\n"
+				+ "and Active2.viableNumber=1";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面活動的參加人
+	public List<Object[]> memberalljoinDao(Integer aid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select name,email,country,district,address,pettype,petnum,join_actnow,extra,act_name\r\n"
+				+ "from JoinAct\r\n"
+				+ "where act_no=:aid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("aid", aid);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	/////////////////////////會員活動功能////////////////////////////////	
+	
+	@SuppressWarnings("unchecked") //會員頁面店家預約
+	public List<Object[]> memberpetshopDao(Integer user_id,String search){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select storename,date,name,phone,item,address,id\r\n"
+				+ "from Salon_reserv\r\n"
+				+ "where fk_id=:user_id\r\n"
+				+ "and storename like '%"+search+"%'";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public Integer memberpetshopdeleteDao(Integer id){//會員店家刪除訂單
+		Integer result =0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql="delete \r\n"
+				+ "from Salon_reserv\r\n"
+				+ "where id=:id";
+		result = session.createSQLQuery(hql).setParameter("id", id).executeUpdate();
+		return result;
+	}
+	
+	/////////////////////////會員店家功能////////////////////////////////
 }

@@ -44,6 +44,8 @@ public class OtherFunctionService {
 		return otherFunctionDao.shoprateDao(user_id);
 	}
 	
+	/////////////////////////會員商城功能////////////////////////////////	
+	
 	public List<Object[]> memberarticleService(Integer user_id,String search){//會員頁面文章記錄
 	
 		return otherFunctionDao.articlememberDao(user_id,search);
@@ -53,6 +55,16 @@ public class OtherFunctionService {
 		
 		return otherFunctionDao.membermessageDao(user_id);
 	}
+	
+	public List<Object[]> memberlovearticleService(Integer user_id) {//會員頁面文章收藏
+		return otherFunctionDao.memberlovearticleDao(user_id);
+	}
+	
+	public int deletelovearticleService(Integer posteruid,Integer user_id) {//會員頁面收藏文章刪除
+		return otherFunctionDao.deletelovearticleDao(posteruid, user_id);
+	}
+	
+	/////////////////////////會員論壇功能////////////////////////////////
 	
 	public List<Object[]> memberactionService(Integer user_id,String search){//會員頁面活動紀錄
 		
@@ -64,12 +76,23 @@ public class OtherFunctionService {
 		return otherFunctionDao.memberjoinDao(user_id);
 	}
 	
-	public List<Object[]> memberlovearticleService(Integer user_id) {//會員頁面文章收藏
-		return otherFunctionDao.memberlovearticleDao(user_id);
+	public List<Object[]> memberalljoinService(Integer aid){//會員頁面活動參加人
+		
+		return otherFunctionDao.memberalljoinDao(aid);
 	}
 	
-	public int deletelovearticleService(Integer posteruid,Integer user_id) {//會員頁面收藏文章刪除
-		return otherFunctionDao.deletelovearticleDao(posteruid, user_id);
+	/////////////////////////會員活動功能////////////////////////////////
+	
+	public List<Object[]> memberpetshopService(Integer user_id,String search){//會員頁面店家預約
+		
+		return otherFunctionDao.memberpetshopDao(user_id,search);
 	}
+	
+	public Integer memberpetshopdeleteService(Integer id){//會員頁面店家預約刪除
+		
+		return otherFunctionDao.memberpetshopdeleteDao(id);
+	}
+	
+	/////////////////////////會員店家功能////////////////////////////////
 
 }

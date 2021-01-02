@@ -51,6 +51,8 @@ public class OtherFunctionCURD {
 		return otherFunctionService.shoprateService(user_id);
 	}
 	
+	/////////////////////////會員商城功能////////////////////////////////
+	
 	@RequestMapping("/memberarticle")//會員頁面文章記錄
 	@ResponseBody
 	public List<Object[]> memberarticleController(Integer user_id,String search) {
@@ -62,6 +64,19 @@ public class OtherFunctionCURD {
 	public List<Object[]> membermessageController(Integer user_id){
 		return otherFunctionService.membermessageService(user_id);
 	}
+	
+	@RequestMapping("lovearticle")//會員頁面文章收藏
+	@ResponseBody
+	public List<Object[]> memberlovearticleController(Integer user_id){
+		return otherFunctionService.memberlovearticleService(user_id);
+	}
+	
+	@RequestMapping("deletelovearticle")//會員頁面收藏文章刪除
+	@ResponseBody int deletelovearticleController(Integer posteruid,Integer user_id) {
+		return otherFunctionService.deletelovearticleService(posteruid, user_id);
+	}
+	
+	/////////////////////////會員論壇功能////////////////////////////////
 	
 	@RequestMapping("/memberaction")//會員頁面活動紀錄
 	@ResponseBody
@@ -75,15 +90,25 @@ public class OtherFunctionCURD {
 		return otherFunctionService.memberjoinService(user_id);
 	}
 	
-	@RequestMapping("lovearticle")//會員頁面文章收藏
+	@RequestMapping("/memberalljoin")//會員頁面活動參加人
 	@ResponseBody
-	public List<Object[]> memberlovearticleController(Integer user_id){
-		return otherFunctionService.memberlovearticleService(user_id);
+	public List<Object[]> memberalljoinController(Integer aid){
+		return otherFunctionService.memberalljoinService(aid);
 	}
 	
-	@RequestMapping("deletelovearticle")//會員頁面收藏文章刪除
-	@ResponseBody int deletelovearticleController(Integer posteruid,Integer user_id) {
-		return otherFunctionService.deletelovearticleService(posteruid, user_id);
+	/////////////////////////會員活動功能////////////////////////////////
+	
+	@RequestMapping("/memberpetshop")//會員頁面店家預約
+	@ResponseBody
+	public List<Object[]> memberpetshopController(Integer user_id,String search){
+		return otherFunctionService.memberpetshopService(user_id,search);
 	}
-
+	
+	@RequestMapping("/memberpetshopdelete")//會員頁面店家刪除
+	@ResponseBody
+	public Integer memberpetshopdeleteController(Integer id){
+		return otherFunctionService.memberpetshopdeleteService(id);
+	}
+	
+	/////////////////////////會員店家功能////////////////////////////////
 }

@@ -31,7 +31,23 @@ public class IndexDao {
 		}else {
 			return list; 
 		}
-		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> indexactiveDao(){//首頁活動
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select top 4 act_name,act_content,act_no\r\n"
+				+ "from Active2\r\n"
+				+ "where viableNumber=1\r\n"
+				+ "ORDER BY NEWID()";
+		Query<Object[]> query = session.createSQLQuery(hql);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
 	}
 
 }

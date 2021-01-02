@@ -36,12 +36,12 @@
 <body>
 
 <!-- NavBar頭-->
-    <nav class="navbar navbar-expand-sm bg-light">
+    <nav class="navbar navbar-expand-sm bg-light" >
 
         <!-- Links -->
         <ul class="navbar-nav" style="margin: auto;">
 
-			<li class="nav-item"><a class="nav-link" href="ActIndex.jsp">活動首頁</a></li>
+			<li class="nav-item active"><a class="nav-link" href="ActIndex.jsp">活動首頁</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 

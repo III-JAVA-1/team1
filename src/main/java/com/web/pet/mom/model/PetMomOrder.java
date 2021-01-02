@@ -1,8 +1,7 @@
 package com.web.pet.mom.model;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
-import java.util.Set;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,13 +17,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.web.pet.member.model.Member;
+
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,13 +32,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "PetMomOrder")
 public class PetMomOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer listId;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
-	private String listCreate;
+	
+	private Timestamp listCreate;
+	
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String status;
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
@@ -63,10 +64,14 @@ public class PetMomOrder {
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String connPhone;
 	
-	private Timestamp chooseStart;
-	private Timestamp chooseEnd;
+	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String chooseStart;
+	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	private String chooseEnd;
 	
-	private Integer service;	
+	private Integer service;
+	
+	private Integer total;
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "mom_Id",referencedColumnName = "mom_Id")

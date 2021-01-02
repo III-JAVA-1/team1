@@ -19,7 +19,7 @@
   
   </head>
   <body style="background-image: url(image/bg.jpg);">
-<%--   <jsp:include page="Header.jsp"/> --%>
+  <jsp:include page="Header.jsp"/>
   
 <!--Navbar-->
 <div class="row">
@@ -32,15 +32,15 @@
             <div class="hd_line1_name">                
                 <h2>汪喵討論區</h2>               
             </div>           
-        </div>
+        </div>        
         	 <div class="searchBox">
-                <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
-                <button class="searchButton" href="#">
+                <input class="searchInput" type="text" id="inputText" placeholder="搜尋文章標題....">
+                <button class="searchButton" type="submit" onclick=goAjax()>
                     <i class="material-icons">
                         <img src="image/icons8-search-24.png">
                     </i>
                 </button>
-            </div>               
+            </div>                    
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
@@ -115,23 +115,14 @@
 <!--Selection-->              
                		
                     <div class="db_line1_select">
-                        <select style="color: #666">
-                            <option>最新回覆</option>
+                        <select id="selector" style="color: #666" onchange=selectOptions()>
                             <option>最新發佈</option>
+                            <option>最新回覆</option>
                         </select>
                     </div>
                     
                     <div class="db_line1_pagination">
-                        <div class="pagination">
-                            <span><a href="#">&laquo;</a></span>
-                            <span><a href="#">1</a></span>
-                            <span><a href="#">2</a></span>
-                            <span><a href="#">3</a></span>
-                            <span><a href="#">4</a></span>
-                            <span><a href="#">5</a></span>
-                            <span><a href="#">&laquo;</a></span>
-                            <span><a href="#">20</a></span> 
-                        </div>
+                       
           <!-- 有登入才能看到此按鈕 -->
             <div class="db_line1_release">
 			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
@@ -161,16 +152,17 @@
 <!--end of Table-->
 <!--pagination-->
             <div class="db_line1_pagination">
-                <div class="pagination">
-                    <span><a href="#">&laquo;</a></span>
-                    <span><a href="#">1</a></span>
-                    <span><a href="#">2</a></span>
-                    <span><a href="#">3</a></span>
-                    <span><a href="#">4</a></span>
-                    <span><a href="#">5</a></span>
-                    <span><a href="#">&laquo;</a></span>
-                    <span><a href="#">20</a></span> 
+                <div id="page" class="pagination" style="margin-bottom:10px;">
+<!--                             <span><a href="#">&laquo;</a></span> -->
+<!--                             <span><a href="#">1</a></span> -->
+<!--                             <span><a href="#">2</a></span> -->
+<!--                             <span><a href="#">3</a></span> -->
+<!--                             <span><a href="#">4</a></span> -->
+<!--                             <span><a href="#">5</a></span> -->
+<!--                             <span><a href="#">&laquo;</a></span> -->
+<!--                             <span><a href="#">20</a></span>  -->
                 </div>
+               
             </div> 
             <!-- 有登入才能看到此按鈕 -->		   
             <div class="db_line1_release">
@@ -247,64 +239,127 @@
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     
- 	<script>
- 	
-	$().ready(function(){
-		//網頁ready文檔加載完就做
-		//網頁onload全部加載完成才做(音樂、圖片) 				
+ 	<script>	
+   
+    let page = 1;
+  
+	function selectAll(){		
 	
 		$.ajax({
 			url:"../petforum/selectAll",
 			type:"POST",		
 			dataType:"json",
 			data:{
-				"forumId":"全部"
+				"forumId":"全部",
+				"page":page
 			},
-			success:function(data){					
-				$("#article").html("");
-				$.each(data,function(i,n){				
+			success:function(arr){					
+				$("#article").html("");				
+				
+				let totalPages = arr.totalPages;				
 					
-					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
-					"<td><div>"+n[1]+"</div></td>"+
-					"<td>"+n[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
-					"<div>"+n[4]+"</div></td>"+
-					"</tr>");
-					
-					//n[0]:header,n[1]:reply,n[2]:viewing,n[3]:sname,n[4]=updatedTime,n[5]:posterUid,n[6]:u_Id
+				$.each(arr.articleList,function(i,val){ 
+				
+				console.log("123"+val[1]);
+				
+				$("#article").append("<tr>"+
+				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+				"<td><div>"+val[1]+"</div></td>"+
+				"<td>"+val[2]+"</td>"+
+				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<div>"+val[4]+"</div></td>"+
+				"</tr>");
+				
+				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
+				
+				
+				// 頁碼元件
+			    let pageUI = document.getElementById("page");
+			 	// 要組頁碼的Html
+			    let previousPage = page === 1 ? 1 : page - 1;
+			    let nextPage = page === totalPages ? totalPages : page + 1;
+			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+			    
+			    for (let i = 1; i <= totalPages; i++) {
+			        if (i === page) {
+			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        } 
+			        else {
+			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        }
+			    }
+			    
+			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+			    "<h4>共"+arr.totalCounts+"筆</h4>";
+			    
+			    pageUI.innerHTML = pageHtml;
+				
 				})
+				
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
 			}
 		})
-	});	
- 	
-//========================================================================
-		function getForum(item){//參數來自button的value(固定用item接)			
-		$("#article").html("");
-		//console.log(item);
+	}	
+	
+
+
+	//load 全部文章(分頁)
+	$().load(selectAll());
+//========================================================================	
+	
+		function getForum(item){//參數來自button的value(固定用item接)	
+		
+		console.log(item);
 		$.ajax({
 			url:"../petforum/selectForum",
 			type:"POST",		
 			dataType:"json",
 			data:{
 				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
+				"page":page
 			},
-			success:function(data){	
+			success:function(arr){	
 				$("#article").html("");
-			
-				$.each(data,function(i,n){
+				$("#page").html("");
+				
+				let totalPages = arr.totalPages;	
+				$.each(arr.articleList,function(i,val){
 					
-					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a></h5></td>"+
-					"<td><div>"+n[1]+"</div></td>"+
-					"<td>"+n[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+n[3]+"</a></div>"+
-					"<div>"+n[4]+"</div></td>"+
-					"</tr>");
-				})
+				console.log(val[0]);
+				$("#article").append("<tr>"+
+				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+				"<td><div>"+val[1]+"</div></td>"+
+				"<td>"+val[2]+"</td>"+
+				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<div>"+val[4]+"</div></td>"+
+				"</tr>");
+				
+				
+				
+				// 頁碼元件
+			    let pageUI = document.getElementById("page");
+			 	// 要組頁碼的Html
+			    let previousPage = page === 1 ? 1 : page - 1;
+			    let nextPage = page === totalPages ? totalPages : page + 1;
+			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+			    
+			    for (let i = 1; i <= totalPages; i++) {
+			        if (i === page) {
+			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        } 
+			        else {
+			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        }
+			    }
+			    
+			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+			    "<h4>共"+arr.totalCounts+"筆</h4>";
+			    
+			    pageUI.innerHTML = pageHtml;
+				
+				})				
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
@@ -314,6 +369,130 @@
 	}
 		
 		//==================================================================
+			
+		function goAjax(){
+			
+			let inputText = $("#inputText").val();
+			console.log($("#inputText").val());
+			
+			$.ajax({
+				url:"../petforum/selectHeader",
+				type:"GET",		
+				dataType:"json",
+				data:{
+					"inputText":inputText,
+					"page":page					
+				},
+				success:function(arr){	
+					$("#article").html("");
+					$("#page").html("");
+					
+					let totalPages = arr.totalPages;	
+					$.each(arr.articleList,function(i,val){
+						
+					console.log(val[0]);
+					$("#article").append("<tr>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+					"<td><div>"+val[1]+"</div></td>"+
+					"<td>"+val[2]+"</td>"+
+					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+					"<div>"+val[4]+"</div></td>"+
+					"</tr>");					
+					
+					// 頁碼元件
+				    let pageUI = document.getElementById("page");
+				 	// 要組頁碼的Html
+				    let previousPage = page === 1 ? 1 : page - 1;
+				    let nextPage = page === totalPages ? totalPages : page + 1;
+				    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+				    
+				    for (let i = 1; i <= totalPages; i++) {
+				        if (i === page) {
+				            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+				        } 
+				        else {
+				            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+				        }
+				    }
+				    
+				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+				    "<h4>共"+arr.totalCounts+"筆</h4>";
+				    
+				    pageUI.innerHTML = pageHtml;					
+					})
+					  alert("相關標題共"+arr.totalCounts+"筆");
+				},
+				error:function(){
+					$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");
+					alert("查無相關標題");
+				}
+			})
+			return false;
+		}
+	
+			
+		//==================================================================
+		
+			function selectOptions(){
+			
+				if($("#selector").val() === "最新發佈"){
+					selectAll();
+				}else{
+				
+				$.ajax({
+					url:"../petforum/lastestReply",
+					type:"GET",		
+					dataType:"json",
+					data:{						
+						"page":page					
+					},
+					success:function(arr){	
+						$("#article").html("");
+						$("#page").html("");
+						
+						let totalPages = arr.totalPages;	
+						$.each(arr.articleList,function(i,val){
+							
+						console.log(val[0]);
+						$("#article").append("<tr>"+
+						"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+						"<td><div>"+val[1]+"</div></td>"+
+						"<td>"+val[2]+"</td>"+
+						"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+						"<div>"+val[4]+"</div></td>"+
+						"</tr>");						
+						
+						// 頁碼元件
+					    let pageUI = document.getElementById("page");
+					 	// 要組頁碼的Html
+					    let previousPage = page === 1 ? 1 : page - 1;
+					    let nextPage = page === totalPages ? totalPages : page + 1;
+					    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+					    
+					    for (let i = 1; i <= totalPages; i++) {
+					        if (i === page) {
+					            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+					        } 
+					        else {
+					            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+					        }
+					    }
+					    
+					    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+					    "<h4>共"+arr.totalCounts+"筆</h4>";
+					    
+					    pageUI.innerHTML = pageHtml;					
+						})						 
+					},
+					error:function(){
+						$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");						
+					}
+				})
+				return false;
+			}
+		 }			
+		//==================================================================
+			
 		//沒登入不能發表	
 		function loginStatus(){
     		<% if(session.getAttribute("user") == null){%>
@@ -321,6 +500,14 @@
     		return false;
     		<%}else{%>return true;<%}%>
     	}
+		
+		 function setPage(nextPage) {
+		        page = nextPage;
+		        let tableDiv = document.getElementById("table");
+		        tableDiv.scrollIntoView();
+		        selectAll();
+		    } 
+		 
  	</script>
   </body>
 </html>

@@ -121,5 +121,7 @@ public class ActDao {
 		return session.get(ActBean.class,act_no);
 	}
 
+
+
 	
 }

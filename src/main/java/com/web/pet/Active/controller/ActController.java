@@ -53,11 +53,21 @@ public class ActController {
 			byte[] b = img.getBytes();
 			Blob blob = new SerialBlob(b);
 			actbean.setAct_img(blob);
-			
-			if(actservice.insertActService(actbean,uid)>0) {
-				out.print("<script>");
-				out.print("window.alert('活動新增成功'); window.location.href='../Active/ActIndex.jsp';");
-				out.print("</script>");
+			if(actservice.insertActService(actbean,uid)>0) {		
+				out.print("<html><body>");
+	    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+	    		out.print("<script>");
+	    		out.print("Swal.fire({\r\n"
+	    				+ "title: '活動新增成功',\r\n"
+	    				+ "icon: 'success',\r\n"
+	    				+ "confirmButtonText: '確定'\r\n"
+	    				+ "}).then((result) => {\r\n"
+	    				+ "if (result.isConfirmed) {\r\n"
+	    				+ "window.location.href='../Active/ActIndex.jsp';\r\n"
+	    				+ "}\r\n"
+	    				+ "})");
+	    		out.print("</script>");
+	    		out.print("</html></body>");
 			}						
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,10 +136,19 @@ public class ActController {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		actservice.nojoinservice(jid);
-		
+		out.print("<html><body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
-		out.print("window.alert('已取消');window.location.href='../Active/ActCheck.jsp';");
+		out.print("Swal.fire({\r\n"
+				+ "title: '已取消參加',\r\n"
+				+ "icon: 'success',\r\n"
+				+ "showConfirmButton: false,\r\n"
+				+ "timer: 2000\r\n"
+				+ "}).then((result) => {\r\n"				
+				+ "window.location.href='../Active/ActCheck.jsp';\r\n"
+				+ "})");
 		out.print("</script>");
+		out.print("</html></body>");
 		out.close();
 
 	}

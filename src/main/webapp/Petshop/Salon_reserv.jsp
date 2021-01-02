@@ -58,7 +58,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   <h3></h3>  
 
     </div>
-    <form class="formgroup"  method="post" action="../Henry/insert"  name="res">
+    <form class="formgroup"  method="post" action="../Henry/insert"  onsubmit="return gogo()" name="res">
     <div><%=request.getParameter("storename")%></div>
     <input type="hidden" name="u_Id" id="u_Id" value="<%=session.getAttribute("user")%>">
       <input type="hidden" name="storename" value="<%=request.getParameter("storename")%>">
@@ -100,10 +100,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
          </div>
          <div>
             <label for="">預約時間</label>
-            <input type="date" id="date" name="datee">
+            <input type="datetime-local" id="date" name="datee">
          </div>
-        
-    
+         
+        <input type="hidden" id="thistime"  name="thistimee">
+    	
             <div class="text">
                     <p>備註</p>
                     <textarea name="other" id="text" cols="60" rows="10" style="margin-top: 2px;" ></textarea>
@@ -129,12 +130,17 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script>
 	
 	function check(){
-		
-	    
+		var today=new Date();
+		var currentDateTime =
+		today.getFullYear()+'-'+
+		(today.getMonth()+1)+'-'+
+		today.getDate()+'T'+
+		today.getHours()+':'+today.getMinutes()+':00'
+		'';
+		$("#thistime").val(currentDateTime);
 		 res.submit();
+		 
 	}
-	
-	
 	
 	$().ready(function(){
 		$.ajax({

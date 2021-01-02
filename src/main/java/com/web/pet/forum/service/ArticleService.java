@@ -3,6 +3,7 @@ package com.web.pet.forum.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.pet.forum.dao.ArticleDao;
 import com.web.pet.forum.model.Article;
+import com.web.pet.forum.model.ListWithPaging;
 
 @EnableTransactionManagement
 @Transactional
@@ -29,10 +31,13 @@ public class ArticleService {
 		return list;
 	}	
 	
-	
-	
 	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){//按favoriteId找文章
 		List<Object[]> list = dao.getArticleByFavoriteId(favoriteId);		
+		return list;
+	}	
+	
+	public List<Article> getArticleByPosterUid(Integer posterUid){//按posterUid找文章
+		List<Article> list = dao.getArticleByPosterUid(posterUid);
 		return list;
 	}
 	
@@ -50,18 +55,31 @@ public class ArticleService {
 		return dao.modifyArticle(article, u_Id);
 	}
 	
-	public List<Article> getArticleByForumId(String forumId){//按forumId找文章
-		List<Article> list = dao.getArticleByForumId(forumId);
+	public ListWithPaging getArticleByForumId(String forumId, Integer page){//按forumId找文章
+		ListWithPaging res = dao.getArticleByForumId(forumId, page);
+		return res;
+	}
+	
+	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){//按關鍵字找文章
+		ListWithPaging list = dao.getArticleByHeaderKey(inputText, page);
 		return list;
 	}
 	
-	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
-		List<Article> list = dao.getArticleByHeaderKey(inputText);
+	public ListWithPaging getArticleByLatestComment(Integer page){	
+		ListWithPaging list = dao.getArticleByLatestComment(page);
 		return list;
+	}
+	
+	public int updateArticle(Article article) {	
+		return dao.updateArticle(article);
 	}
 	
 	public int deleteArticle(Article article) { //刪除文章
 		return dao.deleteArticle(article); 
+	}
+	
+	public int setCommentCounts(Article article) {
+		return dao.setCommentCounts(article);
 	}
 	
 }

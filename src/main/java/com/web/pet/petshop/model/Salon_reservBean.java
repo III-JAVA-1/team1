@@ -49,6 +49,8 @@ public class Salon_reservBean {
 	private String item;
 	@Column(columnDefinition = "smalldatetime", nullable = true)
 	private Timestamp date;
+	@Column(columnDefinition = "smalldatetime", nullable = true)
+	private Timestamp thistime;
 	@Column(columnDefinition = "nvarchar(300)", nullable = true)
 	private String other;
 	@Column(columnDefinition = "smalldatetime", nullable = true)
@@ -81,6 +83,8 @@ public class Salon_reservBean {
 		builder.append(item);
 		builder.append(", date=");
 		builder.append(date);
+		builder.append(", thistime=");
+		builder.append(thistime);
 		builder.append(", other=");
 		builder.append(other);
 		builder.append(", thistime=");
@@ -88,5 +92,6 @@ public class Salon_reservBean {
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 }

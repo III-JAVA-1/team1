@@ -21,25 +21,26 @@ public class DoFavorite {
 	
 	
 	@RequestMapping("/searchFavoriteRecord")
-	public @ResponseBody Boolean searchFavoriteRecord(
+	public @ResponseBody
+	Boolean searchFavoriteRecord(
 			@RequestParam(value="posterUid",required = false) Integer posterUid,			
 			HttpServletRequest request) {
 		
 		
 		//需要的是閱讀者的u_Id，非發文者的u_Id		
-		Integer u_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+		Integer sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		
 		
-			List<Object[]> list = service.getArticleFavoriteBy2Uid(u_Id, posterUid);
+			List<Object[]> list = service.getArticleFavoriteBy2Uid(sessionU_Id, posterUid);
 			Boolean isFavorite = false;
 			
 			if(list == null) {//如果favoriteId為空
-				service.saveArticleFavorite(posterUid, u_Id);
+				service.saveArticleFavorite(posterUid, sessionU_Id);
 				isFavorite = true;
 				return isFavorite;
 			}
 			else {//如果favoriteId不為空				
-				service.removeArticleFavorite(posterUid, u_Id);
+				service.removeArticleFavorite(posterUid, sessionU_Id);
 				isFavorite = false;
 				return isFavorite;
 			}

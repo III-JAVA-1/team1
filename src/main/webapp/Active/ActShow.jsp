@@ -48,7 +48,10 @@
     padding-right: 1rem;
     height: 22px;
   }	
-		
+  .passtext{
+  font-size:20px;
+  }
+	
 		
 		
 		
@@ -58,7 +61,7 @@
 
 </head>
 <jsp:include page="Header.jsp"/>
-<body>
+<body style="background-color:#F0F0F0;">
 
     <!-- NavBar頭-->
     <nav class="navbar navbar-expand-sm bg-light">
@@ -82,12 +85,13 @@
 
     <!--Nav尾-->
     
-<div>
+<div style="width: 1100px;background-color:#FFFFFF;margin: auto;">
    		<div id="fb-root"></div>
      		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v9.0" nonce="bZUjiJpf"></script>
 			<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 
 			<%String getact=request.getParameter("get");%>
+			<br>
 		<div style="text-align:center;">
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
    			<img id="img" style="width=800px;" src="image/tantanEX.jpg" >
@@ -146,6 +150,7 @@
    		<br>
    		
         <input type="hidden" name="starttime" id="starttime"/>    
+        <input type="hidden" name="endtime" id="endtime"/>    
         <input type="hidden" name="now" id="now" value="<%= new Date(new java.util.Date().getTime())%>" />    
    		
    		<div id="baomin" style="text-align: center;">
@@ -155,6 +160,7 @@
         </form>
    		</div>	
 		<div style="text-align: center;">
+   		<br>
    		<div id="google">
 <!--    		<a href="http://www.google.com/calendar/event?action=TEMPLATE&text=你聽得懂貓星人說什麼嗎?   -->
 <!--    		&dates=20200810T183000/20200810T235900 -->
@@ -162,6 +168,11 @@
 <!--    		&location=新北市林口區信義路99號  -->
 <!--    		&trp=false">加入日曆<a/> -->
    		</div>
+   		<br>
+   		<div id="ispass">
+<!--    		<p class ='passtext'>(活動已結束)</p> -->
+   		</div>
+   		<br>
    		
    		
    		<div class="fb-like" data-href="http://localhost:8080/PetProject_Final/Active/ActShow.jsp?get=1" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>  		
@@ -205,6 +216,7 @@
     					$("#act_type").html(n.act_type);
     					$("#act_where").html(n.act_where);
     					$("#starttime").val(n.starttime.substr(0,10));
+    					$("#endtime").val(n.endtime.substr(0,10));
     				
     				$("#google").append(
     						"<a href='http://www.google.com/calendar/event?action=TEMPLATE"
@@ -212,7 +224,7 @@
     							+"&dates="+n.starttime.substr(0,10).replace(/\-/g, "")+"T000000/"+n.endtime.substr(0,10).replace(/\-/g, "")+"T000000"
     							+"&details="+n.act_content
     							+"&location="+n.act_where 
-    							+"&trp=false' target='_blank'>加入日曆<a/>"
+    							+"&trp=false' target='_blank'><input type='button' class='btn btn-secondary btn-sm' value='加入日曆'/><a/>"
     							
     				
     				)
@@ -220,10 +232,14 @@
     								$("#baomin").append(
     										"<form name='gojoin'  action='JoinPage.jsp' method='post' onsubmit='return gogo()'>"
     								        +"<input type='hidden' name='name' value='"+n.act_no+"' size='30' />"    
-    								        +"<input type='submit' name='send' id='joinbut'  value='點我報名' />"    			    							
+    								        +"<input type='submit' class='btn btn-primary btn-sm' name='send' id='joinbut'  value='點我報名' />"    			    							
     			    				
     			    				)
     					        	
+    							}
+    							if(Date.parse(endtime.value) < Date.parse(now.value)){
+    								$("#act_name").html(n.act_name+"(活動已結束)");
+    							  
     							}
 				
     						});

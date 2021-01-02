@@ -24,7 +24,6 @@ public class ArticleFavoriteDao {
 	@Autowired
 	private SessionFactory sessionFactory;	
 	
-	
 	public int saveArticleFavorite(Integer posterUid, Integer u_Id) {
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
@@ -58,7 +57,7 @@ public class ArticleFavoriteDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getArticleFavoriteBy2Uid(Integer u_Id, Integer posterUid){//按u_Id,posterUid找收藏
+	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){//按u_Id,posterUid找收藏
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session=sessionFactory.getCurrentSession();
 		String sql = "select af.favoriteId\r\n" + 
@@ -68,21 +67,21 @@ public class ArticleFavoriteDao {
 					 "join Member m\r\n" + 
 					 "on af.u_Id = m.u_Id\r\n" + 
 					 "where m.u_Id = :u_Id and a.posterUid = :posterUid";
-		list = session.createNativeQuery(sql).setParameter("u_Id", u_Id).setParameter("posterUid", posterUid).getResultList();
+		list = session.createNativeQuery(sql).setParameter("u_Id", sessionU_Id).setParameter("posterUid", posterUid).getResultList();
 		
 		if(list.isEmpty()) {return null;}		
 		else {return list;}
 		
 	}
 	
-	public int removeArticleFavorite(Integer posterUid, Integer u_Id) { //移除收藏
+	public int removeArticleFavorite(Integer posterUid, Integer sessionU_Id) { //移除收藏
 		int count =0;		
 		@SuppressWarnings("unused")
 		List<ArticleFavorite> list = new ArrayList<ArticleFavorite>();		
 		Session session = sessionFactory.getCurrentSession();
 		String sql = "delete from ArticleFavorite where posterUid = :posterUid and u_Id = :u_Id";
 		
-		session.createNativeQuery(sql).setParameter("posterUid", posterUid).setParameter("u_Id", u_Id).executeUpdate();
+		session.createNativeQuery(sql).setParameter("posterUid", posterUid).setParameter("u_Id", sessionU_Id).executeUpdate();
 		count++;
 		return count;
 	}

@@ -33,20 +33,15 @@
                 <div class="hd_line1_name">                
                     <h2 >汪喵討論區</h2>               
                 </div>
-                <div class="searchBox">
-                    <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
-                    <button class="searchButton" href="#">
-                        <i class="material-icons">
-                            <img src="image/icons8-search-24.png">
-                        </i>
-                    </button>
-                </div>   
+               
             </div>            
         </div>
         <div class="hd_line2">
            <div class="hd_line2_a">
             <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
+            
+            
             
            
             </div>
@@ -86,7 +81,7 @@
             	<div class="db_line1">
                 	<div class="db_line1_left">
                 	<!-- 	有登入才能看到此按鈕，假定訪客的u_Id=0 -->
-					<%if(request.getSession().getAttribute("user") != null) {%>
+					<%if(session.getAttribute("user") != null) {%>
 					 <div class="db_line1_message">				
 					    <span class="db_line1_message_span"><button type="button"  onclick="editComment();location.href='#editCommentInfo'" style='background-color:#666;color:white';">我要回覆</button></span>				
 					</div>
@@ -104,6 +99,8 @@
 		            <div class="db_line1_release">
 		            <!-- 獲取StringQuery的posterUid -->
 		            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+		            <!-- 獲取StringQuery的viewing -->
+		            <input type='hidden' value='<%=request.getParameter("viewing") %>' name='viewing'>
 		           <!-- 發文者才會看到按鈕 --> 
 		          <%  
 		          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
@@ -124,7 +121,7 @@
 <!--end of Message-->    
 
 <!-- 有登入才能看到此按鈕 -->
-<%if(request.getSession().getAttribute("user") != null) {%>
+<%if(session.getAttribute("user") != null) {%>
  <div class="db_line1_message">				
     <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
 </div>
@@ -191,9 +188,8 @@
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -210,14 +206,12 @@
 	<script>
 		
 		//網頁ready文檔加載完就做
-		//網頁onload全部加載完成才做(音樂、圖片) 				
-		reload();//reload文章信息
-	
-	
-//=============================================================================================
+		//網頁onload全部加載完成才做(音樂、圖片) 
+		loadArticle();//加載文章信息
+		loadComment();//加載留言信息
 		
-		$().ready(function(){	
-		$.ajax({
+		function loadComment(){	
+  		$.ajax({
 			url:"../petforum/viewComment",
 			type:"POST",		
 			dataType:"json",
@@ -226,11 +220,9 @@
 			},
 			success:function(data){	
 				$("#comment").html("");
-				$.each(data,function(i,n){					
-				
-					reload();//reload文章信息
+				$.each(data,function(i,n){						
 					console.log(n[0]);//u_Id				
-					console.log(n[1]);//snamef
+					console.log(n[1]);//sname
 				
 					//初始資料沒有會員暱稱
 					var memberSname;
@@ -279,65 +271,17 @@
 				$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
 			}
 		})
-	});
-
-		
-		
-	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
-     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
-
-     let commentContentObj = document.getElementById("commentContent");
-     commentContentObj.addEventListener("click",function(){
-         document.getElementById("commentUpdatedtime").value = date;
-     });
-    
-
-   function getTimeStamp(now) {
-   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
-   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
-   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
- 
- }
-		
-		
-//	若會員沒上傳頭像，則顯示預設圖片
- function imgDisplay(noUpload) 
-  { 
- 	$(noUpload).attr("src","image/mask_dog.png");
-  }		
-		
-//	顯示編輯留言的介面
-let editCommentDisplay = 0;
-  	function editComment(){
-  	
-  	if(editCommentDisplay == 0){
-  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
-  	}else{
-  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
-  	}    	
-  }
-  	
-  	//留言內容不可為空
-  	$("#sendMessage").click(function checkCommentContent(form){
-  		console.log($("#commentContent").val());
-  		
-  		if($("#commentContent").val() != ""){ 
-	   	return true;//form action請求送出				  
-		 }	 
-		else{ 
-		 window.alert("留言內容不可為空！");
-		 return false;
-		 }  		
-  	})  	
-    	
-   //=========================================================================== 	
-    	function reload(){
+  	}		
+	
+//=============================================================================================	
+	 	function loadArticle(){
     		$.ajax({
     			url:"../petforum/viewPost",
     			type:"POST",		
     			dataType:"json",
     			data:{
-    				"posterUid":<%=request.getParameter("posterUid")%>,				
+    				"posterUid":<%=request.getParameter("posterUid")%>,	
+    				"u_Id":<%=request.getParameter("u_Id")%>//發文者u_Id    			
     			},
     			success:function(data){    				
     				$("#article").html("");			
@@ -347,17 +291,17 @@ let editCommentDisplay = 0;
     					console.log(n[2]);//header					
     					
     					//初始資料沒有會員暱稱
-    					var memberSname;
+    					let memberSname;
     					if(n[1] === undefined){
     						memberSname = "Author Name";
     					}
     					else{
     						memberSname = n[1];
-    					}				
+    					}
     					
     					
     					//想辦法讓文章顯示時換行
-    					var content = n[5].replace(/\n/g,'<br/>');
+    					let content = n[5].replace(/\n/g,'<br/>');
     					
     					//Member.u_Id,Member.sname,Article.header,Article.updatedTime,Article.viewing,Article.content,Article.posterUid,ArticleFavorite.favoriteId
     					//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示文章相關信息
@@ -400,11 +344,61 @@ let editCommentDisplay = 0;
     			}
     		});
     	}
+		
+	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
+     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
+
+     let commentContentObj = document.getElementById("commentContent");
+     commentContentObj.addEventListener("click",function(){
+         document.getElementById("commentUpdatedtime").value = date;
+     });
+    
+
+   function getTimeStamp(now) {
+   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
+   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
+   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
+ 
+ }
+		
+		
+//	若會員沒上傳頭像，則顯示預設圖片
+ function imgDisplay(noUpload) 
+  { 
+ 	$(noUpload).attr("src","image/mask_dog.png");
+  }		
+		
+//	顯示編輯留言的介面
+let editCommentDisplay = 0;
+  	function editComment(){
+  	
+  	if(editCommentDisplay == 0){
+  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
+  	}else{
+  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
+  	}    	
+  }
+  	
+  	//留言內容不可為空
+  	$("#sendMessage").click(function checkCommentContent(form){
+  		console.log($("#commentContent").val());
+  		
+  		if($("#commentContent").val() != ""){ 
+  			return true;//傳送form
+		 }	 
+		else{ 
+		 window.alert("留言內容不可為空！");
+		 return false;
+		 }  		
+  	})  	
+    	
+   //=========================================================================== 	
+   
 
   		//讀取會員是否有將此文章加入最愛	
   		function favorites(item){
   			
-  			<%if(request.getSession().getAttribute("user").toString() == null){%>  			
+  			<%if(session.getAttribute("user") == null){%>  			
   				alert("請登入！");
   				return;
   			<%}%>

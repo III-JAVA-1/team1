@@ -178,9 +178,10 @@
 				  confirmButtonText: '我要登入',
 				  cancelButtonText: '我不要登入'
 				}).then((result) => {
-				  if (result.isConfirmed) {    
+				if (result.isConfirmed) {
 				    	window.location.href = "../Member/Login.jsp"
 				  }
+
 				});
 	<%} else {%>
 				location.href = "registerMom.jsp";
@@ -190,22 +191,22 @@
 		function goTo() {
 			<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
 			Swal.fire({
-				  title: '請先登入',
-				  text: "你還尚未登入",
-				  icon: 'warning',
-				  confirmButtonColor: '#3085d6',
-				  cancelButtonColor: '#d33',
-				  showCancelButton: true,
-				  confirmButtonText: '我要登入',
-				  cancelButtonText: '我不要登入'
-				}).then((result) => {
-				  if (result.isConfirmed) {    
-				    	window.location.href = "../Member/Login.jsp"
-				  }
-				});
-		<%} else {%>
-		return true;
-		<%}%>
+				title: '請先登入',
+				text: "你還尚未登入",
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				showCancelButton: true,
+				confirmButtonText: '我要登入',
+				cancelButtonText: '我不要登入'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = "../Member/Login.jsp"
+				}
+			});
+			<%} else {%>
+				return true;
+			<%}%>
 		}
 	</script>
 
@@ -284,11 +285,11 @@
 							+"<small >"+m[3]+"</small> <br>"
 							+"<small >"+m[4]+"</small> <br>"
 							+"<small >"+m[5]+"</small> <br>"
-							+"<small >"+m[6]+"</small>" 
-							+"<form name='goReser'  action='reservtion.jsp' method='post' onsubmit='return goTo()'>"
-							+"<input type='hidden' name='mom_Id' value='"+m[12]+"'/>"
-						    +"<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>"    	
-							+"<hr>"
+							+"<small >"+m[6]+"</small>"
+						+"<form name='goReser'  action='reservtion.jsp' method='post' onsubmit='return goTo()'>"
+						+"<input type='hidden' name='mom_Id' value='"+m[12]+"'/>"
+						+"<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>"
+						+"<hr>"
 												
 					);
 

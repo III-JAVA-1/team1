@@ -73,8 +73,11 @@
     <!--要include 的程式 最下面還有-->
 
 <body>
+
+<jsp:include page="Header.jsp" />
+
 	<%String getMom=request.getParameter("mom_Id");%>
-<%-- 	<input type="text" value='<%=getMom%>'> --%>
+
 
     <div class="container">
         <div class="row">
@@ -86,6 +89,7 @@
                     <b>
                         <h4>
                             <b>聯絡</b>
+<%--                            <input type="text" value='<%=getMom%>'>--%>
                         </h4>
                     </b>
 
@@ -96,8 +100,7 @@
                     </b>
 
                     <br>
-                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
-				<input type="hidden" name="status"  value="處理中">
+
 
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -140,7 +143,7 @@
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="petName" type="text" name="petName"
+                            <input type="text" class="form-control" id="petName" name="petName"
                                 required=" ">
                         </div>
                     </div>
@@ -154,7 +157,7 @@
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="breed" type="text" name="petBreed" required=" ">
+                            <input type="text" class="form-control" id="breed"  name="petBreed" required=" ">
                         </div>
                     </div>
 
@@ -271,10 +274,13 @@
                         <div class="col-md-3">價格計算</div>
                         <div class="col-md-7">
                     <div style="width: 300px;height: 100px; border: solid black;border-radius: 5px;" >
-                    	<span id="total" name="total">0</span>   
+                        <div id="total" name="total">0 元</div>
                     </div>
                 </div>
                 </div>
+                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
+                    <input type="hidden" name="status"  value="處理中">
+<%--                    <input type="hidden" name="total" value="<%=request.getParameter("total")%>">--%>
 
                     <br>
 
@@ -313,7 +319,7 @@
             	var countTime = timeEnd - timeStart;
         		//hour 還要再修改
         		//hour = countTime % (24*3600*1000);
-        	    var hour = countTime / (1000 * 60 * 60) ;
+        	    var hour = Math.round(countTime / (1000 * 60 * 60)) ;
         		console.log("timeStart "+ timeStart)
         		console.log("countTime " +countTime)
         		console.log("hour" + hour)
@@ -323,7 +329,7 @@
             		Swal.fire('結束時間必須大於開始時間')
             	}else if(countResult > 0){
             	 console.log("countResult " +countResult);
-            	 var p = countResult+"元"
+            	 var p = countResult+" 元"
             	 console.log(p)
         		 $("#total").text(p);
         		 }
@@ -346,9 +352,11 @@
 
     <script>
         w3.includeHTML();
+
+
     </script>
     <!--include 的下半部分-->
-
+    <jsp:include page="Footer.jsp" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

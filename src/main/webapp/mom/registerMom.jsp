@@ -25,7 +25,6 @@
 	crossorigin="anonymous"></script>
 
 <!--sweetAlert-->
->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="sweetalert2.all.min.js"></script>
 <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
@@ -73,13 +72,14 @@ input[type="text"] {
 </head>
 
 <body>
+<jsp:include page="Header.jsp" />
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 bg"></div>
 			<article class="col-md-8">
 
-				<form action="../mom/insertMom" method="POST" enctype="multipart/form-data">
+				<form action="../mom/insertMom" method="POST" enctype="multipart/form-data" id="myForm">
 					<b>
 						<div style="text-align: center;">
 							<h4>
@@ -232,7 +232,7 @@ input[type="text"] {
 						<div class="input-group mb-3">
 							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType3" type="checkbox" id="check7"
+								<input class="chk" name="bodyType2" type="checkbox" id="check7"
 									value="中型犬(10~24kg)"> <label for="check7"><small
 									style="font-size: small;">中型犬(10~24kg)</small></label>
 							</div>
@@ -241,7 +241,7 @@ input[type="text"] {
 						<div class="input-group mb-3">
 							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType4" type="checkbox" id="check8"
+								<input class="chk" name="bodyType3" type="checkbox" id="check8"
 									value="大型犬(24kg以上)"> <label for="check8"><small
 									style="font-size: small;">大型犬(24kg以上)</small></label>
 							</div>
@@ -250,7 +250,7 @@ input[type="text"] {
 						<div class="input-group mb-3">
 							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType5" type="checkbox" id="check9"
+								<input class="chk" name="bodyType4" type="checkbox" id="check9"
 									value="貓"> <label for="check9"> <small
 									style="font-size: small;">貓</small></label>
 							</div>
@@ -302,8 +302,9 @@ input[type="text"] {
 			}
 
 		}
-	</script>
 
+	</script>
+<jsp:include page="Header.jsp" />
 
 
 	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"

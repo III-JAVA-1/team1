@@ -68,7 +68,7 @@
 <script>
     let memberId = "${memberId}";
     function goStore() {
-        window.location.href = "Store?memberId=" + memberId;
+        window.location.href = "Store/?memberId=" + memberId;
     }
 
 </script>

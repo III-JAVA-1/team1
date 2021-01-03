@@ -3,7 +3,7 @@ package com.web.pet.store.service;
 public class ControlValue {
 
     // FIXME: server路徑
-    public static final String SERVER_URL = "http://localhost:8090/test/";
+    public static final String SERVER_URL = "http://localhost:8087/PetProject_Final/";
     // "http://localhost:8080/PetProject_Final_war/"
 
     // FIXME: 上傳圖片的輸出路徑

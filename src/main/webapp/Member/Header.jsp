@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -41,7 +40,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='mom/extar.jsp'/>">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='../mom/extar.jsp'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='../PetForum/forum.jsp'/>">汪喵討論區</a>
@@ -79,8 +78,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		crossorigin="anonymous"></script>
 		
 		<script>
-		
-		$().ready(function(){
 			$.ajax({
 				url:"../Gusty/headercheck",
 				type:"post",
@@ -93,7 +90,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						$("#headersname").html(n.sname+"您好");
 					});
 				}
-			});
 		});
 		</script>
 </body>

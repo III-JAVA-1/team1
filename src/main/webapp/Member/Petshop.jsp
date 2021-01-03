@@ -180,7 +180,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     })
     
     function editorder(oid){
-    	alert(oid)
+    	//alert(oid)
+    	window.location='../Petshop/update.jsp?sid='+oid
     }
     
     function orderdelete(oid){

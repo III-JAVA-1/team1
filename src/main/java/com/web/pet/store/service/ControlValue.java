@@ -14,7 +14,7 @@ public class ControlValue {
     public static final String SEND_EMAIL = "eeit125team1@gmail.com";
 
     // 寄件者金鑰(兩步驟驗證應用程式金鑰)
-    public static final String EMAIL_TOKEN = "fqlttonbdjkzgpsu";
+    public static final String EMAIL_TOKEN = "uyvdilxkpuqnczaf";
 
 
 }

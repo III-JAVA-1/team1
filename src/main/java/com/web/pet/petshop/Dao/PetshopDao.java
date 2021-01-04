@@ -32,7 +32,7 @@ public class PetshopDao {
 			return null;
 		}else {
 			for(int i=0 ;i<list.size();i=i+1) {
-				if(list.get(i).getImage()==null) {
+				if(list.get(i).getImage().isEmpty()) {
 					list.get(i).setImage("");
 				}
 			}

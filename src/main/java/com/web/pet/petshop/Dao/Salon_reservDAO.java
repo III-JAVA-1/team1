@@ -30,7 +30,7 @@ public class Salon_reservDAO {
 	public List<Object[]>  updatereserv(Integer sid) {
 		Session session=sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select id,address,item,name,other,phone,storename,type,fk_id,date from Salon_reserv where id =:sid";
+		String hql="select * from Salon_reserv where id =:sid";
 		Query<Object[]> query=null;
 		query = session.createSQLQuery(hql).setParameter("sid", sid);
 		list=query.getResultList();

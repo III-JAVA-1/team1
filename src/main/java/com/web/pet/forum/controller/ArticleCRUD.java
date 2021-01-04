@@ -79,8 +79,22 @@ public class ArticleCRUD{
 		return list;
 	}
 	
+	/**
+	 * @author ching
+	 *	找top3瀏覽率文章
+	 */
+	@GetMapping("/highestViewing")
+	public @ResponseBody
+	List<Object[]> selectHighestViewing() {		
+		List<Object[]> list = service.getArticleByHighestViewing();		
+		return list;
+	}
 	
-	@RequestMapping("/viewPost")//AJAX把article帶到postDetail.jsp
+	/**
+	 * @author ching
+	 *	AJAX把article帶到postDetail.jsp
+	 */
+	@RequestMapping("/viewPost")
 	public @ResponseBody
 	List<Object[]> viewPost(
 			@RequestParam(value="posterUid", required = false) Integer posterUid,

@@ -267,7 +267,27 @@ public class ArticleDao {
 		else {return res;}
 	}
 	
-	public int modifyArticle(Article article, Integer u_Id) { //修改文章需要merge
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = new ArrayList<Object[]>();		
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "";
+		
+		sql = "select top(3) a.posterUid, a.u_Id, a.header, a.content, a.viewing\r\n" + 
+			  "from Article a\r\n" + 
+			  "order by a.viewing desc";			
+		list = session.createNativeQuery(sql).getResultList();
+		
+		if(list.isEmpty()) {return null;}
+		else {return list;}				
+	}
+	
+	
+	/**
+	 * @author ching
+	 *	修改文章需要merge
+	 */
+	public int modifyArticle(Article article, Integer u_Id) { 
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		article.setMember(session.get(Member.class,u_Id));

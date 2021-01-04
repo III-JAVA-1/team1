@@ -86,7 +86,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
   					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >保母資料修改</a>
-  					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
+  					<a href="Momorder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
   					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
@@ -98,10 +98,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			</div>
   		
   			<div class="col-9">
-  			
   			<div class="row justify-content-center">
     			<div class="display-4">保母資料修改</div>
   			</div><br>
+  			
+  			<div class="row justify-content-center h4" id='showtip'>您還沒註冊為保母</div>
+  			<div id='show'>
+  			
   			<form action='../Gusty/editmom' method='POST' enctype="multipart/form-data">
   			
   			<div class="d-flex justify-content-center h4" >
@@ -186,7 +189,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 			</form>
 			
-  			</div>
+  			</div></div>
 	
   		</div>
 	</div>
@@ -247,6 +250,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			"user_id" : <%=session.getAttribute("user")%>,
         },
 		success:function(data){
+			document.getElementById("show").style.display="";
+			document.getElementById("showtip").style.display="none";
 			$.each(data,function(i,n){
 				$("#mom_Id").val(n[0])
 				$("#titlee").val(n[11])
@@ -262,6 +267,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				$("input:checkbox[value='"+n[3]+"']").attr("checked",true);
 				$("input:checkbox[value='"+n[4]+"']").attr("checked",true);
 			});
+		},error:function(){
+			document.getElementById("show").style.display="none";
+			document.getElementById("showtip").style.display="";
 		}
 	});
     

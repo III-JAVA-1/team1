@@ -21,16 +21,25 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.pet.forum.model.Article;
 import com.web.pet.forum.service.ArticleService;
 
+/**
+ * @author ching
+ *
+ */
 @RequestMapping("petforum")
 @Controller
 public class ModifyArticle {
 	
 	@Autowired
-	private ArticleService service;	
+	ArticleService service;	
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
 	
+	
+	/**
+	 * @author ching
+	 *	傳送原始文章資料
+	 */
 	@ModelAttribute
 	@RequestMapping("/sendOriginalPost")//傳送原始文章資料
 	public ModelAndView sendOriginalPost(@RequestParam("posterUid") Integer posterUid) {
@@ -45,11 +54,13 @@ public class ModifyArticle {
 	}
 	
 	
-	@RequestMapping("/modifyPost")//修改文章無預覽功能
-	public void modifyPost(
-			//	引入此未修改的欄位才不會有null(來自資料庫)	
-			//	前後端整合更新文章物件 - 從@ModelAttribute中取出與前端文章物件比對欄位
-			@ModelAttribute("articleModel") Article article,			
+	/**
+	 * @author ching
+	 *	修改文章
+	 */
+	@RequestMapping("/modifyPost")
+	public void modifyPost(		
+			@ModelAttribute("articleModel")Article article,//資料來自前端			
 			HttpServletRequest request,
             HttpServletResponse response                
             ) throws IOException{
@@ -58,9 +69,15 @@ public class ModifyArticle {
 		
 			//		System.out.println(article.getHeader());
 			//		這裡要update一筆Article紀錄，需要Member的u_Id主鍵
-			Integer sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
+			Integer sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
+			Article fromDB = service.getArticle(article.getPosterUid());
+			Integer reply = fromDB.getReply();
+			Integer viewing = fromDB.getViewing();
 			
-			service.modifyArticle(article, sessionU_Id);//沒有update圖片的文章物件
+			//將前端送來已修改的資料，設定viewing與reply
+			article.setReply(reply);
+			article.setViewing(viewing);
+			service.modifyArticle(article, sessionU_Id);//沒有update圖片的文章物件			
 			
 			out.print("<script>");		
 			out.print("window.alert('文章修改成功');window.location.href='../PetForum/forum.jsp';");

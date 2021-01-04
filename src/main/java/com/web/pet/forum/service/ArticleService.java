@@ -20,7 +20,7 @@ import com.web.pet.forum.model.ListWithPaging;
 public class ArticleService {
 	
 	@Autowired
-	private ArticleDao dao;	
+	ArticleDao dao;	
 	
 	public int saveArticle(Article article,Integer u_Id) {//新增一篇文章
 		return dao.saveArticle(article,u_Id);
@@ -60,8 +60,8 @@ public class ArticleService {
 		return res;
 	}
 	
-	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
-		List<Article> list = dao.getArticleByHeaderKey(inputText);
+	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){//按關鍵字找文章
+		ListWithPaging list = dao.getArticleByHeaderKey(inputText, page);
 		return list;
 	}
 	
@@ -70,17 +70,16 @@ public class ArticleService {
 		return list;
 	}
 	
-	public List<Object[]> getArticleByHighestViewing(){
-		List<Object[]> list = dao.getArticleByHighestViewing();		
-		return list;
-	}	
-	
 	public int updateArticle(Article article) {	
 		return dao.updateArticle(article);
 	}
 	
 	public int deleteArticle(Article article) { //刪除文章
 		return dao.deleteArticle(article); 
+	}
+	
+	public int setCommentCounts(Article article) {
+		return dao.setCommentCounts(article);
 	}
 	
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -19,19 +18,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 </head>
 <body>
 
-<sql:setDataSource var="ds" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-	url="jdbc:sqlserver://127.0.0.1:1433;databaseName=PetDB"
-	user="scott" password="tiger"/>
-	
-	<% 	int userid=0;
-		if(session.getAttribute("user")!=null)
-		{
-			userid = Integer.parseInt(session.getAttribute("user").toString());
-		}
-	%>
-	<c:set var="useridd" value="<%=userid%>" />
-	<!--<c:out value="${useridd}"/>-->
-
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
             <a class="navbar-brand" href="../index.jsp"><img src="../image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
@@ -45,16 +31,16 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                     <li class="nav-item ">
                     	<%
 							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
-								out.print("<a class=\"nav-link\" href=..\"Store/\">毛孩商城</a>");
+								out.print("<a class=\"nav-link\" href=\"../Store/\">毛孩商城</a>");
 							} else {
-								out.print("<a class=\"nav-link\" href=..\"Store/?memberId="
+								out.print("<a class=\"nav-link\" href=\"../Store/?memberId="
 										+ session.getAttribute("user")
 										+ "\">毛孩商城</a>");
 							}
 						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='mom/extar'/>">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='../mom/extar.jsp'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="<c:url value='../PetForum/forum.jsp'/>">汪喵討論區</a>
@@ -65,25 +51,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                     <li class="nav-item ">
                         <a class="nav-link" href="../Active/ActIndex.jsp">寵物活動/消息</a>
                     </li>
-                     <li class="nav-item" style="color:white;">
+                    <li class="nav-item" style="color:white;">
                         <%
-                        	if(session.getAttribute("user")==null)
+                        	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
 							{
-								out.print("<a class='nav-link' href='../Member/index.jsp'><img src='../Member/Images/user.svg' width='30' height='30' alt=''></a>");
-							}
-							else{%>
-								<%out.print("<a href='../Member/Member.jsp'>"); %>
-								<c:if test="${useridd > 0}">
-								<sql:query dataSource="${ds}" var="rs">
-   								select * from Member where U_id = ?
-   								<sql:param value="${useridd}" />
-   								</sql:query>
-   								<c:forEach var="row" items="${rs.rows}">
-   								<c:out value="${row.Sname}"/>
-   								</c:forEach>
-								</c:if>								
-							<% out.print("您好</a>"); %>	
-						<% 		
+								out.print("<a class='nav-link' href='../Member/Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
+							}else{
+								 out.print("<a class='nav-link' href='../Member/Member.jsp' id='headersname'></a>");
 							}
 						%>
                     </li>
@@ -104,8 +78,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		crossorigin="anonymous"></script>
 		
 		<script>
-		
-		$().ready(function(){
 			$.ajax({
 				url:"../Gusty/headercheck",
 				type:"post",
@@ -118,7 +90,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						$("#headersname").html(n.sname+"您好");
 					});
 				}
-			});
 		});
 		</script>
 </body>

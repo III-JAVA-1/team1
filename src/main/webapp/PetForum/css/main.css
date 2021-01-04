@@ -64,9 +64,9 @@
 
 .db_line1_featured span{
     
-/*     background-color: #666;     */
-/*     border-color: #ccc; */
-/*     border-radius: 4px; */
+    background-color: #666;    
+    border-color: #ccc;
+    border-radius: 4px;
     margin-left: 3px;
     padding: 3px;
    
@@ -81,13 +81,11 @@
     color: #39C;
 }
 
-/* 置中 */
 .db_line1_featured2{
-	text-align: center;
 	width:100%;
 }
 
-
+/* 置中 */
 .db_line1_featured2 .imag{	
     text-align: center;
     float: left;
@@ -100,13 +98,11 @@
     margin-bottom: 0px;
 }
 
-
-#header > p > a{
-	font-size: 20px;
+.db_line1_featured2 .imag a{
     color: #666;
 }
 
-#header > p > a:hover{
+.db_line1_featured2 .imag a:hover{
     text-decoration: none;
     color: #39C;
  }
@@ -253,10 +249,6 @@ background-color: #666;
 .table_h5_a:hover{
     text-decoration: none;
     color: #666;
-}
-
-.qaSpan{
-	color:red;
 }
 
 

@@ -27,7 +27,7 @@ public class MailUtils {
 		props.setProperty("mail.smtp.port", "587");
 		props.setProperty("mail.smtp.auth", "true");//开启认证
 		props.setProperty("mail.debug", "true");//启用调试
-		props.setProperty("mail.smtp.timeout", "5000");//设置链接超时
+		props.setProperty("mail.smtp.timeout", "1000");//设置链接超时
 		props.setProperty("mail.smtp.port", "587");//设置端口
 		props.setProperty("mail.smtp.socketFactory.port", "465");//设置ssl端口
 		props.setProperty("mail.smtp.socketFactory.fallback", "false");
@@ -35,7 +35,7 @@ public class MailUtils {
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("EEIT125Team1", "cry55555");
+				return new PasswordAuthentication("EEIT125Team1", "uyvdilxkpuqnczaf");
 			}
 		};
 		Session session = Session.getInstance(props, auth);

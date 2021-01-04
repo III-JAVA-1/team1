@@ -12,14 +12,14 @@
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">  
-    <link rel="stylesheet" type="text/css" href="css/slider.css">  
+    
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   
   </head>
   <body style="background-image: url(image/bg.jpg);">
-<%--   <jsp:include page="Header.jsp"/> --%>
+  <jsp:include page="Header.jsp"/>
   
 <!--Navbar-->
 <div class="row">
@@ -32,15 +32,15 @@
             <div class="hd_line1_name">                
                 <h2>汪喵討論區</h2>               
             </div>           
-        </div>
+        </div>        
         	 <div class="searchBox">
-                <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
-                <button class="searchButton" href="#">
+                <input class="searchInput" type="text" id="inputText" placeholder="搜尋文章標題....">
+                <button class="searchButton" type="submit" onclick=goAjax()>
                     <i class="material-icons">
                         <img src="image/icons8-search-24.png">
                     </i>
                 </button>
-            </div>               
+            </div>                    
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
@@ -92,46 +92,32 @@
                         <h5>精選文章</h5>
                         <hr/>
                         <div class="direction last-post-col">
-                        <span><a href="#"><img src="image/petCare.png"/></a></span>                        
+                        <span><a href="#"><</a></span>
+                        <span><a href="#">></a></span>
                         </div>                    
                     </div>
-
-                <div id="slider" class="db_line1_featured2">
-                
-                <!-- slider start -->
-                       <div class="slider">
-					        <div class="slide">
-					          <ul id="imgContent">
-					            <!-- AJAX -->
-					          </ul>
-					        </div>
-					        <div class="controller">
-					          <div class="prev-btn btns">
-					            <i class="fas fa-angle-left fa-3x"></i>
-					          </div>
-					          <div class="indicator">
-					            <span id="active"></span>
-					            <span></span>
-					            <span></span>
-					          </div>
-					          <div class="next-btn btns">
-					            <i class="fas fa-angle-right fa-3x"></i>
-					          </div>
-					        </div>
-					      </div>				       
-				      <!-- end of slider -->
+                <div class="db_line1_featured2">
+                    <div class="imag">
+                        <a href="#"><img src="image/featured_img1.jpg" /></a>
+                        <br/><a href="#">美麗的寵物</a>
+                    </div>
+                    <div class="imag" style="padding: 0px 8px">
+                        <a href="#"><img src="image/featured_img2.jpg" /></a>
+                        <br/><a href="#">美麗的寵物</a>
+                    </div>
+                    <div class="imag">
+                        <a href="#"><img src="image/featured_img3.jpg" /></a>
+                        <br/><a href="#">美麗的寵物</a>
+                    </div>       
                 </div>
-                <div id="header">
-                <!-- AJAX -->    
-                </div> 
 <!--end of Featured-->
 
 <!--Selection-->              
                		
                     <div class="db_line1_select">
-                        <select style="color: #666">
-                            <option>最新回覆</option>
+                        <select id="selector" style="color: #666" onchange=selectOptions()>
                             <option>最新發佈</option>
+                            <option>最新回覆</option>
                         </select>
                     </div>
                     
@@ -167,7 +153,14 @@
 <!--pagination-->
             <div class="db_line1_pagination">
                 <div id="page" class="pagination" style="margin-bottom:10px;">
-				<!-- 自動生成分頁 -->
+<!--                             <span><a href="#">&laquo;</a></span> -->
+<!--                             <span><a href="#">1</a></span> -->
+<!--                             <span><a href="#">2</a></span> -->
+<!--                             <span><a href="#">3</a></span> -->
+<!--                             <span><a href="#">4</a></span> -->
+<!--                             <span><a href="#">5</a></span> -->
+<!--                             <span><a href="#">&laquo;</a></span> -->
+<!--                             <span><a href="#">20</a></span>  -->
                 </div>
                
             </div> 
@@ -188,7 +181,7 @@
             
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
-                    <h5>最新文章</h5>                            
+                    <h5>版主主題討論</h5>                            
                 </div>
             <div class="db_line1_right_featured2">
                 <div class="imag">
@@ -199,29 +192,15 @@
                     <a href="#"><img src="image/featured_img2.jpg" /></a>
                     <br/><a href="#">美麗的寵物</a>
                 </div>
-                <div style="margin-bottom:30px;"class="imag">
+                <div class="imag">
                     <a href="#"><img src="image/featured_img3.jpg" /></a>
                     <br/><a href="#">美麗的寵物</a>
                 </div>       
             </div>
-            
-           <h5 style="display:inline;">汪喵冷知識</h5>
-           <img style="margin-left:10px;" src="image/Q&A.png"/>
-		   <hr />
-		   <p class="qaSpan">下方發言處，輸入：</p>
-		   <p style="font-weight:bold">開始：<span class="qaSpan">OK</span> / 下一則：<span class="qaSpan">N</span> / 離開：<span class="qaSpan">Q</span></p>
-		   <label style="font-weight:bold;color:#39C">發言</label>
-		   <br>
-		   <textarea rows="2" cols="35" id="clientMsg"></textarea>
-		   <br>
-		   <button onclick="send()">送出</button>
-		   <br>
-		   <label style="font-weight:bold;color:#39C">回覆</label>
-		   <br>
-		   <textarea rows="15" cols="35" id="serverMsg" readonly="readonly" placeholder="汪喵冷知識，準備好一探究竟了嗎？"></textarea>
-			            
-            
             </div>
+        
+
+   
 </div>
 </div>
    
@@ -239,15 +218,11 @@
 </footer>
 </div>
 <button id="myBtn"><a href="#top" ><img src="image/icons8-upward-arrow-24.png"></a></button>
- 
+
+
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- for slider -->
-    <script src="js/slider.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
-	 <!-- for slider -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -263,7 +238,6 @@
 		crossorigin="anonymous"></script>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
     
  	<script>	
    
@@ -283,47 +257,45 @@
 				$("#article").html("");				
 				
 				let totalPages = arr.totalPages;				
+					
+				$.each(arr.articleList,function(i,val){ 
 				
-				$.each(arr,function(i,item){
-					
-					$.each(item,function(j,val){ 
-					
-					console.log(val[0]);
-					
-					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
-					"<td><div>"+val[1]+"</div></td>"+
-					"<td>"+val[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
-					"<div>"+val[4]+"</div></td>"+
-					"</tr>");
-					
-					//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
-					
-					
-					// 頁碼元件
-				    let pageUI = document.getElementById("page");
-				 	// 要組頁碼的Html
-				    let previousPage = page === 1 ? 1 : page - 1;
-				    let nextPage = page === totalPages ? totalPages : page + 1;
-				    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-				    
-				    for (let i = 1; i <= totalPages; i++) {
-				        if (i === page) {
-				            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        } 
-				        else {
-				            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        }
-				    }
-				    
-				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-				    "<h4>共"+arr.totalCounts+"筆</h4>";
-				    
-				    pageUI.innerHTML = pageHtml;
-					
-					})
+				console.log("123"+val[1]);
+				
+				$("#article").append("<tr>"+
+				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+				"<td><div>"+val[1]+"</div></td>"+
+				"<td>"+val[2]+"</td>"+
+				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<div>"+val[4]+"</div></td>"+
+				"</tr>");
+				
+				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
+				
+				
+				// 頁碼元件
+			    let pageUI = document.getElementById("page");
+			 	// 要組頁碼的Html
+			    let previousPage = page === 1 ? 1 : page - 1;
+			    let nextPage = page === totalPages ? totalPages : page + 1;
+			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+			    
+			    for (let i = 1; i <= totalPages; i++) {
+			        if (i === page) {
+			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        } 
+			        else {
+			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        }
+			    }
+			    
+			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+			    "<h4>共"+arr.totalCounts+"筆</h4>";
+			    
+			    pageUI.innerHTML = pageHtml;
+				
 				})
+				
 			},
 			error:function(){
 				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
@@ -334,62 +306,7 @@
 
 
 	//load 全部文章(分頁)
-	
-	selectAll()
-	getHighestViewing()
-	
-//========================================================================	
-	
-	function getHighestViewing(){
-	
-		$.ajax({
-			url:"../petforum/highestViewing",
-			type:"GET",		
-			dataType:"json",			
-			success:function(data){					
-				$("#imgContent").html("");
-				$("#header").html("");
-					
-				$.each(data,function(i,n){ 
-				
-				console.log("123"+n[3]);
-				let content;
-				
-				if(!n[3].includes('imgur')){
-					content = "#";					
-				}
-				else{
-					content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
-					content = content+".jpg";
-					console.log("456"+content);
-				}
-				
-				console.log("djkhf"+content);
-				console.log("111"+n[0]);
-				console.log("111"+n[1]);
-				console.log("111"+n[2]);
-				
-				$("#imgContent").append(
-				"<li><img src="+content+" width=416px height=234px /></li>"					
-				);
-				
-				$("#header").append(
-						"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+n[0]+"8&u_Id="+n[1]+"'>"+n[2]+"</a></p>"
-					
-				);
-				
-				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
-				
-				})
-				
-			},
-			error:function(){
-				$("#imgContent").append("查無資料");
-				$("#header").append("查無資料");
-			}
-		})
-	
-	}
+	$().load(selectAll());
 //========================================================================	
 	
 		function getForum(item){//參數來自button的value(固定用item接)	
@@ -408,19 +325,79 @@
 				$("#page").html("");
 				
 				let totalPages = arr.totalPages;	
-				$.each(arr,function(i,item){
+				$.each(arr.articleList,function(i,val){
 					
-					$.each(item,function(j,val){ 
-						console.log(val[0]);
+				console.log(val[0]);
+				$("#article").append("<tr>"+
+				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+				"<td><div>"+val[1]+"</div></td>"+
+				"<td>"+val[2]+"</td>"+
+				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<div>"+val[4]+"</div></td>"+
+				"</tr>");
+				
+				
+				
+				// 頁碼元件
+			    let pageUI = document.getElementById("page");
+			 	// 要組頁碼的Html
+			    let previousPage = page === 1 ? 1 : page - 1;
+			    let nextPage = page === totalPages ? totalPages : page + 1;
+			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+			    
+			    for (let i = 1; i <= totalPages; i++) {
+			        if (i === page) {
+			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        } 
+			        else {
+			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+			        }
+			    }
+			    
+			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+			    "<h4>共"+arr.totalCounts+"筆</h4>";
+			    
+			    pageUI.innerHTML = pageHtml;
+				
+				})				
+			},
+			error:function(){
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+			}
+		})
+		return false;
+	}
+		
+		//==================================================================
+			
+		function goAjax(){
+			
+			let inputText = $("#inputText").val();
+			console.log($("#inputText").val());
+			
+			$.ajax({
+				url:"../petforum/selectHeader",
+				type:"GET",		
+				dataType:"json",
+				data:{
+					"inputText":inputText,
+					"page":page					
+				},
+				success:function(arr){	
+					$("#article").html("");
+					$("#page").html("");
+					
+					let totalPages = arr.totalPages;	
+					$.each(arr.articleList,function(i,val){
+						
+					console.log(val[0]);
 					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"&viewing="+val[2]+"'>"+val[0]+"</a></h5></td>"+
+					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 					"<td><div>"+val[1]+"</div></td>"+
 					"<td>"+val[2]+"</td>"+
 					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
 					"<div>"+val[4]+"</div></td>"+
-					"</tr>");
-					
-					
+					"</tr>");					
 					
 					// 頁碼元件
 				    let pageUI = document.getElementById("page");
@@ -441,19 +418,81 @@
 				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
 				    "<h4>共"+arr.totalCounts+"筆</h4>";
 				    
-				    pageUI.innerHTML = pageHtml;
-					
+				    pageUI.innerHTML = pageHtml;					
 					})
-				})
-			},
-			error:function(){
-				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
-			}
-		})
-		return false;
-	}
-		
+					  alert("相關標題共"+arr.totalCounts+"筆");
+				},
+				error:function(){
+					$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");
+					alert("查無相關標題");
+				}
+			})
+			return false;
+		}
+	
+			
 		//==================================================================
+		
+			function selectOptions(){
+			
+				if($("#selector").val() === "最新發佈"){
+					selectAll();
+				}else{
+				
+				$.ajax({
+					url:"../petforum/lastestReply",
+					type:"GET",		
+					dataType:"json",
+					data:{						
+						"page":page					
+					},
+					success:function(arr){	
+						$("#article").html("");
+						$("#page").html("");
+						
+						let totalPages = arr.totalPages;	
+						$.each(arr.articleList,function(i,val){
+							
+						console.log(val[0]);
+						$("#article").append("<tr>"+
+						"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+						"<td><div>"+val[1]+"</div></td>"+
+						"<td>"+val[2]+"</td>"+
+						"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+						"<div>"+val[4]+"</div></td>"+
+						"</tr>");						
+						
+						// 頁碼元件
+					    let pageUI = document.getElementById("page");
+					 	// 要組頁碼的Html
+					    let previousPage = page === 1 ? 1 : page - 1;
+					    let nextPage = page === totalPages ? totalPages : page + 1;
+					    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+					    
+					    for (let i = 1; i <= totalPages; i++) {
+					        if (i === page) {
+					            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+					        } 
+					        else {
+					            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+					        }
+					    }
+					    
+					    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+					    "<h4>共"+arr.totalCounts+"筆</h4>";
+					    
+					    pageUI.innerHTML = pageHtml;					
+						})						 
+					},
+					error:function(){
+						$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");						
+					}
+				})
+				return false;
+			}
+		 }			
+		//==================================================================
+			
 		//沒登入不能發表	
 		function loginStatus(){
     		<% if(session.getAttribute("user") == null){%>
@@ -469,29 +508,6 @@
 		        selectAll();
 		    } 
 		 
-		 
-		//=====================================================================
-
-			var url="ws://" + window.location.host + "<%=request.getContextPath() %>/webSocket";
-			//Open the web socket connection to the server
-			var socketConn = new WebSocket(url);
-			
-		
-			//Send Message
-				function send() {
-					clientMsg = document.getElementById('clientMsg');
-					if (clientMsg.value) {
-						socketConn.send(clientMsg.value);
-						clientMsg.value = '';
-					}
-				}
-			
-				// Recive Message
-				socketConn.onmessage = function(event) {
-					var serverMsg = document.getElementById('serverMsg');
-					serverMsg.value = event.data;					
-				}
-		    
  	</script>
   </body>
 </html>

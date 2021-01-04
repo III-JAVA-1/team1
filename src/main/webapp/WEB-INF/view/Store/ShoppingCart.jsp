@@ -335,7 +335,7 @@
 
     // 返回商店頁面
     function goStore() {
-        window.location.href = "Store?memberId=" + memberId;
+        window.location.href = "Store/?memberId=" + memberId;
     }
 
     // 前往訂單頁面

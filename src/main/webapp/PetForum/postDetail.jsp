@@ -33,21 +33,17 @@
                 <div class="hd_line1_name">                
                     <h2 >汪喵討論區</h2>               
                 </div>
-                <div class="searchBox">
-                    <input class="searchInput"type="text" name="" placeholder="搜尋文章標題....">
-                    <button class="searchButton" href="#">
-                        <i class="material-icons">
-                            <img src="image/icons8-search-24.png">
-                        </i>
-                    </button>
-                </div>   
+               
             </div>            
         </div>
         <div class="hd_line2">
            <div class="hd_line2_a">
             <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
-          
+            
+            
+            
+           
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -141,7 +137,6 @@
 			 	<div class="divForm">
 				 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
 				 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
-				 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>
 		            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
 	            </div>
 				<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
@@ -189,6 +184,7 @@
 </footer>
 </div>
 <button id="myBtn"><a href="#top" ><img src="image/icons8-upward-arrow-24.png"></a></button>
+
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -210,14 +206,12 @@
 	<script>
 		
 		//網頁ready文檔加載完就做
-		//網頁onload全部加載完成才做(音樂、圖片) 				
-		reload();//reload文章信息
-	
-	
-//=============================================================================================
+		//網頁onload全部加載完成才做(音樂、圖片) 
+		loadArticle();//加載文章信息
+		loadComment();//加載留言信息
 		
-		$().ready(function(){	
-		$.ajax({
+		function loadComment(){	
+  		$.ajax({
 			url:"../petforum/viewComment",
 			type:"POST",		
 			dataType:"json",
@@ -226,11 +220,9 @@
 			},
 			success:function(data){	
 				$("#comment").html("");
-				$.each(data,function(i,n){					
-				
-					reload();//reload文章信息
+				$.each(data,function(i,n){						
 					console.log(n[0]);//u_Id				
-					console.log(n[1]);//snamef
+					console.log(n[1]);//sname
 				
 					//初始資料沒有會員暱稱
 					var memberSname;
@@ -271,8 +263,7 @@
 					"</div>"+
 					"</div>"+
 					"</div>"+
-					"<hr/>");				
-					
+					"<hr/>");
 				}) 
 				
 			},
@@ -280,59 +271,10 @@
 				$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
 			}
 		})
-	});
-
-		
-		
-	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
-     let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
-
-     let commentContentObj = document.getElementById("commentContent");
-     commentContentObj.addEventListener("click",function(){
-         document.getElementById("commentUpdatedtime").value = date;
-     });
-    
-
-   function getTimeStamp(now) {
-   return (now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + (now.getDate())  + " " + 
-   now.getHours() + ':' + ((now.getMinutes() < 10) ? ("0" + now.getMinutes()) : (now.getMinutes())) + ':' +
-   ((now.getSeconds() < 10) ? ("0" + now.getSeconds()) : (now.getSeconds())));
- 
- }
-		
-		
-//	若會員沒上傳頭像，則顯示預設圖片
- function imgDisplay(noUpload) 
-  { 
- 	$(noUpload).attr("src","image/mask_dog.png");
-  }		
-		
-//	顯示編輯留言的介面
-let editCommentDisplay = 0;
-  	function editComment(){
-  	
-  	if(editCommentDisplay == 0){
-  		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
-  	}else{
-  		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
-  	}    	
-  }
-  	
-  	//留言內容不可為空
-  	$("#sendMessage").click(function checkCommentContent(form){
-  		console.log($("#commentContent").val());
-  		
-  		if($("#commentContent").val() != ""){ 
-	   	return true;//form action請求送出				  
-		 }	 
-		else{ 
-		 window.alert("留言內容不可為空！");
-		 return false;
-		 }  		
-  	})  	
-    	
-   //=========================================================================== 	
-    	function reload(){
+  	}		
+	
+//=============================================================================================	
+	 	function loadArticle(){
     		$.ajax({
     			url:"../petforum/viewPost",
     			type:"POST",		
@@ -437,11 +379,8 @@ let editCommentDisplay = 0;
   	}    	
   }
   	
- 
-  	
   	//留言內容不可為空
-  	$("#sendMessage").click(function checkCommentContent(form){  		
-  		  		
+  	$("#sendMessage").click(function checkCommentContent(form){
   		console.log($("#commentContent").val());
   		
   		if($("#commentContent").val() != ""){ 
@@ -454,6 +393,7 @@ let editCommentDisplay = 0;
   	})  	
     	
    //=========================================================================== 	
+   
 
   		//讀取會員是否有將此文章加入最愛	
   		function favorites(item){
@@ -485,11 +425,9 @@ let editCommentDisplay = 0;
     			}
   			});	
 			
-		} 	
-  	
-	 
-	        
-	   
+		}
+
+  		
 	</script>
   </body>
 </html>

@@ -18,7 +18,7 @@ import com.web.pet.forum.model.ArticleFavorite;
 public class ArticleFavoriteService {
 	
 	@Autowired
-	private ArticleFavoriteDao dao;	
+	ArticleFavoriteDao dao;	
 	
 	public int saveArticleFavorite(Integer posterUid, Integer u_Id) {//新增一個收藏
 		return dao.saveArticleFavorite(posterUid, u_Id);

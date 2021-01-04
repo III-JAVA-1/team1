@@ -17,11 +17,12 @@ import com.web.pet.forum.service.ArticleFavoriteService;
 public class DoFavorite {
 	
 	@Autowired
-	private ArticleFavoriteService service;
+	ArticleFavoriteService service;
 	
 	
 	@RequestMapping("/searchFavoriteRecord")
-	public @ResponseBody Boolean searchFavoriteRecord(
+	public @ResponseBody
+	Boolean searchFavoriteRecord(
 			@RequestParam(value="posterUid",required = false) Integer posterUid,			
 			HttpServletRequest request) {
 		

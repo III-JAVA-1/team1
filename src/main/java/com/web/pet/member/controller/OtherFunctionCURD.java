@@ -56,8 +56,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/deletlove")//會員頁面取消收藏商品
 	@ResponseBody
-	public int deleteloveController(String product_id) {
-		return otherFunctionService.deleteloveService(product_id);
+	public int deleteloveController(String product_id,Integer user_id) {
+		return otherFunctionService.deleteloveService(product_id,user_id);
 	}
 	
 	@RequestMapping("/shoprate")//會員頁面秀出商品評價
@@ -65,6 +65,8 @@ public class OtherFunctionCURD {
 	public List<Object[]> shoprateController(String user_id) {
 		return otherFunctionService.shoprateService(user_id);
 	}
+	
+	/////////////////////////會員商城功能////////////////////////////////
 	
 	@RequestMapping("/memberarticle")//會員頁面文章記錄
 	@ResponseBody
@@ -77,6 +79,19 @@ public class OtherFunctionCURD {
 	public List<Object[]> membermessageController(Integer user_id){
 		return otherFunctionService.membermessageService(user_id);
 	}
+	
+	@RequestMapping("lovearticle")//會員頁面文章收藏
+	@ResponseBody
+	public List<Object[]> memberlovearticleController(Integer user_id){
+		return otherFunctionService.memberlovearticleService(user_id);
+	}
+	
+	@RequestMapping("deletelovearticle")//會員頁面收藏文章刪除
+	@ResponseBody int deletelovearticleController(Integer posteruid,Integer user_id) {
+		return otherFunctionService.deletelovearticleService(posteruid, user_id);
+	}
+	
+	/////////////////////////會員論壇功能////////////////////////////////
 	
 	@RequestMapping("/memberaction")//會員頁面活動紀錄
 	@ResponseBody

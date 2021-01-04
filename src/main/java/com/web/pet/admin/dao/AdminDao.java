@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.pet.member.model.Member;
+import com.web.pet.petshop.model.PetshopBean;
 
 @Repository
 public class AdminDao {
@@ -23,7 +24,7 @@ public class AdminDao {
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
 		String hql = "select u_id,name,phone,email,sname,zip,country,district,address,momId,gender,birth FROM Member where name like '%"+user_name+"%'";
-		query= session.createNativeQuery(hql);
+		query= session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
@@ -32,20 +33,21 @@ public class AdminDao {
 		}
 	}
 	
+	//////////////////////////////會員管理////////////////////////////////////
 	
 	@SuppressWarnings("unchecked")//商品銷售Top10
 	public List<Object[]> storetop10(Integer month){
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select product.product_name,count(order_item.product_id)\n"
+		String hql = "select top 10 product.product_name,count(order_item.product_id) as '數量'\n"
 				+ "from order_item,product,[dbo].[order]\n"
 				+ "where month([dbo].[order].date)=:month\n"
 				+ "and order_item.product_id = product.product_id\n"
 				+ "and order_item.order_id=[dbo].[order].order_id\n"
-				+ "group by product.product_name \n"
+				+ "group by product.product_name\n"
 				+ "order by count(order_item.product_id) desc";
 		Query<Object[]> query=null;
-		query = session.createNativeQuery(hql).setParameter("month", month);
+		query = session.createSQLQuery(hql).setParameter("month", month);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
@@ -58,13 +60,13 @@ public class AdminDao {
 	public List<Object[]> allsales (Integer month){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select day([dbo].[order].date) as '日期',sum([dbo].[order].cost) as '總金額'\n"
+		String hql = "select Cast(day([dbo].[order].date)as nvarchar)+'日' as '日期',sum([dbo].[order].cost) as '總金額'\n"
 				+ "from [dbo].[order]\n"
 				+ "where Month([dbo].[order].date)=:month\n"
 				+ "group by day([dbo].[order].date)\n"
 				+ "order by day([dbo].[order].date)";
 		Query<Object[]> query=null;
-		query = session.createNativeQuery(hql).setParameter("month", month);
+		query = session.createSQLQuery(hql).setParameter("month", month);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
@@ -405,11 +407,11 @@ public class AdminDao {
 		else {start=page*12-12;end=12;}
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select * \r\n"
-				+ "from Petshop \r\n"
-				+ "where name like '%"+search+"%'\r\n"
-				+ "order by id\r\n"
-				+ "offset :start rows\r\n"
+		String hql = "select id,name,address,phone,type,pet,image\n"
+				+ "from Petshop \n"
+				+ "where name like '%"+search+"%'\n"
+				+ "order by id\n"
+				+ "offset :start rows\n"
 				+ "FETCH NEXT :end ROWS ONLY";
 		Query<Object[]> query=null;
 		query = session.createSQLQuery(hql).setParameter("start", start).setParameter("end", end);
@@ -420,5 +422,16 @@ public class AdminDao {
 			return list;
 		}
 	}
+	
 
+	public Integer petshopdeleteDao(Integer sid){//刪除店家
+		Integer reusult=0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "delete from Petshop where id = :sid";
+		reusult = session.createSQLQuery(hql).setParameter("sid", sid).executeUpdate();
+		return reusult;
+	}
+	
+	//////////////////////////////店家管理////////////////////////////////////
+	
 }

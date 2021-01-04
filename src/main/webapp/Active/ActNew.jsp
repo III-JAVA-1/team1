@@ -260,6 +260,19 @@ function givesome(){//填入資訊
 	$("#act_content").val("平常工作或課業上大大小小的壓力總是形影不離地跟著我們，是不是甚至會影響到心情跟食慾呢?仔細觀察家中的寵物，那些你視以為正常的行為，可能也是長期處於壓力下的結果");
 }
 
+function givesome(){//填入資訊
+	$("#act_name").val("貓狗大戰一觸即發，同居準則大公開");
+	$("#act_start").val("2021-02-12");
+	$("#act_end").val("2021-02-15");
+	$("#act_organize").val("全國動物醫院—台北分院");
+	$("#act_orgmane").val("JamesKing");
+	$("#act_where").val("全國動物醫院交誼大廳");
+	$("#act_orgphone").val("0987458712");
+	$("#act_type").val("演講");
+	$("#act_content").val("貓狗能夠和平相處並不是完全做不到的事，只要飼主能夠更多點心思照顧做好足夠的準備，就能夠一起迎接新成員的到來！");
+}
+
+
 </script>
 
 </body>

@@ -1,6 +1,6 @@
 package com.web.pet.mom.service;
 
-import com.web.pet.mom.Exeption.MomNotFoundException;
+import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +9,19 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author i19
+ */
 @Service
 @Transactional
 public class MomService {
 
-    @Autowired
-    private PetMomDAO petMomDAO;
+    private final PetMomDAO petMomDAO;
 
+    @Autowired
+    public MomService(PetMomDAO petMomDAO) {
+        this.petMomDAO = petMomDAO;
+    }
 
     /**
      * 寫入保母資料
@@ -27,7 +33,7 @@ public class MomService {
         if (petMomDAO.getMomByMemberId(u_Id) == null) {
             petMomDAO.insertMom(mom, u_Id);
         } else {
-            throw new MomNotFoundException();
+            throw new MomIsExistedException();
         }
     }
 
@@ -49,8 +55,8 @@ public class MomService {
      * @param mom_Id
      * @return
      */
-    public List<Mom> getReservtion(Integer mom_Id) {
-        return petMomDAO.getReservtion(mom_Id);
+    public List<Mom> getReservation(Integer mom_Id) {
+        return petMomDAO.getReservation(mom_Id);
     }
 
     /**

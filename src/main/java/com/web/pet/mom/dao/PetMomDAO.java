@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,8 +18,12 @@ import java.util.List;
 @Repository
 public class PetMomDAO {
 
+    private final SessionFactory sessionFactory;
+
     @Autowired
-    private SessionFactory sessionFactory;
+    public PetMomDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     /**
      * 寫入註冊保母資料
@@ -31,6 +36,7 @@ public class PetMomDAO {
         mom.setMember(session.get(Member.class, u_Id));
         session.save(mom);
     }
+
     public Mom getMomByMemberId(int userId){
         Member member = sessionFactory.getCurrentSession().get(Member.class, userId);
         return member.getMom();
@@ -63,10 +69,15 @@ public class PetMomDAO {
                 + "where MOM.u_Id=Member.u_Id\r\n"
                 + "and Member.country like '%" + country + "%'\r\n"
                 + "and MOM.title like '%" + title + "%'";
-
+        List list = new ArrayList<>();
         Session session = sessionFactory.getCurrentSession();
+        list =(List<Mom>) session.createNativeQuery(sql).getResultList();
+        if(list.isEmpty()){
+            return null;
+        }else {
+            return list;
+        }
 
-        return (List<Mom>) session.createNativeQuery(sql).getResultList();
     }
 
     /**
@@ -86,7 +97,7 @@ public class PetMomDAO {
      * @param mom_Id
      * @return
      */
-    public List<Mom> getReservtion(Integer mom_Id) {
+    public List<Mom> getReservation(Integer mom_Id) {
 
         String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1"
                 + ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4"

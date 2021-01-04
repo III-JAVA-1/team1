@@ -26,7 +26,7 @@ import java.util.Set;
 public class OrderComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer raingId;
+    private Integer commentId;
 
     private Timestamp commentNowTime;
 

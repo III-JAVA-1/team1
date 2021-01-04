@@ -1,10 +1,9 @@
 package com.web.pet.mom.controller;
 
-import com.web.pet.mom.Exeption.MomNotFoundException;
+import com.web.pet.mom.Exeption.MomIsExistedException;
+import com.web.pet.mom.Exeption.OrderIsSameMomException;
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.model.OrderCommentReq;
 import com.web.pet.mom.model.PetMomOrderReq;
-import com.web.pet.mom.model.StarReq;
 import com.web.pet.mom.service.MomService;
 import com.web.pet.mom.service.OrderCommentService;
 import com.web.pet.mom.service.PetMomOrderService;
@@ -39,14 +38,19 @@ public class MomController {
 
     private static final String CHARSET_CODE = "UTF-8";
 
-    @Autowired
-    OrderCommentService orderCommentService;
+    private final OrderCommentService orderCommentService;
+
+    private final MomService momService;
+
+    private final PetMomOrderService petMomOrderService;
 
     @Autowired
-    MomService momService;
+    public MomController(OrderCommentService orderCommentService, MomService momService, PetMomOrderService petMomOrderService) {
+        this.orderCommentService = orderCommentService;
+        this.momService = momService;
+        this.petMomOrderService = petMomOrderService;
+    }
 
-    @Autowired
-    PetMomOrderService petMomOrderService;
 
     /**
      * 寫入註冊資料
@@ -100,7 +104,7 @@ public class MomController {
             out.print("</script>");
             out.print("</body>");
             out.print("</html>");
-        } catch (MomNotFoundException e) {
+        } catch (MomIsExistedException e) {
 
             out.print("<html>");
             out.print("<body>");
@@ -138,11 +142,11 @@ public class MomController {
      * @param mom_Id
      * @return 顯示預約時由保母ID查出的保母資料
      */
-    @RequestMapping("/showReservtion")
+    @RequestMapping("/showReservation")
     @ResponseBody
-    public List<Mom> getReservtion(Integer mom_Id) {
+    public List<Mom> getReservation(Integer mom_Id) {
 
-        return momService.getReservtion(mom_Id);
+        return momService.getReservation(mom_Id);
     }
 
 
@@ -175,6 +179,8 @@ public class MomController {
 //	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
 //	public String insertPetMomOrder(@ModelAttribute("user") PetMomOrder petMomOrder) {
 //		petMomOrderService.insertPetMomOrder(petMomOrder);
+
+
 //		return "reservtionMom";			
 //	}	
 
@@ -186,16 +192,17 @@ public class MomController {
      * @param request
      * @throws IOException
      */
-    @PostMapping(value = "/reservtionMom", produces = "application/json; charset=utf-8")
-    public void insertPetMomOrder(PetMomOrderReq petMomOrder, HttpServletResponse response, HttpServletRequest request) throws IOException, ParseException {
+    @PostMapping(value = "/reservationMom", produces = "application/json; charset=utf-8")
+    public void insertPetMomOrder(PetMomOrderReq petMomOrder , HttpServletResponse response, HttpServletRequest request) throws IOException, ParseException {
 
         //亂碼處理
         request.setCharacterEncoding(CHARSET_CODE);
         response.setContentType(CONTENT_TYPE);
 
         Integer mom_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());
-        petMomOrderService.insertPetMomOrder(petMomOrder, mom_Id);
+        petMomOrderService.insertPetMomOrder(petMomOrder , mom_Id);
         PrintWriter out = response.getWriter();
+        try {
         out.print("<html>");
         out.print("<body>");
         out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
@@ -211,16 +218,19 @@ public class MomController {
         out.print("</script>");
         out.print("</body>");
         out.print("</html>");
+        }catch (OrderIsSameMomException oe){
+
+        }
     }
 
-    @PostMapping(value = "/comment", produces = "application/json; charset=utf-8")
-    public void comment(OrderCommentReq req) {
-        orderCommentService.comment(req);
-
-    }
-
-    @PostMapping(value = "/start", produces = "application/json; charset=utf-8")
-    public void star(StarReq req) {
-
-    }
+//    @PostMapping(value = "/comment", produces = "application/json; charset=utf-8")
+//    public void comment(OrderCommentReq req) {
+//        orderCommentService.comment(req);
+//
+//    }
+//
+//    @PostMapping(value = "/start", produces = "application/json; charset=utf-8")
+//    public void star(StarReq req) {
+//
+//    }
 }

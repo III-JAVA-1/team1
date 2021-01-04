@@ -1,6 +1,6 @@
 package com.web.pet.mom.service;
 
-import com.web.pet.mom.dao.CommentDAO;
+import com.web.pet.mom.dao.OrderCommentDAO;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.dao.PetMomOrderDAO;
 import com.web.pet.mom.model.OrderComment;
@@ -11,18 +11,25 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author i19
+ */
 @Service
 @Transactional
 public class OrderCommentService {
 
-	@Autowired
-	PetMomDAO petMomDAO;
+	private final PetMomDAO petMomDAO;
+
+	private final OrderCommentDAO orderCommentDAO;
+
+	private final PetMomOrderDAO petMomOrderDAO;
 
 	@Autowired
-    CommentDAO commentDAO;
-
-	@Autowired
-	PetMomOrderDAO petMomOrderDAO;
+	public OrderCommentService(PetMomDAO petMomDAO, OrderCommentDAO orderCommentDAO, PetMomOrderDAO petMomOrderDAO) {
+		this.petMomDAO = petMomDAO;
+		this.orderCommentDAO = orderCommentDAO;
+		this.petMomOrderDAO = petMomOrderDAO;
+	}
 
 	public void comment(OrderCommentReq req ) {
 		OrderComment orderComment = new OrderComment();
@@ -30,19 +37,19 @@ public class OrderCommentService {
 		orderComment.setComment(req.getComment());
 		orderComment.setPetMomOrder(petMomOrderDAO.getOrderById(req.getListId()));
 		orderComment.setMom(petMomDAO.getMomByMomId(req.getUserId()));
-		commentDAO.insertRaingDao(orderComment);
+		orderCommentDAO.insertOrderComment(orderComment);
 	}
 
-	public List<OrderComment> ajaxSearchRaing(int uId){
-		return commentDAO.ajaxSearchRaing(uId);
+	public List<OrderComment> searchComment(int uId){
+		return orderCommentDAO.searchOrderComment(uId);
 	}
 
-	public int updateRaing(OrderComment orderComment) {
-		return commentDAO.updateRaing(orderComment);
+	public int updateOrderComment(OrderComment orderComment) {
+		return orderCommentDAO.updateOrderComment(orderComment);
 	}
 
-	public int deleteRaing(OrderComment orderComment) {
-		return commentDAO.deleteRaing(orderComment);
+	public int deleteOrderComment(OrderComment orderComment) {
+		return orderCommentDAO.deleteOrderComment(orderComment);
 	}
 
 }

@@ -61,11 +61,11 @@ public class PetMomOrder {
 
     private Integer total;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mom_Id", referencedColumnName = "mom_Id")
     private Mom mom;
 
     @OneToMany(mappedBy = "petMomOrder", cascade = CascadeType.ALL)
-    private Set<OrderComment> OrderComments = new LinkedHashSet<>(0);
+    private Set<OrderComment> orderComments = new LinkedHashSet<>(0);
 
 }

@@ -220,6 +220,18 @@ function check(){//檢查填入資訊
 	else reg.submit();
 }
 
+function gogo()
+{
+	<%
+		if(session.getAttribute("user")==null)
+		{%>window.alert("請先登入"); return false;
+		<%}else{%>
+		return  true;
+		<%}%>
+			
+			
+	return false;
+}
 
 </script>
 

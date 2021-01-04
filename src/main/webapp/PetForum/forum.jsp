@@ -98,6 +98,7 @@
                 <div id="slider" class="db_line1_featured2">
                 
                 <!-- slider start -->
+                <div>
                        <div class="slider">
 					        <div class="slide">
 					          <ul id="imgContent">
@@ -117,12 +118,15 @@
 					            <i class="fas fa-angle-right fa-3x"></i>
 					          </div>
 					        </div>
+					         <div id="articleHeader">
+                			<!-- AJAX -->
+                	  		</div>
+					      </div>
 					      </div>				       
 				      <!-- end of slider -->
+				     
                 </div>
-                <div id="header">
-                <!-- AJAX -->
-                </div>
+                
 <!--end of Featured-->
 
 <!--Selection-->              
@@ -264,7 +268,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
     
- 	<script>	
+ 	<script>
+ 	
+//  	 <div class="prev-btn btns">
+//      <i class="fas fa-angle-left fa-3x"></i>
+//    </div>
+   
+//    <div class="next-btn btns">
+//    <i class="fas fa-angle-right fa-3x"></i>
+//  </div>
    
     let page = 1;
   
@@ -345,7 +357,7 @@
 			dataType:"json",			
 			success:function(data){					
 				$("#imgContent").html("");
-				$("#header").html("");
+				$("#articleHeader").html("");
 					
 				$.each(data,function(i,n){ 
 				
@@ -370,7 +382,7 @@
 				"<li><img src="+content+" width=416px height=234px /></li>"					
 				);
 				
-				$("#header").append(
+				$("#articleHeader").append(
 						"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+n[0]+"8&u_Id="+n[1]+"'>"+n[2]+"</a></p>"
 					
 				);
@@ -382,7 +394,7 @@
 			},
 			error:function(){
 				$("#imgContent").append("查無資料");
-				$("#header").append("查無資料");
+				$("#articleHeader").append("查無資料");
 			}
 		})
 	

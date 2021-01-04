@@ -109,7 +109,7 @@ public class ArticleCURD{
 	 * @author ching
 	 *	找top3瀏覽率文章
 	 */
-	@GetMapping("/highestViewing")
+	@GetMapping(value={"/highestViewing","/highestViewingHeader"})
 	public @ResponseBody
 	List<Object[]> selectHighestViewing() {		
 		List<Object[]> list = service.getArticleByHighestViewing();		

@@ -23,7 +23,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +31,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@ToString
 @Table(name = "PetMomOrder")
 public class PetMomOrder {
 	@Id
@@ -69,9 +67,7 @@ public class PetMomOrder {
 	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String chooseEnd;
 	
-	private Integer service;
-	
-	private Integer total;
+	private Integer service;	
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "mom_Id",referencedColumnName = "mom_Id")

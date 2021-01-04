@@ -119,8 +119,6 @@ public class ActController {
 		Integer uid = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		
 		actservice.insertJoinService(joinactbean,uid,act_no);
-		
-
 		out.print("<script>");
 		out.print("window.alert('成功參加活動');window.location.href='../Active/ActIndex.jsp';");
 		out.print("</script>");

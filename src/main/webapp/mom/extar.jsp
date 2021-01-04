@@ -153,58 +153,31 @@
 <!-- 							id="reg" onclick="goTo()" style="position: absolute; bottom: 10px; right: 10px;">預約</button> -->
 <!-- 					</div> -->
 				</div>
-			</div>				
+			</div>
+			
+					
 
 			<div class="col-md-4">
 				    <div id="map"></div>
-					<!--右邊google地圖 -->
+					<!--右邊google地圖 剩下自己設定-->
 			
 			</div>
 		</div>
 	</div>
-	
-
-	<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
 	<script>
 		function go() {
 	<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
-			Swal.fire({
-				  title: '請先登入',
-				  text: "你還尚未登入",
-				  icon: 'warning',
-				  confirmButtonColor: '#3085d6',
-				  cancelButtonColor: '#d33',
-				  showCancelButton: true,
-				  confirmButtonText: '我要登入',
-				  cancelButtonText: '我不要登入'
-				}).then((result) => {
-				  if (result.isConfirmed) {    
-				    	window.location.href = "../Member/Login.jsp"
-				  }
-				});
+		window.alert("請先登入");
 	<%} else {%>
-				location.href = "registerMom.jsp";
+		location.href = "registerMom.jsp"
 	<%}%>
 		}
 	
 		function goTo() {
 			<%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
-			Swal.fire({
-				  title: '請先登入',
-				  text: "你還尚未登入",
-				  icon: 'warning',
-				  confirmButtonColor: '#3085d6',
-				  cancelButtonColor: '#d33',
-				  showCancelButton: true,
-				  confirmButtonText: '我要登入',
-				  cancelButtonText: '我不要登入'
-				}).then((result) => {
-				  if (result.isConfirmed) {    
-				    	window.location.href = "../Member/Login.jsp"
-				  }
-				});
+			window.alert("請先登入");
 		<%} else {%>
-		return true;
+		location.href = "reservtion.jsp"
 		<%}%>
 		}
 	</script>
@@ -275,7 +248,7 @@
 					$.each(data, function(n, m) {	
 				$("#showMom").append(
 					"<div class='col-md-4' >"
-							+"<img src='<c:url value='../mom/getPic?mom_Id="+m[12]+"'/>'  style='width:250px; height:200px;'>"
+							+"<img src='Images/test.jpg'>"
 						+"</div>"
 						+"<div class='col-md-1'></div>"
 						+"<div class='col-md-7'>"
@@ -285,10 +258,10 @@
 							+"<small >"+m[4]+"</small> <br>"
 							+"<small >"+m[5]+"</small> <br>"
 							+"<small >"+m[6]+"</small>" 
-							+"<form name='goReser'  action='reservtion.jsp' method='post' onsubmit='return goTo()'>"
-							+"<input type='hidden' name='mom_Id' value='"+m[12]+"'/>"
-						    +"<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>"    	
-							+"<hr>"
+
+							+"<button class='btn btn-secondary' type='button' name='reg'"
+								+"id='reg' onclick='goTo()' style='position: absolute; bottom: 10px; right: 20px;'>預約</button>"
+								+"<hr>"
 												
 					);
 

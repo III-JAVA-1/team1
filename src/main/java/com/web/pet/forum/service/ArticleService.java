@@ -60,26 +60,17 @@ public class ArticleService {
 		return res;
 	}
 	
-	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){//按關鍵字找文章
-		ListWithPaging list = dao.getArticleByHeaderKey(inputText, page);
+	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
+		List<Article> list = dao.getArticleByHeaderKey(inputText);
 		return list;
 	}
 	
-	public ListWithPaging getArticleByLatestComment(Integer page){	
-		ListWithPaging list = dao.getArticleByLatestComment(page);
-		return list;
-	}
-	
-	public int updateArticle(Article article) {	
-		return dao.updateArticle(article);
+	public int increaseViewing(Article article) {//增加瀏覽率		
+		return dao.increaseViewing(article);
 	}
 	
 	public int deleteArticle(Article article) { //刪除文章
 		return dao.deleteArticle(article); 
-	}
-	
-	public int setCommentCounts(Article article) {
-		return dao.setCommentCounts(article);
 	}
 	
 }

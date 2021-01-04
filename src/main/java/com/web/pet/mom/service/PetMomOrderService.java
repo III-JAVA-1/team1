@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.web.pet.mom.dao.PetMomOrderDAO;
 import com.web.pet.mom.model.PetMomOrder;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 @Transactional
 public class PetMomOrderService {
@@ -18,11 +16,6 @@ public class PetMomOrderService {
 	PetMomOrderDAO petMomOrderDAO;
 
 	public void insertPetMomOrder(PetMomOrder petMomOrder , Integer mom_Id) {
-		
 		petMomOrderDAO.insertPetMomOrder(petMomOrder, mom_Id);
-		
 	}
-	
-	
-	
 }

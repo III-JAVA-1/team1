@@ -65,8 +65,18 @@ public class ArticleService {
 		return list;
 	}
 	
-	public int increaseViewing(Article article) {//增加瀏覽率		
-		return dao.increaseViewing(article);
+	public ListWithPaging getArticleByLatestComment(Integer page){	
+		ListWithPaging list = dao.getArticleByLatestComment(page);
+		return list;
+	}
+	
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = dao.getArticleByHighestViewing();		
+		return list;
+	}	
+	
+	public int updateArticle(Article article) {	
+		return dao.updateArticle(article);
 	}
 	
 	public int deleteArticle(Article article) { //刪除文章

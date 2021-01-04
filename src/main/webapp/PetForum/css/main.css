@@ -100,12 +100,12 @@
     margin-bottom: 0px;
 }
 
-.db_line1_featured2 > p > a{
+#header > p > a{
 	font-size: 20px;
     color: #666;
 }
 
-.db_line1_featured2 > p > a:hover{
+#header > p > a:hover{
     text-decoration: none;
     color: #39C;
  }

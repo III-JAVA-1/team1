@@ -95,33 +95,33 @@
                         <span><a href="#"><img src="image/petCare.png"/></a></span>                        
                         </div>                    
                     </div>
-                <div class="db_line1_featured2">
+                <div id="slider" class="db_line1_featured2">
                 
                 <!-- slider start -->
-                     <div class="slider">
-				        <div class="slide">
-				          <ul>
-				            <li><img src="#" alt="" /></li>
-				            <li><img src="#" alt="" /></li>
-				            <li><img src="#" alt="" /></li>				            
-				          </ul>				         
-				        </div>
-				        <div class="controller">
-				          <div class="prev-btn btns">
-				            <i class="fas fa-angle-left fa-3x"></i>
-				          </div>
-				          <div class="indicator">
-				            <span id="active"></span>
-				            <span></span>
-				            <span></span>
-				          </div>
-				          <div class="next-btn btns">
-				            <i class="fas fa-angle-right fa-3x"></i>
-				          </div>
-				        </div>
-				      </div>
-				       <p><a href="#">header</a></p>
+                       <div class="slider">
+					        <div class="slide">
+					          <ul id="imgContent">
+					            <!-- AJAX -->
+					          </ul>
+					        </div>
+					        <div class="controller">
+					          <div class="prev-btn btns">
+					            <i class="fas fa-angle-left fa-3x"></i>
+					          </div>
+					          <div class="indicator">
+					            <span id="active"></span>
+					            <span></span>
+					            <span></span>
+					          </div>
+					          <div class="next-btn btns">
+					            <i class="fas fa-angle-right fa-3x"></i>
+					          </div>
+					        </div>
+					      </div>				       
 				      <!-- end of slider -->
+                </div>
+                <div id="header">
+                <!-- AJAX -->
                 </div>
 <!--end of Featured-->
 
@@ -187,7 +187,7 @@
             
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
-                    <h5>版主主題討論</h5>                            
+                    <h5>最新文章</h5>                            
                 </div>
             <div class="db_line1_right_featured2">
                 <div class="imag">
@@ -333,8 +333,62 @@
 
 
 	//load 全部文章(分頁)
-	selectAll();
- 	
+	
+	selectAll()
+	getHighestViewing()
+	
+//========================================================================	
+	
+	function getHighestViewing(){
+	
+		$.ajax({
+			url:"../petforum/highestViewing",
+			type:"GET",		
+			dataType:"json",			
+			success:function(data){					
+				$("#imgContent").html("");
+				$("#header").html("");
+					
+				$.each(data,function(i,n){ 
+				
+				console.log("123"+n[3]);
+				let content;
+				
+				if(!n[3].includes('imgur')){
+					content = "#";					
+				}
+				else{
+					content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
+					content = content+".jpg";
+					console.log("456"+content);
+				}
+				
+				console.log("djkhf"+content);
+				console.log("111"+n[0]);
+				console.log("111"+n[1]);
+				console.log("111"+n[2]);
+				
+				$("#imgContent").append(
+				"<li><img src="+content+" width=416px height=234px /></li>"					
+				);
+				
+				$("#header").append(
+						"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+n[0]+"8&u_Id="+n[1]+"'>"+n[2]+"</a></p>"
+					
+				);
+				
+				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
+				
+				})
+				
+			},
+			error:function(){
+				$("#imgContent").append("查無資料");
+				$("#header").append("查無資料");
+			}
+		})
+	
+	}
 //========================================================================	
 	
 		function getForum(item){//參數來自button的value(固定用item接)	

@@ -37,7 +37,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="編輯" id="modify" onsubmit=return check(this)/>
+					    	<input class="btn btn-secondary" type="submit" value="儲存" id="modify" onsubmit=return check(this)/>
 					    </div>
 				   	</div>
 			    </div>

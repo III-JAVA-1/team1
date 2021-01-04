@@ -74,6 +74,11 @@
 
 <body>
 
+<jsp:include page="Header.jsp" />
+
+	<%String getMom=request.getParameter("mom_Id");%>
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-2 bg">
@@ -84,6 +89,7 @@
                     <b>
                         <h4>
                             <b>聯絡</b>
+<%--                            <input type="text" value='<%=getMom%>'>--%>
                         </h4>
                     </b>
 
@@ -94,8 +100,7 @@
                     </b>
 
                     <br>
-                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
-				<input type="hidden" name="status"  value="處理中">
+
 
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -138,7 +143,7 @@
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="petName" type="text" name="petName"
+                            <input type="text" class="form-control" id="petName" name="petName"
                                 required=" ">
                         </div>
                     </div>
@@ -152,7 +157,7 @@
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="breed" type="text" name="petBreed" required=" ">
+                            <input type="text" class="form-control" id="breed"  name="petBreed" required=" ">
                         </div>
                     </div>
 
@@ -161,11 +166,11 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <label for="age">寵物歲數</label>
+                            <label for="petAge">寵物歲數</label>
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-2">
-                            <input type="number" class="form-control" id="idMount" name="maxReceive" value="0" min="0"
+                            <input type="number" class="form-control" id="petAge" name="petAge" value="0" min="0"
                                 max="99" required=" ">
                         </div>
                         <div style="line-height:2.5rem;height:2.5rem;padding-left:0;">
@@ -195,16 +200,17 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <label for="type">寶貝體型</label>
+                            <label>寶貝體型</label>
                             <span class="uppercase">*</span>
                         </div>
                         <div class="col-md-3">
                             <select class="custom-select" name="petType">
                                 <option>貓或狗</option>
-                                <option>小型犬(0~10kg)</option>
-                                <option>中型犬(10~24kg)</option>
-                                <option>大型犬(24kg以上)</option>
-                                <option>貓(0~10kg)</option>
+                       
+                                <option id="type1">小型犬(0~10kg)</option>
+                                <option id="type2">中型犬(10~24kg)</option>
+                                <option id="type3">大型犬(24kg以上)</option>
+                                <option id="type4">貓(0~10kg)</option>
                             </select>
                         </div>
                     </div>
@@ -218,7 +224,12 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <label for="type">服務價格</label>
+                            <label for="priceId">服務種類</label>
+                        </div>
+                        <div class="col-md-3 num">
+                            <select class="custom-select" name="proPrice" id="priceId">
+                                
+                            </select>
                         </div>
                     </div>
 
@@ -227,10 +238,10 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <label for="type">預約時段(起)</label>
+                            <label for="timeStart" >預約時段(起)</label>
                         </div>
-                        <div class="col-md-5">
-                            <input class="form-control" type="datetime-local" name="chooseStart" required=" ">
+                        <div class="col-md-5 num">
+                            <input class="form-control" type="datetime-local" name="chooseStart" required=" " id="timeStart">
                         </div>
                     </div>
 
@@ -238,11 +249,11 @@
 
                     <div class="row">
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
-                            <label for="type">預約時段(訖)</label>
+                        <div class="col-md-3 num">
+                            <label for="timeEnd">預約時段(訖)</label>
                         </div>
                     <div class="col-md-5">
-                        <input class="form-control" type="datetime-local" name="chooseEnd" required=" ">
+                        <input class="form-control"  id="timeEnd" type="datetime-local" name="chooseEnd" required=" ">
                     </div>
                 </div>
                     <br>
@@ -253,7 +264,7 @@
                             <label for="remark"> 備註</label>
                         </div>
                         <div class="col-md-7">
-                        <textarea class="form-control" name="remarks" id="remark" rows="4" name="remark"></textarea>
+                        <textarea class="form-control" id="remark" rows="4" name="remark"></textarea>
                     </div>
                     </div>
 
@@ -262,9 +273,14 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-3">價格計算</div>
                         <div class="col-md-7">
-                    <div style="width: 300px;height: 100px; border: solid black;border-radius: 5px;"></div>
+                    <div style="width: 300px;height: 100px; border: solid black;border-radius: 5px;" >
+                        <div id="total" name="total">0 元</div>
+                    </div>
                 </div>
                 </div>
+                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new java.util.Date().getTime())%>" />
+                    <input type="hidden" name="status"  value="處理中">
+<%--                    <input type="hidden" name="total" value="<%=request.getParameter("total")%>">--%>
 
                     <br>
 
@@ -281,12 +297,66 @@
             </div>
         </div>
     </div>
+    
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    <script> 
+    	
+    	function printPriceResult(){
+    		
+    		var timeStart = Date.parse($("#timeStart").val());
+    		var timeEnd = Date.parse($("#timeEnd").val());
+    		      	
+        	var priceId =$("#priceId").val();
+    		if(priceId != null && timeStart != null && timeEnd != null){
+    			
+    			var price = priceId.split(' ')[1];
+            	var countTime = timeEnd - timeStart;
+        		//hour 還要再修改
+        		//hour = countTime % (24*3600*1000);
+        	    var hour = Math.round(countTime / (1000 * 60 * 60)) ;
+        		console.log("timeStart "+ timeStart)
+        		console.log("countTime " +countTime)
+        		console.log("hour" + hour)
+        		var countResult = price * hour;
+        	
+        		if(countTime <= 0){
+            		Swal.fire('結束時間必須大於開始時間')
+            	}else if(countResult > 0){
+            	 console.log("countResult " +countResult);
+            	 var p = countResult+" 元"
+            	 console.log(p)
+        		 $("#total").text(p);
+        		 }
+    		}
+    	}
+    	
+    	$("#timeStart").change(function(){
+    		printPriceResult()
+    	});
+    	
+    	$("#timeEnd").change(function(){
+    		printPriceResult()
+    	});
+    	
+    	$("#priceId").change(function(){
+    		printPriceResult()
+    	});
+
+    </script>
 
     <script>
         w3.includeHTML();
+
+
     </script>
     <!--include 的下半部分-->
-
+    <jsp:include page="Footer.jsp" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -306,6 +376,36 @@
             countyName: "country", // 自訂城市 select 標籤的 name 值
             districtName: "district", // 自訂地區 select 標籤的 name 值
         });
+    </script>
+    
+    <script>
+    $().ready(function() {
+		$.ajax({
+			url : "../mom/showReservtion",
+			type : "post",
+			dataType : "json",
+			data : {
+				"mom_Id" : <%=getMom%>
+			},
+			success : function(data) {
+				$.each(data, function(n, m) {	
+					let price = "<option>服務種類</option>"; 
+					if(m[7] != null){
+						price+="<option id='service1'>到府遛狗 "+m[7]+" 元</option>"
+                    }
+					if(m[8] !=  null){
+						price+="<option id='service2'>安親照顧 "+m[8]+" 元</option>"
+                    }
+					if(m[9] !=  null){
+						price+="<option id='service3'>寄宿照顧 "+m[9]+" 元</option>"
+                    }
+					$("#priceId").append(price)
+				});
+			}
+			
+		});
+	});
+    
     </script>
 
     <script>

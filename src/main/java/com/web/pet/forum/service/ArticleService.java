@@ -20,7 +20,7 @@ import com.web.pet.forum.model.ListWithPaging;
 public class ArticleService {
 	
 	@Autowired
-	ArticleDao dao;	
+	private ArticleDao dao;	
 	
 	public int saveArticle(Article article,Integer u_Id) {//新增一篇文章
 		return dao.saveArticle(article,u_Id);

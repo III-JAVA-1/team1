@@ -26,7 +26,7 @@ import com.web.pet.forum.service.ArticleService;
 public class ModifyArticle {
 	
 	@Autowired
-	ArticleService service;	
+	private ArticleService service;	
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";

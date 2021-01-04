@@ -283,6 +283,22 @@ public class ArticleDao {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = new ArrayList<Object[]>();		
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "";
+		
+		sql = "select top(3) a.posterUid, a.u_Id, a.header, a.content, a.viewing\r\n" + 
+			  "from Article a\r\n" + 
+			  "order by a.viewing desc";			
+		list = session.createNativeQuery(sql).getResultList();
+		
+		if(list.isEmpty()) {return null;}
+		else {return list;}				
+	}
+	
+	
 	/**
 	 * @author ching
 	 *	修改文章需要merge

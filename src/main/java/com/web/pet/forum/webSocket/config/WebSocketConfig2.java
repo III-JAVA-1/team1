@@ -17,9 +17,9 @@ import com.web.pet.forum.webSocket.MsgScoketHandle;
 @Configuration
 @EnableWebMvc
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfig2 implements WebSocketConfigurer {
 
-	  private static final Logger logger = LoggerFactory.getLogger(WebSocketConfig.class);
+	  private static final Logger logger = LoggerFactory.getLogger(WebSocketConfig2.class);
 	    @Override
 	    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 	        System.out.println("==============註冊socket============");

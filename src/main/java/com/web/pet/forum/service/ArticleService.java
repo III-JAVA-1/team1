@@ -70,6 +70,11 @@ public class ArticleService {
 		return list;
 	}
 	
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = dao.getArticleByHighestViewing();		
+		return list;
+	}	
+	
 	public int updateArticle(Article article) {	
 		return dao.updateArticle(article);
 	}

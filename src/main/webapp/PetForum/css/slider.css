@@ -1,0 +1,104 @@
+.slider {
+    position: relative;
+    width: 416px;
+    height: 300px;
+    padding: 0;
+    margin: 1rem auto;
+    box-sizing: unset;
+    border: 5px solid black;
+    border-radius: 6px;
+  }
+  .slider .slide {
+    width: 416px;
+    height: 234px;
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .slider .slide img {
+    padding: 0;
+    margin: 0;
+    width: 416px;
+    height: 234px;
+    
+  }
+  
+  .slider .slide ul {
+    width: 1248px;
+    height: 234px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    list-style: none;
+    font-size: 0;
+    position: relative;
+  }
+  .slider .slide li {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    position: absolute;
+    transition: 0.7s cubic-bezier(0.45, 0.06, 0.32, 1);
+  }
+  
+  .slide li:nth-of-type(1) {
+    left: -416px;
+  }
+  .slide li:nth-of-type(2) {
+    left: 0px;
+  }
+  .slide li:nth-of-type(3) {
+    left: 416px;
+  }
+  
+  .controller {
+    display: flex;
+    width: 100%;
+    height: 65px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(219, 219, 219, 1) 10px,
+      rgba(219, 219, 219, 1) 19px
+    );
+  }
+  .controller .prev-btn {
+    margin-left: 3rem;
+    cursor: pointer;
+    color: #181818;
+  }
+  .controller .next-btn {
+    margin-right: 3rem;
+    cursor: pointer;
+    color: #181818;
+  }
+  
+  .controller .indicator {
+    display: flex;
+    width: 80px;
+    height: 16px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background: #181818;
+    border-radius: 10px;
+  }
+  
+  .indicator span {
+    width: 8px;
+    height: 8px;
+    background: whitesmoke;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0 4px 0 4px;
+  }
+  
+  #active {
+    background: red;
+  }

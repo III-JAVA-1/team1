@@ -76,8 +76,8 @@ public class ArticleDao {
 			
 			//分頁
 			list = session.createNativeQuery(sql)									
-									.setFirstResult(8*(page-1))
-									.setMaxResults(8)
+									.setFirstResult(10*(page-1))
+									.setMaxResults(10)
 									.getResultList();			
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
 			
@@ -88,7 +88,7 @@ public class ArticleDao {
 					"from Article");			
 			Long total1 = (Long)query.uniqueResult();
 			Double totalCounts = total1.doubleValue();		
-			double total2 = totalCounts / 8.0;
+			double total2 = totalCounts / 10.0;
 			System.out.println(total2);
 			Integer totalPages =  (int) Math.ceil(total2);			
 					
@@ -106,8 +106,8 @@ public class ArticleDao {
 			//分頁
 			list = session.createNativeQuery(sql)
 					.setParameter("forumId", forumId)
-					.setFirstResult(8*(page-1))
-					.setMaxResults(8)
+					.setFirstResult(10*(page-1))
+					.setMaxResults(10)
 					.getResultList();
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
 			System.out.println("list==null"+list.isEmpty());
@@ -118,7 +118,7 @@ public class ArticleDao {
 					.setParameter("forumId", forumId).uniqueResult();
 			
 			Integer totalCounts = (Integer)total1;			
-			double total2 = totalCounts / 8.0;			
+			double total2 = totalCounts / 10.0;			
 			Integer totalPages =  (int) Math.ceil(total2);	
 			
 			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
@@ -213,8 +213,8 @@ public class ArticleDao {
 		
 		//分頁
 		list = session.createNativeQuery(sql)				
-				.setFirstResult(8*(page-1))
-				.setMaxResults(8)
+				.setFirstResult(10*(page-1))
+				.setMaxResults(10)
 				.getResultList();
 		res.setArticleList(list);//將文章集合加入ListWithPaging物件
 		System.out.println("list==null"+list.isEmpty());
@@ -225,7 +225,7 @@ public class ArticleDao {
 				.uniqueResult();
 		
 		Integer totalCounts = (Integer)total1;			
-		double total2 = totalCounts / 8.0;			
+		double total2 = totalCounts / 10.0;			
 		Integer totalPages =  (int) Math.ceil(total2);	
 		
 		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
@@ -256,8 +256,8 @@ public class ArticleDao {
 		
 		//分頁
 		list = session.createSQLQuery(sql)				
-				.setFirstResult(8*(page-1))
-				.setMaxResults(8)
+				.setFirstResult(10*(page-1))
+				.setMaxResults(10)
 				.getResultList();
 		res.setArticleList(list);//將文章集合加入ListWithPaging物件
 		System.out.println("list==null"+list.isEmpty());
@@ -272,7 +272,7 @@ public class ArticleDao {
 				"on Article.posterUid = Comment.posterUid").uniqueResult();
 		
 		Integer totalCounts = (Integer)total1;			
-		double total2 = totalCounts / 8.0;			
+		double total2 = totalCounts / 10.0;			
 		Integer totalPages =  (int) Math.ceil(total2);	
 		
 		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
@@ -280,6 +280,22 @@ public class ArticleDao {
 		
 		if(list.isEmpty()) {return null;}		
 		else {return res;}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = new ArrayList<Object[]>();		
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "";
+		
+		sql = "select top(3) a.posterUid, a.u_Id, a.header, a.content, a.viewing\r\n" + 
+			  "from Article a\r\n" + 
+			  "order by a.viewing desc";			
+		list = session.createNativeQuery(sql).getResultList();
+		
+		if(list.isEmpty()) {return null;}
+		else {return list;}				
 	}
 	
 	

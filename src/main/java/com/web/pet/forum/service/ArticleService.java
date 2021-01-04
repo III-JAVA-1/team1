@@ -20,7 +20,7 @@ import com.web.pet.forum.model.ListWithPaging;
 public class ArticleService {
 	
 	@Autowired
-	ArticleDao dao;	
+	private ArticleDao dao;	
 	
 	public int saveArticle(Article article,Integer u_Id) {//新增一篇文章
 		return dao.saveArticle(article,u_Id);
@@ -69,6 +69,11 @@ public class ArticleService {
 		ListWithPaging list = dao.getArticleByLatestComment(page);
 		return list;
 	}
+	
+	public List<Object[]> getArticleByHighestViewing(){
+		List<Object[]> list = dao.getArticleByHighestViewing();		
+		return list;
+	}	
 	
 	public int updateArticle(Article article) {	
 		return dao.updateArticle(article);

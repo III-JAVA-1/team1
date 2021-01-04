@@ -1,5 +1,7 @@
 package com.web.pet.mom.service;
 
+import com.web.pet.mom.Exeption.MomIsExistedException;
+import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.dao.PetMomOrderDAO;
 import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.mom.model.PetMomOrderReq;
@@ -19,10 +21,24 @@ import java.util.Date;
 @Transactional
 public class PetMomOrderService {
 
-    @Autowired
-    PetMomOrderDAO petMomOrderDAO;
+//    @Autowired
+//    private PetMomDAO petMomDAO;
+    private final PetMomOrderDAO petMomOrderDAO;
 
-    public void insertPetMomOrder(PetMomOrderReq req, Integer mom_Id) throws ParseException {
+    @Autowired
+    public PetMomOrderService(PetMomOrderDAO petMomOrderDAO) {
+        this.petMomOrderDAO = petMomOrderDAO;
+    }
+
+//     if (petMomDAO.getMomByMemberId(u_Id) == null) {
+//        petMomDAO.insertMom(mom, u_Id);
+//    } else {
+//        throw new MomIsExistedException();
+//    }
+
+    public void insertPetMomOrder(PetMomOrderReq req , Integer mom_Id) throws ParseException {
+
+//        if(petMomDAO.getMomByMomId(mom_Id) != null){}
         PetMomOrder petMomOrder = new PetMomOrder();
 
         petMomOrder.setListCreate(req.getListCreate());
@@ -37,17 +53,22 @@ public class PetMomOrderService {
         petMomOrder.setDistrict(req.getDistrict());
         petMomOrder.setAddress(req.getAddress());
         petMomOrder.setConnPhone(req.getConnPhone());
+
         String chooseStart = req.getChooseStart();
         petMomOrder.setChooseStart(chooseStart);
+
         String chooseEnd = req.getChooseEnd();
         petMomOrder.setChooseEnd(chooseEnd);
+
         String proPrice = req.getProPrice();
-        Integer price = Integer.valueOf(proPrice.split(" ")[1]);
+
+        int price = Integer.parseInt(proPrice.split(" ")[1]);
         petMomOrder.setService(proPrice);
 
         petMomOrder.setTotal(countTotal(price, formatDate(chooseStart), formatDate(chooseEnd)));
 
         petMomOrderDAO.insertPetMomOrder(petMomOrder, mom_Id);
+
     }
 
     private Date formatDate(String date) throws ParseException {

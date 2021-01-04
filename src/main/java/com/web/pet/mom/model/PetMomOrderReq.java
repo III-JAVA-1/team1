@@ -39,6 +39,8 @@ public class PetMomOrderReq {
     private String proPrice;
 
     private String total;
+
+    private Integer mom_Id;
 }
 
 

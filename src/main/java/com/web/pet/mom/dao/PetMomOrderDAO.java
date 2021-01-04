@@ -7,11 +7,18 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author i19
+ */
 @Repository
 public class PetMomOrderDAO {
 
-    @Autowired
     SessionFactory sessionFactory;
+
+    @Autowired
+    public PetMomOrderDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     /**
      * 寫入預約保母資料

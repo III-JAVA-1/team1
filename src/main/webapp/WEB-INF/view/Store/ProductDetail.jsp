@@ -81,11 +81,9 @@
 
 
         <div class="bd-highlight btn1">
-            <button type="button" class="btn btn-danger shoppingCart-btn" onclick="addShoppingCart(${id}, false)" >
-                <img class="cart-img" src="../Store/images/add-shopping-cart.svg" width="18px" height="18px"/>加入購物車</button>
-            <button type="button" class="btn btn-warning shoppingCart-btn" onclick="addShoppingCart(${id}, true)">
-                <img class="cart-img" src="../Store/images/shopping-bag.svg" width="18px" height="18px"/>直接購買</button>
-            <img class="shoppingCart-btn" id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
+            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, false)">加入購物車</button>
+            <button type="button" class="btn btn-outline-warning" onclick="addShoppingCart(${id}, true)">直接購買</button>
+            <img id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
         </div>
     </div>
 
@@ -196,7 +194,6 @@ ${modProduct}
                     goShoppingCart();
                 } else {
                     alert('成功加入購物車');
-                    getCartCount();
                 }
             },
             // 失敗時要做的事
@@ -228,10 +225,6 @@ ${modProduct}
                 let rateHtml = "";
                 let topRateHtml = "";
                 res.rateList.forEach(function (rateData) {
-
-                    // 用三源檢查rateData.date是不是空
-                    let rateMsg = rateData.message == null ? "": rateData.message;
-
                     rateHtml += "<div class=\"custom-message-area\">\n" +
                         "<P class=\"member-account\">"
                         + rateData.name
@@ -242,30 +235,31 @@ ${modProduct}
                     for (let i = 1; i <= 5; i++) {
                         if (i <= rateData.rateCount) {
                             rateHtml += "<img src=\"../Store/images/star.svg\" width=\"12px\" height=\"12px\">\n";
+                            topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/star.svg\" width=\"15px\" height=\"15px\" \>\n"
                         } else {
                             rateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"12px\" height=\"12px\">\n"
+                            topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/noStar.svg\" width=\"15px\" height=\"15px\" \>\n"
+
                         }
                     }
                     rateHtml += "</div>\n" +
                         "<P class=\"message\">\n" +
-                        rateMsg +
+                        rateData.message +
                         "<hr>\n" +
                         "</div>";
                 })
                 rateListDiv.innerHTML = rateHtml;
+                topStarDiv.innerHTML = topRateHtml;
 
                 let avgRateHtml = "<P class=\"star-rate\">" + res.avgRate + "/5.0" + "</P>\n"
                 for (let i = 1; i <= 5; i++) {
                     if (i <= parseInt(res.avgRate)) {
                         avgRateHtml += "<img src=\"../Store/images/star.svg\" width=\"20px\" height=\"20px\">\n";
-                        topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/star.svg\" width=\"15px\" height=\"15px\" \>\n"
                     } else {
                         avgRateHtml += "<img src=\"../Store/images/noStar.svg\" width=\"20px\" height=\"20px\">\n";
-                        topRateHtml += "<img class=\"rate-img\" src=\"../Store/images/noStar.svg\" width=\"15px\" height=\"15px\" \>\n"
                     }
                 }
                 avgRate.innerHTML = avgRateHtml;
-                topStarDiv.innerHTML = topRateHtml;
                 if (res.avgRate > 0) {
                     topRate.innerHTML = res.avgRate;
                     rateCount.innerHTML = res.rateList.length + "則評價";

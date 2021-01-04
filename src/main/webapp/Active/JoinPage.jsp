@@ -1,4 +1,3 @@
-<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -22,11 +21,12 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
+<link href="Styles/index.css" rel="stylesheet">
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 
 </head>
 <jsp:include page="Header.jsp"/>
-<body style="background-color:#F0F0F0;">
+<body>
 
 
 	<!-- NavBar頭-->
@@ -39,7 +39,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -137,9 +137,7 @@
 								
 				<br> <br> 
 				<input type="hidden" id="JoinTime" name="JoinTime"  value="<%= (new java.util.Date()).toLocaleString()%>">
-				<input type="hidden" name="now" id="now" value="<%= new Date(new java.util.Date().getTime())%>" /> 
-				<input type="hidden" id="stt" name="stt" >
-				<button type="submit" id="BtnSend" name="todo" value="join" onClick="check()">送出</button>
+				<button type="submit" id="BtnSend" name="todo" value="join">送出</button>
 				
 				</form>
 			</div>
@@ -169,12 +167,6 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 				
 				$("#act_name").html(n.act_name);
 				$("#act_name2").val(n.act_name);
-				$("#stt").val(n.starttime);
-				
-				if (Date.parse(stt.value) < Date.parse(now.value)){
-					alert("活動已經截止報名");window.history.back(-1);
-				}
-				
 						
 					});
 				}
@@ -197,51 +189,11 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 					$("#country").val(n.country);
 					$("#district").val(n.district);
 					$("#address").val(n.address);
-					
 				});
 			}
 		});
 	});
 
-	
-	
-	
-	function check(){//檢查填入資訊
-		if(stt.value == "") 
-	    {
-	            alert("非正常活動參與");
-	    }
-	    
-		else submit();
-	}
-
-	
-	
-	function gogo()
-	{
-		<%
-			if(session.getAttribute("user")==null)
-			{%>window.alert("請先登入"); return false;
-			<%}else{%>
-			return  true;
-			<%}%>
-				
-				
-		return false;
-	}
-
-	function gogo()
-	{
-		<%
-			if(session.getAttribute("user")==null)
-			{%>window.alert("請先登入"); return false;
-			<%}else{%>
-			return  true;
-			<%}%>
-				
-				
-		return false;
-	}
 </script>
 
 </html>

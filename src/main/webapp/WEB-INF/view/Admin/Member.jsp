@@ -37,6 +37,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	cursor: pointer;
     	z-index: 1000;
 	}
+/* 	tr:nth-child(even+1) {background: #CCC} */
+/* 	tr:nth-child(odd+1) {background: #FFF} */
 	
 </style>
 </head>

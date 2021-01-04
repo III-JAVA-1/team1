@@ -29,7 +29,7 @@
 </head>
 <jsp:include page="Header.jsp" />
 
-<body style="background-color:#F0F0F0;">
+<body>
 
 
 	<!-- NavBar頭-->
@@ -42,7 +42,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -54,40 +54,43 @@
 
 	<!--Nav尾-->
 
-	<div style="width: 1100px;background-color:#FFFFFF;margin: auto;">
 
-		<div class="d-flex justify-content-center">
-		<select class="custom-select mr-sm-2" aria-label="Default select example" id="acttype" name="acttype" style="width:200px;">
-  				<option selected value="">分類</option>
-  				<option value="展覽">展覽</option>
-				<option value="演講">演講</option>
-				<option value="比賽">比賽</option>
-				<option value="課程">課程</option>
-				<option value="其他">其他</option>
-		</select>		
-		</div>
-		
-		<br>
+
+
 
 	<div class="container">
+		<table style="border: 2px solid black; margin: auto; width: 1000px;">
 
-			<div class="h4" id="tip" style="text-align: center;">
-			</div>
+			<tr>
+				<td class="acstyle">活動名稱</td>
+				<td class="acstyle">活動時間</td>
+				<td class="acstyle">活動簡介</td>
+				<td class="acstyle">承辦單位</td>
+				<td class="acstyle">連絡人</td>
+				<td class="acstyle">活動類別</td>
+			</tr>
 
-			<div id="good" class="row justify-content-center">
-			</div>
+			<tbody id="activetable">
+			</tbody>
+		</table>
 
-	<div>        
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
+		<!-- 		<div style="text-align:center;"> -->
+		<!-- 		<input type="button" id="firstPage" value="首頁" /> -->
+		<!-- 		<input type="button" id="previous" value="上一頁" /> -->
+		<!-- 		<input type="button" id="next" value="下一頁" /> -->
+		<!-- 		<input type="button" id="last"  value="最後頁" /> -->
+		<!-- 		</div> -->
+
+		<br>
+		<br>
 
 	</div>
-	</div>
+
 	<script>
 
 
-		
-				//ajax活動表格
+		$().ready(
+				function() {//ajax活動表格
 					$.ajax({
 						url : "../Wu/Activity",
 						type : "post",
@@ -95,76 +98,35 @@
 						success : function(data) {
 							$.each(data, function(i, n) {
 
-
-								$("#good").append(
-												"<div class='card m-3' style='width: 17rem;'>"
-												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
-									  			+"<div class='card-body'>"
-									  			+"<div style='height:120px;'>"
-									    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
-									    		+"</div>"
-									    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
-									    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
-									    		+"<div class='card-footer bg-transparent border-success'>"
-									    		+"<p class='card-text'>"+n[8]+"</p>"
-									  			+"</div></div></div>"							
-
-								
-								);
+								$("#activetable").append(
+										"<tr>"
+												
+												+"<td class='' style='border: 1px solid black; padding:5px'><a href='ActShow.jsp?get="
+												+ n[0] + "'/>"
+												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'>"
+												+ n[1].substr(0,19)
+												+ "</td>"
+												+ "<td class='acstyle'>"
+												+ n[2].substr(0,10) + " ~ "
+												+ n[3].substr(0,10) + "</td>"
+												+ "<td class='acstyle'>"
+												+ n[4].substr(0,10) + "...</td>"
+												+ "<td class='acstyle'>"
+												+ n[5].substr(0,10) + "</td>"
+												+ "<td class='acstyle'>"
+												+ n[6].substr(0,10) + "</td>"
+												+ "<td class='acstyle'>"
+												+ n[8].substr(0,10) + "</td></tr>");
+								//console.log(n[0]);
 
 							});
 						}
 					});
 
-				
-		
-		
-		
-	$("#acttype").change(function(){
-			$("#tip").html("");
-			$("#good").html("");
-			$.ajax({
-				url : "../Wu/Activity",
-				type : "post",
-				async : false,
-				dataType : "json",
-				data:{
-					"acttype": $("#acttype").val()
-				},
-				success:function(data){
-					$.each(data, function(i, n) {
-
-
-						$("#good").append(
-								"<div class='card m-3' style='width: 17rem;'>"
-								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
-					  			+"<div class='card-body'>"
-					  			+"<div style='height:120px;'>"
-					    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
-					    		+"</div>"
-					    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
-					    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
-					    		+"<div class='card-footer bg-transparent border-success'>"
-					    		+"<p class='card-text'>"+n[8]+"</p>"
-					  			+"</div></div></div>"
-					  													
-
-						);
-										
-					});
-				},
-				error:function(){
-        			$("#tip").html("查無資料");
-        			}
-			});
-			
-		});
-		
-		
-		
+				});
 	</script>
 
 </body>
 
-<jsp:include page="Footer.jsp" />
+<%-- <jsp:include page="Footer.jsp" /> --%>
 </html>

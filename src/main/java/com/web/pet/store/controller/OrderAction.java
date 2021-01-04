@@ -12,15 +12,11 @@ import com.web.pet.store.dto.table.OrderDTO;
 import com.web.pet.store.dto.table.OrderItemDTO;
 import com.web.pet.store.service.ControlValue;
 import com.web.pet.store.service.EcpayService;
-import com.web.pet.store.service.MailService;
 import com.web.pet.type.OrderPayType;
 import com.web.pet.util.DbUtils;
 import com.web.pet.util.EcpayUtils;
 import com.web.pet.util.ExceptionUtils;
-import com.web.pet.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +34,6 @@ import java.util.List;
 @Controller
 @Slf4j
 public class OrderAction {
-
-    @Value(value = "classpath:email_order_success.html")
-    private Resource htmlResource;
 
     /**
      * GET(取得要顯示的jsp) GetMapping括號中的字串為自己要設定的網址路徑
@@ -207,18 +200,6 @@ public class OrderAction {
                 EcpayService ecpayService = new EcpayService(true);
                 res.setEcpHtml(ecpayService.genAioCheckOut(aioDTO, null));
             }
-
-            // 寄送訂單成立通知信
-            String content = FileUtils.readTextFile(htmlResource.getFile());
-            content =
-                    content.replace(
-                            "$content_url", ControlValue.SERVER_URL + "Member/Shoporder.jsp");
-            MailService.initMail(ControlValue.SEND_EMAIL, ControlValue.EMAIL_TOKEN)
-                    .setTitle("AccompanyMe訂單成立通知信")
-                    .addContent(content)
-                    .setSendName("毛孩商城")
-                    .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com")
-                    .sendMailOnThread(MailService.MailType.HTML);
 
             dbu.doCommit();
             res.setSuccess(true);

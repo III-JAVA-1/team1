@@ -9,9 +9,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.alibaba.fastjson.support.moneta.MonetaCodec;
-import com.web.pet.member.model.Member;
-import com.web.pet.mom.model.Mom;
 import com.web.pet.store.dto.table.OrderDTO;
 
 
@@ -26,10 +23,9 @@ public class OtherFunctionDao {
 	public List<OrderDTO> shoporderDao(String userid){//會員頁面秀出訂單
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
-		String hql="select order_id,date,cost,order_status,address,remarks\r\n"
-				+ "from [dbo].[order]\r\n"
-				+ "where customer_id=:userid\r\n"
-				+ "order by date desc";
+		String hql="select order_id,date,cost,order_status,address,remarks \r\n"
+				+ "from [dbo].[order] \r\n"
+				+ "where customer_id=:userid";
 		Query<OrderDTO> query = session.createNativeQuery(hql).setParameter("userid", userid);
 		
 		list=query.getResultList();
@@ -94,8 +90,7 @@ public class OtherFunctionDao {
 				+ "from rate,product\r\n"
 				+ "where rate.product_id=product.product_id\r\n"
 				+ "and rate.customer_id=:id\r\n"
-				+ "and product.is_display='T'\r\n"
-				+ "order by rate.date desc";
+				+ "and product.is_display='T'";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -109,14 +104,13 @@ public class OtherFunctionDao {
 	public List<Object[]> articlememberDao(Integer user_id,String search){//會員頁面文章記錄
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,sum(CASE WHEN Comment.posterUid = Article.posterUid THEN 1 ELSE 0 END ) as'留言數',Article.posterUid\r\n"
-				+ "from Article,Comment\r\n"
+		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,count(Comment.posterUid) as'留言數',Article.posterUid\r\n"
+				+ "from Article, Comment\r\n"
 				+ "where Article.isHide=0\r\n"
-				+ "and Article.u_Id=:id\r\n"
+				+ "and Article.u_Id=:id \r\n"
 				+ "and Article.header like '%"+search+"%'\r\n"
 				+ "group by Article.posterUid,Article.header,\r\n"
-				+ "Article.forumId,Article.updatedTime,Article.viewing\r\n"
-				+ "order by Article.updatedTime desc";
+				+ "Article.forumId,Article.updatedTime,Article.viewing";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -134,8 +128,7 @@ public class OtherFunctionDao {
 				+ "from Comment,Article\r\n"
 				+ "where Comment.u_Id=:id\r\n"
 				+ "and commentIsHide=0\r\n"
-				+ "and Comment.posterUid=Article.posterUid\r\n"
-				+ "order by Comment.commentUpdatedTime desc";
+				+ "and Comment.posterUid=Article.posterUid";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -153,8 +146,7 @@ public class OtherFunctionDao {
 				+ "from Active2\r\n"
 				+ "where u_Id=:id\r\n"
 				+ "and viableNumber=1\r\n"
-				+ "and act_name like '%"+search+"%'\r\n"
-				+ "order by starttime desc";
+				+ "and act_name like '%"+search+"%'";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -181,77 +173,4 @@ public class OtherFunctionDao {
 			return list; 
 		}
 	}
-	
-	@SuppressWarnings("unchecked") //會員頁面活動的參加人
-	public List<Object[]> memberalljoinDao(Integer aid){
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select name,email,country,district,address,pettype,petnum,join_actnow,extra,act_name\r\n"
-				+ "from JoinAct\r\n"
-				+ "where act_no=:aid";
-		Query<Object[]> query = session.createSQLQuery(hql).setParameter("aid", aid);
-		list = query.list();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list; 
-		}
-	}
-	
-	/////////////////////////會員活動功能////////////////////////////////	
-	
-	@SuppressWarnings("unchecked") //會員頁面店家預約
-	public List<Object[]> memberpetshopDao(Integer user_id,String search){
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select storename,date,name,phone,item,address,id\r\n"
-				+ "from Salon_reserv\r\n"
-				+ "where fk_id=:user_id\r\n"
-				+ "and storename like '%"+search+"%'";
-		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
-		list = query.getResultList();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list; 
-		}
-	}
-	
-	public Integer memberpetshopdeleteDao(Integer id){//會員店家刪除訂單
-		Integer result =0;
-		Session session = sessionFactory.getCurrentSession();
-		String hql="delete \r\n"
-				+ "from Salon_reserv\r\n"
-				+ "where id=:id";
-		result = session.createSQLQuery(hql).setParameter("id", id).executeUpdate();
-		return result;
-	}
-	
-	/////////////////////////會員店家功能////////////////////////////////
-	
-	@SuppressWarnings("unchecked") //會員頁面保母資料修改顯示修改資料
-	public List<Object[]> membermomDao(Integer user_id){
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select mom_Id,bodyType1,bodyType2,bodyType3,bodyType4,experience,notices,petContent,proPrice1,proPrice2,proPrice3,title \r\n"
-				+ "from mom\r\n"
-				+ "where u_Id=:user_id";
-		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
-		list = query.getResultList();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list; 
-		}
-	}
-	
-	public Integer membereditmomDao(Mom mom){//會員保母資料修改
-		Session session = sessionFactory.getCurrentSession();
-		Integer result=0;
-		session.merge(mom);
-		result++;
-		return result;
-	}
-	
-	/////////////////////////會員保母功能////////////////////////////////
 }

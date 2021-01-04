@@ -22,11 +22,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <title>AccompanyMe</title>
 <style>
-	
-	a{
-    	text-decoration:none;
-	}
-	
+
 	#title{
 		background-color: aqua;
 	}
@@ -67,7 +63,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
  					<a href="Member.jsp" class="list-group-item list-group-item-action h4 " aria-current="true">
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
-  					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
+  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >活動/課程查詢</a>
@@ -172,7 +168,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){
 				$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
 						"<td>"+n[1].substring(0,20)+".....</td>"+
-			   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+			   			"<td>"+n[2]+"~"+n[3]+"</td>"+
 			   			"<td>"+n[4]+"</td></tr>");
 			});
 		},
@@ -244,7 +240,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
     				   			"<td>"+n[4]+"</td></tr>");
     				});
     			},
@@ -273,7 +269,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
     				   			"<td>"+n[4]+"</td></tr>");
     				});
         		},

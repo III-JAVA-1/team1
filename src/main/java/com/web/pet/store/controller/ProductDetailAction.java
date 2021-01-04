@@ -117,7 +117,7 @@ public class ProductDetailAction {
             // 把jsp的${id}換成後面的值
             model.addAttribute("id", id);
 
-            if (StringUtils.isNotEmpty(memberId) && memberId.equals("1")) {
+            if (StringUtils.isNotEmpty(memberId)) {
                 model.addAttribute("memberId", memberId);
                 String modProductHtml =
                         "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n"
@@ -193,7 +193,7 @@ public class ProductDetailAction {
             resultSet.close();
             res.setRateList(dataList);
 
-            sql = "SELECT AVG(CAST(rate AS FLOAT)) FROM rate WHERE product_id=?";
+            sql = "SELECT AVG(rate) FROM rate WHERE product_id=?";
 
             double avg = dbUtils.selectDoubleList(sql, req.getProductId());
             DecimalFormat df = new DecimalFormat("#.0");

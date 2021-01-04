@@ -121,7 +121,6 @@
             dataType: "json",
             contentType: "application/json",
             success: function (res) {
-                //console.log(res.success);
                 if (res.success) {
                     if(payType === 0) {
                         $("#payTotal").append(res.ecpHtml);

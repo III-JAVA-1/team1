@@ -9,5 +9,3 @@ public class SendRateReqDTO {
     private Integer memberId;
     private List<RateDataResDTO> rateDataList;
 }
-
-

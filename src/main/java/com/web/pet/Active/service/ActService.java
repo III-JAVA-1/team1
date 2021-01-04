@@ -28,8 +28,8 @@ public class ActService {
 	
 	
 	//ajax查詢活動有哪些
-	public List<Object[]> ajaxActService(String acttype) {
-		return actDao.ajaxActDao(acttype);
+	public List<ActBean> ajaxActService() {
+		return actDao.ajaxActDao();
 	}
 	
 	

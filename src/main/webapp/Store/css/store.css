@@ -11,7 +11,7 @@
     margin-left: 30px;
 }
 
-.goTop-btn { /*回到top按鈕設計*/
+#gotop { /*回到top按鈕設計*/
     position: fixed;
     right: 30px;
     bottom: 151px;
@@ -19,10 +19,15 @@
     height: 50px;
     text-align: center;
     border: none;
-    cursor: pointer;
+    background-size: 50px 50px;
 }
 
-.shopcart-btn { /*購物車按鈕*/
+#gotop:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
+
+}
+
+#shopcart { /*購物車按鈕*/
     position: fixed;
     right: 30px;
     bottom: 31px;
@@ -30,18 +35,11 @@
     height: 50px;
     text-align: center;
     border: none;
-    cursor: pointer;
+    background-size: 50px 50px;
 }
 
-.add-btn { /*新增商品按鈕*/
-    position: fixed;
-    right: 30px;
-    bottom: 91px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
+#shopcart:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
 }
 
 .cart-count{
@@ -53,6 +51,22 @@
     text-align: center;
     color: red;
     font-weight: bold;
+}
+
+#add { /*新增商品按鈕*/
+    position: fixed;
+    right: 30px;
+    bottom: 91px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    /*background-image: url("Store/images/plus.svg");*/
+    background-size: 50px 50px;
+}
+
+#add:hover { /*button滑入不要背景顏色*/
+    background-color: transparent;
 }
 
 /*#goindex {*/
@@ -132,7 +146,6 @@
 
 .card-click{
     cursor: pointer;
-    padding-bottom: 10px;
 }
 
 .zoom-up-img {
@@ -171,28 +184,4 @@
 
 .modify-btn{
     margin: 0 10px 0 10px;
-}
-
-.my-card-img-div {
-    position: relative;
-    width: 100%;
-    padding-top: 100%;
-}
-
-.my-card-img{
-    position:absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-.my-card-img-no-display{
-    position:absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
 }

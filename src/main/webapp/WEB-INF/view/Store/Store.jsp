@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../Store/js/change-page.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
     <link href="../Store/css/store.css" rel="stylesheet">
     <title>毛孩商城</title>
 </head>
@@ -37,13 +38,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="../Store/images/banner-2.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/dog.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../Store/images/banner-1.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/cat.jpg" class="d-block roll-img" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../Store/images/banner-3.jpg" class="d-block roll-img" alt="...">
+                    <img src="../Store/images/pet.png" class="d-block roll-img" alt="...">
                 </div>
             </div>
 
@@ -83,13 +84,13 @@
                 </div>
             </div>
             <div class="btn-group button-sort" role="group">
-                <button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle"
+                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     排序
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     <a class="dropdown-item sort-btn active" onclick="sortClick(this,0)">熱門商品</a>
-                    <a id="newSortBtn" class="dropdown-item sort-btn" onclick="sortClick(this,1)">最新商品</a>
+                    <a class="dropdown-item sort-btn" onclick="sortClick(this,1)">最新商品</a>
                 </div>
             </div>
         </div>
@@ -116,13 +117,13 @@
 <button type="button" class="btn btn-outline-primary" id="add" style="background-image: url('images/plus.svg')"></button>
 -->
 
-<img width="50" height="50" class="shopcart-btn" id="shopcart" onclick="goShoppingCart()"
-     src="../Store/images/shopcart.svg" alt="">
+<button type="button" class="btn btn-outline-primary" id="shopcart" onclick="goShoppingCart()"
+        style="background-image: url('../Store/images/shopcart.svg')"></button>
 <div id="cartCount" class="cart-count">0</div>
-<img width="50" height="50" class="goTop-btn" id="goTop"
-     src="../Store/images/upward.svg" alt="">
-<img width="50" height="50" class="add-btn" id="add" onclick="goAdd()"
-     src="../Store/images/plus.svg" alt="">
+<button type="button" class="btn btn-outline-primary" id="gotop"
+        style="background-image: url('../Store/images/upward.svg')"></button>
+<button type="button" class="btn btn-outline-primary" id="add" onclick="goAdd()"
+        style="background-image: url('../Store/images/plus.svg')"></button>
 
 <%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
 <%--        style="background-image: url('Store/images/home.svg')"></button>--%>
@@ -145,33 +146,33 @@
     let pages = 1;
 
     $(function () {//會到最上層的jquery
-        $('#goTop').click(function () {
+        $('#gotop').click(function () {
             $('html,body').animate({scrollTop: 0}, 333);
         });
         $(window).scroll(function () {
             if ($(this).scrollTop() > 300) {
-                $('#goTop').fadeIn(222);
+                $('#gotop').fadeIn(222);
             } else {
-                $('#goTop').stop().fadeOut(222);
+                $('#gotop').stop().fadeOut(222);
             }
         }).scroll();
     });
 
-    function setAddDisplay() {
-        if (memberId !== "1") {
-            let goTopBtn = document.getElementById("goTop");
-            let addBtn = document.getElementById("add");
-            addBtn.remove();
-            goTopBtn.classList.remove("goTop-btn");
-            goTopBtn.classList.add("add-btn");
-        }
-    }
 
-    setAddDisplay();
+    // $(function () {//新增商品的jquery
+    //     // $(window).scroll(function () {
+    //             // if ($(this).scrollTop() > 300) {
+    //             //     $('#add').fadeIn(222);
+    //             // } else {
+    //             //     $('#add').stop().fadeOut(222);
+    //             // }
+    //
+    //     // }).scroll();
+    // });
 
     // 查詢條件
     let animal = null;
-    let sort = ${sort};
+    let sort = 0;
     let name = null;
     let category = null;
 
@@ -213,25 +214,17 @@
                     // 如果沒有圖片自動換成預設圖,有圖片就放原本圖片
                     let img = cardData.img == null ? "../Store/images/no_picture.gif" : cardData.img;
                     // 組卡片資訊Html
-                    cardHtml +=
-                        "<div id=\"cardDiv" + cardData.id + "\" class=\"col-lg-3 col-sm-6 portfolio-item\">\n" +
-                        "<div class=\"card wei-grid\">\n" +
-                        "<div class=\"card-click\" onclick=\"goDetail(" + cardData.id + ")\">\n" +
-                        "<div class=\"wei-grid my-card-img-div\">\n" +
-                        "<img src=\"" + img + "\" class=\"card-img-top zoom-up-img my-card-img\" alt=\"...\">\n";
-
-                    if(!cardData.isDisplay){
-                        cardHtml += "<img src=\"../Store/images/noDisplay.png\" class=\"card-img-top my-card-img-no-display\" alt=\"...\">\n";
-                    }
-
-                    cardHtml += "</div>\n" +
+                    cardHtml += "<div class=\"col-lg-3 col-sm-6 portfolio-item\">\n" +
+                        "<div class=\"card card-click wei-grid\" onclick=\"goDetail(" + cardData.id + ")\">\n" +
+                        "<div class=\"wei-grid\">\n" +
+                        "<img src=\"" + img + "\" class=\"card-img-top zoom-up-img\" alt=\"...\">\n" +
+                        "</div>\n" +
                         "<div class=\"card-body my-card\">\n" +
                         "<div class=\"title-div\">" +
                         "<h6 class=\"card-title titleName\">" + cardData.name + "</h6>\n" +
                         "</div>" +
                         "<p class=\"card-text price-string float-left my-margin\">$" + cardData.price + "</p>\n" +
-                        "<img src=\"../Store/images/shopping-cart1.svg\" class=\"shopcartimg float-right my-margin\" " +
-                        "width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "); return true\">\n";
+                        "<img src=\"../Store/images/shopping-cart1.svg\" class=\"shopcartimg float-right my-margin\" width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "); return true\">\n";
 
                     if (cardData.isFavorite) {
                         cardHtml += "<img id=\"like" + cardData.id + "\" " +
@@ -243,24 +236,21 @@
                             "onclick=\"setFavorite(" + cardData.id + "); return true\">\n";
                     }
 
-                    cardHtml += "</div>\n" + "</div>\n";
+                    cardHtml += "</div>\n";
+
 
                     //判斷有登入才顯示
-                    if (memberId !== "" && memberId === "1") {
+                    if (memberId !== "") {
                         cardHtml +=
-                            "<div>\n" +
                             "<div class=\"delete-btn d-flex justify-content-center\">\n" +
                             "<button type=\"button\" class=\"btn btn-warning modify-btn\" onclick=\"goUpdate(" + cardData.id + ")\">修改</button>\n" +
-                            "<button id='deleteBtn' type=\"button\" class=\"btn btn-danger modify-btn\" " +
-                            "data-toggle=\"modal\" data-target=\"#modalCenter" + cardData.id + "\">刪除</button>\n" +
-                            "</div>\n" +
-                            "</div>\n" +
-
-                            "<div class=\"modal fade\" id=\"modalCenter" + cardData.id + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
+                            "<button id='deleteBtn' type=\"button\" class=\"btn btn-danger modify-btn\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n" +
+                            "刪除\n" +
+                            "</button>" +
+                            "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
                             "aria-hidden=\"true\">\n" +
                             "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
                             "<div class=\"modal-content\">\n" +
-
                             "<div class=\"modal-header\">\n" +
                             "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
                             "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
@@ -268,21 +258,20 @@
                             "<span aria-hidden=\"true\">&times;</span>\n" +
                             "</button>\n" +
                             "</div>\n" +
-
                             "<div class=\"modal-body\">\n" +
                             "確認是否要刪除商品\n" +
                             "</div>\n" +
                             "<div class=\"modal-footer\">\n" +
                             "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n" +
-                            "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\" onclick=\"doDelete(" + cardData.id + " )\">刪除</button>\n" +
+                            "<button type=\"button\" class=\"btn btn-danger\" onclick=\"doDelete(" + cardData.id + " )\">刪除</button>\n" +
                             "</div>\n" +
-
                             "</div>\n" +
                             "</div>\n" +
                             "</div>";
                     }
 
                     cardHtml +=
+                        "</div>\n" +
                         "</div>\n" +
                         "</div>";
 
@@ -332,17 +321,6 @@
                         "</li>";
 
                     pageUl.innerHTML = pageHtml;
-                }
-
-                if(sort===1){
-                    let storeDiv = document.getElementById("store");
-                    storeDiv.scrollIntoView();
-                    // 將排序選單換點亮
-                    let btnList = document.querySelectorAll(".sort-btn");
-                    btnList.forEach(function (btn) {
-                        btn.classList.remove("active");
-                    })
-                    document.getElementById("newSortBtn").classList.add("active");
                 }
 
             }
@@ -572,12 +550,8 @@
             contentType: "application/json",
             success: function (res) {
                 if (res.success) {
-                    // alert("刪除成功");
-                    // 移除卡片
-                    $('.modal-backdrop').remove();
-                    $('body').removeClass("modal-open");
-                    let cardDiv = document.getElementById("cardDiv" + id);
-                    cardDiv.remove();
+                    alert("刪除成功");
+                    // window.location.href = "/test?memberId=" + memberId;
                 } else {
                     alert('刪除失敗');
                 }
@@ -595,6 +569,9 @@
     }
 
     function goDetail(id) {
+        if (event.target.id === 'deleteBtn') {
+            return
+        }
         location.href = "productDetail?id=" + id + "&memberId=" + memberId;
         return false
     }

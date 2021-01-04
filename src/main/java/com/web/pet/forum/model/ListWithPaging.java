@@ -12,5 +12,5 @@ public class ListWithPaging {
 	
 	private List<Object> articleList;
 	private Integer totalPages;
-    private Integer totalCounts;
+    private Integer totalCounts;  
 }

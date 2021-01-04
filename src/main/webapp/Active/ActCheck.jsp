@@ -16,20 +16,14 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
+    <link href="Styles/index.css" rel="stylesheet">
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
-	
-	<script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
 	
 	
 	<style>
 	
 	.acstyle{
-	border: 1px solid #ACD6FF;
-	}
-	.checktable{
-	border: 2px solid #000093;
-	width: 1500px;
+	border: 1px solid black;
 	}
 		
 	</style>
@@ -54,7 +48,7 @@
 
 			<li class="nav-item"><a class="nav-link" href="ActAll.jsp">活動一覽</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="ActCalender.jsp">活動行事曆</a></li>
+			<li class="nav-item"><a class="nav-link" href="">活動行事曆</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="ActCheck.jsp" onclick="return gogo()">確認參與活動</a></li>
 
@@ -69,12 +63,12 @@
 
     <H1 style="text-align: center;">我已參加的活動</H1>	
        
-    <table align="center" class="checktable" style="">
+    <table align="center" class="checktable" style="border: 2px solid black;width: 1500px;">
         
         <tbody> 
         	<tr> 	
          		<td class="acstyle" style="width: 500px;">活動名稱</td>
-                <td class="acstyle">備註欄</td>
+                <td class="acstyle">參加的時間</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>
@@ -85,8 +79,8 @@
     </table>
     
     
-    <div>        
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div>
+        <br><br>
     </div>
     
 <!--     測試用取消參加 -->
@@ -116,15 +110,12 @@ $().ready(function(){//ajax完整活動資訊
 						+"<td class='acstyle'>"						
 						+"<form method='post' action='../Wu/NoJoin'>"
 					    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
-						+"<button type='submit' id='BtnSend' class='btn btn-primary btn-sm' value='cancelbt'  onclick='return rusure()'>取消參加</button>"
+						+"<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button>"
 						+"</form>"						
 						+"</td>"						
-						+"</tr>"
+						+"</tr>"						
 								);
 
-// 				if(n[2]=="取消參加"){
-// 					$("#BtnSend").attr("disabled","disabled")
-// 				}
 					});
 				}
 			});
@@ -140,24 +131,7 @@ $().ready(function(){//ajax完整活動資訊
 			else
 // 			alert("已取消取消操作");
 				return false;
-				
-				
 		}
 		
-
-		function gogo()
-    	{
-    		<%
-    			if(session.getAttribute("user")==null)
-    			{%>window.alert("請先登入"); return false;
-    			<%}else{%>
-    			return  true;
-    			<%}%>
-    				
-    				
-    		return false;
-    	}
-
 </script>
-<jsp:include page="Footer.jsp" />
 </html>

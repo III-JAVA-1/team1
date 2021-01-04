@@ -84,8 +84,7 @@
             </div>
         </div>
         <div class="button">
-            <button type="submit" class="btn btn-primary" onsubmit="return false;" onclick="return doUpdate();">送出
-            </button>
+            <button type="submit" class="btn btn-primary" onsubmit="return false;" onclick="return doUpdate();">送出</button>
         </div>
     </fieldset>
 </form>
@@ -175,7 +174,7 @@
             success: function (res) {
                 if (res.success) {
                     alert('修改成功');
-                    window.location = document.referrer;
+                    history.back();
                 } else {
                     alert('修改失敗');
                 }

@@ -22,10 +22,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <title>AccompanyMe</title>
 <style>
 
-	a{
-    	text-decoration:none;
-	}
-
 	#title{
 		background-color: aqua;
 	}
@@ -67,7 +63,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
  					<a href="Member.jsp" class="list-group-item list-group-item-action h4 " aria-current="true">
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
-  					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
+  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
   					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
@@ -143,7 +139,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
-
+    
     	$.ajax({
     		url:"../Gusty/shoporder",
     		type:"post",
@@ -175,9 +171,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		var userid=<%=session.getAttribute("user")%>
     		Swal.fire({
     		  title: '訂單編號:&nbsp'+oid+'詳細訂單',
-    		  html:"<a href='<c:url value='../productRate?orderId="+oid+"&memberId="+userid+"'/>'><button type='button' class='btn btn-info'>評價商品</button></a>"+
-    			  	'<hr>'+
-    				'<table class="table table-hover table-bordered ">'+
+    		  html:'<table class="table table-hover table-bordered ">'+
     				'<thead class="h5" style="background-color:#53FF53;">'+
 				'<tr>'+
 					'<th scope="col">商品名稱</th>'+
@@ -204,7 +198,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         				$("#detailtable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'>"+n[2]+"</a></th>"+
         			   		"<td>"+n[1]+"</td>"+
         			   		"<td>"+n[3]+"</td></tr>");
-        			   		//"<td></td></tr>");
         			});
         		}
         	});

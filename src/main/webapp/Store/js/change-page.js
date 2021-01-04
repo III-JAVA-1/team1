@@ -1,5 +1,5 @@
 function goLogin() {
-    window.location.href = "../Member/Login.jsp";
+    window.location.href = "../../index.jsp";
 }
 
 // function goIndex() {

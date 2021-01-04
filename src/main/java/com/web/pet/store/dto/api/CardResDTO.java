@@ -12,5 +12,4 @@ public class CardResDTO {
     private int price;
     private String img;
     private Boolean isFavorite;
-    private Boolean isDisplay;
 }

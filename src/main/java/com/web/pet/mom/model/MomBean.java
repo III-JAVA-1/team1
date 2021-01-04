@@ -20,34 +20,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="MOM")
-public class Mom{
+public class MomBean{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer momId;	
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String petContent;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String experience;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String notices;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String title;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String pic;	
 	private Integer proPrice1;
 	private Integer proPrice2;
 	private Integer proPrice3;
 	private Integer proPrice4;
 	
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String bodyType1;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String bodyType2;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String bodyType3;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String bodyType4;
-	@Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+	@Column(columnDefinition = "nvarchar(MAX)")
 	private String bodyType5;
 	
 	

@@ -17,7 +17,7 @@ import com.web.pet.forum.service.ArticleFavoriteService;
 public class DoFavorite {
 	
 	@Autowired
-	ArticleFavoriteService service;
+	private ArticleFavoriteService service;
 	
 	
 	@RequestMapping("/searchFavoriteRecord")

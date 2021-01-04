@@ -125,9 +125,8 @@ pom.properties
 hs_err_pid*
 
 ### Maven ###
-!**/src/main/**/target/
-!**/src/test/**/target/
 target/
+/target
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

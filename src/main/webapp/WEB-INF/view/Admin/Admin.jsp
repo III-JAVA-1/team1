@@ -196,7 +196,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard ">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Article'/>" class="nav-link">
+			<a href="Member.jsp" class="nav-link">
   				<img src="../Admin/image/chat.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
@@ -208,7 +208,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Petshop'/>" class="nav-link">
+			<a href="Member.jsp" class="nav-link">
   				<img src="../Admin/image/store.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
@@ -220,7 +220,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Action'/>" class="nav-link">
+			<a href="Member.jsp" class="nav-link">
   				<img src="../Admin/image/activity.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">
@@ -232,7 +232,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Mom'/>" class="nav-link">
+			<a href="Member.jsp" class="nav-link">
   				<img src="../Admin/image/mom.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">

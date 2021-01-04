@@ -95,7 +95,6 @@
 						success : function(data) {
 							$.each(data, function(i, n) {
 
-
 								$("#good").append(
 												"<div class='card m-3' style='width: 17rem;'>"
 												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
@@ -108,7 +107,6 @@
 									    		+"<div class='card-footer bg-transparent border-success'>"
 									    		+"<p class='card-text'>"+n[8]+"</p>"
 									  			+"</div></div></div>"							
-
 								
 								);
 
@@ -134,7 +132,6 @@
 				success:function(data){
 					$.each(data, function(i, n) {
 
-
 						$("#good").append(
 								"<div class='card m-3' style='width: 17rem;'>"
 								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
@@ -148,7 +145,6 @@
 					    		+"<p class='card-text'>"+n[8]+"</p>"
 					  			+"</div></div></div>"
 					  													
-
 						);
 										
 					});
@@ -160,7 +156,19 @@
 			
 		});
 		
-		
+
+	function gogo()
+	{
+		<%
+			if(session.getAttribute("user")==null)
+			{%>window.alert("請先登入"); return false;
+			<%}else{%>
+			return  true;
+			<%}%>
+				
+				
+		return false;
+	}
 		
 	</script>
 

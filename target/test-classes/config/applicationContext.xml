@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tt="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 這是spring配置文件用來聲明Service DAO和工具類相關的對象 -->
+	<context:annotation-config />
+ 	<mvc:annotation-driven />
+
+	<!-- 聲明數據源 連接數據庫 -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass"
+			value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=PetDB"></property>
+		<property name="user" value="scott"></property>
+		<property name="password" value="tiger"></property>
+		<!-- 其他配置 -->
+		<!--初始化時獲取三個連線，取值應在minPoolSize與maxPoolSize之間。Default: 3 -->
+		<property name="initialPoolSize" value="3"></property>
+		<!--連線池中保留的最小連線數。Default: 3 -->
+		<property name="minPoolSize" value="3"></property>
+		<!--連線池中保留的最大連線數。Default: 15 -->
+		<property name="maxPoolSize" value="5"></property>
+		<!--當連線池中的連線耗盡的時候c3p0一次同時獲取的連線數。Default: 3 -->
+		<property name="acquireIncrement" value="3"></property>
+		<!-- 控制資料來源內載入的PreparedStatements數量。如果maxStatements與maxStatementsPerConnection均為0，則快取被關閉。Default:0 -->
+		<property name="maxStatements" value="8"></property>
+		<!--maxStatementsPerConnection定義了連線池內單個連線所擁有的最大快取statements數。Default: 0 -->
+		<property name="maxStatementsPerConnection" value="5"></property>
+		<!--最大空閒時間,1800秒內未使用則連線被丟棄。若為0則永不丟棄。Default: 0 -->
+		<property name="maxIdleTime" value="1800"></property>
+	</bean>
+	<!-- spring Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<array>
+				<!-- 掃描實體包的位置 -->
+				<value>com.web.pet.member.model</value>
+				<value>com.web.pet.mom.model</value>
+			</array>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+<!-- 				<prop key="hibernate.transaction.coordinator_class">jdbc</prop> -->
+				<prop key="hibernate.bytecode.use_reflection_optimizer">false</prop>
+				<prop key="connection_pool_size">8</prop>
+				<!-- CREATE、UPDATE改這裡 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 宣告式容器事務管理 ,transaction-manager指定事務管理器為transactionManager -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<!-- 配置Hibernate事務管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 配置事務異常封裝 -->
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	
+
+</beans>

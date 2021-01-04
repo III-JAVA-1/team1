@@ -23,9 +23,4 @@ public class IndexService {
 		return indexDao.indexshopDao();
 	}
 	
-	public List<Object[]> indexactiveService(){//首頁活動
-		
-		return indexDao.indexactiveDao();
-	}
-	
 }

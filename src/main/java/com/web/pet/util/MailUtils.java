@@ -35,7 +35,7 @@ public class MailUtils {
 		// 创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("EEIT125Team1", "uyvdilxkpuqnczaf");
+				return new PasswordAuthentication("EEIT125Team1", "cry55555");
 			}
 		};
 		Session session = Session.getInstance(props, auth);

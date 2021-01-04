@@ -7,6 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 //@ControllerAdvice
 //public class ErrorHandle {
 //	
+public class ErrorHandle {
+	
 //	@ExceptionHandler
 //	public ModelAndView Error(Exception ex) {
 //		
@@ -16,4 +18,4 @@ import org.springframework.web.servlet.ModelAndView;
 //		mv.setViewName("forward:/ErrorPage.jsp");
 //		return mv;
 //	}
-//}
+}

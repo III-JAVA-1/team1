@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 這是springMVC配置文件用來聲明Controller和web相關的對象 -->
+
+	<!-- 掃描包 理論上應該只要掃描controller但是會報錯所以掃整個package -->
+	<context:annotation-config />
+	<context:component-scan
+		base-package="com.web.pet" />
+
+	<!-- 配置視圖解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--上傳檔案大小上限,單位為位元組-->
+        <property name="maxUploadSizePerFile">
+            <value>104857600</value>
+        </property>
+        
+         <property name="maxInMemorySize" value="4096"/>
+        <!--請求的編碼格式，必須和jsp的pageEncoding屬性一致，以便正確讀取表單的內容，預設為ISO-8859-1-->
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+	<!-- 註解驅動 上面必須是MVC的註解驅動 springmvc.xsd 響應AJAX + 配置FastJsonHttpMessageConverter消息轉換器，解決日期格式問題 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=utf-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+				<property name="features">
+					<list>
+						<!-- +這個會輸出YYYY-MM-DD 00:00:00 不+就會YYYY-MM-DD -->
+						<value>WriteDateUseDateFormat</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 處理靜態資源無法讀取的方法 -->
+	<mvc:default-servlet-handler />
+	
+	<mvc:resources mapping="/images/**" location="/images/" />
+
+</beans>

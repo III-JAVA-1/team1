@@ -28,9 +28,6 @@ import com.web.pet.forum.model.Article;
 import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.forum.model.Comment;
 import com.web.pet.mom.model.PetMomOrder;
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import com.web.pet.mom.model.Mom;
 
 

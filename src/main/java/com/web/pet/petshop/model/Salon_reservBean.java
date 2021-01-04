@@ -1,5 +1,6 @@
 package com.web.pet.petshop.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -41,7 +42,6 @@ public class Salon_reservBean {
 	@Column(columnDefinition = "nvarchar(50)", nullable = true)
 	private String  name;
 	private String phone;
-	@Column(columnDefinition = "nvarchar(50)", nullable = true)
 	private String address;
 	@Column(columnDefinition = "nvarchar(50)", nullable = true)
 	private String type;
@@ -49,10 +49,10 @@ public class Salon_reservBean {
 	private String item;
 	@Column(columnDefinition = "smalldatetime", nullable = true)
 	private Timestamp date;
-	@Column(columnDefinition = "nvarchar(300)", nullable = true)
-	private String other;
 	@Column(columnDefinition = "smalldatetime", nullable = true)
 	private Timestamp thistime;
+	@Column(columnDefinition = "nvarchar(300)", nullable = true)
+	private String other;
 	
 	
 	//多對一，多的一方有外鍵
@@ -85,11 +85,11 @@ public class Salon_reservBean {
 		builder.append(thistime);
 		builder.append(", other=");
 		builder.append(other);
-		builder.append(", thistime=");
-		builder.append(thistime);
 		builder.append("]");
 		return builder.toString();
 	}
 
+
+	
 	
 }

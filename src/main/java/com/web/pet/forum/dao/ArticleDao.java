@@ -15,15 +15,12 @@ import com.web.pet.forum.model.ListWithPaging;
 import com.web.pet.member.model.Member;
 
 
-/**
- * @author ching
- *
- */
 @Repository
 public class ArticleDao {
 	
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;	
+	
 	
 	public int saveArticle(Article article,Integer u_Id) {
 		int count = 0;
@@ -44,7 +41,9 @@ public class ArticleDao {
 		List<Article> list = new ArrayList<Article>();
 		//String hql = "select A.header,A.content FROM Article A";不是表格名稱是類別名稱
 		Session session = sessionFactory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
+		Query<Article> query = session.createQuery(hql);
+		list = query.getResultList();
+		
 		return list;
 	}
 
@@ -56,17 +55,15 @@ public class ArticleDao {
 		return article;
 	}
 	
-	/**
-	 * @author ching
-	 *	按forumId找文章
-	 */
 	@SuppressWarnings("unchecked")
-	public ListWithPaging getArticleByForumId(String forumId, Integer page){	
+	public ListWithPaging getArticleByForumId(String forumId, Integer page){//按forumId找文章
 		
-		ListWithPaging res = new ListWithPaging();		
+		ListWithPaging res = new ListWithPaging();
+		
 		List<Object> list = new ArrayList<Object>();
-		String sql = "";
 		Session session = sessionFactory.getCurrentSession();
+		String sql = "";		
+		
 		if(forumId.equals("全部")) {
 			System.out.println("123");
 			sql = "select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\n" + 
@@ -74,26 +71,27 @@ public class ArticleDao {
 				  "where Article.u_Id = Member.u_Id\n" + 
 				  "order by Article.updatedTime desc";
 			
-			//分頁
 			list = session.createNativeQuery(sql)									
 									.setFirstResult(8*(page-1))
 									.setMaxResults(8)
 									.getResultList();			
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
 			
-			//計算總頁數
 			@SuppressWarnings("rawtypes")
 			Query query = session.createQuery(
 					"select count(*)\r\n" + 
 					"from Article");			
 			Long total1 = (Long)query.uniqueResult();
-			Double totalCounts = total1.doubleValue();		
+			Double totalCounts = total1.doubleValue();
+			System.out.println("=========totalCounts"+totalCounts);
 			double total2 = totalCounts / 8.0;
 			System.out.println(total2);
-			Integer totalPages =  (int) Math.ceil(total2);			
-					
+			Integer totalPages =  (int) Math.ceil(total2);
+			System.out.println("=======totalPages"+totalPages);	
+			
+			System.out.println("totalPages"+totalPages);			
 			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
-			res.setTotalCounts(totalCounts.intValue());			
+			res.setTotalCounts(totalCounts.intValue());
 				
 		}
 		else {
@@ -103,7 +101,7 @@ public class ArticleDao {
 					"where Article.forumId = :forumId\r\n" +
 					"and Article.u_Id = Member.u_Id\n" + 
 					"order by Article.updatedTime desc";			
-			//分頁
+			
 			list = session.createNativeQuery(sql)
 					.setParameter("forumId", forumId)
 					.setFirstResult(8*(page-1))
@@ -112,18 +110,21 @@ public class ArticleDao {
 			res.setArticleList(list);//將文章集合加入ListWithPaging物件
 			System.out.println("list==null"+list.isEmpty());
 			
-			//計算總頁數
+			
 			Object total1 = session.createSQLQuery(
 					"select count(*) from Article where Article.forumId= :forumId")
 					.setParameter("forumId", forumId).uniqueResult();
 			
-			Integer totalCounts = (Integer)total1;			
-			double total2 = totalCounts / 8.0;			
-			Integer totalPages =  (int) Math.ceil(total2);	
+			Integer totalCounts = (Integer)total1;
+			
+			//System.out.println("=========totalCounts"+totalCounts);
+			double total2 = totalCounts / 8.0;
+			//System.out.println(total2);
+			Integer totalPages =  (int) Math.ceil(total2);			
+			//System.out.println("=======totalPages"+totalPages);			
 			
 			res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
 			res.setTotalCounts(totalCounts);
-			
 		}
 		
 		if(list.isEmpty()) {return null;}		
@@ -131,12 +132,9 @@ public class ArticleDao {
 		
 	}
 	
-	/**
-	 * @author ching
-	 *	按favoriteId找文章
-	 */
+	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){
+	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){//按favoriteId找文章
 		
 		if(favoriteId == null) {return null;}
 		List<Object[]> list = new ArrayList<Object[]>();		
@@ -157,12 +155,9 @@ public class ArticleDao {
 	}
 	
 	
-	/**
-	 * @author ching
-	 *	按2Uid找文章
-	 */
+	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getArticleBy2Uid(Integer u_Id, Integer posterUid){
+	public List<Object[]> getArticleBy2Uid(Integer u_Id, Integer posterUid){//按2Uid找文章
 		
 		List<Object[]> list = new ArrayList<Object[]>();		
 		Session session = sessionFactory.getCurrentSession();
@@ -179,12 +174,9 @@ public class ArticleDao {
 		else {return list;}				
 	}
 	
-	/**
-	 * @author ching
-	 *	按posterUid找文章
-	 */
+	
 	@SuppressWarnings("unchecked")
-	public List<Article> getArticleByPosterUid(Integer posterUid){
+	public List<Article> getArticleByPosterUid(Integer posterUid){//按posterUid找文章
 		List<Article> list = new ArrayList<Article>();
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "";
@@ -194,152 +186,44 @@ public class ArticleDao {
 		return list;
 	}
 	
-	/**
-	 * @author ching
-	 *	按關鍵字找文章
-	 */	
+		
 	@SuppressWarnings("unchecked")
-	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){
+	public List<Article> getArticleByHeaderKey(String inputText){//按關鍵字找文章
+		List<Article> list = new ArrayList<Article>();
+		Session session=sessionFactory.getCurrentSession();
 		inputText = "'%"+inputText+"%'";
-		ListWithPaging res = new ListWithPaging();		
-		List<Object> list = new ArrayList<Object>();
-		String sql = "";
-		Session session = sessionFactory.getCurrentSession();
-		sql="select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
-			"from Article, Member\r\n" + 
-			"where Article.header like"+inputText+"\r\n" + 
-			"and Article.u_Id = Member.u_Id\r\n" + 
-			"order by Article.updatedTime desc";
-		
-		//分頁
-		list = session.createNativeQuery(sql)				
-				.setFirstResult(8*(page-1))
-				.setMaxResults(8)
-				.getResultList();
-		res.setArticleList(list);//將文章集合加入ListWithPaging物件
-		System.out.println("list==null"+list.isEmpty());
-		
-		//計算總頁數
-		Object total1 = session.createSQLQuery(
-				"select count(*) FROM Article a where a.header like"+ inputText)
-				.uniqueResult();
-		
-		Integer totalCounts = (Integer)total1;			
-		double total2 = totalCounts / 8.0;			
-		Integer totalPages =  (int) Math.ceil(total2);	
-		
-		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
-		res.setTotalCounts(totalCounts);
+		String hql = "FROM Article a where a.header like" + inputText;
+		Query<Article> query = session.createQuery(hql);
+		list=query.getResultList();
 		
 		if(list.isEmpty()) {return null;}		
-		else {return res;}
+		else {return list;}
+		
 	}
 	
-	
-	/**
-	 * @author ching
-	 *	按關鍵字找文章
-	 */	
-	@SuppressWarnings("unchecked")
-	public ListWithPaging getArticleByLatestComment(Integer page){		
-		ListWithPaging res = new ListWithPaging();		
-		List<Object> list = new ArrayList<Object>();
-		String sql = "";
-		Session session = sessionFactory.getCurrentSession();
-		sql="select Article.header, Article.reply, Article.viewing, Member.sname, Article.updatedTime, Article.posterUid, Member.u_Id\r\n" + 
-			"from Article\r\n" + 
-			"join Member\r\n" + 
-			"on Article.u_Id = Member.u_Id\r\n" + 
-			"join Comment\r\n" + 
-			"on Article.posterUid = Comment.posterUid\r\n" + 
-			"order by Comment.commentUpdatedTime desc";
-		
-		//分頁
-		list = session.createSQLQuery(sql)				
-				.setFirstResult(8*(page-1))
-				.setMaxResults(8)
-				.getResultList();
-		res.setArticleList(list);//將文章集合加入ListWithPaging物件
-		System.out.println("list==null"+list.isEmpty());
-		
-		//計算總頁數
-		Object total1 = session.createSQLQuery(
-				"select count(*)\r\n" + 
-				"from Article\r\n" + 
-				"join Member\r\n" + 
-				"on Article.u_Id = Member.u_Id\r\n" + 
-				"join Comment\r\n" + 
-				"on Article.posterUid = Comment.posterUid").uniqueResult();
-		
-		Integer totalCounts = (Integer)total1;			
-		double total2 = totalCounts / 8.0;			
-		Integer totalPages =  (int) Math.ceil(total2);	
-		
-		res.setTotalPages(totalPages);//將totalPages加入ListWithPaging物件
-		res.setTotalCounts(totalCounts);
-		
-		if(list.isEmpty()) {return null;}		
-		else {return res;}
-	}
-	
-	
-	/**
-	 * @author ching
-	 *	修改文章需要merge
-	 */
-	public int modifyArticle(Article article, Integer u_Id) { 
+	public int modifyArticle(Article article, Integer u_Id) { //修改文章需要merge
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
-		article.setMember(session.get(Member.class,u_Id));		
+		article.setMember(session.get(Member.class,u_Id));
 		session.merge(article);
 		count++;
 		return count;
 	}
 	
-	/**
-	 * @author ching
-	 *	更新文章物件
-	 */
-	public int updateArticle(Article article) {
+	
+	public int increaseViewing(Article article) {//增加瀏覽率
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();		
 		session.merge(article);
 		count++;
 		return count;
-	}	
+	}
 	
-	/**
-	 * @author ching
-	 *	刪除文章
-	 */
-	public int deleteArticle(Article article) { 
+	public int deleteArticle(Article article) { //刪除文章
 		int count = 0;
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(article);
 		count++;
-		return count;
-	}
-	
-	/**
-	 * @author ching
-	 *	計算並設定每篇文章的回應數
-	 */
-	public int setCommentCounts(Article article) {
-		int count = 0;
-		Session session = sessionFactory.getCurrentSession();
-		String sql = "";
-		
-		sql = "select count(*) \r\n" + 
-				"from Comment c, Article a\r\n" + 
-				"where c.posterUid = a.posterUid and a.posterUid = :posterUid";
-		
-		Integer commentCount = (Integer) session.createSQLQuery(sql)
-								.setParameter("posterUid", article.getPosterUid())
-								.uniqueResult();
-		article.setReply(commentCount);					
-		
-		count++;
-		
 		return count;
 	}
 

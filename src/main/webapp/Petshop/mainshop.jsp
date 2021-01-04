@@ -133,7 +133,7 @@ $.ajax({
 			if(i>=0&&i<12){
 				if(n.type=="美容店"){
 					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-				  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+				  			"<img src='https://goo.gl/maps/rJXWbLPHdk3hpWwa8' class='card-img-top' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
 				    		"<p class='card-text'>"+n.address+"</p>"+
@@ -144,7 +144,7 @@ $.ajax({
 				  			"</div></div>");
 				}else{
 					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-				  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+				  			"<img src='https://goo.gl/maps/rJXWbLPHdk3hpWwa8' class='card-img-top' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
 				    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -181,7 +181,7 @@ function search(){
 				if(i>=0&&i<12){
 					if(n.type=="美容店"){
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
@@ -192,7 +192,7 @@ function search(){
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -234,7 +234,7 @@ function pagechange(page){
 				if(i+1>=$(page).val()*12-12+1&&i+1<=$(page).val()*12){
 					if(n.type=="美容店"){
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
@@ -245,7 +245,7 @@ function pagechange(page){
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -263,9 +263,6 @@ function pagechange(page){
 	});
 }
 
-function imageerror(images){
-	$(images).attr("src","image/photo.png");
-}
 
 
 function addressdisplay(address) {

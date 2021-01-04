@@ -144,7 +144,7 @@ $().ready(function(){//ajax完整活動資訊
 				
 		}
 		
-		
+
 		function gogo()
     	{
     		<%
@@ -157,6 +157,7 @@ $().ready(function(){//ajax完整活動資訊
     				
     		return false;
     	}
+
 </script>
 <jsp:include page="Footer.jsp" />
 </html>

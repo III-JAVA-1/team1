@@ -1,11 +1,7 @@
 package com.web.pet.petshop.Dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,35 +17,40 @@ public class Salon_reservDAO {
 	private SessionFactory sessionFactory;
 	
 	public void insertSalon_reserv(Salon_reservBean salon_reservBean,Integer uid) {
+		
+		
 		Session session=sessionFactory.getCurrentSession();
+		
 		salon_reservBean.setMember(session.get(Member.class, uid));
 		session.save(salon_reservBean);
+		
+		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Object[]>  updatereserv(Integer sid) {
+	
+	public int deleteSalon_reserv(String name,String phone) {
+		int count=0;
 		Session session=sessionFactory.getCurrentSession();
-		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select * from Salon_reserv where id =:sid";
-		Query<Object[]> query=null;
-		query = session.createSQLQuery(hql).setParameter("sid", sid);
-		list=query.getResultList();
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return list;
-		}
+		String hql ="DELETE FROM Salon_reservBean where name=:name ";
+		//session.delete(salon_reservBean);
+		count=session.createQuery(hql).setParameter("name", name).executeUpdate();
+		
+		count++;
+		return count;
 	}
-	
-	public Salon_reservBean originBean(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Salon_reservBean salon_reservBean = session.get(Salon_reservBean.class, id);
-		return  salon_reservBean;
-	}
-	
-	public void newupdate(Salon_reservBean salon_reservBean) {
-		Session session = sessionFactory.getCurrentSession();
+	public int  updaSalon_reserv( Salon_reservBean salon_reservBean,Integer id) {
+		
+		int count=0;
+		Session session=sessionFactory.getCurrentSession();
+		
 		session.merge(salon_reservBean);
+		//count=session.createQuery(hql).setParameter("date", datee).executeUpdate();
+		//session.merge();
+		count++;
+		return count;
+	
 	}
-
+	
+	
+	
 }

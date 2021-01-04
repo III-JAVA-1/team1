@@ -53,7 +53,9 @@ public class ActController {
 			byte[] b = img.getBytes();
 			Blob blob = new SerialBlob(b);
 			actbean.setAct_img(blob);
+			
 			if(actservice.insertActService(actbean,uid)>0) {		
+				
 				out.print("<html><body>");
 	    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 	    		out.print("<script>");
@@ -68,6 +70,8 @@ public class ActController {
 	    				+ "})");
 	    		out.print("</script>");
 	    		out.print("</html></body>");
+	    		
+				
 			}						
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,6 +140,7 @@ public class ActController {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		actservice.nojoinservice(jid);
+	
 		out.print("<html><body>");
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");

@@ -407,11 +407,11 @@ public class AdminDao {
 		else {start=page*12-12;end=12;}
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select * \r\n"
-				+ "from Petshop \r\n"
-				+ "where name like '%"+search+"%'\r\n"
-				+ "order by id\r\n"
-				+ "offset :start rows\r\n"
+		String hql = "select id,name,address,phone,type,pet,image\n"
+				+ "from Petshop \n"
+				+ "where name like '%"+search+"%'\n"
+				+ "order by id\n"
+				+ "offset :start rows\n"
 				+ "FETCH NEXT :end ROWS ONLY";
 		Query<Object[]> query=null;
 		query = session.createSQLQuery(hql).setParameter("start", start).setParameter("end", end);

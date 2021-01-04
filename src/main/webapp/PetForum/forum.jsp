@@ -95,6 +95,7 @@
                         <span><a href="#"><img src="image/petCare.png"/></a></span>                        
                         </div>                    
                     </div>
+
                 <div id="slider" class="db_line1_featured2">
                 
                 <!-- slider start -->
@@ -121,8 +122,8 @@
 				      <!-- end of slider -->
                 </div>
                 <div id="header">
-                <!-- AJAX -->
-                </div>
+                <!-- AJAX -->    
+                </div> 
 <!--end of Featured-->
 
 <!--Selection-->              

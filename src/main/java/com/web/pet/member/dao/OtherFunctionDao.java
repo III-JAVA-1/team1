@@ -9,6 +9,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.fastjson.support.moneta.MonetaCodec;
+import com.web.pet.member.model.Member;
+import com.web.pet.mom.model.Mom;
 import com.web.pet.store.dto.table.OrderDTO;
 
 
@@ -178,4 +181,77 @@ public class OtherFunctionDao {
 			return list; 
 		}
 	}
+	
+	@SuppressWarnings("unchecked") //會員頁面活動的參加人
+	public List<Object[]> memberalljoinDao(Integer aid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select name,email,country,district,address,pettype,petnum,join_actnow,extra,act_name\r\n"
+				+ "from JoinAct\r\n"
+				+ "where act_no=:aid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("aid", aid);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	/////////////////////////會員活動功能////////////////////////////////	
+	
+	@SuppressWarnings("unchecked") //會員頁面店家預約
+	public List<Object[]> memberpetshopDao(Integer user_id,String search){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select storename,date,name,phone,item,address,id\r\n"
+				+ "from Salon_reserv\r\n"
+				+ "where fk_id=:user_id\r\n"
+				+ "and storename like '%"+search+"%'";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public Integer memberpetshopdeleteDao(Integer id){//會員店家刪除訂單
+		Integer result =0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql="delete \r\n"
+				+ "from Salon_reserv\r\n"
+				+ "where id=:id";
+		result = session.createSQLQuery(hql).setParameter("id", id).executeUpdate();
+		return result;
+	}
+	
+	/////////////////////////會員店家功能////////////////////////////////
+	
+	@SuppressWarnings("unchecked") //會員頁面保母資料修改顯示修改資料
+	public List<Object[]> membermomDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select mom_Id,bodyType1,bodyType2,bodyType3,bodyType4,experience,notices,petContent,proPrice1,proPrice2,proPrice3,title \r\n"
+				+ "from mom\r\n"
+				+ "where u_Id=:user_id";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public Integer membereditmomDao(Mom mom){//會員保母資料修改
+		Session session = sessionFactory.getCurrentSession();
+		Integer result=0;
+		session.merge(mom);
+		result++;
+		return result;
+	}
+	
+	/////////////////////////會員保母功能////////////////////////////////
 }

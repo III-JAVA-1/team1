@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -95,11 +95,12 @@
 						success : function(data) {
 							$.each(data, function(i, n) {
 
+
 								$("#good").append(
 												"<div class='card m-3' style='width: 17rem;'>"
 												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
 									  			+"<div class='card-body'>"
-									  			+"<div style='height:80px;'>"
+									  			+"<div style='height:120px;'>"
 									    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
 									    		+"</div>"
 									    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
@@ -107,6 +108,7 @@
 									    		+"<div class='card-footer bg-transparent border-success'>"
 									    		+"<p class='card-text'>"+n[8]+"</p>"
 									  			+"</div></div></div>"							
+
 								
 								);
 
@@ -132,11 +134,12 @@
 				success:function(data){
 					$.each(data, function(i, n) {
 
+
 						$("#good").append(
 								"<div class='card m-3' style='width: 17rem;'>"
 								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
 					  			+"<div class='card-body'>"
-					  			+"<div style='height:80px;'>"
+					  			+"<div style='height:120px;'>"
 					    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
 					    		+"</div>"
 					    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
@@ -145,6 +148,7 @@
 					    		+"<p class='card-text'>"+n[8]+"</p>"
 					  			+"</div></div></div>"
 					  													
+
 						);
 										
 					});
@@ -156,19 +160,7 @@
 			
 		});
 		
-
-	function gogo()
-	{
-		<%
-			if(session.getAttribute("user")==null)
-			{%>window.alert("請先登入"); return false;
-			<%}else{%>
-			return  true;
-			<%}%>
-				
-				
-		return false;
-	}
+		
 		
 	</script>
 

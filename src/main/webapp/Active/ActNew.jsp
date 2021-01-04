@@ -248,17 +248,7 @@ function gogo()
 }
 
 
-function givesome(){//填入資訊
-	$("#act_name").val("寵物也會壓力大?! ─認識寵物生活中的壓力");
-	$("#act_start").val("2021-01-15");
-	$("#act_end").val("2021-01-15");
-	$("#act_organize").val("天天大學獸醫系學會");
-	$("#act_orgmane").val("林家國");
-	$("#act_where").val("天天大學1101教室");
-	$("#act_orgphone").val("0921345469");
-	$("#act_type").val("演講");
-	$("#act_content").val("平常工作或課業上大大小小的壓力總是形影不離地跟著我們，是不是甚至會影響到心情跟食慾呢?仔細觀察家中的寵物，那些你視以為正常的行為，可能也是長期處於壓力下的結果");
-}
+
 
 function givesome(){//填入資訊
 	$("#act_name").val("貓狗大戰一觸即發，同居準則大公開");

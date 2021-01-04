@@ -9,6 +9,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.alibaba.fastjson.support.moneta.MonetaCodec;
+import com.web.pet.member.model.Member;
+import com.web.pet.mom.model.Mom;
 import com.web.pet.store.dto.table.OrderDTO;
 
 
@@ -259,4 +262,30 @@ public class OtherFunctionDao {
 	}
 	
 	/////////////////////////會員店家功能////////////////////////////////
+	
+	@SuppressWarnings("unchecked") //會員頁面保母資料修改顯示修改資料
+	public List<Object[]> membermomDao(Integer user_id){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select mom_Id,bodyType1,bodyType2,bodyType3,bodyType4,experience,notices,petContent,proPrice1,proPrice2,proPrice3,title \r\n"
+				+ "from mom\r\n"
+				+ "where u_Id=:user_id";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public Integer membereditmomDao(Mom mom){//會員保母資料修改
+		Session session = sessionFactory.getCurrentSession();
+		Integer result=0;
+		session.merge(mom);
+		result++;
+		return result;
+	}
+	
+	/////////////////////////會員保母功能////////////////////////////////
 }

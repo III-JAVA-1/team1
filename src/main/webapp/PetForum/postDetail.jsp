@@ -40,10 +40,7 @@
            <div class="hd_line2_a">
             <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
-            
-            
-            
-           
+          
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -137,6 +134,7 @@
 			 	<div class="divForm">
 				 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
 				 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
+				 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>
 		            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
 	            </div>
 				<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
@@ -184,7 +182,6 @@
 </footer>
 </div>
 <button id="myBtn"><a href="#top" ><img src="image/icons8-upward-arrow-24.png"></a></button>
-
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -263,7 +260,8 @@
 					"</div>"+
 					"</div>"+
 					"</div>"+
-					"<hr/>");
+					"<hr/>");				
+					
 				}) 
 				
 			},
@@ -379,8 +377,11 @@ let editCommentDisplay = 0;
   	}    	
   }
   	
+ 
+  	
   	//留言內容不可為空
-  	$("#sendMessage").click(function checkCommentContent(form){
+  	$("#sendMessage").click(function checkCommentContent(form){  		
+  		  		
   		console.log($("#commentContent").val());
   		
   		if($("#commentContent").val() != ""){ 
@@ -425,9 +426,11 @@ let editCommentDisplay = 0;
     			}
   			});	
 			
-		}
-
-  		
+		} 	
+  	
+	 
+	        
+	   
 	</script>
   </body>
 </html>

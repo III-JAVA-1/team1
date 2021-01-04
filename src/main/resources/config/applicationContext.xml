@@ -85,5 +85,6 @@
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 	
+	<bean id="msgScoketHandle" class="com.web.pet.forum.webSocket.MsgScoketHandle"/>
 
 </beans>

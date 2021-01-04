@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">  
-    
+    <link rel="stylesheet" type="text/css" href="css/slider.css">  
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -92,24 +92,41 @@
                         <h5>精選文章</h5>
                         <hr/>
                         <div class="direction last-post-col">
-                        <span><a href="#"><</a></span>
-                        <span><a href="#">></a></span>
+                        <span><a href="#"><img src="image/petCare.png"/></a></span>                        
                         </div>                    
                     </div>
-                <div class="db_line1_featured2">
-                    <div class="imag">
-                        <a href="#"><img src="image/featured_img1.jpg" /></a>
-                        <br/><a href="#">美麗的寵物</a>
-                    </div>
-                    <div class="imag" style="padding: 0px 8px">
-                        <a href="#"><img src="image/featured_img2.jpg" /></a>
-                        <br/><a href="#">美麗的寵物</a>
-                    </div>
-                    <div class="imag">
-                        <a href="#"><img src="image/featured_img3.jpg" /></a>
-                        <br/><a href="#">美麗的寵物</a>
-                    </div>       
+                <div id="slider" class="db_line1_featured2">
+                
+                <!-- slider start -->
+                <div>
+                       <div class="slider">
+					        <div class="slide">
+					          <ul id="imgContent">
+					            <!-- AJAX -->
+					          </ul>
+					        </div>
+					        <div class="controller">
+					          <div class="prev-btn btns">
+					            <i class="fas fa-angle-left fa-3x"></i>
+					          </div>
+					          <div class="indicator">
+					            <span id="active"></span>
+					            <span></span>
+					            <span></span>
+					          </div>
+					          <div class="next-btn btns">
+					            <i class="fas fa-angle-right fa-3x"></i>
+					          </div>
+					        </div>
+					         <div id="articleHeader">
+                			<!-- AJAX -->
+                	  		</div>
+					      </div>
+					      </div>				       
+				      <!-- end of slider -->
+				     
                 </div>
+                
 <!--end of Featured-->
 
 <!--Selection-->              
@@ -153,14 +170,7 @@
 <!--pagination-->
             <div class="db_line1_pagination">
                 <div id="page" class="pagination" style="margin-bottom:10px;">
-<!--                             <span><a href="#">&laquo;</a></span> -->
-<!--                             <span><a href="#">1</a></span> -->
-<!--                             <span><a href="#">2</a></span> -->
-<!--                             <span><a href="#">3</a></span> -->
-<!--                             <span><a href="#">4</a></span> -->
-<!--                             <span><a href="#">5</a></span> -->
-<!--                             <span><a href="#">&laquo;</a></span> -->
-<!--                             <span><a href="#">20</a></span>  -->
+				<!-- 自動生成分頁 -->
                 </div>
                
             </div> 
@@ -181,7 +191,7 @@
             
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
-                    <h5>版主主題討論</h5>                            
+                    <h5>最新文章</h5>                            
                 </div>
             <div class="db_line1_right_featured2">
                 <div class="imag">
@@ -192,15 +202,29 @@
                     <a href="#"><img src="image/featured_img2.jpg" /></a>
                     <br/><a href="#">美麗的寵物</a>
                 </div>
-                <div class="imag">
+                <div style="margin-bottom:30px;"class="imag">
                     <a href="#"><img src="image/featured_img3.jpg" /></a>
                     <br/><a href="#">美麗的寵物</a>
                 </div>       
             </div>
+            
+           <h5 style="display:inline;">汪喵冷知識</h5>
+           <img style="margin-left:10px;" src="image/Q&A.png"/>
+		   <hr />
+		   <p class="qaSpan">下方發言處，輸入：</p>
+		   <p style="font-weight:bold">開始：<span class="qaSpan">OK</span> / 下一則：<span class="qaSpan">N</span> / 離開：<span class="qaSpan">Q</span></p>
+		   <label style="font-weight:bold;color:#39C">發言</label>
+		   <br>
+		   <textarea rows="2" cols="35" id="clientMsg"></textarea>
+		   <br>
+		   <button onclick="send()">送出</button>
+		   <br>
+		   <label style="font-weight:bold;color:#39C">回覆</label>
+		   <br>
+		   <textarea rows="15" cols="35" id="serverMsg" readonly="readonly" placeholder="汪喵冷知識，準備好一探究竟了嗎？"></textarea>
+			            
+            
             </div>
-        
-
-   
 </div>
 </div>
    
@@ -218,11 +242,15 @@
 </footer>
 </div>
 <button id="myBtn"><a href="#top" ><img src="image/icons8-upward-arrow-24.png"></a></button>
-
-
+ 
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- for slider -->
+    <script src="js/slider.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+	 <!-- for slider -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -238,8 +266,17 @@
 		crossorigin="anonymous"></script>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
     
- 	<script>	
+ 	<script>
+ 	
+//  	 <div class="prev-btn btns">
+//      <i class="fas fa-angle-left fa-3x"></i>
+//    </div>
+   
+//    <div class="next-btn btns">
+//    <i class="fas fa-angle-right fa-3x"></i>
+//  </div>
    
     let page = 1;
   
@@ -306,7 +343,79 @@
 
 
 	//load 全部文章(分頁)
-	$().load(selectAll());
+	
+	selectAll()
+	getHighestViewing()
+	
+//========================================================================	
+	
+	function getHighestViewing(){
+	
+		$.ajax({
+			url:"../petforum/highestViewing",
+			type:"GET",		
+			dataType:"json",			
+			success:function(data){					
+				$("#imgContent").html("");				
+					
+				$.each(data,function(i,n){ 
+				
+				console.log("123"+n[3]);
+				let content;
+				
+				if(!n[3].includes('imgur')){
+					content = "#";					
+				}
+				else{
+					content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
+					content = content+".jpg";
+					console.log("456"+content);
+				}			
+				
+				$("#imgContent").append(
+				"<li><img src="+content+" width=416px height=234px /></li>"					
+				);
+			
+				
+				})
+				
+			},
+			error:function(){
+				$("#imgContent").append("查無資料");				
+			}
+		})
+	
+	}
+//========================================================================
+	
+	function getHighestViewingHeader(){
+	
+		$.ajax({
+			url:"../petforum/highestViewingHeader",
+			type:"GET",		
+			dataType:"json",			
+			success:function(data){				
+				$("#articleHeader").html("");
+					
+				$.each(data,function(i,n){			
+				
+				console.log("111"+n[0]);
+				console.log("111"+n[1]);
+				console.log("111"+n[2]);			
+				
+				$("#articleHeader").append(
+						"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+n[0]+"&u_Id="+n[1]+"'>"+n[2]+"</a></p>"					
+				);
+				
+				})
+				
+			},
+			error:function(){				
+				$("#articleHeader").append("查無資料");
+			}
+		})
+	
+	}
 //========================================================================	
 	
 		function getForum(item){//參數來自button的value(固定用item接)	
@@ -508,6 +617,29 @@
 		        selectAll();
 		    } 
 		 
+		 
+		//=====================================================================
+
+			var url="ws://" + window.location.host + "<%=request.getContextPath() %>/webSocket";
+			//Open the web socket connection to the server
+			var socketConn = new WebSocket(url);
+			
+		
+			//Send Message
+				function send() {
+					clientMsg = document.getElementById('clientMsg');
+					if (clientMsg.value) {
+						socketConn.send(clientMsg.value);
+						clientMsg.value = '';
+					}
+				}
+			
+				// Recive Message
+				socketConn.onmessage = function(event) {
+					var serverMsg = document.getElementById('serverMsg');
+					serverMsg.value = event.data;					
+				}
+			
  	</script>
   </body>
 </html>

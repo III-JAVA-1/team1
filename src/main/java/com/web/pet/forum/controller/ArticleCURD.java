@@ -36,11 +36,11 @@ import com.web.pet.util.BlobToByteArray;
 public class ArticleCURD{
 	
 	@Autowired
-	ArticleService service;	
+	private ArticleService service;	
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 	@Autowired
-	ArticleFavoriteService favoriteService;
+	private ArticleFavoriteService favoriteService;
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
@@ -103,6 +103,19 @@ public class ArticleCURD{
 		ListWithPaging list = service.getArticleByLatestComment(page);		
 		return list;
 	}
+	
+	
+	/**
+	 * @author ching
+	 *	找top3瀏覽率文章
+	 */
+	@GetMapping(value={"/highestViewing","/highestViewingHeader"})
+	public @ResponseBody
+	List<Object[]> selectHighestViewing() {		
+		List<Object[]> list = service.getArticleByHighestViewing();		
+		return list;
+	}
+	
 	
 	/**
 	 * @author ching

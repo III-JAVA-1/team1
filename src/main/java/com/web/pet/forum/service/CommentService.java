@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.web.pet.forum.dao.CommentDao;
 import com.web.pet.forum.model.Comment;
 
+
 /**
  * @author ching
  *
@@ -22,13 +23,14 @@ import com.web.pet.forum.model.Comment;
 public class CommentService {
 	
 	@Autowired
-	CommentDao dao;	
+	private CommentDao dao;	
 	
 	/**
 	 * @author ching
 	 *	新增一則留言
 	 */
-	public int saveComment(Comment comment, Integer posterUid, Integer u_Id) {
+	public int saveComment(Comment comment, Integer posterUid, Integer u_Id) {		
+		
 		return dao.saveComment(comment, posterUid, u_Id);
 	}	
 	

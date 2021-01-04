@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.web.pet.member.dao.OtherFunctionDao;
+import com.web.pet.mom.model.Mom;
 import com.web.pet.store.dto.table.OrderDTO;
 
 @EnableTransactionManagement
@@ -94,5 +95,16 @@ public class OtherFunctionService {
 	}
 	
 	/////////////////////////會員店家功能////////////////////////////////
-
+	
+	public List<Object[]> membermomService(Integer user_id){//會員頁面保母資料修改顯示修改資料
+		
+		return otherFunctionDao.membermomDao(user_id);
+	}
+	
+	public Integer membereditmomService(Mom mom){//會員頁面保母資料修改
+		
+		return otherFunctionDao.membereditmomDao(mom);
+	}
+	
+	/////////////////////////會員店家功能////////////////////////////////
 }

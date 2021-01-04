@@ -135,6 +135,19 @@
 // 		});
 
 
+
+function gogo()
+    	{
+    		<%
+    			if(session.getAttribute("user")==null)
+    			{%>window.alert("請先登入"); return false;
+    			<%}else{%>
+    			return  true;
+    			<%}%>
+    				
+    				
+    		return false;
+    	}
 </script>
 <jsp:include page="Footer.jsp"/>
 </html>

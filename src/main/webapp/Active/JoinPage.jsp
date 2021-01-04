@@ -216,6 +216,18 @@ $().ready(function(){//ajax完整活動資訊然後把活動標題放進去
 	}
 
 
+	function gogo()
+	{
+		<%
+			if(session.getAttribute("user")==null)
+			{%>window.alert("請先登入"); return false;
+			<%}else{%>
+			return  true;
+			<%}%>
+				
+				
+		return false;
+	}
 </script>
 
 </html>

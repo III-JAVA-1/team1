@@ -94,7 +94,7 @@
 			<br>
 		<div style="text-align:center;">
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
-   			<img id="img" style="width=800px;" src="image/tantanEX.jpg" >
+   			<img id="img" style="width:800px;" src="image/tantanEX.jpg" >
 		</div>
 		<br>   			
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">

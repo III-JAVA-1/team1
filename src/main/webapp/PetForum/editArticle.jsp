@@ -60,7 +60,8 @@
 				<div class="form-group row w-50">
 						<label class="col-sm-3 col-form-label" for="header">文章標題：</label>
 					<div class="col-xs-4">
-						<form:input class="form-control" id="header" name="header" path="header" size="50" placeholder="請輸入文章標題…" />
+						<form:input class="form-control" id="header" name="header" path="header" size="50" placeholder="請輸入文章標題…" onblur="checkHeader()" />
+						<span class="span1" id="headerSp"></span> 
 					</div> 
 				</div>
 			</div> 
@@ -70,9 +71,9 @@
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
 					<label class="col-sm-3 col-form-label" for="content">文章內容：</label>
+					<span class="span1" id="contentSp"></span><br/> 
 					<div class="col-xs-4"> 
-					    <form:textarea id="content" name="content" path="content" class="form-control" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
-						onkeyup='return countChar()'></form:textarea>
+					    <form:textarea id="content" name="content" path="content" class="form-control" rows="20" cols="120" placeholder="請輸入文章內容…" onblur="checkContent()"></form:textarea>
 					</div>
 				</div>
 			</div>
@@ -144,7 +145,7 @@
 		
   <script>
   
-  CKEDITOR.replace('content',{
+  var editor = CKEDITOR.replace('content',{
 		language: 'zh-TW',//改成中文版
 	});
   
@@ -154,21 +155,27 @@
     $("#new").click(function check(form){//按預覽文章   	
     	
    	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
-   		 console.log($("#ckObey").prop("checked"));
-   		 console.log($("#forumId").find("option:selected").val() != null);
+   		
    	    	
-   		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
+   		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
+   			 
+   			if(checkHeader() && checkContent()){
    				
-   		var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
-		 	if (modify === false) {
-				 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
-	   			
-	   			 return false;
-			} 
- 			else {
-       		
-			   	return true;//form action請求送出				  
- 			}
+   				var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
+   			 	if (modify === false) {
+   					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+   		   			
+   		   			 return false;
+   				} 
+   	 			else {       			
+   				   	return true;//form action請求送出       			
+   	 			}
+   			 	
+   			 	
+   			}
+   			else{//內容或標題為空
+   				return false;
+   			}
    			
    		 }
    		 else{ 
@@ -218,6 +225,38 @@
           document.querySelector("#content").value = content;
 
       });
+    
+    
+    function checkHeader(){
+    	
+    	//取得header元素
+        let headerObj = document.getElementById("header");
+         //取得header元素值
+        let headerVal = headerObj.value;   
+
+        let sp = document.getElementById("headerSp");
+        if(headerVal === ""){
+            sp.innerHTML="標題不可空白";
+            return false;
+        }else{
+        	sp.innerHTML="";
+        	return true;
+        }
+        
+        
+    }
+    
+    function checkContent(){  	 
+
+        let sp = document.getElementById("contentSp");
+        if(editor.getData() === ""){
+            sp.innerHTML="內文不可空白";
+            return false;
+        }else{
+        	sp.innerHTML="";
+        	return true;
+        }
+    }
     
       $(".inline").colorbox({inline:true, width:"50%"});
       

@@ -187,7 +187,7 @@ public class OrderAction {
             // 執行ecpay
             if (req.getPayType() == 0) {
                 AioCheckOutDTO aioDTO = new AioCheckOutDTO();
-                aioDTO.setMerchantTradeNo(String.valueOf(orderId) + 1);
+                aioDTO.setMerchantTradeNo(String.valueOf(orderId) + ControlValue.ECPAY_INIT_NO);
                 aioDTO.setMerchantTradeDate(EcpayUtils.ecpayDateFormat(new Date()));
                 aioDTO.setTotalAmount(String.valueOf(totalCost));
                 aioDTO.setTradeDesc("毛孩商城");

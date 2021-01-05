@@ -13,7 +13,7 @@ body {
 }
 
 .all-card-div {
-    margin: 10px 2% 10px 2%;
+    margin: 30px 10% 10px 10%;
     padding: 20px 0;
     background-color: white;
 }
@@ -92,6 +92,42 @@ body {
     width: 25vw;
 }
 
+.date-div{
+    margin: 8px 5vw 0 0;
+}
+
+.date-bar{
+    padding-bottom: 4px !important;
+    cursor: pointer;
+}
+
+.all:hover{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2626d4;
+    cursor: pointer;
+}
+
+.to-be-shipped:hover{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2626d4;
+    cursor: pointer;
+}
+
+.shipped:hover{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2626d4;
+    cursor: pointer;
+}
+
+.cancel:hover{
+    font-size: 18px;
+    font-weight: bold;
+    color: #2626d4;
+    cursor: pointer;
+}
 
 
 

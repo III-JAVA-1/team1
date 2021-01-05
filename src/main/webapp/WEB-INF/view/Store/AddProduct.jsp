@@ -17,7 +17,7 @@
 <jsp:include page="Header.jsp"/>
 <form>
     <fieldset class="fieldset">
-        <legend>新增商品</legend>
+        <legend onclick="doInput()">新增商品</legend>
         <div class="form-group">
             <label for="inputName">* 商品名稱：</label>
             <input type="text" class="form-control" id="inputName" placeholder="請輸入名稱" required>
@@ -127,7 +127,7 @@
         //取得輸入框的值,不用判斷因為有預設值
         let animal = document.querySelector("#selectAnimal");
 
-        //取得radioDisplay的原件,
+        //取得radioDisplay的元件,
         //不用判斷因為有預設值
         let radios = document.getElementsByName('radioDisplay');
 
@@ -304,6 +304,30 @@
     function setPrice(input) {
         if (input.value < 1) {
             input.value = 1
+        }
+    }
+
+    function doInput(){
+        $("#inputName").val("是椅凳也是窩! 日系實木圓口機能椅子窩 (江戶淺蔥藍) (32*32*34cm) 寵物貓狗床窩");
+        $("#inputIntro").val("人的凳子，貓咪的家，親密關係，共享和諧生活。\n" +
+            "安全舒適。\n" +
+            "簡約又耐抓面料。\n" +
+            "承重力強。\n" +
+            "彈力海綿。\n" +
+            "\n" +
+            "尺寸: 32*32*34cm (手工測量略有10%誤差)\n" +
+            "適用: 迷你小型犬/所有體型貓咪\n" +
+            "承重: 100kg以內");
+        $("#selectCategory").val("6");
+        $("#selectAnimal").val("2");
+        $("#inputPrice").val("890");
+        $("#inputStock").val("50");
+        //取得radioDisplay的元件,
+        //不用判斷因為有預設值
+        let radios = document.getElementsByName('radioDisplay');
+        // 取得選擇商品是否上架狀態
+        for (let i = 0, length = radios.length; i < length; i++) {
+            radios[i].checked = i === 0;
         }
     }
 

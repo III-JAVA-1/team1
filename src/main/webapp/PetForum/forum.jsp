@@ -71,9 +71,7 @@
     <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
     
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">2013</a></li>
-            <li class="last-post-col active">十一月</li>
+            <li><a href="#">Home</a></li>            
         </ol>
    
 </div>
@@ -277,7 +275,7 @@
 				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 				"<td><div>"+val[1]+"</div></td>"+
 				"<td>"+val[2]+"</td>"+
-				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<td><div>"+val[3]+"</div>"+
 				"<div>"+val[4]+"</div></td>"+
 				"</tr>");
 				
@@ -501,7 +499,7 @@
 				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 				"<td><div>"+val[1]+"</div></td>"+
 				"<td>"+val[2]+"</td>"+
-				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<td><div>"+val[3]+"</div>"+
 				"<div>"+val[4]+"</div></td>"+
 				"</tr>");
 				
@@ -564,7 +562,7 @@
 					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 					"<td><div>"+val[1]+"</div></td>"+
 					"<td>"+val[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+					"<td><div>"+val[3]+"</div>"+
 					"<div>"+val[4]+"</div></td>"+
 					"</tr>");					
 					
@@ -627,7 +625,7 @@
 						"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 						"<td><div>"+val[1]+"</div></td>"+
 						"<td>"+val[2]+"</td>"+
-						"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+						"<td><div>"+val[3]+"</div>"+
 						"<div>"+val[4]+"</div></td>"+
 						"</tr>");						
 						

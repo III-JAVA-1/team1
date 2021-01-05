@@ -311,9 +311,7 @@
     					"<span><a id='ahref' onclick='favorites("+n[6]+"); return false;' href='#'><img id='fav' src='image/favorites_1.png'/></a></span>"+					
     					"<hr/>"+
     					" <div class='article_main_content'>"+
-    					"<p>"+content+"</p>"+
-    					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+n[6]+"'/>'"+
-    					" style='width: 400px;'>"+
+    					"<p>"+content+"</p>"+    					
     					"</div>"+
     					"</div>"+
     					"</div>"+

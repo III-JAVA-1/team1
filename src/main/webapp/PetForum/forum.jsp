@@ -90,7 +90,7 @@
                         <h5>熱門文章</h5>
                         <hr/>
                         <div class="direction last-post-col">
-                        <span><a href="#"><img src="image/petCare.png"/></a></span>                        
+                        <span><img src="image/petCare.png"/></span>                        
                         </div>                    
                     </div>
                 <div class="db_line1_featured2">                

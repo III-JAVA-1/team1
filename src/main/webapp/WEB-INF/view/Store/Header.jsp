@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -21,7 +20,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 
     <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
-            <a class="navbar-brand" href="../index.jsp"><img src="../Store/images/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
+            <a class="navbar-brand" href="../index.jsp"><img src="../image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -30,35 +29,35 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                        <%
-                            if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
-                                out.print("<a class=\"nav-link\" href=\"../Store/\">毛孩商城</a>");
-                            } else {
-                                out.print("<a class=\"nav-link\" href=\"../Store/?memberId="
-                                        + session.getAttribute("user")
-                                        + "\">毛孩商城</a>");
-                            }
-                        %>
+                    	<%
+							if (session.getAttribute("user") == null || session.getAttribute("user") == "") {
+								out.print("<a class=\"nav-link\" href=\"../Store/\">毛孩商城</a>");
+							} else {
+								out.print("<a class=\"nav-link\" href=\"../Store/?memberId="
+										+ session.getAttribute("user")
+										+ "\">毛孩商城</a>");
+							}
+						%>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物保姆</a>
+                        <a class="nav-link" href="<c:url value='../mom/extar.jsp'/>">寵物保姆</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="<c:url value='../PetForum/lookforPet.jsp'/>">汪喵討論區</a>
+                        <a class="nav-link" href="<c:url value='../PetForum/forum.jsp'/>">汪喵討論區</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物店家</a>
+                        <a class="nav-link" href="../Petshop/mainshop.jsp">寵物店家</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">寵物活動/消息</a>
+                        <a class="nav-link" href="../Active/ActIndex.jsp">寵物活動/消息</a>
                     </li>
                     <li class="nav-item" style="color:white;">
                         <%
                         	if(session.getAttribute("user")==null||session.getAttribute("user")=="")
 							{
-								out.print("<a class='nav-link' href='Login.jsp'><img src='../Store/images/user.svg' width='30' height='30' alt=''></a>");
+								out.print("<a class='nav-link' href='../Member/Login.jsp'><img src='../image/user.svg' width='30' height='30' alt=''></a>");
 							}else{
-								 out.print("<a class='nav-link' href='Member.jsp' id='headersname'></a>");
+								 out.print("<a class='nav-link' href='../Member/Member.jsp' id='headersname'></a>");
 							}
 						%>
                     </li>
@@ -79,8 +78,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		crossorigin="anonymous"></script>
 		
 		<script>
-		
-		$().ready(function(){
 			$.ajax({
 				url:"../Gusty/headercheck",
 				type:"post",
@@ -93,7 +90,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						$("#headersname").html(n.sname+"您好");
 					});
 				}
-			});
 		});
 		</script>
 </body>

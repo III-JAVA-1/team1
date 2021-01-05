@@ -22,7 +22,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <title>AccompanyMe</title>
 <style>
-
+	
+	a{
+    	text-decoration:none;
+	}
+	
 	#title{
 		background-color: aqua;
 	}
@@ -63,11 +67,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
  					<a href="Member.jsp" class="list-group-item list-group-item-action h4 " aria-current="true">
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
-  					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
+  					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
+  					<a href="Momorder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >活動/課程查詢</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
+  					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商品評價</a>
   					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
@@ -129,7 +133,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
 	<script>
 	
 	$("#gotop").click(function(){//回最上層JQUERY
@@ -168,8 +173,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){
 				$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
 						"<td>"+n[1].substring(0,20)+".....</td>"+
-			   			"<td>"+n[2]+"~"+n[3]+"</td>"+
-			   			"<td>"+n[4]+"</td></tr>");
+			   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+			   			"<td>"+n[4]+"</td>"+
+			   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
 			});
 		},
 		error:function(){
@@ -240,8 +246,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
-    				   			"<td>"+n[4]+"</td></tr>");
+    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+    				   			"<td>"+n[4]+"</td>"+
+    				   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
     				});
     			},
     			error:function(){
@@ -251,7 +258,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	}
     	return false;
     }
-
+    
     	$("#search").change(function(){
     		$("#tip").html("");
     		$("#actiontable").html("");
@@ -269,8 +276,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$.each(data,function(i,n){
     					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
     				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2]+"~"+n[3]+"</td>"+
-    				   			"<td>"+n[4]+"</td></tr>");
+    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
+    				   			"<td>"+n[4]+"</td>"+
+    				   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
     				});
         		},
         		error:function(){
@@ -278,6 +286,47 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         		}
         	});
     	});
+    	
+    	function joinpeople(aid){
+    		//alert(aid)
+    		Swal.fire({
+      		  	title: '活動名稱:<div id="mainname"></div>&nbsp參加人員',
+      		  	html:"<table class='table table-hover table-bordered h4'>"+
+      			"<thead style='background-color:#FFD2D2'>"+
+        		"<tr><th scope='col'>名字</th>"+
+          			"<th scope='col'>電郵</th>"+
+          			"<th scope='col'>地址</th>"+
+          			"<th scope='col'>攜帶寵物&數量</th>"+
+          			"<th scope='col'>參加狀態</th>"+
+          			"<th scope='col'>備註</th></tr>"+
+      			"</thead>"+
+      			"<tbody id='alljoinactive1'>"+
+      			"</tbody>"+
+    			"</table>",
+    			width: '1000px',
+      		confirmButtonText: '確定'
+      		})
+      		$.ajax({
+      			url:"../Gusty/memberalljoin",
+      			type:"post",
+      			dataType:"json",
+      			async:false,
+      			data : { 
+      				"aid":aid,
+      	        },
+      			success:function(data){
+      				$.each(data,function(i,n){	
+      					if(i==0){$("#mainname").html(n[9])}
+      					$("#alljoinactive1").append("<tr><th scope='row'>"+n[0]+"</th>"+
+      						"<td>"+n[1]+"</td>"+
+      						"<td>"+n[2]+n[3]+n[4]+"</td>"+
+      						"<td>"+n[5]+"&nbsp&nbsp"+n[6]+"隻</td>"+
+      						"<td>"+n[7]+"</td>"+
+      						"<td>"+n[8]+"</td></tr>");
+      				});
+      			}
+      		});
+    	}
     
 	</script>
 

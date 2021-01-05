@@ -12,13 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +25,6 @@ import com.web.pet.Active.model.ActBean;
 import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.Active.service.ActService;
 import com.web.pet.util.BlobToByteArray;
-
-import okhttp3.internal.http.HttpHeaders;
 
 
 @RequestMapping("/Wu")
@@ -59,11 +53,21 @@ public class ActController {
 			byte[] b = img.getBytes();
 			Blob blob = new SerialBlob(b);
 			actbean.setAct_img(blob);
-			
-			if(actservice.insertActService(actbean,uid)>0) {
-				out.print("<script>");
-				out.print("window.alert('活動新增成功'); window.location.href='../Active/ActIndex.jsp';");
-				out.print("</script>");
+			if(actservice.insertActService(actbean,uid)>0) {		
+				out.print("<html><body>");
+	    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+	    		out.print("<script>");
+	    		out.print("Swal.fire({\r\n"
+	    				+ "title: '活動新增成功',\r\n"
+	    				+ "icon: 'success',\r\n"
+	    				+ "confirmButtonText: '確定'\r\n"
+	    				+ "}).then((result) => {\r\n"
+	    				+ "if (result.isConfirmed) {\r\n"
+	    				+ "window.location.href='../Active/ActIndex.jsp';\r\n"
+	    				+ "}\r\n"
+	    				+ "})");
+	    		out.print("</script>");
+	    		out.print("</html></body>");
 			}						
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,9 +87,9 @@ public class ActController {
 
 	@RequestMapping(value = "/Activity") //ajax查詢活動有哪些
 	@ResponseBody
-	public List<ActBean> ajaxActController(){
-		List<ActBean> list = new ArrayList<ActBean>();
-		list = actservice.ajaxActService();
+	public List<Object[]> ajaxActController(String acttype){
+		List<Object[]> list = new ArrayList<Object[]>();
+		list = actservice.ajaxActService(acttype);
 		return list;		
 	}
 	
@@ -132,10 +136,19 @@ public class ActController {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		actservice.nojoinservice(jid);
-		
+		out.print("<html><body>");
+		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
-		out.print("window.alert('已取消');window.location.href='../Active/ActCheck.jsp';");
+		out.print("Swal.fire({\r\n"
+				+ "title: '已取消參加',\r\n"
+				+ "icon: 'success',\r\n"
+				+ "showConfirmButton: false,\r\n"
+				+ "timer: 2000\r\n"
+				+ "}).then((result) => {\r\n"				
+				+ "window.location.href='../Active/ActCheck.jsp';\r\n"
+				+ "})");
 		out.print("</script>");
+		out.print("</html></body>");
 		out.close();
 
 	}
@@ -158,3 +171,4 @@ public class ActController {
 	
 
 }
+

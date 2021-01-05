@@ -20,16 +20,17 @@ for (let i = 0; i < btn.length; i++) {
     if (btn[i] === preBtn) {
       setTimeout(() => {
         firstItem.parentNode.insertBefore(lastItem, firstItem);
-        firstIndicator.parentNode.insertBefore(
-          firstIndicator,
-          lastIndicator.nextSibling
-        );
+        firstIndicator.parentNode.insertBefore(firstIndicator,lastIndicator.nextSibling);		
+		
       }, 400);
     } else if (btn[i] === nextBtn) {
       setTimeout(() => {
         lastItem.parentNode.insertBefore(firstItem, lastItem.nextSibling);
-        firstIndicator.parentNode.insertBefore(lastIndicator, firstIndicator);
+        firstIndicator.parentNode.insertBefore(lastIndicator, firstIndicator);		
+		
       }, 400);
     }
   });
 }
+
+  

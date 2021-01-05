@@ -67,11 +67,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
  					<a href="Member.jsp" class="list-group-item list-group-item-action active h4 " aria-current="true">
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母訂單查詢</a>
+  					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
+  					<a href="Momorder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
+  					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >商品評價</a>
   					<a href="Article.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >論壇紀錄查詢</a>
@@ -410,21 +410,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		});
 	});
     
-    var dead=2;
-    let today=new Date();//生日判斷
-	document.getElementById("editbirth").addEventListener("mouseout",function(){
-		if(Date.parse(document.getElementById("editbirth").value).valueOf()>today){
-			//console.log("555555");
-			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>未來使者";
-			dead=0;
-		}
-		else{
-			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
-			dead=1;
-		}
-		
-	});
-    
     $("#gotop").click(function(){//回最上層JQUERY
         jQuery("html,body").animate({
             scrollTop:0
@@ -580,12 +565,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				dataType:"json",
 				//async: false,
 				success:function(data){
-					
 					$.each(data,function(i,n){
-						//console.log(n.email)
-<%-- 						if(n.u_Id==<%=session.getAttribute("user")%>){ --%>
-// 							return;
-// 						}
 						if($("#editemail").val()==n.email){
 							if(n.u_Id==<%=session.getAttribute("user")%>){
 								$("#editemailcheck").html("<img src='image/checked.png'>OK");
@@ -658,7 +638,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			//$(":contains(text)")
 			success:function(data){
 				$.each(data,function(i,n){
-					if(n.u_Id==<%=session.getAttribute("user")%>){return;}
+					if(n.u_Id==<%=session.getAttribute("user")%>){
+						$("#editsnamecheck").html("<img src='image/checked.png'>OK");
+						check[4]=1;
+						return false;
+					}
 					if($("#editsname").val()==n.sname){
 						$("#editsnamecheck").html("<img src='image/cancel.png'>已被使用");						
 						check[4]=0;
@@ -682,6 +666,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		});
     });
 	
+	var dead=2;
+    let today=new Date();//生日判斷
+	document.getElementById("editbirth").addEventListener("mouseout",function(){
+		if(Date.parse(document.getElementById("editbirth").value).valueOf()>today){
+			//console.log("555555");
+			document.getElementById("birthcheck").innerHTML="<img src='image/cancel.png'>未來使者";
+			check[5]=1;
+		}
+		else{
+			document.getElementById("birthcheck").innerHTML="<img src='image/checked.png'>OK";
+			check[5]=0;
+		}
+	});
+	
 	var sumcheckgo = window.setInterval(sumcheck,100);//最後總和驗整結果判斷
 
 	function sumcheck(){
@@ -696,16 +694,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			}
 		}
 		//console.log(dead);
-		if(checkn>=5){$("#editbutton").attr('disabled', false);}
+		if(checkn>=6){$("#editbutton").attr('disabled', false);}
 		else{$("#editbutton").attr('disabled', true);}
-		if($("#editname").val()==a&&$("#editphone").val()==b&&$("#editemail").val()==c&&$("#editsname").val()==d&&$("#editaddress").val()==e&&dead==2){
+		if($("#editname").val()==a&&$("#editphone").val()==b&&$("#editemail").val()==c&&$("#editsname").val()==d&&$("#editaddress").val()==e){
 			$("#doublecheck").html("請至少修改一筆資料才能送出");
 			$("#editbutton").attr('disabled', true);
 		}else{
 			$("#doublecheck").html("");
 			$("#editbutton").attr('disabled', false);
 		}
-		if(dead==0){$("#editbutton").attr('disabled', true);}	
 	}
 	</script>
 

@@ -23,6 +23,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <title>AccompanyMe</title>
 <style>
 
+	a{
+    	text-decoration:none;
+	}
+	
 	#title{
 		background-color: aqua;
 	}
@@ -63,11 +67,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
  					<a href="Member.jsp" class="list-group-item list-group-item-action h4 " aria-current="true">
     					<img src="image/pawprintb.png">會員基本資料
   					</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
-  					<a href="#" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
+  					<a href="Editmom.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >保母資料修改</a>
+  					<a href="Momorder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >保母訂單查詢</a>
   					<a href="Shoporder.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商城訂單紀錄</a>
   					<a href="Action.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >活動/課程查詢</a>
-  					<a href="#" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
+  					<a href="Petshop.jsp" class="list-group-item list-group-item-action h4 "><img src="image/pawprintb.png" >店家預約訂單</a>
   					<a href="Favoritestore.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >我的收藏</a>
   					<a href="Evaluation.jsp" class="list-group-item list-group-item-action h4"><img src="image/pawprintb.png" >商品評價</a>
   					<a href="Article.jsp" class="list-group-item list-group-item-action h4 active"><img src="image/pawprintb.png" >論壇紀錄查詢</a>
@@ -79,6 +83,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			
   			<div class="row justify-content-center">
     			<div class="display-4">論壇紀錄</div>
+  			</div><br>
+  			
+  			<div class="row justify-content-center">
+    			<div class="h4">編輯文章請前往<a href="../PetForum/forum.jsp">文章首頁</a></div>
   			</div><br>
   			
   			<div class="row justify-content-center h4">
@@ -96,7 +104,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			依名字搜尋文章:<input type="text" id="search" name="search">
   			</div>
   			
-			<table class="table table-hover table-bordered " id="maintable">	
+			<table class="table table-hover table-bordered" id="maintable">	
   			</table>
   			
   			<div class="row justify-content-center" >
@@ -208,7 +216,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$("#tip").html("沒有留言紀錄");
         		}
         	});
-    		
+    		return false;
     	}else{
     		$("#mainsearch").css("display","");
     		$("#comment").removeClass("active");
@@ -244,6 +252,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			$("#tip").html("沒有發表文章");
         		}
         	});
+    		return false;
     	}
     }
     

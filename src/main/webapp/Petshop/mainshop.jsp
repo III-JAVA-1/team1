@@ -133,18 +133,18 @@ $.ajax({
 			if(i>=0&&i<12){
 				if(n.type=="美容店"){
 					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-				  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+				  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
 				    		"<p class='card-text'>"+n.address+"</p>"+
 				    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 				    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-				    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+				    		"<a href='Salon_reserv.jsp?storename="+n.name+"' class='btn btn-primary'>預約服務</a>"+
 				    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 				  			"</div></div>");
 				}else{
 					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-				  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+				  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
 				    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -181,18 +181,18 @@ function search(){
 				if(i>=0&&i<12){
 					if(n.type=="美容店"){
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-					    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+					    		"<a href='Salon_reserv.jsp?storename="+n.name+"' class='btn btn-primary'>預約服務</a>"+
 					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -234,18 +234,18 @@ function pagechange(page){
 				if(i+1>=$(page).val()*12-12+1&&i+1<=$(page).val()*12){
 					if(n.type=="美容店"){
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-					    		"<a href='#' class='btn btn-primary'>預約服務</a>"+
+					    		"<a href='Salon_reserv.jsp?storename="+n.name+"' class='btn btn-primary'>預約服務</a>"+
 					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</a>"+
 					  			"</div></div>");
 					}else{
 						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
-					  			"<img src='image/test.jpg' class='card-img-top' alt='沒有圖片'>"+
+					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text' onclick='addressdisplay(this)' value='"+n.address+"'>"+n.address+"</p>"+
@@ -263,6 +263,9 @@ function pagechange(page){
 	});
 }
 
+function imageerror(images){
+	$(images).attr("src","image/photo.png");
+}
 
 
 function addressdisplay(address) {

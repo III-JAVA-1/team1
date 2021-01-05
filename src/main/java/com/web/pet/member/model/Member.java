@@ -27,7 +27,12 @@ import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.forum.model.Article;
 import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.forum.model.Comment;
+import com.web.pet.mom.model.PetMomOrder;
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import com.web.pet.mom.model.Mom;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -76,10 +81,8 @@ public class Member {
 	@Column(nullable = true)
 	private Blob img;
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "momId",referencedColumnName = "momId")
-	private Mom mom;
-	
+	@OneToOne(mappedBy = "member",fetch = FetchType.LAZY)    
+	private Mom mom;	
 
 	@OneToMany(mappedBy = "member",fetch = FetchType.LAZY)	
 	private Set<ActBean> actBean = new LinkedHashSet<>(0);
@@ -97,6 +100,7 @@ public class Member {
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private Set<ArticleFavorite> articleFavorites = new LinkedHashSet<>(0);
 	//=============================================================
+
 
 }
 	

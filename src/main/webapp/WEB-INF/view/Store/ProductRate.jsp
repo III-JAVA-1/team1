@@ -173,6 +173,7 @@
             success: function (res) {
                 if (res.success) {
                     alert('感謝完成評價');
+                    window.location = "Member/Evaluation.jsp";
                 } else {
                     alert('評價有誤');
                 }

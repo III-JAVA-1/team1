@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.sql.Date"%>
 
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!doctype html>
 <html lang="zh-Hant-TW">
+
+
 
 <head>
 <!-- Required meta tags -->
@@ -24,21 +20,27 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+
+<!--sweetAlert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
 <style>
 * {
 	margin: 0;
 	padding: 0;
 }
 
-body {
-	background-color: #E0E0E0;
-}
-
 article {
 	/* border:1px solid gray; */
 	border-radius: 15px;
 	padding: 30px 80px;
-	background-color: #ffffff;
+	background-color: #E0E0E0;
 }
 
 .h4 {
@@ -54,190 +56,219 @@ article {
 input[type="text"] {
 	text-align: center;
 }
+
+.st1 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: solid rgb(194, 193, 193) 1px;
+}
+
+.bg {
+	background-image: url(Images/无缝的乱画猫和狗lineart背景-123270005\ \(2\).jpg);
+}
 </style>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <!--要include 的程式 最下面還有-->
 </head>
 
 <body>
+<jsp:include page="Header.jsp" />
 
 	<div class="container">
+		<div class="row">
+			<div class="col-md-2 bg"></div>
+			<article class="col-md-8">
 
-		<article class="col-8">
-		
-			<form action="../i19/insertMom" onsubmit="return isCheck()"
-				method="POST" style="margin: auto; float: 50px;">
-				<div>
+				<form action="../mom/insertMom" method="POST" enctype="multipart/form-data" id="myForm">
 					<b>
-						<p>
-						<h4>
-							<i><b>申請成為寵物保姆</b></i>
-						</h4>
-						</p>
+						<div style="text-align: center;">
+							<h4>
+								<b>申請成為寵物保姆</b>
+							</h4>
+						</div>
 					</b> <br> <br> <b>
-						<p>保姆服務內容</p>
-					</b>
-					<div class="input-group mb-3">
-						<!-- idService -->
-						<div class="col-sm-3">
-							<label for="idService">服務標題</label>
+						<div class="st1">保姆服務內容</div>
+					</b> <br> <br>
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="idService">服務標題</label> <span class="uppercase">*</span>
 						</div>
-						<input type="text" class="form-control" id="idService"
-							name="title" type="text" required=" ">
+						<div class="col-md-5">
+							<input type="text" class="form-control" id="idService"
+								name="title" placeholder="請輸入服務標題" required=" ">
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="idExperience">年資</label> <span class="uppercase">*</span>
+						</div>
+						<div class="col-md-2">
+							<input type="number" class="form-control" id="idExperience"
+								name="experience" value="0" min="0" max="99" required=" ">
+						</div>
+						<div style="line-height: 2.5rem; height: 2.5rem; padding-left: 0;">
+							年</div>
+					</div>
+					<!-- 
+					<br>
+
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="idMount">最大接待數量</label>
+							<span class="uppercase">*</span>
+						</div>
+						<div class="col-md-2">
+							<input type="number" class="form-control" id="idMount" name="maxReceive" value="0" min="0"
+								max="99" required=" ">
+						</div>
+						<div style="line-height:2.5rem;height:2.5rem;padding-left:0;">
+							隻
+						</div>
+					</div> -->
+
+					<br>
+
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="notic">接待注意事項</label> <span class="uppercase">*</span>
+						</div>
+						<div class="col-md-7">
+							<textarea class="form-control" name="notices" id="notic" rows="5"></textarea>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="serviceRefer">服務介紹</label> <span class="uppercase">*</span>
+						</div>
+						<div class="col-md-7">
+							<textarea class="form-control" name="petContent"
+								id="serviceRefer" rows="5"></textarea>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="row">
+						<div class="col-md-1"></div>
+						<div class="col-md-3">
+							<label for="serviceRefer">環境照片</label> <span class="uppercase">*</span>
+						</div>
+
+						<div class="col-md-7"
+							style="height: 150px; border-radius: 5px; background-color: white; border: solid rgb(199, 197, 197) 1px;">
+							<div>
+								<div style="margin-top: 5px;">
+									<input type="file" id="showimg" name="myPic"/>
+<!-- 									<div class='row'> -->
+<!-- 										<div id='previewMultiple'></div> -->
+<!-- 									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br> <br> <b>
+						<div class="st1">服務項目</div>
+					</b> <br> <br>
+
+					<div class="col-md-3">
+						<label for="serviceRefer">項目與價格</label> <span class="uppercase">*</span>
+					</div>
+
+
+					<div class="input-group mb-3">
+						<div class="col-md-4"></div>
+						<div>
+							<label for="check1">安親托育</label> <span class="uppercase">*</span>
+							<input class="form-control inp" type="text" name="proPrice1"
+								id="input1" placeholder="到府照顧的價錢">
+						</div>
 					</div>
 
 					<div class="input-group mb-3">
-						<!-- idMoney -->
-						<div class="col-sm-3">
-							<label for="idMoney">年資</label>
+						<div class="col-md-4"></div>
+						<div>
+							<label for="check2">寄宿照顧</label> <span class="uppercase">*</span>
+							<input class="form-control inp" type="text" name="proPrice2"
+								id="input2" placeholder="保姆家過夜的價格">
 						</div>
-						<input type="text" class="form-control" id="idMoney"
-							name="experience" type="text" required=" ">
 					</div>
+
+
 					<div class="input-group mb-3">
-						<!-- idMoney -->
-						<div class="col-sm-3">
-							<label for="notic"> 接待注意事項</label>
+						<div class="col-md-4"></div>
+						<div>
+							<label for="check3">到府遛狗</label> <span class="uppercase">*</span>
+							<input class="form-control inp" type="text" name="proPrice3"
+								id="input3" placeholder="到府帶狗狗散步的價格">
 						</div>
-						<textarea class="form-control" name="notices" id="notic" rows="6"></textarea>
 					</div>
-					<div class="input-group mb-3">
-						<!-- exampleFormControlTextarea1 -->
-						<div class="col-sm-3">
-							<label for="exampleFormControlTextarea1">服務說明</label>
-						</div>
-						<textarea class="form-control" name="petContent"
-							id="exampleFormControlTextarea1" rows="6"></textarea>
-					</div>
-					<div class="input-group mb-3">
-						<!-- myFilePic -->
-						<div class="col-sm-3">
-							<label for="myFilePic">照片</label>
-						</div>
-						<input id="myFilePic" type="file" name="pic" multiple
-							class="file-loading">
-					</div>
-				</div>
-				<br>
-				<div>
-					<b>
-						<p>服務項目</p>
-					</b>
 					<div>
 
-						<small>項目與價格</small> <br>
-
-						<div>
-							<div class="input-group mb-3">
-								<div class="col-sm-3"></div>
-								<div>
-									<label class="form-check-label" for="check1">安親托育</label> <input
-										class="inp" type="text" name="proPrice1" id="input1"
-										placeholder="保姆家照顧的價錢">
-								</div>
-							</div>
+						<div class="col-md-3">
+							<label for="serviceRefer">寵物體型</label> <span class="uppercase">*</span>
 						</div>
-
-						<div>
-							<div class="input-group mb-3">
-								<div class="col-sm-3"></div>
-								<div>
-									<label class="form-check-label" for="check2">寄宿照顧</label> <input
-										type="text" class="inp" name="proPrice2" id="input2"
-										placeholder="保姆家過夜的價格">
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="input-group mb-3">
-								<div class="col-sm-3"></div>
-								<div>
-									<label class="form-check-label" for="check3">到府陪伴</label> <input
-										type="text" class="inp" name="proPrice3" id="input3"
-										placeholder="到府陪伴的價格">
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="input-group mb-3">
-								<div class="col-sm-3"></div>
-								<div>
-									<label class="form-check-label" for="check4">到府遛狗</label> <input
-										type="text" class="inp" name="proPrice4" id="input4"
-										placeholder="到府帶狗狗散步的價格">
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div>
-
-						<small>寵物體型</small>
 
 						<div class="input-group mb-3">
-							<div class="col-sm-3"></div>
+							<div class="col-md-4"></div>
 							<div>
 								<input class="chk" name="bodyType1" type="checkbox" id="check5"
 									value="迷你犬(0~4kg)"> <label for="check5"><small
-									style="font-size: small;">迷你犬(0~4kg)</small></label>
+									style="font-size: small;">小型犬(0~10kg)</small></label>
 							</div>
 						</div>
 
-
 						<div class="input-group mb-3">
-							<div class="col-sm-3"></div>
+							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType2" type="checkbox" id="check6"
-									value="小型犬(4~10kg)"> <label for="check6"><small
-									style="font-size: small;">小型犬(4~10kg) </small></label>
-							</div>
-						</div>
-
-
-						<div class="input-group mb-3">
-							<div class="col-sm-3"></div>
-							<div>
-								<input class="chk" name="bodyType3" type="checkbox" id="check7"
+								<input class="chk" name="bodyType2" type="checkbox" id="check7"
 									value="中型犬(10~24kg)"> <label for="check7"><small
 									style="font-size: small;">中型犬(10~24kg)</small></label>
 							</div>
 						</div>
 
 						<div class="input-group mb-3">
-							<div class="col-sm-3"></div>
+							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType4" type="checkbox" id="check8"
+								<input class="chk" name="bodyType3" type="checkbox" id="check8"
 									value="大型犬(24kg以上)"> <label for="check8"><small
 									style="font-size: small;">大型犬(24kg以上)</small></label>
 							</div>
 						</div>
 
 						<div class="input-group mb-3">
-							<div class="col-sm-3"></div>
+							<div class="col-md-4"></div>
 							<div>
-								<input class="chk" name="bodyType5" type="checkbox" id="check9"
+								<input class="chk" name="bodyType4" type="checkbox" id="check9"
 									value="貓"> <label for="check9"> <small
 									style="font-size: small;">貓</small></label>
 							</div>
 						</div>
 					</div>
 
-
 					<br>
 
 					<div class="form-check" style="text-align: center;">
-						<!-- checked -->
-						<!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1"><p style="color: red;">我同意AccompanyMe的服務條款</p></label> -->
 
 						<button type="submit" class="btn btn-primary" name="submit">送出</button>
 					</div>
-			</form>
-
-		</article>
+				</form>
+			</article>
+			<div class="col-md-2 bg"></div>
+		</div>
 	</div>
+
 	<script>
 		function isCheck() {
 			let inpValue = document.getElementsByClassName("inp");
@@ -271,20 +302,18 @@ input[type="text"] {
 			}
 
 		}
-	</script>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	</script>
+<jsp:include page="Header.jsp" />
+
+
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
 
-	<!-- TWzipcode的js -->
+	<!-- TWzipcode的js
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script
@@ -296,7 +325,7 @@ input[type="text"] {
 			countyName : "city", // 自訂城市 select 標籤的 name 值
 			districtName : "town" // 自訂地區 select 標籤的 name 值
 		});
-	</script>
+	</script> -->
 </body>
 
 </html>

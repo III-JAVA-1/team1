@@ -6,9 +6,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:websocket="http://www.springframework.org/schema/websocket"
-	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -53,7 +51,7 @@
 				<value>com.web.pet.member.model</value>
 				<value>com.web.pet.mom.model</value>
 				<value>com.web.pet.Active.model</value>
-				<value>com.web.pet.forum.model</value>			
+				<value>com.web.pet.forum.model</value>
 				<value>com.web.pet.petshop.model</value>	
 			</array>
 		</property>
@@ -86,16 +84,7 @@
 	<!-- 配置事務異常封裝 -->
 	<bean id="persistenceExceptionTranslationPostProcessor"
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-		
-		
-	<websocket:handlers allowed-origins="*">
-        <websocket:mapping path="/webSocket" handler="msgScoketHandle"/>
-         <websocket:handshake-interceptors>
-            <bean class="com.web.pet.forum.webSocket.config.WebSocketHandshakeInterceptor"/>
-        </websocket:handshake-interceptors>
-    </websocket:handlers>
-
-
-    <bean id="msgScoketHandle" class="com.web.pet.forum.webSocket.MsgScoketHandle"/>
+	
+	<bean id="msgScoketHandle" class="com.web.pet.forum.webSocket.MsgScoketHandle"/>
 
 </beans>

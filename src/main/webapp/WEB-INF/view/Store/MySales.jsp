@@ -16,23 +16,26 @@
 </head>
 <body>
 <div class="all-card-div">
+
+
     <div class="status-btn d-flex bd-highlight">
-        <div class="p-2 bd-highlight">全部</div>
-        <div class="p-2 bd-highlight">待出貨</div>
-        <div class="p-2 bd-highlight">已出貨</div>
-        <div class="p-2 bd-highlight">取消</div>
+        <div class="p-2 bd-highlight all">全部</div>
+        <div class="p-2 bd-highlight to-be-shipped">待出貨</div>
+        <div class="p-2 bd-highlight shipped">已出貨</div>
+        <div class="p-2 bd-highlight cancel">取消</div>
     </div>
     <hr>
-
-    <nav class="navbar navbar-light">
+    <div class="d-flex bd-highlight mb-3">
+    <nav class="navbar navbar-light mr-auto p-2 bd-highlight">
         <form>
-            <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 search-bar " type="search" placeholder="Search" aria-label="Search">
         </form>
     </nav>
+    <div class="date-div">訂單成立日期(單)
 
-    <div class="">
-        <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+        <input class="p-2 bd-highlight date-bar" type="text" name="daterange" value=" 01/01/2021 - 01/31/2021"/>
     </div>
+</div>
 
     <div class="card-div">
         <div class="top-div d-flex bd-highlight">
@@ -54,7 +57,14 @@
                    <img src="Store/images/noStar.svg" width="15px" height="15px"/>我是小星星
                </div>
                 <div class="product-price p-2 bd-highlight">NT$150</div>
-                <div class="product-status p-2 bd-highlight">已出貨</div>
+
+            <select class="form-control form-control product-status p-2 bd-highlight">
+                <option>待出貨</option>
+                <option>已出貨</option>
+                <option>已取消</option>
+            </select>
+
+<%--                <div class="product-status p-2 bd-highlight">已出貨</div>--%>
                 <div class="delivery-time p-2 bd-highlight">2020-12-30</div>
                 <div class="operate p-2 bd-highlight detail-btn">
                     <img src="Store/images/paper.svg" width="15px" height="15px"/>

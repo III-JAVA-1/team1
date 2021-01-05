@@ -16,5 +16,7 @@ public class ControlValue {
     // 寄件者金鑰(兩步驟驗證應用程式金鑰)
     public static final String EMAIL_TOKEN = "uyvdilxkpuqnczaf";
 
+    // ecpay流水號
+    public static final int ECPAY_INIT_NO = 99;
 
 }

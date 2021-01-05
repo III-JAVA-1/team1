@@ -253,7 +253,7 @@ input[type=button] {
             <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
           <div class="carousel-item">
-            <img src="image/catsay.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
+            <img src="image/mom.jpg" class="d-block w-100" alt="" style="width:100%;height:700px;">
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">

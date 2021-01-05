@@ -29,6 +29,8 @@ import com.web.pet.forum.service.ArticleService;
 import com.web.pet.forum.service.CommentService;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
+import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.service.MomService;
 import com.web.pet.petshop.model.PetshopBean;
 import com.web.pet.util.BlobToByteArray;
 import com.web.pet.util.MailUtils;
@@ -49,7 +51,7 @@ public class adminCURD {
 	@Autowired
 	private CommentService commentservice;	
 	@Autowired
-	private ArticleService articleservice;	
+	private ArticleService articleservice;
 	
 	@RequestMapping(value = "/adminmembernamesearch")
 	@ResponseBody
@@ -116,8 +118,8 @@ public class adminCURD {
 	
 	@RequestMapping("/activeall")//活動顯示全部活動
 	@ResponseBody
-	public List<Object[]> activeallController(String search){
-		return adminService.activeallService(search);
+	public List<Object[]> activeallController(){
+		return adminService.activeallService();
 	}
 	
 	@RequestMapping("/activejoinall")//活動顯示全部活動的參加人數
@@ -128,8 +130,8 @@ public class adminCURD {
 	
 	@RequestMapping("/activecheck")//活動顯示要審核的活動
 	@ResponseBody
-	public List<Object[]> activecheckController(String search){
-		return adminService.activecheckService(search);
+	public List<Object[]> activecheckController(){
+		return adminService.activecheckService();
 	}
 	
 	@RequestMapping(value = "/getactiveimg")//幫活動圖片抓全部東西
@@ -189,8 +191,8 @@ public class adminCURD {
 	
 	@RequestMapping("/articlefull")//文章總覽分頁和搜尋
 	@ResponseBody
-	public List<Object[]> articlefullController(String search,Integer page){
-		return adminService.articlefullService(search, page);
+	public List<Object[]> articlefullController(){
+		return adminService.articlefullService();
 	}
 	
 	@RequestMapping("/articledetail")//文章詳細內容
@@ -274,6 +276,24 @@ public class adminCURD {
 	}
 	
 	//////////////////////////////店家管理////////////////////////////////////
+	
+	@RequestMapping("/allmom")//顯示全部保母
+	@ResponseBody
+	public List<Object[]> allmomController(){
+		return adminService.allmomService();
+	}
+	
+	@RequestMapping("/deletemom")//刪除保母
+	@ResponseBody
+	public Integer deletemomController(Integer mid,String message) throws AddressException, MessagingException{
+		Mom mom = adminService.getfullmomService(mid);
+		message = "您的保母『"+mom.getTitle()+"』已被刪除<br>原因:"+message+"<br>有任何問題歡迎來信告知，謝謝";
+		Member member = memberService.fullmemberService(mom.getMember().getU_Id());
+		MailUtils.sendMail(member.getEmail(),message);
+		return adminService.deletemomService(mid);
+	}
+	
+	//////////////////////////////保母管理////////////////////////////////////
 	
 	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面
 	public String goadmin(){

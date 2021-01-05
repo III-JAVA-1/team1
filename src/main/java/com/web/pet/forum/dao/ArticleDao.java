@@ -296,6 +296,22 @@ public class ArticleDao {
 		
 		if(list.isEmpty()) {return null;}
 		else {return list;}				
+	}	
+	
+	
+	public List<Article> randomArticle(){
+		Session session = sessionFactory.getCurrentSession();
+		List<Article> list = new ArrayList<Article>();
+		String hql="select top 5 a.posterUid, a.u_Id, a.header, a.content\r\n" + 
+				"from Article a\r\n" + 
+				"ORDER BY NEWID()";
+		Query<Article> query = session.createSQLQuery(hql);
+		list = query.list();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
 	}
 	
 	

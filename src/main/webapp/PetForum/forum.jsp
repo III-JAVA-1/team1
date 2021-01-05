@@ -95,36 +95,30 @@
                         <span><a href="#"><img src="image/petCare.png"/></a></span>                        
                         </div>                    
                     </div>
-                <div id="slider" class="db_line1_featured2">
-                
+                <div class="db_line1_featured2">                
                 <!-- slider start -->
-                <div>
-                       <div class="slider">
-					        <div class="slide">
-					          <ul id="imgContent">
-					            <!-- AJAX -->
-					          </ul>
-					        </div>
-					        <div class="controller">
-					          <div class="prev-btn btns">
-					            <i class="fas fa-angle-left fa-3x"></i>
-					          </div>
-					          <div class="indicator">
-					            <span id="active"></span>
-					            <span></span>
-					            <span></span>
-					          </div>
-					          <div class="next-btn btns">
-					            <i class="fas fa-angle-right fa-3x"></i>
-					          </div>
-					        </div>
-					         <div id="articleHeader">
-                			<!-- AJAX -->
-                	  		</div>
-					      </div>
-					      </div>				       
-				      <!-- end of slider -->
-				     
+                      <div class="slider">
+			          <ul id="imgContent">
+					<!--AJAX -->
+			          </ul>
+			        <div class="controller">
+			          	<div class="prev-btn btns">
+			            <i class="fas fa-angle-left fa-3x"></i>
+			          	</div>
+			          <div class="indicator">
+			            <span id="active"></span>
+			            <span></span>
+			            <span></span>
+			          </div>
+			          <div class="next-btn btns">
+			            <i class="fas fa-angle-right fa-3x"></i>
+			          </div>
+			        </div>
+			         <div style="margin-top: 10px;" id="articleHeader">
+				<!--AJAX -->
+              	  	</div>
+				  </div>
+				      <!-- end of slider -->				     
                 </div>
                 
 <!--end of Featured-->
@@ -247,7 +241,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- for slider -->
-    <script src="js/slider.js"></script>
+<!--     <script src="js/slider.js"></script> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 	 <!-- for slider -->
@@ -270,14 +264,6 @@
     
  	<script>
  	
-//  	 <div class="prev-btn btns">
-//      <i class="fas fa-angle-left fa-3x"></i>
-//    </div>
-   
-//    <div class="next-btn btns">
-//    <i class="fas fa-angle-right fa-3x"></i>
-//  </div>
-   
     let page = 1;
   
 	function selectAll(){		
@@ -346,7 +332,7 @@
 	
 	selectAll()
 	getHighestViewing()
-	
+		
 //========================================================================	
 	
 	function getHighestViewing(){
@@ -355,19 +341,20 @@
 			url:"../petforum/highestViewing",
 			type:"GET",		
 			dataType:"json",			
-			success:function(data){					
-				$("#imgContent").html("");				
-					
-				$.each(data,function(i,n){ 
+			success:function(data){
+				$("#articleHeader").html("");
+				$("#imgContent").html("");
 				
-				console.log("123"+n[3]);
+				let posterUid = data[0][0];
+				let u_Id = data[0][1];
+				let header = data[0][2];				
 				let content;
 				
-				if(!n[3].includes('imgur')){
+				if(!data[0][3].includes('imgur')){
 					content = "#";					
 				}
 				else{
-					content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
+					content = data[0][3].substring(data[0][3].indexOf('https'), data[0][3].indexOf(".jpg"));
 					content = content+".jpg";
 					console.log("456"+content);
 				}			
@@ -375,9 +362,10 @@
 				$("#imgContent").append(
 				"<li><img src="+content+" width=416px height=234px /></li>"					
 				);
-			
 				
-				})
+				 $("#articleHeader").append(
+							"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
+						);	
 				
 			},
 			error:function(){
@@ -386,36 +374,77 @@
 		})
 	
 	}
-//========================================================================
+//========================================================================	
+		
+	let lastSlideIndex = 2; 	
+    let firstSlideIndex = 0;
 	
 	function getHighestViewingHeader(){
 	
-		$.ajax({
-			url:"../petforum/highestViewingHeader",
-			type:"GET",		
-			dataType:"json",			
-			success:function(data){				
-				$("#articleHeader").html("");
-					
-				$.each(data,function(i,n){			
-				
-				console.log("111"+n[0]);
-				console.log("111"+n[1]);
-				console.log("111"+n[2]);			
-				
-				$("#articleHeader").append(
-						"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+n[0]+"&u_Id="+n[1]+"'>"+n[2]+"</a></p>"					
-				);
-				
-				})
-				
-			},
-			error:function(){				
-				$("#articleHeader").append("查無資料");
+	$.ajax({
+		url:"../petforum/highestViewingHeader",
+		type:"GET",		
+		dataType:"json",			
+		success:function(data){				
+			$("#articleHeader").html("");
+			$("#imgContent").html("");
+			
+			let posterUid = data[firstSlideIndex][0];
+			let u_Id = data[firstSlideIndex][1];
+			let header = data[firstSlideIndex][2];
+			let str = data[firstSlideIndex][3];
+			let content;
+			
+			if(!str.includes('imgur')){
+				content = "#";					
 			}
-		})
+			else{
+				content = str.substring(str.indexOf('https'), str.indexOf(".jpg"));
+				content = content+".jpg";
+				console.log("456"+content);
+			}			
+			
+			$("#imgContent").append(
+			"<li><img src="+content+" width=416px height=234px /></li>"					
+			);
+			
+		    $("#articleHeader").append(
+				"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
+			);	
+			
+		},
+		error:function(){				
+			$("#articleHeader").append("查無資料");
+			$("#imgContent").append("查無資料");
+		}
+	})
+}
+
 	
-	}
+    function show(){
+        let move = 0-(416*firstSlideIndex);       
+    }
+	
+	
+	$(".prev-btn").click(function(){
+		firstSlideIndex--;//往前一張索引減1
+	    if(firstSlideIndex<0)firstSlideIndex=lastSlideIndex;//索引不可能有-1，所以當索引小於0就等於最後一張的索引值
+	    
+	    show()
+	    getHighestViewingHeader();
+	});
+	
+	$(".next-btn").click(function(){
+		firstSlideIndex++;//往後一張索引加1
+	    if(firstSlideIndex>lastSlideIndex)firstSlideIndex=0;//索引不可能大於最大索引值，所以當索引大於最大索引值就等於第一張的索引值
+	    console.log("aaaa"+firstSlideIndex);
+	    
+	    show()
+	    getHighestViewingHeader();
+	})				  
+  
+	
+	
 //========================================================================	
 	
 		function getForum(item){//參數來自button的value(固定用item接)	

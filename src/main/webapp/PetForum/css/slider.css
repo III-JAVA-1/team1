@@ -8,15 +8,15 @@
     border: 5px solid black;
     border-radius: 6px;
   }
-  .slider .slide {
-    width: 416px;
-    height: 234px;
-    padding: 0;
-    margin: 0 auto;
-    overflow: hidden;
-  }
+/*   .slider .slide {  	 */
+/*     width: 416px; */
+/*     height: 234px; */
+/*     padding: 0; */
+/*     margin: 0 auto; */
+/*     overflow: hidden; */
+/*   } */
   
-  .slider .slide img {
+.slider img {
     padding: 0;
     margin: 0;
     width: 416px;
@@ -24,7 +24,7 @@
     
   }
   
-  .slider .slide ul {
+  .slider ul {
     width: 1248px;
     height: 234px;
     padding: 0;
@@ -34,21 +34,24 @@
     font-size: 0;
     position: relative;
   }
-  .slider .slide li {
+ .slider li {
     padding: 0;
     margin: 0;
-    display: inline-block;
-    position: absolute;
-    transition: 0.7s cubic-bezier(0.45, 0.06, 0.32, 1);
+    transition: 0.7s cubic-bezier(0.45, 0.06, 0.32, 1);    
+    width:416px;
+    height:234px;
+    overflow: hidden;
+    float: left;
+    /* 若項目的點超出width:416px，溢出部分會隱藏 */
   }
   
-  .slide li:nth-of-type(1) {
+  #imgContent li:nth-of-type(1) {
     left: -416px;
   }
-  .slide li:nth-of-type(2) {
+  #imgContent li:nth-of-type(2) {
     left: 0px;
   }
-  .slide li:nth-of-type(3) {
+  #imgContent li:nth-of-type(3) {
     left: 416px;
   }
   
@@ -68,6 +71,8 @@
       rgba(219, 219, 219, 1) 19px
     );
   }
+  
+  
   .controller .prev-btn {
     margin-left: 3rem;
     cursor: pointer;
@@ -93,7 +98,7 @@
   .indicator span {
     width: 8px;
     height: 8px;
-    background: whitesmoke;
+    background: red;
     border-radius: 50%;
     padding: 0;
     margin: 0 4px 0 4px;

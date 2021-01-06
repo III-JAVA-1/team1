@@ -16,8 +16,14 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
   
   </head>
+  <!-- 等待加載 -->
+  <div id="loading">
+    <img src="image/loading.gif" alt="loading.." />
+  </div> 
+  
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
   
@@ -49,7 +55,7 @@
             <a style="border-color:#ccc" href="#table" onclick="getForum('協尋'); ">走失協尋</a>
             <a style="border-color:#39C;" href="#table" onclick="getForum('送養');">汪喵送養</a>
             <a style="border-color:#ccc;" href="#table" onclick="getForum('日常');">汪喵日常</a>
-            <a style="border-color:#39C;" href="#table" onclick="getForum('主題');">版主討論</a>
+            <a style="border-color:#39C;" href="#table" onclick="getForum('聊天');">寵物聊天</a>
             <a style="border-color:#ccc;" href="#table" onclick="getForum('徵友'); ">汪喵徵友</a>
             <a style="border-color:#39C;" href="#table" onclick="getForum('心得'); ">心得分享</a>
             </div>
@@ -71,7 +77,8 @@
     <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
     
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>            
+        	<img src="image/broadcast.png"/>
+            <marquee direction="right" width="800px" scrollamount="2" behavior="alternate">多了解毛孩一點、給牠最好的，陪我們一起慢慢變老…</marquee>         
         </ol>
    
 </div>
@@ -433,7 +440,7 @@
 	
 //========================================================================
 	
-	function randomArticle(){
+			function randomArticle(){
 		$.ajax({
 			url:"../petforum/randomArticle",
 			type:"post",
@@ -461,8 +468,8 @@
 					
 					$("#randomArticle").append("<div class='imag'>"+
 					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+
-					"<img src="+content+" width=80px height=80px/></a><br/>"+
-					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,15)+"</a>"+
+					"<img src="+content+" width=80px height=80px'/></a><br/>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,14)+"</a>"+
 					"</div>");
               
 					//a.posterUid, a.u_Id, a.header, a.content
@@ -473,6 +480,7 @@
 		}
 		});
 	}
+    	
 	
 	//===========================================================================
 	
@@ -697,6 +705,13 @@
 					var serverMsg = document.getElementById('serverMsg');
 					serverMsg.value = event.data;					
 				}
+				
+		//============================================================================
+			jQuery(document).ready(function(){
+			    jQuery(window).load(function(){  //load函数
+			    	 $("#loading").fadeOut(3000);
+			    });
+			});
 			
  	</script>
   </body>

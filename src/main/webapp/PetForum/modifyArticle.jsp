@@ -14,14 +14,12 @@
      <link rel="stylesheet" href="../PetForum/css/common.css" /> 
   
 </head>
-<body style="background-image: url(../PetForum/image/modifyArticle.jpg);"> 
+<body style="background-image: url(../PetForum/image/modifyArticle.jpg);">
+
   
 <!-- 發送/petforum/modifyPost請求 --> 
    <div class="col-12">
-	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">
-		<div class="row justify-content-center">
-			<h2>修改文章</h2>
-		</div> 
+	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">		
 <form:form action="modifyPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 	
 	<div class="row justify-content-center">
@@ -50,7 +48,8 @@
 					        <form:option value="請選擇子版"></form:option>
 					        <form:option value="協尋"></form:option>
 					        <form:option value="送養"></form:option>
-					        <form:option value="日常"></form:option>      
+					        <form:option value="日常"></form:option>
+					        <form:option value="聊天"></form:option>        
 					        <form:option value="徵友"></form:option>
 					        <form:option value="心得"></form:option>       
 					    </form:select>
@@ -261,6 +260,8 @@
       }
    
       $(".inline").colorbox({inline:true, width:"50%"});
+      
+   
     </script>
 </body>
 </html>

@@ -60,23 +60,23 @@ public class NewArticle {
 		out.print("</script>");
 	}	
 	
-	@RequestMapping(value="/getPetPic")//postDetail.jsp秀出寵物圖片
-	public ResponseEntity<byte[]> getPetPic(@RequestParam("posterUid") Integer posterUid) {
-		if(posterUid == null) {return null;}			
-		
-		byte[] body = null;
-		ResponseEntity<byte[]> resp = null;
-		HttpHeaders headers = new HttpHeaders();
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		Article article = service.getArticle(posterUid);
-		Blob blob = article.getPic();
-		if(blob==null) {
-			return null;
-		}else {
-			body = BlobToByteArray.blobToByteArray(blob);
-			resp = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-			return resp;
-		}	
-	}
+//	@RequestMapping(value="/getPetPic")//postDetail.jsp秀出寵物圖片
+//	public ResponseEntity<byte[]> getPetPic(@RequestParam("posterUid") Integer posterUid) {
+//		if(posterUid == null) {return null;}			
+//		
+//		byte[] body = null;
+//		ResponseEntity<byte[]> resp = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//		Article article = service.getArticle(posterUid);
+//		Blob blob = article.getPic();
+//		if(blob==null) {
+//			return null;
+//		}else {
+//			body = BlobToByteArray.blobToByteArray(blob);
+//			resp = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+//			return resp;
+//		}	
+//	}
 	
 }

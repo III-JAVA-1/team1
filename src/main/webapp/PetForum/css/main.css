@@ -159,6 +159,13 @@
     margin: auto; 
     padding: 8px;
     margin-bottom: 0px;
+    cursor: pointer;
+    transition: all 0.6s;
+    
+}
+
+.db_line1_right_featured2 .imag img:hover{
+	transform: scale(1.2);
 }
 
 .db_line1_right_featured2 .imag a{

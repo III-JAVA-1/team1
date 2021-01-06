@@ -45,6 +45,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 /*     } */
 
 </style>
+<script>
+var userid=<%=request.getSession().getAttribute("user")%>
+
+if(userid==null||userid==""){
+	window.alert('請先登入'); window.location='../Member/Login.jsp'
+}
+</script>
 <body>
 
 
@@ -128,6 +135,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 </div> 
 
 	<script>
+	
+	
 	
 	function check(){
 		var today=new Date();

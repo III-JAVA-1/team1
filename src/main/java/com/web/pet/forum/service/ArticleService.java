@@ -73,7 +73,12 @@ public class ArticleService {
 	public List<Object[]> getArticleByHighestViewing(){
 		List<Object[]> list = dao.getArticleByHighestViewing();		
 		return list;
-	}	
+	}
+	
+	public List<Article> randomArticle(){
+		List<Article> list = dao.randomArticle();
+		return list;
+	}
 	
 	public int updateArticle(Article article) {	
 		return dao.updateArticle(article);

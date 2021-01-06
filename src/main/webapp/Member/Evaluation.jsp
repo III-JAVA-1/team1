@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 	
 	<%
 	String basePath = request.getScheme()+"://"+
@@ -86,7 +87,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			</div><br>
   			
   			<div class="row justify-content-start" >
-			<table class="table table-hover table-bordered ">
+			<table class="table table-hover table-bordered " id='maintable'>
   				<thead class="h4" style="background-color:#5CADAD;">
     				<tr>
       					<th scope="col">商品名稱</th>
@@ -126,6 +127,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -166,6 +168,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 				
 			});
+			$('#maintable').DataTable({
+		        "language": {
+		            "paginate": {
+		                "previous": "上一頁",
+		                "next": "下一頁"
+		            }
+		        },
+		    })
 		},
 		error:function(){
 			$("#tip").html("沒有評價商品");

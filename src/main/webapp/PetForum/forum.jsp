@@ -71,9 +71,7 @@
     <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
     
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">2013</a></li>
-            <li class="last-post-col active">十一月</li>
+            <li><a href="#">Home</a></li>            
         </ol>
    
 </div>
@@ -89,10 +87,10 @@
             <div class="db_line1">
                 <div class="db_line1_left ">
                     <div class="db_line1_featured">
-                        <h5>精選文章</h5>
+                        <h5>熱門文章</h5>
                         <hr/>
                         <div class="direction last-post-col">
-                        <span><a href="#"><img src="image/petCare.png"/></a></span>                        
+                        <span><img src="image/petCare.png"/></span>                        
                         </div>                    
                     </div>
                 <div class="db_line1_featured2">                
@@ -185,21 +183,10 @@
             
             <div class="db_line1_right">
                 <div class="db_line1_right_featured">
-                    <h5>最新文章</h5>                            
+                    <h5>好文專欄</h5>                            
                 </div>
-            <div class="db_line1_right_featured2">
-                <div class="imag">
-                    <a href="#"><img src="image/featured_img1.jpg"/></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>
-                <div class="imag" style="padding: 0px 8px">
-                    <a href="#"><img src="image/featured_img2.jpg" /></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>
-                <div style="margin-bottom:30px;"class="imag">
-                    <a href="#"><img src="image/featured_img3.jpg" /></a>
-                    <br/><a href="#">美麗的寵物</a>
-                </div>       
+            <div id="randomArticle" class="db_line1_right_featured2">
+			<!-- AJAx -->
             </div>
             
            <h5 style="display:inline;">汪喵冷知識</h5>
@@ -241,7 +228,6 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- for slider -->
-<!--     <script src="js/slider.js"></script> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 	 <!-- for slider -->
@@ -289,7 +275,7 @@
 				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 				"<td><div>"+val[1]+"</div></td>"+
 				"<td>"+val[2]+"</td>"+
-				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<td><div>"+val[3]+"</div>"+
 				"<div>"+val[4]+"</div></td>"+
 				"</tr>");
 				
@@ -332,9 +318,10 @@
 	
 	selectAll()
 	getHighestViewing()
+	randomArticle()
 		
 //========================================================================	
-	
+	//只顯示Top1文章
 	function getHighestViewing(){
 	
 		$.ajax({
@@ -351,7 +338,7 @@
 				let content;
 				
 				if(!data[0][3].includes('imgur')){
-					content = "#";					
+					content = "image/hidden.png";					
 				}
 				else{
 					content = data[0][3].substring(data[0][3].indexOf('https'), data[0][3].indexOf(".jpg"));
@@ -364,7 +351,7 @@
 				);
 				
 				 $("#articleHeader").append(
-							"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
+							"<p><a style='text-decoration:none;' href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
 						);	
 				
 			},
@@ -375,7 +362,7 @@
 	
 	}
 //========================================================================	
-		
+	//根據切換電視牆顯示前Top3文章	
 	let lastSlideIndex = 2; 	
     let firstSlideIndex = 0;
 	
@@ -396,7 +383,7 @@
 			let content;
 			
 			if(!str.includes('imgur')){
-				content = "#";					
+				content = "image/hidden.png";						
 			}
 			else{
 				content = str.substring(str.indexOf('https'), str.indexOf(".jpg"));
@@ -409,7 +396,7 @@
 			);
 			
 		    $("#articleHeader").append(
-				"<p><a style='text-decoration:none;' href='http://localhost:8087/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
+				"<p><a style='text-decoration:none;' href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
 			);	
 			
 		},
@@ -420,11 +407,10 @@
 	})
 }
 
-	
+	//電視牆切換	
     function show(){
         let move = 0-(416*firstSlideIndex);       
-    }
-	
+    }	
 	
 	$(".prev-btn").click(function(){
 		firstSlideIndex--;//往前一張索引減1
@@ -445,7 +431,50 @@
   
 	
 	
-//========================================================================	
+//========================================================================
+	
+	function randomArticle(){
+		$.ajax({
+			url:"../petforum/randomArticle",
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				$("#randomArticle").html("");
+				$.each(data,function(i,n){
+					
+					let content;
+					let posterUid = n[0];
+					let u_Id = n[1];
+					let header = n[2];
+					if(header.length < 15){
+						header = header.padEnd(15, ' ');
+					}
+					
+					if(!n[3].includes('imgur')){
+						content = "image/hidden.png";					
+					}
+					else{
+						content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
+						content = content+".jpg";
+						console.log("456"+content);
+					}			
+					
+					$("#randomArticle").append("<div class='imag'>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+
+					"<img src="+content+" width=80px height=80px/></a><br/>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,15)+"</a>"+
+					"</div>");
+              
+					//a.posterUid, a.u_Id, a.header, a.content
+				});			
+			},
+			error:function(){				
+				$("#randomArticle").append("查無資料");				
+		}
+		});
+	}
+	
+	//===========================================================================
 	
 		function getForum(item){//參數來自button的value(固定用item接)	
 		
@@ -470,7 +499,7 @@
 				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 				"<td><div>"+val[1]+"</div></td>"+
 				"<td>"+val[2]+"</td>"+
-				"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+				"<td><div>"+val[3]+"</div>"+
 				"<div>"+val[4]+"</div></td>"+
 				"</tr>");
 				
@@ -533,7 +562,7 @@
 					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 					"<td><div>"+val[1]+"</div></td>"+
 					"<td>"+val[2]+"</td>"+
-					"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+					"<td><div>"+val[3]+"</div>"+
 					"<div>"+val[4]+"</div></td>"+
 					"</tr>");					
 					
@@ -596,7 +625,7 @@
 						"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
 						"<td><div>"+val[1]+"</div></td>"+
 						"<td>"+val[2]+"</td>"+
-						"<td><div><a class='table_h5_a' href=''>"+val[3]+"</a></div>"+
+						"<td><div>"+val[3]+"</div>"+
 						"<div>"+val[4]+"</div></td>"+
 						"</tr>");						
 						

@@ -12,7 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">		
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -100,10 +100,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				</ul>
   			</div><br>
   			
-  			<div class="row justify-content-start h5" id="mainsearch">
-    			依名字搜尋活動:<input type="text" id="search" name="search">
-  			</div>
-  			
 			<table class="table table-hover table-bordered " id="maintable">	
   			</table>
   			
@@ -134,6 +130,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	
 	<script>
 	
@@ -154,7 +151,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			"<th scope='col'>活動名稱</th>"+
 			"<th scope='col'>活動內容</th>"+
 			"<th scope='col'>活動時間</th>"+
-			"<th scope='col'>活動地址</th></tr>"+
+			"<th scope='col'>活動地址</th>"+
+			"<th scope='col'>操作</th></tr>"+
 	"</thead>"+
 	"<tbody id='actiontable' class='h5'></tbody>");
     
@@ -167,9 +165,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
-			"search":$("#search").val()
         },
 		success:function(data){
+			$('#maintable').DataTable().destroy()
 			$.each(data,function(i,n){
 				$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
 						"<td>"+n[1].substring(0,20)+".....</td>"+
@@ -177,6 +175,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			   			"<td>"+n[4]+"</td>"+
 			   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
 			});
+			$('#maintable').DataTable({
+		        "language": {
+		            "paginate": {
+		                "previous": "上一頁",
+		                "next": "下一頁"
+		            }
+		        },
+		  })
 		},
 		error:function(){
 			$("#tip").html("沒有新增活動");
@@ -185,13 +191,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     
     function actionchange(title){
-    	//alert(title);
     	if(title=='參加'){
-    		console.log("asd");
+    		$('#maintable').DataTable().destroy()
     		$("#action").removeClass("active");
     		$("#join").addClass("active");
     		$("#maintable").html("");
-    		$("#mainsearch").css("display","none");
     		$("#maintable").append("<thead class='h4' style='background-color:#FFFF93;'><tr>"+
     				"<th scope='col'>活動名稱</th>"+
     				"<th scope='col'>備註</th>"+
@@ -215,6 +219,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				   			"<td>"+n[2]+"</td>"+
     				   			"<td>"+n[3]+"&nbsp&nbsp數量:&nbsp"+n[4]+"</td></tr>");
     				});
+    				$('#maintable').DataTable({
+    			        "language": {
+    			            "paginate": {
+    			                "previous": "上一頁",
+    			                "next": "下一頁"
+    			            }
+    			        },
+    			  })
     			},
     			error:function(){
     				$("#tip").html("沒有參加活動");
@@ -222,7 +234,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		});
     		return false;
     	}else{
-    		$("#mainsearch").css("display","");
+    		$('#maintable').DataTable().destroy()
     		$("#join").removeClass("active");
     		$("#action").addClass("active");
     		$("#maintable").html("");
@@ -230,17 +242,16 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				"<th scope='col'>活動名稱</th>"+
 				"<th scope='col'>活動內容</th>"+
 				"<th scope='col'>活動時間</th>"+
-				"<th scope='col'>活動地址</th></tr>"+
+				"<th scope='col'>活動地址</th>"+
+				"<th scope='col'>操作</th></tr>"+
 		"</thead>"+
 		"<tbody id='actiontable' class='h5'></tbody>");
     		$.ajax({
     			url:"../Gusty/memberaction",
     			type:"post",
-    			//async : false,//要賦值給全域變數要改false
     			dataType:"json",
     			data : { 
     				"user_id" : <%=session.getAttribute("user")%>,
-    				"search":$("#search").val()
     	        },
     			success:function(data){
     				$.each(data,function(i,n){
@@ -250,6 +261,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				   			"<td>"+n[4]+"</td>"+
     				   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
     				});
+    				$('#maintable').DataTable({
+    			        "language": {
+    			            "paginate": {
+    			                "previous": "上一頁",
+    			                "next": "下一頁"
+    			            }
+    			        },
+    			  })
     			},
     			error:function(){
     				$("#tip").html("沒有新增活動");
@@ -258,34 +277,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	}
     	return false;
     }
-    
-    	$("#search").change(function(){
-    		$("#tip").html("");
-    		$("#actiontable").html("");
-    		//console.log("aaaaa");
-    		$.ajax({
-        		url:"../Gusty/memberaction",
-        		type:"post",
-        		//async : false,//要賦值給全域變數要改false
-        		dataType:"json",
-        		data : { 
-        			"user_id" : <%=session.getAttribute("user")%>,
-        			"search":$("#search").val()
-                },
-        		success:function(data){
-        			$.each(data,function(i,n){
-    					$("#actiontable").append("<tr><th scope='row'><a href='../Active/ActShow.jsp?get="+n[5]+"'>"+n[0]+"</a></th>"+
-    				   			"<td>"+n[1].substring(0,20)+".....</td>"+
-    				   			"<td>"+n[2].substring(0,10)+"~"+n[3].substring(0,10)+"</td>"+
-    				   			"<td>"+n[4]+"</td>"+
-    				   			"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[5]+")' >目前參加人數"+n[6]+"</button></td></tr>");
-    				});
-        		},
-        		error:function(){
-        			$("#tip").html("查無資料");
-        		}
-        	});
-    	});
     	
     	function joinpeople(aid){
     		//alert(aid)

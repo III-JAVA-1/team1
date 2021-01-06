@@ -108,14 +108,14 @@ public class OtherFunctionDao {
 	/////////////////////////會員商城功能////////////////////////////////	
 	
 	@SuppressWarnings("unchecked")
-	public List<Object[]> articlememberDao(Integer user_id,String search){//會員頁面文章記錄
+	public List<Object[]> articlememberDao(Integer user_id){//會員頁面文章記錄
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="select Article.header,Article.forumId,Article.updatedTime,Article.viewing,sum(CASE WHEN Comment.posterUid = Article.posterUid THEN 1 ELSE 0 END ) as'留言數',Article.posterUid\r\n"
 				+ "from Article,Comment\r\n"
 				+ "where Article.isHide=0\r\n"
 				+ "and Article.u_Id=:id\r\n"
-				+ "and Article.header like '%"+search+"%'\r\n"
+				+ "and Article.header like '%%'\r\n"
 				+ "group by Article.posterUid,Article.header,\r\n"
 				+ "Article.forumId,Article.updatedTime,Article.viewing\r\n"
 				+ "order by Article.updatedTime desc";
@@ -179,14 +179,14 @@ public class OtherFunctionDao {
 	/////////////////////////會員論壇功能////////////////////////////////	
 
 	@SuppressWarnings("unchecked") //會員頁面活動
-	public List<Object[]> memberactionDao(Integer user_id,String search){
+	public List<Object[]> memberactionDao(Integer user_id){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="select Active2.act_name,Active2.act_content,Active2.starttime,Active2.endtime,act_where,Active2.act_no , sum( case when JoinAct.act_no=Active2.act_no then 1 else 0 end) as '參加人數'\r\n"
 				+ "from Active2 , JoinAct\r\n"
 				+ "where Active2.u_Id=:id\r\n"
 				+ "and viableNumber=1\r\n"
-				+ "and Active2.act_name like '%"+search+"%'\r\n"
+				+ "and Active2.act_name like '%%'\r\n"
 				+ "group by Active2.act_name,Active2.act_content,Active2.starttime,Active2.endtime,act_where,Active2.act_no\r\n"
 				+ "order by starttime desc";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
@@ -235,13 +235,13 @@ public class OtherFunctionDao {
 	/////////////////////////會員活動功能////////////////////////////////	
 	
 	@SuppressWarnings("unchecked") //會員頁面店家預約
-	public List<Object[]> memberpetshopDao(Integer user_id,String search){
+	public List<Object[]> memberpetshopDao(Integer user_id){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
 		String hql="select storename,date,name,phone,item,address,id\r\n"
 				+ "from Salon_reserv\r\n"
 				+ "where fk_id=:user_id\r\n"
-				+ "and storename like '%"+search+"%'";
+				+ "and storename like '%%'";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
 		list = query.getResultList();
 		if(list.isEmpty()) {

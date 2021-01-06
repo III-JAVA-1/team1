@@ -107,7 +107,7 @@ public class ArticleCURD{
 	
 	/**
 	 * @author ching
-	 *	找top3瀏覽率文章
+	 *	找前top3瀏覽率文章
 	 */
 	@GetMapping(value={"/highestViewing","/highestViewingHeader"})
 	public @ResponseBody
@@ -185,6 +185,14 @@ public class ArticleCURD{
 			resp = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 			return resp;
 		}	
+	}
+	
+	@RequestMapping("/randomArticle")
+	public @ResponseBody
+	List<Article> randomArticle(){		
+		List<Article> list = service.randomArticle();
+		
+		return list;
 	}
 	
 	

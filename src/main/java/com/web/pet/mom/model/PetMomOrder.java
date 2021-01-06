@@ -1,71 +1,75 @@
 package com.web.pet.mom.model;
 
+import com.web.pet.member.model.Member;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
  * @author i19
  */
-@AllArgsConstructor
-@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
+@Data
 @Entity
-@ToString
 @Table(name = "PetMomOrder")
 public class PetMomOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer listId;
+    private Integer orderId;
 
-    private Timestamp listCreate;
+    @Column(columnDefinition = "smalldatetime",nullable = false)
+    private Timestamp orderCreate;
 
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String status;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String petName;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String petBreed;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String petGender;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String petAge;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String petType;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String remark;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String country;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String district;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String address;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String connPhone;
 
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
-    private String chooseStart;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
-    private String chooseEnd;
+    @Column(nullable = false,columnDefinition = "smalldatetime")
+    private Timestamp chooseStart;
 
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(nullable = false ,columnDefinition = "smalldatetime")
+    private Timestamp chooseEnd;
+
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String service;
 
     private Integer total;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "mom_Id", referencedColumnName = "mom_Id")
+    @JoinColumn(name = "momId", referencedColumnName = "momId")
     private Mom mom;
 
     @OneToMany(mappedBy = "petMomOrder", cascade = CascadeType.ALL)
-    private Set<OrderComment> orderComments = new LinkedHashSet<>(0);
+    private Set<PetMomOrderComment> petMomOrderComments = new LinkedHashSet<>(0);
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid", referencedColumnName = "u_id")
+    private Member member;
 
 }

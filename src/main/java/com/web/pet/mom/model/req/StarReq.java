@@ -1,4 +1,4 @@
-package com.web.pet.mom.model;
+package com.web.pet.mom.model.req;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
 public class StarReq {
     private Integer userId;
 
-    private Integer listId;
+    private Integer orderId;
 
     private Integer star;
 }

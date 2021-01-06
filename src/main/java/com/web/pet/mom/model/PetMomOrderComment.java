@@ -1,9 +1,6 @@
 package com.web.pet.mom.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -15,31 +12,31 @@ import java.util.Set;
 /**
  * @author i19
  */
-@AllArgsConstructor
-@NoArgsConstructor
+
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
+@Data
 @Entity
-@Table(name = "orderComment")
-public class OrderComment {
+@Table(name = "PetMomOrderComment")
+public class PetMomOrderComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
+    @Column(nullable = false)
     private Timestamp commentNowTime;
 
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String comment;
 
+    @Column(nullable = false)
     private Integer star;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "mom_Id", referencedColumnName = "mom_Id")
+    @JoinColumn(name = "momId", referencedColumnName = "momId")
     private Mom mom;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId", referencedColumnName = "listId")
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
     private PetMomOrder petMomOrder;
 }

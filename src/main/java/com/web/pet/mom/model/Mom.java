@@ -1,9 +1,7 @@
 package com.web.pet.mom.model;
 
 import com.web.pet.member.model.Member;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -12,8 +10,9 @@ import java.sql.Blob;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
+/**
+ * @author i19
+ */
 @DynamicInsert
 @DynamicUpdate
 @Data
@@ -22,14 +21,14 @@ import java.util.Set;
 public class Mom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer mom_Id;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    private Integer momId;
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String petContent;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String notices;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)" ,nullable = false)
     private String title;
-
+    @Column(nullable = false)
     private Integer experience;
 
     private Integer proPrice1;
@@ -38,25 +37,25 @@ public class Mom {
 
     private Integer proPrice3;
 
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String bodyType1;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String bodyType2;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String bodyType3;
-    @Column(columnDefinition = "nvarchar(MAX)", nullable = true)
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String bodyType4;
 
     private Blob pic;
 
     @OneToOne
-    @JoinColumn(name = "u_Id", referencedColumnName = "u_Id")
+    @JoinColumn(name = "uId", referencedColumnName = "u_Id")
     private Member member;
 
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
     private Set<PetMomOrder> orders = new LinkedHashSet<>(0);
 
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
-    private Set<OrderComment> OrderComments = new LinkedHashSet<>(0);
+    private Set<PetMomOrderComment> petMomOrderComments = new LinkedHashSet<>(0);
 }
 

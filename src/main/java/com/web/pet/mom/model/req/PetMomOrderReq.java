@@ -1,21 +1,17 @@
-package com.web.pet.mom.model;
+package com.web.pet.mom.model.req;
 
 import lombok.*;
 
 import java.sql.Timestamp;
 
+@Data
 /**
  * @author i19
  */
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 public class PetMomOrderReq {
-    private Integer listId;
+    private Integer orderId;
 
-    private Timestamp listCreate;
+    private Timestamp orderCreate;
 
     private String status;
     private String petName;
@@ -40,7 +36,9 @@ public class PetMomOrderReq {
 
     private String total;
 
-    private Integer mom_Id;
+    private Integer momId;
+
+    private Integer uId;
 }
 
 

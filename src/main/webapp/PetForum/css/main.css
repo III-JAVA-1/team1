@@ -143,6 +143,10 @@
      
 }
 
+.db_line1_right_featured2 {
+	margin-bottom:30px;
+}
+
 /* 置中 */
 .db_line1_right_featured2 .imag{ 
 	width:100%;
@@ -151,10 +155,17 @@
 }
 
 .db_line1_right_featured2 .imag img{   
-    width:280px; 
+    width:100px; 
     margin: auto; 
     padding: 8px;
     margin-bottom: 0px;
+    cursor: pointer;
+    transition: all 0.6s;
+    
+}
+
+.db_line1_right_featured2 .imag img:hover{
+	transform: scale(1.2);
 }
 
 .db_line1_right_featured2 .imag a{

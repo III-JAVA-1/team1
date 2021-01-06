@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.pet.admin.dao.AdminDao;
 import com.web.pet.member.model.Member;
+import com.web.pet.mom.dao.PetMomDAO;
+import com.web.pet.mom.model.Mom;
 import com.web.pet.petshop.model.PetshopBean;
 
 @EnableTransactionManagement
@@ -19,9 +21,14 @@ public class AdminService {
 	@Autowired
 	private AdminDao adaminDao;
 	
-	public List<Member> membernamesearch(String user_name) {//admin member依名字查詢
+	public List<Member> membernamesearch() {//admin member依名字查詢
 
-		return adaminDao.membernamesearchDao(user_name);
+		return adaminDao.membernamesearchDao();
+	}
+	
+	public Integer updateauthorityService(Integer user_id) {//admin member更改權限
+
+		return adaminDao.updateauthorityDao(user_id);
 	}
 	
 	//////////////////////////////會員管理////////////////////////////////////
@@ -40,24 +47,24 @@ public class AdminService {
 		return adaminDao.activehottimeDao(month);
 	}
 	
-	public  List<Object[]> activejointop3Service(Integer month) {//活動顯示參加人數top3
-		return adaminDao.activejointop3Dao(month);
+	public  List<Object[]> activejointop3Service() {//活動顯示參加人數top3
+		return adaminDao.activejointop3Dao();
 	}
 	
 	public  List<Object[]> activetypeService() {//活動顯示類型比例
 		return adaminDao.activetypeDao();
 	}
 	
-	public List<Object[]> activeallService(String search){//活動顯示全部活動
-		return adaminDao.activeallDao(search);
+	public List<Object[]> activeallService(){//活動顯示全部活動
+		return adaminDao.activeallDao();
 	}
 	
 	public List<Object[]> activejoinallService(Integer aid){//活動顯示全部活動的參加人數
 		return adaminDao.activejoinallDao(aid);
 	}
 	
-	public List<Object[]> activecheckService(String search){//活動顯示要審核的活動
-		return adaminDao.activecheckDao(search);
+	public List<Object[]> activecheckService(){//活動顯示要審核的活動
+		return adaminDao.activecheckDao();
 	}
 	
 	public Integer activeokService(Integer aid) {//顯示審核通過活動
@@ -82,8 +89,8 @@ public class AdminService {
 		return adaminDao.articletypeDao();
 	}
 	
-	public List<Object[]> articlefullService(String search,Integer page){//文章總覽分頁和搜尋
-		return adaminDao.articlefullDao(search, page);
+	public List<Object[]> articlefullService(){//文章總覽分頁和搜尋
+		return adaminDao.articlefullDao();
 	}
 	
 	public List<Object[]> articledetailService(Integer aid){//文章詳細內容
@@ -125,4 +132,18 @@ public class AdminService {
 	}
 	
 	//////////////////////////////店家管理////////////////////////////////////
+	
+	public List<Object[]> allmomService(){//顯示全部保母
+		return adaminDao.allmomDao();
+	}
+	
+	public Mom getfullmomService(Integer mid) {//取得一筆保母物件
+		return adaminDao.getfullmomDao(mid);
+	}
+	
+	public Integer deletemomService(Integer mid){//刪除保母
+		return adaminDao.deletemomDao(mid);
+	}
+	
+	//////////////////////////////保母管理////////////////////////////////////
 }

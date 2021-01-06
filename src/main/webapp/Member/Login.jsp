@@ -192,7 +192,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	      
 	    document.getElementById("remember").addEventListener("change",function(){
 	    	if(document.getElementById("remember").checked){
-		    	console.log("aaaaaa");
+		    	//console.log("aaaaaa");
 		    }else{
 		    	delCookie('useremail');
 		    	delCookie('password');

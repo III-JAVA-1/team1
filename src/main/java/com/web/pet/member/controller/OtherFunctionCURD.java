@@ -70,8 +70,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/memberarticle")//會員頁面文章記錄
 	@ResponseBody
-	public List<Object[]> memberarticleController(Integer user_id,String search) {
-		return otherFunctionService.memberarticleService(user_id,search);
+	public List<Object[]> memberarticleController(Integer user_id) {
+		return otherFunctionService.memberarticleService(user_id);
 	}
 	
 	@RequestMapping("/membermessage")//會員頁面文章留言
@@ -95,8 +95,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/memberaction")//會員頁面活動紀錄
 	@ResponseBody
-	public List<Object[]> memberactionController(Integer user_id,String search){
-		return otherFunctionService.memberactionService(user_id, search);
+	public List<Object[]> memberactionController(Integer user_id){
+		return otherFunctionService.memberactionService(user_id);
 	}
 	
 	@RequestMapping("/memberjoin")//會員頁面活動參加紀錄
@@ -115,8 +115,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/memberpetshop")//會員頁面店家預約
 	@ResponseBody
-	public List<Object[]> memberpetshopController(Integer user_id,String search){
-		return otherFunctionService.memberpetshopService(user_id,search);
+	public List<Object[]> memberpetshopController(Integer user_id){
+		return otherFunctionService.memberpetshopService(user_id);
 	}
 	
 	@RequestMapping("/memberpetshopdelete")//會員頁面店家刪除

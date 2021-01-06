@@ -22,6 +22,11 @@
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
   
+  <!-- 等待加載 -->
+  <div id="loading">
+    <img src="image/loading.gif" alt="loading.." />
+  </div> 
+  
 <!--Navbar-->
 <div class="row">
     <div class="col-9 col-sm-9 col-xl-9" id="wrapper">
@@ -60,9 +65,10 @@
     <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
     
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">2013</a></li>
-            <li class="last-post-col active">十一月</li>
+            <li>
+            <img src="image/broadcast.png"/>
+            <marquee direction="right" width="800px" scrollamount="2" behavior="alternate">多了解毛孩一點、給牠最好的，陪我們一起慢慢變老…</marquee>
+            </li>  
         </ol>
    
 </div>
@@ -147,25 +153,13 @@
 </div> <!--db_line1_left-->
 
            
-	            <div class="db_line1_right">
-	                <div class="db_line1_right_featured">
-	                    <h5 style='color:#666;text-align:left'>版主主題討論</h5>                            
-	                </div>
-		            <div class="db_line1_right_featured2">
-		                <div class="imag">
-		                    <a href="#"><img src="image/featured_img1.jpg"/></a>
-		                    <br/><a href="#">美麗的寵物</a>
-		                </div>
-		                <div class="imag" style="padding: 0px 8px">
-		                    <a href="#"><img src="image/featured_img2.jpg" /></a>
-		                    <br/><a href="#">美麗的寵物</a>
-		                </div>
-		                <div class="imag">
-		                    <a href="#"><img src="image/featured_img3.jpg" /></a>
-		                    <br/><a href="#">美麗的寵物</a>
-		                </div>       
-		            </div>
-	            </div>
+	           <div class="db_line1_right">
+                <div class="db_line1_right_featured">
+                    <h5 style="color:#666;text-align:left">好文專欄</h5>                            
+                </div>
+            <div id="randomArticle" class="db_line1_right_featured2">
+			<!-- AJAx -->
+            </div>
    
 			</div>
 		</div>	   
@@ -206,6 +200,7 @@
 		//網頁onload全部加載完成才做(音樂、圖片) 
 		loadArticle();//加載文章信息
 		loadComment();//加載留言信息
+		randomArticle();
 		
 		function loadComment(){	
   		$.ajax({
@@ -322,9 +317,7 @@
     					"<span><a id='ahref' onclick='favorites("+n[6]+"); return false;' href='#'><img id='fav' src='image/favorites_1.png'/></a></span>"+					
     					"<hr/>"+
     					" <div class='article_main_content'>"+
-    					"<p>"+content+"</p>"+
-    					"<img id='petShow' src='<c:url value='/petforum/getPetPic?posterUid="+n[6]+"'/>'"+
-    					" style='width: 400px;'>"+
+    					"<p>"+content+"</p>"+    					
     					"</div>"+
     					"</div>"+
     					"</div>"+
@@ -342,6 +335,51 @@
     			}
     		});
     	}
+    	
+    	//==================================================================
+    		
+    			function randomArticle(){
+		$.ajax({
+			url:"../petforum/randomArticle",
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				$("#randomArticle").html("");
+				$.each(data,function(i,n){
+					
+					let content;
+					let posterUid = n[0];
+					let u_Id = n[1];
+					let header = n[2];
+					if(header.length < 15){
+						header = header.padEnd(15, ' ');
+					}
+					
+					if(!n[3].includes('imgur')){
+						content = "image/hidden.png";					
+					}
+					else{
+						content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
+						content = content+".jpg";
+						console.log("456"+content);
+					}			
+					
+					$("#randomArticle").append("<div class='imag'>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+
+					"<img src="+content+" width=80px height=80px/></a><br/>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,14)+"</a>"+
+					"</div>");
+              
+					//a.posterUid, a.u_Id, a.header, a.content
+				});			
+			},
+			error:function(){				
+				$("#randomArticle").append("查無資料");				
+		}
+		});
+	}
+    	
+    //============================================================================
 		
 	 let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
      let date = getTimeStamp(now);//透過function處理轉換成可以順利轉型成timeStamp的時間字串 
@@ -428,7 +466,12 @@ let editCommentDisplay = 0;
 			
 		} 	
   	
-	 
+  //============================================================================
+	jQuery(document).ready(function(){
+	    jQuery(window).load(function(){  //load函数
+	    	 $("#loading").fadeOut(3000);
+	    });
+	});
 	        
 	   
 	</script>

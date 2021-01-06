@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 	
 <title>AccompanyMe</title>
 <style>
@@ -53,7 +54,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		
 		<div class="row">
 		<div class="col-6">
-		<div class="row justify-content-center h1">本月活動參加人數TOP3</div>
+		<div class="row justify-content-center h1">參加人數TOP3的活動</div>
 		<canvas id="joincount" width="50" height="30"></canvas>
 		</div>
 		
@@ -74,12 +75,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			</ul>
 		</div><br>
 		<div class="row justify-content-center h4">
-		活動名稱關鍵字搜尋<input type="text" name="search" id="search">
 		<div id='total'></div>
 		</div>
 		<div class='row'>
-			<div class='col' id='maintable'>
-			<table class="table table-hover table-bordered h4">
+			<div class='col'>
+			<table class="table table-hover table-bordered h4" id='maintable'>
   			<thead style="background-color:#8080C0">
     		<tr><th scope="col">活動編號</th>
       			<th scope="col">活動名稱</th>
@@ -104,7 +104,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 		</div>
 		
-	</div>
+	</div><br>
 
 	<div id="gotop">
 	</div>
@@ -121,6 +121,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	
 	<script>
 	
@@ -140,7 +141,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     var change="go";
     function activeallgo(){//活動一覽
     	$("#tip").html("");
-    	$("#search").val("");
+    	$('#maintable').DataTable().destroy()
     	change="go";
     	$("#checkactive").removeClass("active");
     	$("#seeactive").addClass("active");
@@ -151,7 +152,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		dataType:"json",
     		async:false,
     		data : {
-    			"search":$("#search").val(),
     		},
     		success:function(data){
     			$("#total").html("&nbsp&nbsp活動總數量&nbsp&nbsp"+data.length)
@@ -169,6 +169,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
     						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
     			});
+    			$('#maintable').DataTable({
+    				"language": {
+    			        "processing": "處理中...",
+    			        "loadingRecords": "載入中...",
+    			        "lengthMenu": "顯示 _MENU_ 項結果",
+    			        "zeroRecords": "沒有符合的結果",
+    			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+    			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+    			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+    			        "infoPostFix": "",
+    			        "search": "搜尋:",
+    			        "paginate": {
+    			            "first": "第一頁",
+    			            "previous": "上一頁",
+    			            "next": "下一頁",
+    			            "last": "最後一頁"
+    			        },
+    			        "aria": {
+    			            "sortAscending": ": 升冪排列",
+    			            "sortDescending": ": 降冪排列"
+    			        }
+    			    }
+    			})
     		}
     	});
     	return false;
@@ -176,7 +199,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     function activecheck(){//活動審核
     	$("#tip").html("");
-    	$("#search").val("");
+    	$('#maintable').DataTable().destroy()
     	change="check";
     	$("#checkactive").addClass("active");
     	$("#seeactive").removeClass("active");
@@ -187,7 +210,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		dataType:"json",
     		async:false,
     		data : { 
-    			"search":"",                    
+    			                  
             },
     		success:function(data){
     			$("#total").html("&nbsp&nbsp待審核活動總數量&nbsp&nbsp"+data.length)
@@ -207,84 +230,62 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     						"&nbsp<button type='button' class='btn btn-primary' onclick='activeok("+n[0]+")'>通過</button>"+
     						"</td></tr>");
     			});
+    			$('#maintable').DataTable({
+    				"language": {
+    			        "processing": "處理中...",
+    			        "loadingRecords": "載入中...",
+    			        "lengthMenu": "顯示 _MENU_ 項結果",
+    			        "zeroRecords": "沒有符合的結果",
+    			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+    			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+    			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+    			        "infoPostFix": "",
+    			        "search": "搜尋:",
+    			        "paginate": {
+    			            "first": "第一頁",
+    			            "previous": "上一頁",
+    			            "next": "下一頁",
+    			            "last": "最後一頁"
+    			        },
+    			        "aria": {
+    			            "sortAscending": ": 升冪排列",
+    			            "sortDescending": ": 降冪排列"
+    			        }
+    			    }
+    			})
     		},error:function(){
     			$("#total").html("&nbsp&nbsp待審核活動總數量&nbsp&nbsp0")
+    			$('#maintable').DataTable({
+    				"language": {
+    			        "processing": "處理中...",
+    			        "loadingRecords": "載入中...",
+    			        "lengthMenu": "顯示 _MENU_ 項結果",
+    			        "zeroRecords": "沒有符合的結果",
+    			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+    			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+    			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+    			        "infoPostFix": "",
+    			        "search": "搜尋:",
+    			        "paginate": {
+    			            "first": "第一頁",
+    			            "previous": "上一頁",
+    			            "next": "下一頁",
+    			            "last": "最後一頁"
+    			        },
+    			        "aria": {
+    			            "sortAscending": ": 升冪排列",
+    			            "sortDescending": ": 降冪排列"
+    			        }
+    			    }
+    			})
     		}
     	});
     	return false;
     }
     
-    $("#search").change(function(){
-    	if(change=="go"){
-    		$("#allactive").html("");
-    		$("#tip").html("");
-    		$.ajax({
-        		url:"../Gusty/activeall",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : {
-        			"search":$("#search").val(),
-        		},
-        		success:function(data){
-        			$("#contro").html("參加人員");
-        			$.each(data,function(i,n){				
-        				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
-        						"<td>"+n[1]+"</td>"+
-        						"<td>"+n[2].substring(0,10)+".....<br><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-        						"<td>"+n[3]+"</td>"+
-        						"<td>"+n[4]+"</td>"+
-        						"<td>"+n[5]+"</td>"+
-        						"<td>"+n[6]+"</td>"+
-        						"<td>"+n[7]+"</td>"+
-        						"<td>"+n[8]+"</td>"+
-        						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
-        						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
-        			});
-        		},error:function(){
-        			$("#tip").html("沒有相關資料");
-        		}
-        	});
-    	}else{
-    		$("#tip").html("");
-    		$("#allactive").html("");
-    		$.ajax({
-        		url:"../Gusty/activecheck",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : { 
-        			"search":$("#search").val(),                 
-                },
-        		success:function(data){
-        			$("#contro").html("操作");
-        			$.each(data,function(i,n){				
-        				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
-        						"<td>"+n[1]+"</td>"+
-        						"<td>"+n[2].substring(0,10)+".....<br><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-        						"<td>"+n[3]+"</td>"+
-        						"<td>"+n[4]+"</td>"+
-        						"<td>"+n[5]+"</td>"+
-        						"<td>"+n[6]+"</td>"+
-        						"<td>"+n[7]+"</td>"+
-        						"<td>"+n[8]+"</td>"+
-        						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
-        						"<td><button type='button' class='btn btn-danger' onclick='deleteactive("+n[0]+")'>不予許</button>"+
-        						"&nbsp<button type='button' class='btn btn-primary' onclick='activeok("+n[0]+")'>通過</button>"+
-        						"</td></tr>");
-        			});
-        		},error:function(){
-        			$("#tip").html("沒有相關資料");
-        		}
-        	});
-    	}
-    })
-    
     function deleteactive(aid){//不予許活動通過
-    	//alert(aid);
     	let message = window.prompt("請輸入不予許通過的原因");
     	if(message==null||message==""){
-    		//console.log("zzzzz");
     		alert("請輸入原因")
     		return false;
     	}else{
@@ -312,7 +313,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     }
     
     function activeok(aid){//審核活動通過
-    	//alert(aid)
     	$.ajax({
     		url:"../Gusty/activeok",
     		type:"post",
@@ -339,8 +339,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		type:"post",
 		dataType:"json",
 		async:false,
-		data : { 
-			"search":"",                    
+		data : {                 
         },
 		success:function(data){
 			$("#total").html("&nbsp&nbsp活動總數量&nbsp&nbsp"+data.length)
@@ -357,6 +356,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
 						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
 			});
+			$('#maintable').DataTable({
+				"language": {
+			        "processing": "處理中...",
+			        "loadingRecords": "載入中...",
+			        "lengthMenu": "顯示 _MENU_ 項結果",
+			        "zeroRecords": "沒有符合的結果",
+			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+			        "infoPostFix": "",
+			        "search": "搜尋:",
+			        "paginate": {
+			            "first": "第一頁",
+			            "previous": "上一頁",
+			            "next": "下一頁",
+			            "last": "最後一頁"
+			        },
+			        "aria": {
+			            "sortAscending": ": 升冪排列",
+			            "sortDescending": ": 降冪排列"
+			        }
+			    }
+			})
 		}
 	});
     
@@ -415,7 +437,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			dataType:"json",
   			async:false,
   			data : {
-  				"search":"",
+  				
   	        },
   			success:function(data){
   				$.each(data,function(i,n){	
@@ -444,7 +466,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			dataType:"json",
   			async:false,
   			data : {
-  				"search":"",
+  				
   	        },
   			success:function(data){
   				$.each(data,function(i,n){	
@@ -483,8 +505,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		type:"post",
 		dataType:"json",
 		async:false,
-		data : { 
-			"month" :new Date().getMonth()+1,                     
+		data : {                    
         },
 		success:function(data){
 			$.each(data,function(i,n){				

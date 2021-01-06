@@ -41,7 +41,7 @@ public class NewComment {
 		}
 		
 		service.saveComment(comment, posterUid, sessionU_Id);		
-		return "redirect:/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+sessionU_Id;
+		return "redirect:/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id;
 	}
 	
 	

@@ -44,7 +44,6 @@ public class MemberDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Member> loginDao(String useremail,String password){//用登入資訊驗證
-		
 		List<Member> list = new ArrayList<Member>();
 		Session session=sessionFactory.getCurrentSession();
 		String hql = "select u_Id FROM Member where email = :useremail and password = :password";

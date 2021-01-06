@@ -12,7 +12,8 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">	
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -84,13 +85,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<h4 id="count"></h4>
 		</div>
 		
-		<div class="row justify-content-start">
-		<p class="h4">依名字搜尋:&nbsp</p>
-		<input type="text" name="namesearch" id="namesearch">
-		<p class="h4" id="pagedisplay"></p>
-		</div><br>
-		
-		<table class="table table-hover table-bordered ">
+		<table class="table table-hover table-bordered" id='maintable'>
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
       			<th scope="col">編號</th>
@@ -100,6 +95,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col">電子郵件</th>
       			<th scope="col">暱稱</th>
       			<th scope="col">地址</th>
+      			<th scope="col">停權處理</th>
     		</tr>
   		</thead>
   		<tbody id="membertable">
@@ -131,6 +127,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 	
 	<script>
 	var boy=0;
@@ -146,8 +144,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			type:"post",
 			dataType:"json",
 			async:false,
-			data : { 
-				"user_name" :null,                     
+			data : {                    
             },
 			success:function(data){
 			$.each(data,function(i,n){
@@ -168,80 +165,85 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					if((nowdate.getYear() - oldbirth.getYear())>=51){
 						age3++;
 					}
-					if(i>4){return;}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
 							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n[1]+"</td>"
 							+"<td>"+n[2]+"</td>"
 							+"<td>"+n[3]+"</td>"
 							+"<td>"+n[4]+"</td>"
-							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td></tr>"
+							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td>"
+							+"<td style='background-color:#FFFFF4;'><input type='checkbox' onchange='stop("+n[0]+")' id='"+n[0]+"' checked data-toggle='toggle'></td></tr>"
 					);
+					if(n[12]==1){
+						$("#"+n[0]+"").attr("checked",true)
+					}else{
+						$("#"+n[0]+"").attr("checked",false)
+					}
+					
 				});
 			}
 		});
 	
-	$("#namesearch").change(function(){
-		$.ajax({
-			url:"../Gusty/adminmembernamesearch",
-			type:"post",
-			dataType:"json",
-			async:false,
-			data : { 
-				"user_name" :$("#namesearch").val(),                     
-            },
-			success:function(data){
-				$("#membertable").html("");
-			$.each(data,function(i,n){				
-					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-							+"<td>"+n[1]+"</td>"
-							+"<td>"+n[2]+"</td>"
-							+"<td>"+n[3]+"</td>"
-							+"<td>"+n[4]+"</td>"
-							+"<td>"+n[5]+n[6]+n[7]+"</td></tr>"
-					);
-				});
-			}
-		});
-	});
-	
-	var page=4;
-	$(window).scroll(function(){
-	     //最後一頁scrollTop=body-window，50是預留空間
-	     last=$("body").height()-$(window).height()-50
-	     if($(window).scrollTop()>=last){
-	     	//console.log("aaa");
-	     	$.ajax({
-				url:"../Gusty/adminmembernamesearch",
+	function stop(id){
+		//alert(id)
+		if(document.getElementById(id).checked){
+			//alert("停權")
+			$.ajax({
+				url:"../Gusty/memberupdateauthority",
 				type:"post",
 				dataType:"json",
 				async:false,
-				data : { 
-					"user_name" :null,                     
+				data : {   
+					"user_id":id,
 	            },
 				success:function(data){
-				page=page+5;
-				$.each(data,function(i,n){
-				if(i>page-5&&i<=page){
-					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
-							+"<td>"+n[1]+"</td>"
-							+"<td>"+n[2]+"</td>"
-							+"<td>"+n[3]+"</td>"
-							+"<td>"+n[4]+"</td>"
-							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td></tr>"
-						);	
-				}
-				});
-				if(page>data.length){
-					$("#tip").html("已經是最底");
-				}
+					
+				},error:function(){
+					alert("發生錯誤，請稍後再嘗試")
 				}
 			});
-	     }
-	})
+		}else{
+			//alert("正常")
+			$.ajax({
+				url:"../Gusty/memberupdateauthority",
+				type:"post",
+				dataType:"json",
+				async:false,
+				data : {   
+					"user_id":id,
+	            },
+				success:function(data){
+					
+				},error:function(){
+					alert("發生錯誤，請稍後再嘗試")
+				}
+			});
+		}
+	}
 	
+	$('#maintable').DataTable({
+		"language": {
+	        "processing": "處理中...",
+	        "loadingRecords": "載入中...",
+	        "lengthMenu": "顯示 _MENU_ 項結果",
+	        "zeroRecords": "沒有符合的結果",
+	        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+	        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+	        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+	        "infoPostFix": "",
+	        "search": "搜尋:",
+	        "paginate": {
+	            "first": "第一頁",
+	            "previous": "上一頁",
+	            "next": "下一頁",
+	            "last": "最後一頁"
+	        },
+	        "aria": {
+	            "sortAscending": ": 升冪排列",
+	            "sortDescending": ": 降冪排列"
+	        }
+	    }
+	})
 	$("#count").html("會員總數:"+count);
 	
 	var ctx = document.getElementById("boyandgirl").getContext('2d');//顯示男女比例

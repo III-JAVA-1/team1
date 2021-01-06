@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -86,7 +87,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			</div><br>
   			
   			<div class="col">
-  			<table class="table table-hover table-bordered ">
+  			<table class="table table-hover table-bordered" id='maintable'>
   				<thead class="h5" style="background-color:#FF00FF;">
     				<tr>
       					<th scope="col">訂單編號</th>
@@ -96,6 +97,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       					<th scope="col">收貨地址</th>
       					<th scope="col">付款方式</th>
       					<th scope="col">備註</th>
+      					<th scope="col">詳細資料</th>
     				</tr>
   				</thead>
   				<tbody id="ordertable" class="h5">
@@ -129,6 +131,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -156,7 +159,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		success:function(data){
     			$("#tip").html("");
     			$.each(data,function(i,n){
-    				if(i>4){return false;}
     				if(n[6]==0){n[6]="信用卡"}
     				else{n[6]="貨到付款"}
     				if(n[3]==1){n[3]="訂單成立"}
@@ -172,6 +174,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			   		"<td>"+n[5]+"</td>"+
     			   		"<td><button type='button' onclick='detail("+n[0]+")' class='btn btn-info'>詳細訂單資訊</button></td></tr>");
     			});
+    			$('#maintable').DataTable({
+    				"language": {
+    			        "processing": "處理中...",
+    			        "loadingRecords": "載入中...",
+    			        "lengthMenu": "顯示 _MENU_ 項結果",
+    			        "zeroRecords": "沒有符合的結果",
+    			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+    			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+    			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+    			        "infoPostFix": "",
+    			        "search": "搜尋:",
+    			        "paginate": {
+    			            "first": "第一頁",
+    			            "previous": "上一頁",
+    			            "next": "下一頁",
+    			            "last": "最後一頁"
+    			        },
+    			        "aria": {
+    			            "sortAscending": ": 升冪排列",
+    			            "sortDescending": ": 降冪排列"
+    			        }
+    			    }
+    			})
     		},
     		error:function(){
     			$("#tip").html("沒有訂單紀錄");
@@ -217,52 +242,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         		}
         	});
     	}
-	
-    	var page=4;
-    	$(window).scroll(function(){
-   	     //最後一頁scrollTop=body-window，50是預留空間
-   	     last=$("body").height()-$(window).height()-50
-   	     if($(window).scrollTop()>=last){
-   	     	//console.log("aaa");
-   	    	$.ajax({
-   	    		url:"../Gusty/shoporder",
-   	    		type:"post",
-   	    		//async : false,//要賦值給全域變數要改false
-   	    		dataType:"json",
-   	    		data : { 
-   	    			"userid" : <%=session.getAttribute("user")%>
-   	            },
-   	    		success:function(data){
-   	    			console.log(data.length);
-   	    			page=page+5;
-   	    			$.each(data,function(i,n){
-   	    				if(i>page-5&&i<=page){
-   	    					if(n[6]==0){n[6]="信用卡"}
-   	     				else{n[6]="貨到付款"}
-   	     				if(n[3]==1){n[3]="訂單成立"}
-   	     				if(n[3]==2){n[3]="已出貨"}
-   	     				if(n[3]==-1){n[3]="訂單取消"}
-   	     				if(n[3]==3){n[3]="訂單完成"}
-   	     				$("#ordertable").append("<tr><th scope='row'>"+n[0]+"</th>"+
-   	     			   		"<td>"+n[1]+"</td>"+
-   	     			   		"<td>"+n[2]+"</td>"+
-   	     			   		"<td>"+n[3]+"</td>"+
-   	     			   		"<td>"+n[4]+"</td>"+
-   	     			   		"<td>"+n[6]+"</td>"+
-   	     			   		"<td>"+n[5]+"</td>"+
-   	     			   		"<td><button type='button' onclick='detail("+n[0]+")' class='btn btn-info'>詳細訂單資訊</button></td></tr>");
-   	    				}		
-   	    			});
-   	    			if(page>data.length){
-   						$("#tip").html("已經是最底");
-   					}
-   	    		},
-   	    		error:function(){
-   	    			$("#tip").html("沒有訂單紀錄");
-   	    		}
-   	    	});
-   	     }
-   	})
 	</script>
 
 </body>

@@ -1,71 +1,42 @@
 package com.web.pet.mom.service;
 
-import com.web.pet.mom.Exeption.MomIsExistedException;
-import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author i19
  */
-@Service
-@Transactional
-public class MomService {
-
-    private final PetMomDAO petMomDAO;
-
-    @Autowired
-    public MomService(PetMomDAO petMomDAO) {
-        this.petMomDAO = petMomDAO;
-    }
+public interface MomService {
 
     /**
      * 寫入保母資料
-     *
      * @param mom
-     * @param u_Id
+     * @param uId
      */
-    public void insertMom(Mom mom, Integer u_Id) {
-        if (petMomDAO.getMomByMemberId(u_Id) == null) {
-            petMomDAO.insertMom(mom, u_Id);
-        } else {
-            throw new MomIsExistedException();
-        }
-    }
+    void insertMom(Mom mom, Integer uId);
 
 
     /**
      * 取得首頁資料
-     *
      * @param country
      * @param title
      * @return
      */
-    public List<Mom> getAllMoms(String country, String title) {
-        return petMomDAO.getAllMoms(country, title);
-    }
+    List<Mom> getAllMoms(String country, String title);
+
 
     /**
      * 取得預約資料
-     *
-     * @param mom_Id
+     * @param momId
      * @return
      */
-    public List<Mom> getReservation(Integer mom_Id) {
-        return petMomDAO.getReservation(mom_Id);
-    }
+    List<Mom> getReservation(Integer momId);
 
     /**
      * 顯示圖片
-     *
-     * @param mom_Id
+     * @param momId
      * @return
      */
-    public Mom showPic(Integer mom_Id) {
-        return petMomDAO.showPic(mom_Id);
-    }
+    Mom showPic(Integer momId);
 }

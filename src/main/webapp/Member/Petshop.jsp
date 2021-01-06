@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 	
 	<%
 	String basePath = request.getScheme()+"://"+
@@ -85,12 +86,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			<div class="display-4">店家預約服務訂單</div>
   			</div><br>
   			
-  			<div class="row justify-content-start h5" id="mainsearch">
-    			依店家名稱搜尋:<input type="text" id="search" name="search">
-  			</div>
-  			
   			<div class="row justify-content-start" >
-			<table class="table table-hover table-bordered ">
+			<table class="table table-hover table-bordered " id='maintable'>
   				<thead class="h4" style="background-color:#DCB5FF;">
     				<tr>
       					<th scope="col">預約店家</th>
@@ -134,6 +131,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -149,35 +147,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
-    
-    $("#search").change(function(){
-    	$("#tip").html("")
-    	$("#petshoptable").html("");
-    	$.ajax({
-    		url:"../Gusty/memberpetshop",
-    		type:"post",
-    		dataType:"json",
-    		data : { 
-    			"user_id" : <%=session.getAttribute("user")%>,
-        		"search": $("#search").val(),
-            },
-    		success:function(data){
-    			$("#tip").html("");
-    			$.each(data,function(i,n){
-    				$("#petshoptable").append("<tr><th scope='row'>"+n[0]+"</th>"+
-    			   		"<td>"+n[1]+"</td>"+
-    			   		"<td>"+n[2]+"</td>"+
-    			   		"<td>"+n[3]+"</td>"+
-    			   		"<td>"+n[4]+"</td>"+
-    			   		"<td>"+n[5]+"</td>"+
-    					"<td><button type='button' class='btn btn-info' onclick='editorder("+n[6]+")'>修改訂單</button>"+
-    			   		"<button type='button' class='btn btn-danger' onclick='orderdelete("+n[6]+")'>刪除訂單</button></td></tr>");
-    			});
-    		},error:function(){
-    			$("#tip").html("查無相關資料")
-    		}
-    	});
-    })
     
     function editorder(oid){
     	//alert(oid)
@@ -212,7 +181,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
-    		"search":""
         },
 		success:function(data){
 			$("#tip").html("");
@@ -226,6 +194,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					"<td><button type='button' class='btn btn-info' onclick='editorder("+n[6]+")'>修改訂單</button>"+
 			   		"<button type='button' class='btn btn-danger' onclick='orderdelete("+n[6]+")'>刪除訂單</button></td></tr>");
 			});
+			$('#maintable').DataTable({
+				"language": {
+			        "processing": "處理中...",
+			        "loadingRecords": "載入中...",
+			        "lengthMenu": "顯示 _MENU_ 項結果",
+			        "zeroRecords": "沒有符合的結果",
+			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+			        "infoPostFix": "",
+			        "search": "搜尋:",
+			        "paginate": {
+			            "first": "第一頁",
+			            "previous": "上一頁",
+			            "next": "下一頁",
+			            "last": "最後一頁"
+			        },
+			        "aria": {
+			            "sortAscending": ": 升冪排列",
+			            "sortDescending": ": 降冪排列"
+			        }
+			    }
+			})
 		}
 	});
     

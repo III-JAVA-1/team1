@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 	
 	<%
 	String basePath = request.getScheme()+"://"+
@@ -86,7 +87,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			</div><br>
   			
   			<div class="row justify-content-start" >
-			<table class="table table-hover table-bordered ">
+			<table class="table table-hover table-bordered " id='maintable'>
   				<thead class="h4" style="background-color:#5CADAD;">
     				<tr>
       					<th scope="col">商品名稱</th>
@@ -126,6 +127,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -152,6 +154,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         },
 		success:function(data){
 			$.each(data,function(i,n){
+				if(n[2]==null||n[2]==""){
+					n[2]=""
+				}
 				testid=_uuid();
 				$("#ratetable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
 			   			"<td id='"+testid+"'></td>"+
@@ -166,6 +171,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 				
 			});
+			$('#maintable').DataTable({
+				"language": {
+			        "processing": "處理中...",
+			        "loadingRecords": "載入中...",
+			        "lengthMenu": "顯示 _MENU_ 項結果",
+			        "zeroRecords": "沒有符合的結果",
+			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+			        "infoPostFix": "",
+			        "search": "搜尋:",
+			        "paginate": {
+			            "first": "第一頁",
+			            "previous": "上一頁",
+			            "next": "下一頁",
+			            "last": "最後一頁"
+			        },
+			        "aria": {
+			            "sortAscending": ": 升冪排列",
+			            "sortDescending": ": 降冪排列"
+			        }
+			    }
+			})
 		},
 		error:function(){
 			$("#tip").html("沒有評價商品");

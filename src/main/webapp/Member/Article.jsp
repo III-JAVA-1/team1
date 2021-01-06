@@ -12,6 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 	
 	<%
 	String basePath = request.getScheme()+"://"+
@@ -100,10 +101,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				</ul>
   			</div><br>
   			
-  			<div class="row justify-content-start h5" id="mainsearch">
-    			依名字搜尋文章:<input type="text" id="search" name="search">
-  			</div>
-  			
 			<table class="table table-hover table-bordered" id="maintable">	
   			</table>
   			
@@ -133,6 +130,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -167,9 +165,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		dataType:"json",
 		data : { 
 			"user_id" : <%=session.getAttribute("user")%>,
-			"search":$("#search").val()
-        },//<a class='table_h5_a' href='postDetail.jsp?posterUid="+n[5]+"&u_Id="+n[6]+"'>"+n[0]+"</a
+        },
 		success:function(data){
+			$('#maintable').DataTable().destroy()
 			$.each(data,function(i,n){
 				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[5]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
 			   			"<td>"+n[1]+"</td>"+
@@ -177,20 +175,42 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			   			"<td>"+n[3]+"</td>"+
 			   			"<td>"+n[4]+"</td></tr>");
 			});
+			$('#maintable').DataTable({
+				"language": {
+			        "processing": "處理中...",
+			        "loadingRecords": "載入中...",
+			        "lengthMenu": "顯示 _MENU_ 項結果",
+			        "zeroRecords": "沒有符合的結果",
+			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+			        "infoPostFix": "",
+			        "search": "搜尋:",
+			        "paginate": {
+			            "first": "第一頁",
+			            "previous": "上一頁",
+			            "next": "下一頁",
+			            "last": "最後一頁"
+			        },
+			        "aria": {
+			            "sortAscending": ": 升冪排列",
+			            "sortDescending": ": 降冪排列"
+			        }
+			    }
+			})
 		},
 		error:function(){
 			$("#tip").html("沒有發表文章");
 		}
 	});
     
-    
     function articlechange(title){
     	//alert(title);
     	if(title=='留言'){
+    		$('#maintable').DataTable().destroy()
     		$("#article").removeClass("active");
     		$("#comment").addClass("active");
     		$("#maintable").html("");
-    		$("#mainsearch").css("display","none");
     		$("#maintable").append("<thead class='h4' style='background-color:#FFD1A4;'><tr>"+
     				"<th scope='col'>文章名稱</th>"+
     				"<th scope='col'>留言內容</th>"+
@@ -211,14 +231,34 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			   			"<td>"+n[1]+"</td>"+
         			   			"<td>"+n[2]+"</td></tr>");
         			});
-        		},
-        		error:function(){
-        			$("#tip").html("沒有留言紀錄");
+        			$('#maintable').DataTable({
+        				"language": {
+        			        "processing": "處理中...",
+        			        "loadingRecords": "載入中...",
+        			        "lengthMenu": "顯示 _MENU_ 項結果",
+        			        "zeroRecords": "沒有符合的結果",
+        			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+        			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+        			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+        			        "infoPostFix": "",
+        			        "search": "搜尋:",
+        			        "paginate": {
+        			            "first": "第一頁",
+        			            "previous": "上一頁",
+        			            "next": "下一頁",
+        			            "last": "最後一頁"
+        			        },
+        			        "aria": {
+        			            "sortAscending": ": 升冪排列",
+        			            "sortDescending": ": 降冪排列"
+        			        }
+        			    }
+        			})
         		}
         	});
     		return false;
     	}else{
-    		$("#mainsearch").css("display","");
+    		$('#maintable').DataTable().destroy()
     		$("#comment").removeClass("active");
     		$("#article").addClass("active");
     		$("#maintable").html("");
@@ -237,7 +277,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         		dataType:"json",
         		data : { 
         			"user_id" : <%=session.getAttribute("user")%>,
-        			"search":$("#search").val(),
                 },
                 success:function(data){
         			$.each(data,function(i,n){
@@ -247,6 +286,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         			   			"<td>"+n[3]+"</td>"+
         			   			"<td>"+n[4]+"</td></tr>");
         			});
+        			$('#maintable').DataTable({
+        				"language": {
+        			        "processing": "處理中...",
+        			        "loadingRecords": "載入中...",
+        			        "lengthMenu": "顯示 _MENU_ 項結果",
+        			        "zeroRecords": "沒有符合的結果",
+        			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+        			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+        			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+        			        "infoPostFix": "",
+        			        "search": "搜尋:",
+        			        "paginate": {
+        			            "first": "第一頁",
+        			            "previous": "上一頁",
+        			            "next": "下一頁",
+        			            "last": "最後一頁"
+        			        },
+        			        "aria": {
+        			            "sortAscending": ": 升冪排列",
+        			            "sortDescending": ": 降冪排列"
+        			        }
+        			    }
+        			})
         		},
         		error:function(){
         			$("#tip").html("沒有發表文章");
@@ -256,34 +318,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	}
     }
     
-    
-    	$("#search").change(function(){
-    		$("#tip").html("");
-    		$("#articletable").html("");
-    		//console.log("aaaaa");
-    		$.ajax({
-        		url:"../Gusty/memberarticle",
-        		type:"post",
-        		//async : false,//要賦值給全域變數要改false
-        		dataType:"json",
-        		data : { 
-        			"user_id" : <%=session.getAttribute("user")%>,
-        			"search":$("#search").val()
-                },
-        		success:function(data){
-        			$.each(data,function(i,n){
-        				$("#articletable").append("<tr><th scope='row'><a href='../PetForum/postDetail.jsp?posterUid="+n[5]+"&u_Id="+userid+"'>"+n[0]+"</a></th>"+
-        			   			"<td>"+n[1]+"</td>"+
-        			   			"<td>"+n[2]+"</td>"+
-        			   			"<td>"+n[3]+"</td>"+
-        			   			"<td>"+n[4]+"</td></tr>");
-        			});
-        		},
-        		error:function(){
-        			$("#tip").html("查無資料");
-        		}
-        	});
-    	});
     
 	</script>
 

@@ -8,6 +8,7 @@
 <html lang="zh-Hant-TW">
 
 <head>
+<title>活動一覽</title>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -76,6 +77,11 @@
 
 			<div id="good" class="row justify-content-center">
 			</div>
+			
+			<div class="d-flex justify-content-center">
+		<div class="btn-group me-2" role="group" aria-label="First group" id="page">
+<!--     	<button type="button" class="btn btn-primary">1</button> -->
+  	</div></div>
 
 	<div>        
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -83,17 +89,21 @@
 
 	</div>
 	</div>
-	<script>
-
-
-		
+	<script>		
 				//ajax活動表格
 					$.ajax({
 						url : "../Wu/Activity",
 						type : "post",
 						dataType : "json",
 						success : function(data) {
+							
+							for(let i=0;i<(data.length/6);i=i+1){
+								//console.log(i);
+								$("#page").append("<button type='button' class='btn btn-primary' onclick='pagechange(this)' value='"+(i+1)+"'>"+(i+1)+"</button>");
+							}
+							
 							$.each(data, function(i, n) {
+							if(i>=0&&i<6){
 
 
 								$("#good").append(
@@ -111,7 +121,7 @@
 
 								
 								);
-
+							}
 							});
 						}
 					});
@@ -122,6 +132,7 @@
 		
 	$("#acttype").change(function(){
 			$("#tip").html("");
+			$("#page").html("");
 			$("#good").html("");
 			$.ajax({
 				url : "../Wu/Activity",
@@ -132,8 +143,15 @@
 					"acttype": $("#acttype").val()
 				},
 				success:function(data){
+					
+					for(let i=0;i<(data.length/6);i=i+1){
+						//console.log(i);
+						$("#page").append("<button type='button' class='btn btn-primary' onclick='pagechange(this)' value='"+(i+1)+"'>"+(i+1)+"</button>");
+					}
+					
 					$.each(data, function(i, n) {
-
+						
+						if(i>=0&&i<6){
 
 						$("#good").append(
 								"<div class='card m-3' style='width: 17rem;'>"
@@ -150,7 +168,7 @@
 					  													
 
 						);
-										
+						}			
 					});
 				},
 				error:function(){
@@ -160,6 +178,50 @@
 			
 		});
 		
+	
+	function pagechange(page){
+		console.log($(page).val());
+		$("#tip").html("");
+		$("#page").html("");
+		$("#good").html("");
+		$.ajax({
+			url : "../Wu/Activity",
+			type : "post",
+			async : false,
+			dataType : "json",
+			data:{
+				"acttype": $("#acttype").val()
+			},
+			success:function(data){
+				for(let i=0;i<(data.length/6);i=i+1){
+					//console.log(i);
+					$("#page").append("<button type='button' class='btn btn-primary' onclick='pagechange(this)' value='"+(i+1)+"'>"+(i+1)+"</button>");
+				}
+				
+				$.each(data,function(i,n){
+					if(i+1>=$(page).val()*6-6+1&&i+1<=$(page).val()*6){
+						$("#good").append(
+								"<div class='card m-3' style='width: 17rem;'>"
+								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+					  			+"<div class='card-body'>"
+					  			+"<div style='height:120px;'>"
+					    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+					    		+"</div>"
+					    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+					    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+					    		+"<div class='card-footer bg-transparent border-success'>"
+					    		+"<p class='card-text'>"+n[8]+"</p>"
+					  			+"</div></div></div>");
+						
+					}
+			});
+			},
+			error:function(){
+    			$("#tip").html("查無資料");
+    			}
+			});
+		
+	}
 		
 		
 	</script>

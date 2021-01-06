@@ -52,7 +52,8 @@ public class ActDao {
 		String hql = "select act_no,act_name,starttime,endtime,act_content,act_organize,act_orgman,act_orgphone,act_type\r\n"
 				+ "FROM Active2\r\n"
 				+ "WHERE act_type like '%"+acttype+"%'\r\n"
-				+ "and viableNumber=1";
+				+ "and viableNumber=1\r\n"
+				+"order by NewActNow DESC";
 		Query<Object[]> query= session.createSQLQuery(hql);
 		list=query.list();
 		if(list.isEmpty()) {

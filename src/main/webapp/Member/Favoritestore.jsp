@@ -12,7 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -96,15 +96,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			</ul>
 			</div><br>
   			
-  			<div class="row justify-content-start" id="favorite">
-  			
-<!--   			<div class="card col-4" style="width: 18rem;"> -->
-<!--   				<img src="image/title.png" class="card-img-top" alt="..."> -->
-<!--   				<div class="card-body"> -->
-<!--     				<p class="card-text">ake up the bulk of the card's content.</p> -->
-<!--   				</div> -->
-<!-- 			</div> -->
-			
+  			<div class="row justify-content-start" id="favorite">	
 			</div>
 			
 			<div class="d-flex justify-content-center" >
@@ -134,6 +126,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
 	<script>
 	
@@ -185,11 +178,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#favorite2").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
-    	$("#favorite").append("<table class='table table-hover table-bordered'><thead class='h4' style='background-color:#8F4586;'><tr>"+
+    	$("#favorite").append("<table class='table table-hover table-bordered' id='maintable'><thead class='h4' style='background-color:#8F4586;'><tr>"+
     			"<th scope='col'>文章名稱</th>"+
     			"<th scope='col'>文章子版</th>"+
     			"<th scope='col'>發文時間</th>"+
-    			"<th scope='col'>點閱率</th></tr>"+
+    			"<th scope='col'>點閱率</th>"+
+    			"<th scope='col'>取消收藏</th></tr>"+
     	"</thead>"+
     	"<tbody id='articlelove' class='h5'></tbody></table>");
     	$.ajax({
@@ -209,6 +203,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				   			"<td><button type='button' class='btn btn-info' onclick='deletearticle("+n[4]+")'>取消收藏</button></td>></tr");
 					
 				});
+				$('#maintable').DataTable({
+					"language": {
+				        "processing": "處理中...",
+				        "loadingRecords": "載入中...",
+				        "lengthMenu": "顯示 _MENU_ 項結果",
+				        "zeroRecords": "沒有符合的結果",
+				        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+				        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+				        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+				        "infoPostFix": "",
+				        "search": "搜尋:",
+				        "paginate": {
+				            "first": "第一頁",
+				            "previous": "上一頁",
+				            "next": "下一頁",
+				            "last": "最後一頁"
+				        },
+				        "aria": {
+				            "sortAscending": ": 升冪排列",
+				            "sortDescending": ": 降冪排列"
+				        }
+				    }
+				})
 			},
 			error:function(){
 				$("#favorite2").html("沒有收藏文章");

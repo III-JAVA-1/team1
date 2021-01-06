@@ -94,7 +94,7 @@
 			<br>
 		<div style="text-align:center;">
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
-   			<img id="img" style="width=800px;" src="image/tantanEX.jpg" >
+   			<img id="img" style="width:800px;" src="image/tantanEX.jpg" >
 		</div>
 		<br>   			
    		<table style="width: 1000px; border: 2px solid black;margin: auto;">
@@ -208,6 +208,7 @@
     				$.each(data,function(i,n){
     					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
+    					$("title").html(n.act_name);
     					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
     					$("#act_org").html(n.act_organize);

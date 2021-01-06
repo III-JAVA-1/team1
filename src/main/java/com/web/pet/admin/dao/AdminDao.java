@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.pet.member.model.Member;
+import com.web.pet.mom.model.Mom;
 import com.web.pet.petshop.model.PetshopBean;
 
 @Repository
@@ -19,11 +20,11 @@ public class AdminDao {
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
-	public List<Member> membernamesearchDao(String user_name){//admin member依名字查詢
+	public List<Member> membernamesearchDao(){//admin member依名字查詢
 		List<Member> list = new ArrayList<Member>();
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
-		String hql = "select u_id,name,phone,email,sname,zip,country,district,address,momId,gender,birth FROM Member where name like '%"+user_name+"%'";
+		String hql = "select u_id,name,phone,email,sname,zip,country,district,address,momId,gender,birth,authority FROM Member where name like '%%'";
 		query= session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
@@ -31,6 +32,20 @@ public class AdminDao {
 		}else {
 			return list;
 		}
+	}
+	
+	public Integer updateauthorityDao(Integer user_id){//admin member更改權限
+		Integer result=0;
+		String hql="";
+		Session session = sessionFactory.getCurrentSession();
+		Member member = session.get(Member.class, user_id);
+		if(member.getAuthority()==0) {
+			hql = "update Member set authority = 1 where u_Id=:user_id";
+		}else {
+			hql = "update Member set authority = 0 where u_Id=:user_id";
+		}
+		result = result + session.createSQLQuery(hql).setParameter("user_id", user_id).executeUpdate();
+		return result;
 	}
 	
 	//////////////////////////////會員管理////////////////////////////////////
@@ -97,17 +112,16 @@ public class AdminDao {
 	}
 	
 	@SuppressWarnings("unchecked")//活動顯示參加人數top3
-	public List<Object[]> activejointop3Dao(Integer month){
+	public List<Object[]> activejointop3Dao(){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "select top 3 Active2.act_name,count(JoinAct.act_no) as '參加人數'\n"
 				+ "from Active2,JoinAct\n"
 				+ "where JoinAct.act_no=Active2.act_no\n"
-				+ "and month(Active2.NewActNow)=:month\n"
 				+ "group by JoinAct.act_no,Active2.act_name\n"
 				+ "order by count(JoinAct.act_no) desc";
 		Query<Object[]> query=null;
-		query = session.createSQLQuery(hql).setParameter("month", month);
+		query = session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
@@ -135,13 +149,13 @@ public class AdminDao {
 	}
 	
 	@SuppressWarnings("unchecked")//活動顯示全部活動
-	public List<Object[]> activeallDao(String search){
+	public List<Object[]> activeallDao(){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "select active2.act_no,active2.act_name,active2.act_content,active2.NewActNow,active2.act_organize,active2.act_orgman,active2.act_orgphone,active2.act_type,active2.act_where,active2.starttime,active2.endtime,sum( case when JoinAct.act_no=Active2.act_no then 1 else 0 end) as '報名人數'\r\n"
 				+ "from active2 , JoinAct\r\n"
 				+ "where active2.viableNumber=1\r\n"
-				+ "and Active2.act_name like '%"+search+"%'\r\n"
+				+ "and Active2.act_name like '%%'\r\n"
 				+ "group by active2.act_no,active2.act_name,active2.act_content,active2.NewActNow,active2.act_organize,active2.act_orgman,active2.act_orgphone,active2.act_type,active2.act_where,active2.starttime,active2.endtime\r\n"
 				+ "order by Active2.act_no";
 		Query<Object[]> query=null;
@@ -172,13 +186,13 @@ public class AdminDao {
 	}
 	
 	@SuppressWarnings("unchecked")//活動顯示要審核的活動
-	public List<Object[]> activecheckDao(String search){
+	public List<Object[]> activecheckDao(){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "select active2.act_no,active2.act_name,active2.act_content,active2.NewActNow,active2.act_organize,active2.act_orgman,active2.act_orgphone,active2.act_type,active2.act_where,active2.starttime,active2.endtime\r\n"
 				+ "from active2\r\n"
 				+ "where active2.viableNumber=0\r\n"
-				+ "and Active2.act_name like '%"+search+"%'\r\n"
+				+ "and Active2.act_name like '%%'\r\n"
 				+ "group by active2.act_no,active2.act_name,active2.act_content,active2.NewActNow,active2.act_organize,active2.act_orgman,active2.act_orgphone,active2.act_type,active2.act_where,active2.starttime,active2.endtime\r\n"
 				+ "order by Active2.act_no";
 		Query<Object[]> query=null;
@@ -268,23 +282,18 @@ public class AdminDao {
 	}
 	
 	@SuppressWarnings("unchecked")//文章總覽分頁和搜尋
-	public List<Object[]> articlefullDao(String search,Integer page){
-		int start=0;
-		int end=10000;
-		if(page!=null) {start=page*10-10;end=10;}
+	public List<Object[]> articlefullDao(){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select Article.posterUid,Article.header,Article.forumId,Article.viewing,Member.sname,sum( case when Article.posterUid=Comment.posterUid then 1 else 0 end) as '留言數',Article.u_Id\r\n"
+		String hql = "select Article.posterUid,Article.header,Article.forumId,Article.viewing,Member.sname,sum( case when Article.posterUid=Comment.posterUid then 1 else 0 end) as '留言數',Article.u_Id,Article.updatedTime\r\n"
 				+ "from Article,Comment,Member\r\n"
 				+ "where Article.isHide=0\r\n"
-				+ "and Article.header like '%"+search+"%'\r\n"
+				+ "and Article.header like '%%'\r\n"
 				+ "and Article.u_Id=Member.u_Id\r\n"
-				+ "group by Article.header,Article.forumId,Article.viewing,Article.u_Id,Article.posterUid,Member.sname\r\n"
-				+ "order by Article.posterUid\r\n"
-				+ "offset :start ROWS\r\n"
-				+ "FETCH NEXT :end ROWS ONLY";
+				+ "group by Article.header,Article.forumId,Article.viewing,Article.u_Id,Article.posterUid,Member.sname,Article.updatedTime\r\n"
+				+ "order by Article.posterUid\r\n";
 		Query<Object[]> query=null;
-		query = session.createSQLQuery(hql).setParameter("start", start).setParameter("end", end);
+		query = session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
 			return null;
@@ -423,7 +432,6 @@ public class AdminDao {
 		}
 	}
 	
-
 	public Integer petshopdeleteDao(Integer sid){//刪除店家
 		Integer reusult=0;
 		Session session = sessionFactory.getCurrentSession();
@@ -433,5 +441,40 @@ public class AdminDao {
 	}
 	
 	//////////////////////////////店家管理////////////////////////////////////
+	
+	@SuppressWarnings("unchecked")//顯示全部保母
+	public List<Object[]> allmomDao(){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select mom_Id,title,experience,notices,petContent,proPrice1,proPrice2,proPrice3,bodyType1,bodyType2,bodyType3,bodyType4,u_Id\n"
+				+ "from mom";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	public Mom getfullmomDao(Integer mid) {//取得一筆保母物件
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("Dao");
+		Mom mom = session.get(Mom.class, mid);
+		return mom;
+	}
+	
+	public Integer deletemomDao(Integer mid){//刪除保母
+		Integer result=0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql0 = "delete PetMomOrder where mom_Id=:mid";
+		String hql = "delete mom where mom_Id=:mid";
+		result = result + session.createSQLQuery(hql0).setParameter("mid", mid).executeUpdate();
+		result = result + session.createSQLQuery(hql).setParameter("mid", mid).executeUpdate();
+		return result;
+	}
+	
+	//////////////////////////////保母管理////////////////////////////////////
 	
 }

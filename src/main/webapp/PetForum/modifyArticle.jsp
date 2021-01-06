@@ -14,14 +14,12 @@
      <link rel="stylesheet" href="../PetForum/css/common.css" /> 
   
 </head>
-<body style="background-image: url(../PetForum/image/modifyArticle.jpg);"> 
+<body style="background-image: url(../PetForum/image/modifyArticle.jpg);">
+
   
 <!-- 發送/petforum/modifyPost請求 --> 
    <div class="col-12">
-	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">
-		<div class="row justify-content-center">
-			<h2>修改文章</h2>
-		</div> 
+	<div class="col-9 col-sm-9 col-xl-9" id="wrapper">		
 <form:form action="modifyPost" method="POST" modelAttribute="articleModel" enctype="multipart/form-data">
 	
 	<div class="row justify-content-center">
@@ -50,7 +48,8 @@
 					        <form:option value="請選擇子版"></form:option>
 					        <form:option value="協尋"></form:option>
 					        <form:option value="送養"></form:option>
-					        <form:option value="日常"></form:option>      
+					        <form:option value="日常"></form:option>
+					        <form:option value="聊天"></form:option>        
 					        <form:option value="徵友"></form:option>
 					        <form:option value="心得"></form:option>       
 					    </form:select>
@@ -63,7 +62,8 @@
 				<div class="form-group row w-50">
 						<label class="col-sm-3 col-form-label" for="header">文章標題：</label>
 					<div class="col-xs-4">
-						<form:input class="form-control" id="header" name="header" path="header" size="50" placeholder="請輸入文章標題…" />
+						<form:input class="form-control" id="header" name="header" path="header" size="50" placeholder="請輸入文章標題…" onblur="checkHeader()" />
+						<span class="span1" id="headerSp"></span> 
 					</div> 
 				</div>
 			</div> 
@@ -73,9 +73,9 @@
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
 					<label class="col-sm-3 col-form-label" for="content">文章內容：</label>
+					<span class="span1" id="contentSp"></span><br/> 
 					<div class="col-xs-4"> 
-					    <form:textarea id="content" name="content" path="content" class="form-control" rows="20" cols="120" placeholder="請輸入文章內容…" onkeydown='return countChar()' 
-						onkeyup='return countChar()'></form:textarea>
+					    <form:textarea id="content" name="content" path="content" class="form-control" rows="20" cols="120" placeholder="請輸入文章內容…" onblur="checkContent()"></form:textarea>
 					</div>
 				</div>
 			</div>
@@ -156,32 +156,38 @@
     $("#modify").click(function check(form){//按預覽文章   	
     	
     	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
-    		 console.log($("#ckObey").prop("checked"));
-    		 console.log($("#forumId").find("option:selected").val() != null);
+    	   		
     	    	
-    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){    			
-    				
-    		var modify = window.confirm("確定修改嗎？文章紀錄將無法復原！");    			
-		 	if (modify === false) {
-				 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
-	   			
-	   			 return false;
-			} 
-  			else {
-        		
-			   	return true;//form action請求送出				  
-  			}
-    			
-    		 }
-    		 else{ 
-    			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-    			 return false;
-    			 }
-    
-    		}else{
-    	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-    	    	return false;
-    	    	}
+       		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
+       			 
+       			if(checkHeader() && checkContent()){
+       				
+       				var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
+       			 	if (modify === false) {
+       					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+       		   			
+       		   			 return false;
+       				} 
+       	 			else {       			
+       				   	return true;//form action請求送出       			
+       	 			}
+       			 	
+       			 	
+       			}
+       			else{//內容或標題為空
+       				return false;
+       			}
+       			
+       		 }
+       		 else{ 
+       			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+       			 return false;
+       			 }
+       
+       		}else{
+       	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+       	    	return false;
+       	    	}
     });
    
     	    
@@ -220,8 +226,42 @@
           document.querySelector("#content").value = content;
 
       });
+    
+    
+      function checkHeader(){
+      	
+      	//取得header元素
+          let headerObj = document.getElementById("header");
+           //取得header元素值
+          let headerVal = headerObj.value;   
+
+          let sp = document.getElementById("headerSp");
+          if(headerVal === ""){
+              sp.innerHTML="標題不可空白";
+              return false;
+          }else{
+          	sp.innerHTML="";
+          	return true;
+          }
+          
+          
+      }
+      
+      function checkContent(){  	 
+
+          let sp = document.getElementById("contentSp");
+          if(editor.getData() === ""){
+              sp.innerHTML="內文不可空白";
+              return false;
+          }else{
+          	sp.innerHTML="";
+          	return true;
+          }
+      }
    
       $(".inline").colorbox({inline:true, width:"50%"});
+      
+   
     </script>
 </body>
 </html>

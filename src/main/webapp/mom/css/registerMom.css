@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+article {
+    /* border:1px solid gray; */
+    border-radius: 15px;
+    padding: 30px 80px;
+    background-color: #E0E0E0;
+}
+
+.titlePosition{
+    text-align: center;
+}
+
+input[type="text"] {
+    text-align: center;
+}
+
+/*下底線*/
+.underline {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid rgb(194, 193, 193) 1px;
+}
+
+/*背景*/
+.bGround {
+    background-image: url("../images/无缝的乱画猫和狗lineart背景-123270005 (2).jpg");
+}
+
+
+.yearPosition{
+    line-height: 2.5rem;
+    height: 2.5rem;
+    padding-left: 0;
+}
+
+.picFrame{
+    height: 150px;
+    border-radius: 5px;
+    background-color: white;
+    border: solid rgb(199, 197, 197) 1px;
+}
+
+.picPosition{
+    margin-top: 5px;
+}
+
+.formPosition{
+    text-align: center;
+}

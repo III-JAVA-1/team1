@@ -12,7 +12,7 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 <title>AccompanyMe</title>
 <style>
 #gotop {
@@ -65,12 +65,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 
 		<div class="row justify-content-center display-4">
 			文章總覽
-		</div><br>
-	
-		<div class="row justify-content-center h4">
-		文章名稱關鍵字搜尋<input type="text" class = 'form-group' name="search" id="search">
-		<p id='articlecount'></p>
 		</div>
+		<div class="row justify-content-center h4" id='articlecount'>	
+		</div><br>
 		
 		<div class='row'>
 			<div class='col'>
@@ -82,8 +79,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col">文章內容</th>
       			<th scope="col">文章點閱率</th>
       			<th scope="col">發文者暱稱</th>
+      			<th scope="col">發文時間</th>
       			<th scope="col">留言數</th>
-      			<th scope="col">操作</th><tr>
+      			<th scope="col">操作</th></tr>
   			</thead>
   			<tbody id="articletable">
   			</tbody>
@@ -91,13 +89,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 			
 			<div class="row justify-content-center h2" id='tip'>
-			</div>
-			
-			<div class="row justify-content-center h4">
-			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-  				<div class="btn-group me-2" role="group" aria-label="First group" id="pagecount">
-  				</div>
-  			</div>
 			</div>
 			
 			</div>
@@ -121,6 +112,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	
 	<script>
 	
@@ -142,26 +134,44 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		type:"post",
 		dataType:"json",
 		async:false,
-		data : {  
-			"search":"",
-			"page":"",
+		data : {  	
         },
 		success:function(data){
-			for( let i=0;i<data.length/10;i=i+1){
-				$("#pagecount").append("<button type='button' class='btn btn-primary' onclick='pagechange("+(i+1)+")' >"+(i+1)+"</button>");
-			}
 			$("#articlecount").html("&nbsp&nbsp文章總數:&nbsp&nbsp"+data.length);
 			$.each(data,function(i,n){
-				if(i>=10){return false;}
 				$("#articletable").append("<tr><th scope='row'>"+n[0]+"</th>"+
 					"<td>"+n[1]+"</td>"+
 					"<td>"+n[2]+"</td>"+
 					"<td><button type='button' class='btn btn-warning' onclick='articledetail("+n[0]+")' >文章內容</button></td>"+
 					"<td>"+n[3]+"</td>"+
 					"<td>"+n[4]+"</td>"+
+					"<td>"+n[7]+"</td>"+
 					"<td><button type='button' class='btn btn-primary' onclick='comment("+n[0]+")' >留言數:&nbsp"+n[5]+"</button></td>"+
 					"<td><button type='button' class='btn btn-danger' onclick='articledelete("+n[0]+")' >刪除</button></td></tr>");
 			});
+			$('#maintable').DataTable({
+				"language": {
+			        "processing": "處理中...",
+			        "loadingRecords": "載入中...",
+			        "lengthMenu": "顯示 _MENU_ 項結果",
+			        "zeroRecords": "沒有符合的結果",
+			        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+			        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+			        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+			        "infoPostFix": "",
+			        "search": "搜尋:",
+			        "paginate": {
+			            "first": "第一頁",
+			            "previous": "上一頁",
+			            "next": "下一頁",
+			            "last": "最後一頁"
+			        },
+			        "aria": {
+			            "sortAscending": ": 升冪排列",
+			            "sortDescending": ": 降冪排列"
+			        }
+			    }
+			})
 		}
 	});
     
@@ -289,68 +299,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   				});
   			}
   		});
-    }
-    
-    $("#search").change(function(){//文章搜尋
-    	let xx;
-    	$("#tip").html("");
-    	$("#articletable").html("");
-    	if($("#search").val()==""||$("#search").val()==null){xx=1}
-    	else{xx=null}
-    	$.ajax({
-    		url:"../Gusty/articlefull",
-    		type:"post",
-    		dataType:"json",
-    		async:false,
-    		data : {  
-    			"search":$("#search").val(),
-    			"page":xx,
-            },
-    		success:function(data){
-    			$.each(data,function(i,n){
-    				$("#articletable").append("<tr><th scope='row'>"+n[0]+"</th>"+
-    					"<td>"+n[1]+"</td>"+
-    					"<td>"+n[2]+"</td>"+
-    					"<td><button type='button' class='btn btn-warning' onclick='articledetail("+n[0]+")'>文章內容</button></td>"+
-    					"<td>"+n[3]+"</td>"+
-    					"<td>"+n[4]+"</td>"+
-    					"<td><button type='button' class='btn btn-primary' onclick='comment("+n[0]+")'>留言數:&nbsp"+n[5]+"</button></td>"+
-    					"<td><button type='button' class='btn btn-danger' onclick='articledelete("+n[0]+")' >刪除</button></td></tr>");
-    			});
-    		},error:function(){
-    			$("#tip").html("沒有相關資料");
-    		}
-    	});
-    })
-    
-    
-    function pagechange(page){//分頁切換
-    	//alert(page)
-    	$("#tip").html("");
-    	$("#articletable").html("");
-    	$.ajax({
-    		url:"../Gusty/articlefull",
-    		type:"post",
-    		dataType:"json",
-    		async:false,
-    		data : {  
-    			"search":"",
-    			"page":page,
-            },
-    		success:function(data){
-    			console.log(data.length)
-    			$.each(data,function(i,n){
-    				$("#articletable").append("<tr><th scope='row'>"+n[0]+"</th>"+
-    					"<td>"+n[1]+"</td>"+
-    					"<td>"+n[2]+"</td>"+
-    					"<td><button type='button' class='btn btn-warning' onclick='articledetail("+n[0]+")'>文章內容</button></td>"+
-    					"<td>"+n[3]+"</td>"+
-    					"<td>"+n[4]+"</td>"+
-    					"<td><button type='button' class='btn btn-primary' onclick='comment("+n[0]+")'>留言數:&nbsp"+n[5]+"</button></td>"+
-    					"<td><button type='button' class='btn btn-danger' onclick='articledelete("+n[0]+")' >刪除</button></td></tr>");
-    			});
-    		}
-    	});
     }
     
     var aricletypename=[]//子版名稱

@@ -322,6 +322,7 @@
         $("#selectAnimal").val("2");
         $("#inputPrice").val("890");
         $("#inputStock").val("50");
+        stock = 50;
         //取得radioDisplay的元件,
         //不用判斷因為有預設值
         let radios = document.getElementsByName('radioDisplay');

@@ -195,7 +195,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		success:function(data){
     			$.each(data,function(i,n){
     				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-    	  			"<img src='"+n[6]+"' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+    	  			"<img src='../Petshop/"+n[6]+"' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
     	  			"<div class='card-body'>"+
     	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
     	    		"<p class='card-text'>"+n[2]+"</p>"+
@@ -228,7 +228,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){	
 				if(i>=12){return false;}
 				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-	  			"<img src='"+n[6]+"' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+	  			"<img src='../Petshop/"+n[6]+"' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
 	  			"<div class='card-body'>"+
 	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
 	    		"<p class='card-text'>"+n[2]+"</p>"+
@@ -255,7 +255,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		success:function(data){
     			$.each(data,function(i,n){
     				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-    	  			"<img src='"+n[6]+"' onerror='findimg(this)' class='card-img-top' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+    	  			"<img src='../Petshop/"+n[6]+"' onerror='findimg(this)' class='card-img-top' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
     	  			"<div class='card-body'>"+
     	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
     	    		"<p class='card-text'>"+n[2]+"</p>"+

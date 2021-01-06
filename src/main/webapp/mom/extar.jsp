@@ -11,19 +11,22 @@
     <!--bootstrap初始規模-->
     <title>AccompanyMe</title>
 
+    <link rel="stylesheet" href="css/extar.css">
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-
     <style>
+
         #map { /*google map 要給大小 不然不會顯示*/
             height: 1000px;
             width: 100%;
         }
 
-        #gotop { /*回到top按鈕設計*/
+        /*回到top按鈕設計*/
+        #goTop {
             position: fixed;
             right: 30px;
             bottom: 31px;
@@ -31,16 +34,14 @@
             height: 50px;
             text-align: center;
             border: none;
-            background-image: url("Images/up.png");
+            background-image: url("../images/up.png");
             background-size: 50px 50px;
         }
 
-        #gotop:hover { /*button滑入不要背景顏色*/
+        #goTop:hover { /*button滑入不要背景顏色*/
             background-color: transparent;
         }
     </style>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <!--要include 的程式 最下面還有-->
 </head>
 
 <body>
@@ -61,19 +62,16 @@
         <!-- The slideshow -->
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="Images/fkpofpeffe.jpg"
-                     style="width: 1100px; height: 325px;">
+                <img src="images/fkpofpeffe.jpg" class="bSize">
             </div>
             <div class="carousel-item">
-                <img src="Images/dogcover.jpg"
-                     style="width: 1100px; height: 325px;">
+                <img src="images/dogcover.jpg" class="bSize">
             </div>
             <div class="carousel-item">
-                <img src="Images/cat-spot-in-Japan-2.jpg"
-                     style="width: 1100px; height: 325px;">
+                <img src="images/cat-spot-in-Japan-2.jpg" class="bSize">
             </div>
             <div class="carousel-item">
-                <img src="Images/寵物-背版2.jpg " style="width: 1100px; height: 325px;">
+                <img src="images/寵物-背版2.jpg " class="bSize">
             </div>
         </div>
 
@@ -132,7 +130,7 @@
     <div class="row">
 
         <div class="col-md-8">
-            <div id="tip" class="row justify-content-center" style="font-size: 50px;color:crimson"></div>
+            <div id="tip" class="row justify-content-center"></div>
             <div class="row" id="showMom">
 
                 <!-- 					<div class="col-md-4"> -->
@@ -154,7 +152,6 @@
         <div class="col-md-4">
             <div id="map"></div>
             <!--右邊google地圖 -->
-
         </div>
     </div>
 </div>
@@ -208,17 +205,47 @@
     }
 </script>
 
+<script>
+    function initMap() {/*要用googleamp的初始參數設定*/
+        let uluru = {
+            lat: 23.58,
+            lng: 120.58
+        };/*經緯度 目前大約是台灣*/
+        let map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,/*放大比例*/
+            center: uluru
+        });
+    }
+
+    $(function () {//會到最上層的jquery
+        $('#goTop').click(function () {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 333);
+        });
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                $('#goTop').fadeIn(222);
+            } else {
+                $('#goTop').stop().fadeOut(222);
+            }
+        }).scroll();
+    });
+</script>
+
+<script src="js/extra.js"></script>
 
 <jsp:include page="Footer.jsp"/>
 <!--要include 的地方-->
 
-<button type="button" class="btn btn-outline-primary" id="gotop"></button>
+<button type="button" class="btn btn-outline-primary" id="goTop"></button>
 
 
 <!--include 的下半部分-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
@@ -229,97 +256,10 @@
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChBlcBS8CVWG0N3smlRpMO678wobs4bdA&callback=initMap">
-
 </script>
 <!--把key= 到 &的金鑰換成自己的 googlemap 引用script設定-->
 
-<script>
-    function initMap() {/*要用googleamp的初始參數設定*/
-        var uluru = {
-            lat: 23.58,
-            lng: 120.58
-        };/*經緯度 目前大約是台灣*/
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,/*放大比例*/
-            center: uluru
-        });
-    }
 
-    $(function () {//會到最上層的jquery
-        $('#gotop').click(function () {
-            $('html,body').animate({
-                scrollTop: 0
-            }, 333);
-        });
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 300) {
-                $('#gotop').fadeIn(222);
-            } else {
-                $('#gotop').stop().fadeOut(222);
-            }
-        }).scroll();
-    });
-
-    search()
-
-    function search() {
-        $("#showMom").html("")
-        $.ajax({
-            url: "../mom/allMom",
-            type: "post",
-            dataType: "json",
-            data: {
-                country: $("#selectArea").val(),
-                title: $("#selectTitle").val(),
-            },
-            success: function (data) {
-
-                $.each(data, function (n, m) {
-                    let type = "<div class='col-md-4' >"
-                        + "<img src='<c:url value='../mom/getPic?mom_Id="+m[12]+"'/>'  style='width:230px; height:180px;'>"
-                        + "</div>"
-                        + "<div class='col-md-1'></div>"
-                        + "<div class='col-md-7'>"
-                        + "<h5 >" + m[1] + "</h5>"
-                        + " <h5 >" + m[2] + "</h5>"
-                    if (m[3] != null) {
-                        type += "<small>迷你犬(0~4kg):接受</small> <br>"
-                    }else{
-						type += "<small>迷你犬(0~4kg):不接受</small> <br>"
-					}
-                    if (m[4] != null) {
-                        type += "<small>中型犬(10~24kg):接受</small> <br>"
-                    }else {
-						type += "<small>中型犬(10~24kg):不接受</small> <br>"
-					}
-                    if (m[5] != null) {
-                        type += "<small>大型犬(24kg以上):接受</small> <br>"
-                    }else {
-						type += "<small>大型犬(24kg以上):不接受</small> <br>"
-					}
-                    if (m[6] != null) {
-                        type += "<small>貓:接受</small>"
-                    }else {
-						type += "<small>貓:不接受</small>"
-					}
-                    type += "<form name='goReser'  action='reservation.jsp' method='post' onsubmit='return goTo()'>" +
-                        "<input type='hidden' name='mom_Id' value='"+m[12]+"'/>" +
-                        "<input type='hidden' name='sname' value='"+m[2]+"'/>" +
-                        "<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>" +
-                        "<hr>"
-
-                    $("#showMom").append(type);
-
-                });
-            }, error: function () {
-                $("#tip").html("沒有你要找的保母哦");
-            }
-
-        });
-    };
-
-
-</script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
@@ -328,13 +268,6 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-<script>
-    $("#twzipcode_My").twzipcode({
-        css: ["city form-control", "town form-control"],
-        countyName: "city", // 自訂城市 select 標籤的 name 值
-        districtName: "town", // 自訂地區 select 標籤的 name 值
-    });
-</script>
 
 </body>
 

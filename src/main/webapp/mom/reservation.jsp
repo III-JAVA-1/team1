@@ -13,63 +13,16 @@
     <!--bootstrap初始規模-->
     <title>AccompanyMe</title>
 
+    <link rel="stylesheet" href="css/registerMom.css">
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 
-    <style>
-        @import url(https://fonts.googleapis.com/css?family=Lily+Script+One);
 
-        * {
-            margin: 0;
-            padding: 0;
-        }
 
-        article {
-            /* border:1px solid gray; */
-            border-radius: 15px;
-            padding: 30px 80px;
-            background-color: #E0E0E0;
-        }
-
-        .h4 {
-            /*nav消除間距*/
-            margin: 0px;
-        }
-
-        #gotop {
-            /*回到top按鈕設計*/
-            position: fixed;
-            right: 30px;
-            bottom: 31px;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            border: none;
-            background-image: url("Images/up.png");
-            background-size: 50px 50px;
-        }
-
-        #gotop:hover {
-            /*button滑入不要背景顏色*/
-            background-color: transparent;
-        }
-
-        input[type="text"] {
-            text-align: center;
-        }
-
-        .st1 {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-bottom: solid rgb(194, 193, 193) 1px;
-        }
-        .bg{
-            background-image: url(Images/无缝的乱画猫和狗lineart背景-123270005\ \(2\).jpg);
-        }
-    </style>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!--要include 的程式 最下面還有-->
 
@@ -77,12 +30,12 @@
 
 <jsp:include page="Header.jsp" />
 
-	<%String getMom=request.getParameter("mom_Id");%>
+	<%String getMom=request.getParameter("momId");%>
     <%String getsName=request.getParameter("sname");%>
 
     <div class="container">
         <div class="row">
-            <div class="col-md-2 bg">
+            <div class="col-md-2 bGround">
             </div>
             <article class="col-md-8">
 
@@ -111,7 +64,7 @@
                         </div>
                         <div class="col-md-5">
                             <input type="text" class="form-control" id="userPhone" name="connPhone" placeholder="請輸入手機號"
-                                required=" " value="">
+                                required=" ">
                         </div>
                     </div>
 
@@ -274,9 +227,9 @@
                     </div>
                 </div>
                 </div>
-                    <input type="hidden" name="listCreate"  value="<%= new Timestamp(new Date().getTime())%>" />
+                    <input type="hidden" name="orderCreate" value="<%= new Timestamp(new Date().getTime())%>" />
                     <input type="hidden" name="status"  value="處理中">
-                    <input type="hidden" name="mom_Id"  value="<%=getMom%>">
+                    <input type="hidden" name="momId"  value="<%=getMom%>">
 <%--                    <input type="hidden" name="total" value="<%=request.getParameter("total")%>">--%>
 
                     <br>
@@ -290,7 +243,7 @@
                     </div>
                 </form>
             </article>
-            <div class="col-md-2 bg">
+            <div class="col-md-2 bGround">
             </div>
         </div>
     </div>
@@ -302,50 +255,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
-    <script> 
-    	
-    	function printPriceResult(){
-    		
-    		var timeStart = Date.parse($("#timeStart").val());
-    		var timeEnd = Date.parse($("#timeEnd").val());
-    		      	
-        	var priceId =$("#priceId").val();
-    		if(priceId != null && timeStart != null && timeEnd != null){
-    			
-    			var price = priceId.split(' ')[1];
-            	var countTime = timeEnd - timeStart;
-        		//hour 還要再修改
-        		//hour = countTime % (24*3600*1000);
-        	    var hour = Math.round(countTime / (1000 * 60 * 60)) ;
-        		console.log("timeStart "+ timeStart)
-        		console.log("countTime " +countTime)
-        		console.log("hour" + hour)
-        		var countResult = price * hour;
-        	
-        		if(countTime <= 0){
-            		Swal.fire('結束時間必須大於開始時間')
-            	}else if(countResult > 0){
-            	 console.log("countResult " +countResult);
-            	 var p = countResult+" 元"
-            	 console.log(p)
-        		 $("#total").text(p);
-        		 }
-    		}
-    	}
 
-        $("#timeStart").change(function(){
-    		printPriceResult()
-    	});
-    	
-    	$("#timeEnd").change(function(){
-    		printPriceResult()
-    	});
-    	
-    	$("#priceId").change(function(){
-    		printPriceResult()
-    	});
-
-    </script>
 
     <!--include 的下半部分-->
     <jsp:include page="Footer.jsp" />
@@ -361,15 +271,9 @@
     <!-- TWzipcode的js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-    <script>
-        $("#twzipcode_My").twzipcode({
-            zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
-            css: ["city form-control", "town form-control"],
-            countyName: "country", // 自訂城市 select 標籤的 name 值
-            districtName: "district", // 自訂地區 select 標籤的 name 值
-        });
-    </script>
-    
+
+    <script src="js/reservation.js"></script>
+
     <script>
     $().ready(function() {
 		$.ajax({
@@ -377,7 +281,7 @@
 			type : "post",
 			dataType : "json",
 			data : {
-				"mom_Id" : <%=getMom%>
+				"momId" : <%=getMom%>
 			},
 			success : function(data) {
 				$.each(data, function(n, m) {
@@ -396,7 +300,7 @@
                     }
                     $("#petId").append(pet);
 
-					let price = "<option>服務種類</option>"; 
+					let price = "<option>服務種類</option>";
 					if(m[7] != null){
 						price+="<option id='service1'>到府遛狗 "+m[7]+" 元</option>"
                     }
@@ -409,18 +313,11 @@
 					$("#priceId").append(price)
 				});
 			}
-			
+
 		});
 	});
-    
-    </script>
 
-    <script>
-        function goTime() {
-            document.getElementById("listCreate").value = new Date();
-        }
     </script>
-
 </body>
 
 </html>

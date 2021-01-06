@@ -208,6 +208,7 @@
     				$.each(data,function(i,n){
     					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
+    					$("title").html(n.act_name);
     					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
     					$("#act_content").html(n.act_content);
     					$("#act_org").html(n.act_organize);

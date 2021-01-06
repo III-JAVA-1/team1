@@ -100,7 +100,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
          </div>
          <div>
             <label for="">預約時間</label>
-            <input type="datetime-local" id="date" name="datee">
+            <input type="datetime-local" id="date" name="datee" min="2021-01-07T00:00">
          </div>
          
         <input type="hidden" id="thistime"  name="thistimee">

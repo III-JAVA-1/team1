@@ -71,6 +71,8 @@ public class Member {
 	@Column(nullable = true)
 	private String sname;
 	@Column(nullable = true)
+	private Integer authority;
+	@Column(nullable = true)
 	private String zip;
 	@Column(name = "country", columnDefinition = "nvarchar(MAX)", nullable = true)
 	private String country;

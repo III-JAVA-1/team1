@@ -296,7 +296,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.js" integrity="sha512-i4HLZ1JUoWLoDfgFlZGjzoWJYa55JAGr9XMxpH2k7OxtvF2qI02P+V2c8Z39s9SjxWGCJ04zMXrq106juXOywA==" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 	
 <!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
@@ -331,8 +331,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			success:function(data){
 				$.each(data,function(i,n){
 					
-					if($("#oldeditpassword").val()==n.password){
-						if($("#editpassword").val()==n.password){
+					if(sha512($("#oldeditpassword").val())==n.password){
+						if(sha512($("#editpassword").val())==n.password){
 							alert("請輸入新密碼");
 							xxn=false;
 						}
@@ -341,6 +341,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						}
 					}
 					else{
+						console.log(sha512('abc123456'));
 						alert("舊密碼錯誤");
 						xxn=false;
 					}			

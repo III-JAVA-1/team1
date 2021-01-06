@@ -30,7 +30,6 @@ import com.web.pet.forum.service.CommentService;
 import com.web.pet.member.model.Member;
 import com.web.pet.member.service.MemberService;
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.service.MomService;
 import com.web.pet.petshop.model.PetshopBean;
 import com.web.pet.util.BlobToByteArray;
 import com.web.pet.util.MailUtils;
@@ -55,9 +54,9 @@ public class adminCURD {
 	
 	@RequestMapping(value = "/adminmembernamesearch")
 	@ResponseBody
-	public List<Member> ajaxLoginController(@RequestParam String user_name) {//admin member依名字查詢
+	public List<Member> ajaxLoginController() {//admin member依名字查詢
 		List<Member> list = new ArrayList<Member>();
-		list = adminService.membernamesearch(user_name);
+		list = adminService.membernamesearch();
 		if(list==null||list.isEmpty()) {
 			return null;
 		}else {
@@ -80,6 +79,12 @@ public class adminCURD {
 			re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 			return re;
 		}	
+	}
+	
+	@RequestMapping(value = "/memberupdateauthority")
+	@ResponseBody
+	public Integer updateauthorityController(Integer user_id) {//admin member更改權限
+		return adminService.updateauthorityService(user_id);	
 	}
 	
 	//////////////////////////////會員管理////////////////////////////////////
@@ -106,8 +111,8 @@ public class adminCURD {
 	
 	@RequestMapping("/activejointop3")//活動顯示參加人數top3
 	@ResponseBody
-	public List<Object[]> activejointop3Controller(Integer month){
-		return adminService.activejointop3Service(month);
+	public List<Object[]> activejointop3Controller(){
+		return adminService.activejointop3Service();
 	}
 	
 	@RequestMapping("/activetype")//活動顯示參加人數top3

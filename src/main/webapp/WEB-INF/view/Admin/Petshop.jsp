@@ -68,42 +68,42 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
   		<span class="input-group-text" id="basic-addon1">商店名稱</span>
-  		<input type="text" class="form-control" name='name' placeholder="請輸入商店名稱" aria-label="Username" aria-describedby="basic-addon1">
+  		<input type="text" class="form-control" name='name' placeholder="請輸入商店名稱" required="required" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
   		<span class="input-group-text" id="basic-addon1">商店地址</span>
-  		<input type="text" class="form-control" name='address' placeholder="請輸入商店地址" aria-label="Username" aria-describedby="basic-addon1">
+  		<input type="text" class="form-control" name='address' placeholder="請輸入商店地址" required="required" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
-  		<span class="input-group-text" id="basic-addon1">商店手機</span>
-  		<input type="text" class="form-control" name='phone' placeholder="請輸入商店手機" aria-label="Username" aria-describedby="basic-addon1">
+  		<span class="input-group-text" id="basic-addon1">聯絡手機</span>
+  		<input type="text" class="form-control" name='phone' placeholder="請輸入商店手機" required="required" maxlength="10" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="form-check form-check-inline">商店類型:&nbsp&nbsp
-  		<input class="form-check-input" type="radio" id="beautiful" value="美容店" name="type">
+  		<input class="form-check-input" type="radio" id="beautiful" value="美容店" required="required" name="type">
   		<label class="form-check-label" for="beautiful">美容店</label></div>
 		<div class="form-check form-check-inline">
-  		<input class="form-check-input" type="radio" id="pet" value="寵物店" name="type">
+  		<input class="form-check-input" type="radio" id="pet" value="寵物店" required="required" name="type">
   		<label class="form-check-label" for="pet">寵物店</label></div>
 		<div class="form-check form-check-inline">
-  		<input class="form-check-input" type="radio" id="other" value="其他" name="type">
+  		<input class="form-check-input" type="radio" id="other" value="其他" required="required" name="type">
   		<label class="form-check-label" for="other">其他</label>
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="form-check form-check-inline">服務寵物:&nbsp&nbsp
-  		<input class="form-check-input" type="radio" id="dog" value="狗" name="pet">
+  		<input class="form-check-input" type="radio" id="dog" value="狗" name="pet" required="required">
   		<label class="form-check-label" for="dog">狗&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label></div>
 		<div class="form-check form-check-inline">
-  		<input class="form-check-input" type="radio" id="cat" value="貓" name="pet">
+  		<input class="form-check-input" type="radio" id="cat" value="貓" name="pet" required="required">
   		<label class="form-check-label" for="cat">貓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label></div>
 		<div class="form-check form-check-inline">
-  		<input class="form-check-input" type="radio" id="dogcat" value="其他" name="pet">
+  		<input class="form-check-input" type="radio" id="dogcat" value="其他" name="pet" required="required">
   		<label class="form-check-label" for="dogcat">都有</label>
 		</div></div><br>
 		

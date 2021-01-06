@@ -135,6 +135,7 @@
 		<div class="row justify-content-center">
 		<button type="submit" class="btn btn-primary btn-lg ml-3" id="gogo" disabled>確認註冊</button>
 		<button type="button" class="btn btn-secondary btn-lg ml-3" onclick="window.location.href='Login.jsp'">返回登錄</button>
+		<button type="button" class="btn btn-warning btn-lg ml-3" onclick="autogogo()">一鍵輸入</button>
 		</div>
 		
 		</form>
@@ -165,6 +166,24 @@
 <!--     弄地址的 -->
     
 	<script>
+	var event = new Event('change');
+	function autogogo(){
+		$("#name").val("王王王")
+		$("#password").val("zx1234")
+		$("#phone").val("0988888888")
+		$("#email").val("asd456@gmail.com")
+		$("#birth").val("1986-05-05")
+		$("#sname1").val("王先生")
+		$("#address").val("資策會5000號")
+		$("input[name=gender][value=女]").attr('checked',true);
+		document.getElementById("name").dispatchEvent(event);
+		document.getElementById("password").dispatchEvent(event);
+		document.getElementById("phone").dispatchEvent(event);
+		document.getElementById("email").dispatchEvent(event);
+		document.getElementById("birth").dispatchEvent(event);
+		document.getElementById("sname1").dispatchEvent(event);
+		document.getElementById("address").dispatchEvent(event);
+	}
 	
 	$('#twzipcode').twzipcode({
     	'countySel'   : '桃園市',

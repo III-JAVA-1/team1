@@ -17,12 +17,7 @@
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 	
-	<style>
-
-	
-	
-	</style>
-	
+<title>活動行事曆</title>
 </head>
 <jsp:include page="Header.jsp"/>
 <body>

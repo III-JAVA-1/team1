@@ -173,7 +173,7 @@ input[type=button] {
 </style>
 
 <head>
-<title>AccompanyME</title>
+<title>AccompanyMe</title>
 
 </head>
 <body>

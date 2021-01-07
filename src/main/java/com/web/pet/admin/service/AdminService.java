@@ -21,9 +21,14 @@ public class AdminService {
 	@Autowired
 	private AdminDao adaminDao;
 	
-	public List<Member> membernamesearch(String user_name) {//admin member依名字查詢
+	public List<Member> membernamesearch() {//admin member依名字查詢
 
-		return adaminDao.membernamesearchDao(user_name);
+		return adaminDao.membernamesearchDao();
+	}
+	
+	public Integer updateauthorityService(Integer user_id) {//admin member更改權限
+
+		return adaminDao.updateauthorityDao(user_id);
 	}
 	
 	//////////////////////////////會員管理////////////////////////////////////
@@ -42,8 +47,8 @@ public class AdminService {
 		return adaminDao.activehottimeDao(month);
 	}
 	
-	public  List<Object[]> activejointop3Service(Integer month) {//活動顯示參加人數top3
-		return adaminDao.activejointop3Dao(month);
+	public  List<Object[]> activejointop3Service() {//活動顯示參加人數top3
+		return adaminDao.activejointop3Dao();
 	}
 	
 	public  List<Object[]> activetypeService() {//活動顯示類型比例

@@ -22,6 +22,11 @@
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
   
+  <!-- 等待加載 -->
+  <div id="loading">
+    <img src="image/loading.gif" alt="loading.." />
+  </div> 
+  
 <!--Navbar-->
 <div class="row">
     <div class="col-9 col-sm-9 col-xl-9" id="wrapper">
@@ -60,9 +65,10 @@
     <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
     
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">2013</a></li>
-            <li class="last-post-col active">十一月</li>
+            <li>
+            <img src="image/broadcast.png"/>
+            <marquee direction="right" width="800px" scrollamount="2" behavior="alternate">多了解毛孩一點、給牠最好的，陪我們一起慢慢變老…</marquee>
+            </li>  
         </ol>
    
 </div>
@@ -361,7 +367,7 @@
 					$("#randomArticle").append("<div class='imag'>"+
 					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+
 					"<img src="+content+" width=80px height=80px/></a><br/>"+
-					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,15)+"</a>"+
+					"<a href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header.substring(0,14)+"</a>"+
 					"</div>");
               
 					//a.posterUid, a.u_Id, a.header, a.content
@@ -460,7 +466,12 @@ let editCommentDisplay = 0;
 			
 		} 	
   	
-	 
+  //============================================================================
+	jQuery(document).ready(function(){
+	    jQuery(window).load(function(){  //load函数
+	    	 $("#loading").fadeOut(3000);
+	    });
+	});
 	        
 	   
 	</script>

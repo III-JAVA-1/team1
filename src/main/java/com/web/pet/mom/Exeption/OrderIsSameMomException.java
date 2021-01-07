@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class OrderIsSameMomException extends RuntimeException{
     OrderIsSameMomException(){
-        super("自己無法預約自己");
+        super("自己無法預約自己哦");
     }
 }
 

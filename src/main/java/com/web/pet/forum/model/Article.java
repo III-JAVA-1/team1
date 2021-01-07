@@ -53,7 +53,7 @@ public class Article {
 	private Integer viewing = 0;
 	@Column(name = "reply", nullable = false)
 	private Integer reply = 0;	
-	private Blob pic;
+	//private Blob pic;
 	@Column(name = "isHide",nullable = false)
 	private Integer isHide = 0;//	預設無違規不隱藏
 	
@@ -87,9 +87,7 @@ public class Article {
 		builder.append(", viewing=");
 		builder.append(viewing);
 		builder.append(", reply=");
-		builder.append(reply);
-		builder.append(", pic=");
-		builder.append(pic);
+		builder.append(reply);		
 		builder.append(", isHide=");
 		builder.append(isHide);
 //		builder.append(", member=");

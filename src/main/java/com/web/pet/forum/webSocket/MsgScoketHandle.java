@@ -169,9 +169,8 @@ public class MsgScoketHandle  extends TextWebSocketHandler{
 	    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 	    	 String clientMessage = message.getPayload(); 	    	
 	    	 
-	    	 Set keySet = MsgScoketHandle.knowldgeMapper.keySet();    	
+	    	 Set keySet = MsgScoketHandle.knowldgeMapper.keySet();
 	    	
-	    	 System.out.println("dhfjhjkdhfkdhfjkhdj"+clientMessage);
 	         if (clientMessage.equalsIgnoreCase("OK") || clientMessage.equalsIgnoreCase("N") ) {	        	 
 	        	 Random random = new Random();
 	        	 List<String> keys = new ArrayList<String>(keySet);

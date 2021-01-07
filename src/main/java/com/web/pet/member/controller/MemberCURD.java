@@ -3,6 +3,7 @@ package com.web.pet.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -41,13 +43,6 @@ import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 
 
-/**
- * 
- * @author Gusty
- * 所有一切有關登入登出和Header顯示都放在這邊
- * 我覺得冗碼過多
- */
-
 @RequestMapping("/Gusty")
 @Controller
 public class MemberCURD {
@@ -69,7 +64,7 @@ public class MemberCURD {
 	@RequestMapping("/login")//登入判斷
     public void loginController(String useremail,String password,String 
     		verCode,HttpServletRequest request,
-    		HttpServletResponse response) throws IOException{
+    		HttpServletResponse response) throws IOException, NoSuchAlgorithmException{
         PrintWriter out = response.getWriter();
         List<Member> list = new ArrayList<Member>();
         response.setContentType(CONTENT_TYPE);
@@ -93,10 +88,30 @@ public class MemberCURD {
     		out.print("</html></body>");
         }
         else {
+        	password =  DigestUtils.sha512Hex(password);
+        	System.out.println(password);
         	list = memberService.loginService(useremail,password);
         	if(list!=null) {
         		request.getSession().setAttribute("user",list.get(0));
-        		//request.getSession().setAttribute("sname",list.get(0));
+        		Member mebmer = memberService.fullmemberService(Integer.valueOf(request.getSession().getAttribute("user").toString()));
+        		if(mebmer.getAuthority()==1) {
+        			request.getSession().removeAttribute("user");
+        			out.print("<html><body>");
+            		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+            		out.print("<script>");
+            		out.print("Swal.fire({\r\n"
+            				+ "title: '登入失敗，您已被停權',\r\n"
+            				+ "icon: 'error',\r\n"
+            				+ "confirmButtonText: '確定'\r\n"
+            				+ "}).then((result) => {\r\n"
+            				+ "if (result.isConfirmed) {\r\n"
+            				+ "window.location.href='../Member/Login.jsp';\r\n"
+            				+ "}\r\n"
+            				+ "})");
+            		out.print("</script>");
+            		out.print("</html></body>");
+            		return;
+        		}
         		out.print("<html><body>");
         		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
         		out.print("<script>");
@@ -133,9 +148,11 @@ public class MemberCURD {
     }  
 	
 	@RequestMapping(value = "/InsertMember",method = RequestMethod.POST)//會員註冊
-	public void insertMemberController(Member member,HttpServletResponse response) throws IOException {
+	public void insertMemberController(Member member,HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
+		member.setPassword(DigestUtils.sha512Hex(member.getPassword()));
+		member.setAuthority(0);
 		memberService.insertMemberService(member);
 		out.print("<html><body>");
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
@@ -277,8 +294,8 @@ public class MemberCURD {
 		Integer id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		Member originmember = memberService.fullmemberService(id);
 		member.setPassword(originmember.getPassword());
-		//member.setBirth(originmember.getBirth());
 		member.setImg(originmember.getImg());
+		member.setAuthority(originmember.getAuthority());
 		if(memberService.updatememberService(member)>0) {
 			out.print("<html><body>");
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
@@ -321,7 +338,7 @@ public class MemberCURD {
 		PrintWriter out = response.getWriter();
 		Integer id = Integer.valueOf(request.getSession().getAttribute("user").toString());
 		Member member = memberService.fullmemberService(id);
-		member.setPassword(password);
+		member.setPassword(DigestUtils.sha512Hex(password));
 		if(memberService.uploadimgService(member)>0) {
 			request.getSession().removeAttribute("user");
 			out.print("<html><body>");
@@ -459,7 +476,7 @@ public class MemberCURD {
     		out.print("</html></body>");
 		}else {
 			member=memberService.fullmemberService(faker);
-			member.setPassword(s.substring(0,s.indexOf("-")));
+			member.setPassword(DigestUtils.sha512Hex(s.substring(0,s.indexOf("-"))));
 			memberService.uploadimgService(member);
 			try {
 				MailUtils.sendMail(forgetemail, "你的新密碼:"+s.substring(0,s.indexOf("-")));

@@ -334,7 +334,7 @@
         }
     }
 
-    function doInput(){
+    function doInput() {
         $("#inputName").val("是椅凳也是窩! 日系實木圓口機能椅子窩 (江戶淺蔥藍) (32*32*34cm) 寵物貓狗床窩");
         $("#inputIntro").val("人的凳子，貓咪的家，親密關係，共享和諧生活。\n" +
             "安全舒適。\n" +
@@ -349,6 +349,7 @@
         $("#selectAnimal").val("2");
         $("#inputPrice").val("550");
         $("#inputStock").val("50");
+        stock = 50;
         //取得radioDisplay的元件,
         //不用判斷因為有預設值
         let radios = document.getElementsByName('radioDisplay');

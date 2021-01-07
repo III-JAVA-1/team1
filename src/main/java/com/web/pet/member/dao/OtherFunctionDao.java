@@ -267,9 +267,9 @@ public class OtherFunctionDao {
 	public List<Object[]> membermomDao(Integer user_id){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select mom_Id,bodyType1,bodyType2,bodyType3,bodyType4,experience,notices,petContent,proPrice1,proPrice2,proPrice3,title \r\n"
-				+ "from mom\r\n"
-				+ "where u_Id=:user_id";
+		String hql="select momId,bodyType1,bodyType2,bodyType3,bodyType4,experience,notices,petContent,proPrice1,proPrice2,proPrice3,title\r\n" + 
+				"from mom\r\n" + 
+				"where uId=:user_id";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("user_id", user_id);
 		list = query.getResultList();
 		if(list.isEmpty()) {

@@ -13,5 +13,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.imgurClientSecret = '1f0cee3a480794af932ad85472ad375ada6ac740';
 	
 	config.width=680;
-    config.height=500;
+    config.height=500;	
 };

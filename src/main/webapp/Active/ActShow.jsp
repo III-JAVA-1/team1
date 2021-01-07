@@ -174,10 +174,13 @@
    		</div>
    		<br>
    		
-   		
-   		<div class="fb-like" data-href="http://localhost:8080/PetProject_Final/Active/ActShow.jsp?get=1" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>  		
- 		<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/PetProject_Final/Active/ActShow.jsp?get=1" data-color="default" data-size="small" data-count="true" style="display: none;">
+   		<div id="share">
+   		<div id="FBS" class="fb-like" data-href="" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>  		
+ 		<div id="LINES" class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="" data-color="default" data-size="small" data-count="true" style="display: none;">
  		</div>
+ 		
+ 		</div>
+ 		
    		</div>
  			
  		
@@ -206,6 +209,11 @@
 
     				
     				$.each(data,function(i,n){
+    					
+    					//第一行是FB的第二行是LINE的
+    					$("#FBS").attr("data-href","http://10.31.25.06:8087/PetProject_Final/Active/ActShow.jsp?get="+n.act_no+"")
+    					$("#LINES").attr("data-url","http://10.31.25.06:8087/PetProject_Final/Active/ActShow.jsp?get="+n.act_no+"")
+    					
     					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
     					$("title").html(n.act_name);

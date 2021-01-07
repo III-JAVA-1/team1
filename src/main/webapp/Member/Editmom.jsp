@@ -258,7 +258,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				$("#experience").val(n[5])
 				$("#notices").val(n[6])
 				$("#petContent").val(n[7])
-				$("#imgperview").attr("src","<c:url value='/mom/getPic?mom_Id="+n[0]+"'/>")
+				$("#imgperview").attr("src","<c:url value='/mom/getPic?momId="+n[0]+"'/>")
 				$("#proPrice1").val(n[8])
 				$("#proPrice2").val(n[9])
 				$("#proPrice3").val(n[10])

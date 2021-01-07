@@ -446,7 +446,7 @@ public class AdminDao {
 	public List<Object[]> allmomDao(){
 		List<Object[]> list = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select mom_Id,title,experience,notices,petContent,proPrice1,proPrice2,proPrice3,bodyType1,bodyType2,bodyType3,bodyType4,u_Id\n"
+		String hql = "select momId,title,experience,notices,petContent,proPrice1,proPrice2,proPrice3,bodyType1,bodyType2,bodyType3,bodyType4,uId\n"
 				+ "from mom";
 		Query<Object[]> query=null;
 		query = session.createSQLQuery(hql);
@@ -469,7 +469,7 @@ public class AdminDao {
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
 		String hql0 = "delete PetMomOrder where mom_Id=:mid";
-		String hql = "delete mom where mom_Id=:mid";
+		String hql = "delete mom where momId=:mid";
 		result = result + session.createSQLQuery(hql0).setParameter("mid", mid).executeUpdate();
 		result = result + session.createSQLQuery(hql).setParameter("mid", mid).executeUpdate();
 		return result;

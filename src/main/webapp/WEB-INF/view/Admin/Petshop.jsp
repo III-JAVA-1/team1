@@ -68,19 +68,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
   		<span class="input-group-text" id="basic-addon1">商店名稱</span>
-  		<input type="text" class="form-control" name='name' placeholder="請輸入商店名稱" required="required" aria-label="Username" aria-describedby="basic-addon1">
+  		<input type="text" class="form-control" name='name' id='name' placeholder="請輸入商店名稱" required="required" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
   		<span class="input-group-text" id="basic-addon1">商店地址</span>
-  		<input type="text" class="form-control" name='address' placeholder="請輸入商店地址" required="required" aria-label="Username" aria-describedby="basic-addon1">
+  		<input type="text" class="form-control" name='address' id='address' placeholder="請輸入商店地址" required="required" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
 		<div class="input-group mb-3 col-6">
   		<span class="input-group-text" id="basic-addon1">聯絡手機</span>
-  		<input type="text" class="form-control" name='phone' placeholder="請輸入商店手機" required="required" maxlength="10" aria-label="Username" aria-describedby="basic-addon1">
+  		<input type="text" class="form-control" name='phone' id='phone' placeholder="請輸入商店手機" required="required" maxlength="10" aria-label="Username" aria-describedby="basic-addon1">
 		</div></div>
 		
 		<div class="row justify-content-center h4">
@@ -112,7 +112,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	</div><br>
 		
 		<div class="row justify-content-center h1">
-		<button type="submit" class="btn btn-primary">送出</button>
+		<button type="submit" class="btn btn-primary m-3">送出</button>
+		<button type="button" class="btn btn-info m-3" onclick='autogogo()'>一鍵</button>
 		</div>
 		
 		</form>
@@ -175,6 +176,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             $('#gotop').stop().fadeOut("fast");
         }
     });
+    
+    function autogogo(){
+    	$("#name").val("魚中魚貓狗水族大賣場")
+    	$("#address").val("新北市板橋區中山路一段248號")
+    	$("#phone").val("02-29546690")
+    	$("input[name=type][value=其他]").attr('checked',true);
+    	$("input[name=pet][value=其他]").attr('checked',true);
+    }
     
     $("#search").change(function(){
     	let pagee

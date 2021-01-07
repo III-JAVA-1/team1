@@ -82,14 +82,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<table class="table table-hover table-bordered h4" id='maintable'>
   			<thead style="background-color:#8080C0">
     		<tr><th scope="col">活動編號</th>
-      			<th scope="col">活動名稱</th>
-      			<th scope="col">活動內容</th>
+      			<th scope="col" style="width:500px;">活動名稱</th>
+      			<th scope="col" style="width:500px;">活動內容</th>
       			<th scope="col">活動新增時間</th>
       			<th scope="col">舉辦單位</th>
       			<th scope="col">舉辦人姓名</th>
       			<th scope="col">舉辦人手機</th>
       			<th scope="col">活動類型</th>
-      			<th scope="col">活動地址</th>
+      			<th scope="col" style="width:500px;">活動地址</th>
       			<th scope="col">活動時間</th>
       			<th scope="col" id='contro'>參加人員</th></tr>
   			</thead>
@@ -284,54 +284,126 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     }
     
     function deleteactive(aid){//不予許活動通過
-    	let message = window.prompt("請輸入不予許通過的原因");
-    	if(message==null||message==""){
-    		alert("請輸入原因")
-    		return false;
-    	}else{
-    		$.ajax({
-        		url:"../Gusty/activedelete",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : { 
-        			"aid":aid,
-        			"message":message,
-                },
-        		success:function(data){
-        			Swal.fire({
-        				title: '活動不通過，已寄信通知發起人',
-        				icon: 'success',
-        				confirmButtonText: '確定'
-        			})
-        		},error:function(){
-        			alert("發生錯誤，請稍後再嘗試操作");
-        		}
-        	});
-    		activecheck();
-    	}
+    	Swal.fire({
+  		  title: '請輸入刪除原因',
+  		  input: 'text',
+  		  inputAttributes: {
+  		    autocapitalize: 'off'
+  		  },
+  		  preConfirm: (login) => {
+  		},
+  		  showCancelButton: true,
+  		  cancelButtonText: '取消',
+  		  confirmButtonText: '確定',
+  		  confirmButtonColor:'#FF0000',
+  		  cancelButtonColor:'#0080FF',
+  		}).then((result) => {
+  		  if (result.isConfirmed) {
+  			  if(result.value==null||result.value==""){
+  				  swalWithBootstrapButtons.fire(
+  					      '刪除原因不可為空',
+  					      '請輸入刪除原因',
+  					      'error'
+  				 )
+  			  }else{
+  				  Swal.fire({
+  					  title: '執行中,請稍後',
+  					  timerProgressBar: true,
+  					  timer:100,
+  					  didOpen: () => {
+  					    Swal.showLoading()
+  					  },
+  					}).then((resultt) => {
+  						$.ajax({
+  							url:"../Gusty/activedelete",
+ 			         		type:"post",
+ 			         		dataType:"json",
+ 			         		async:false,
+ 			         		data : { 
+ 			         			"aid":aid,
+ 			         			"message":result.value,
+ 			                 },
+ 			         		success:function(data){
+ 			         			Swal.fire({
+ 			         				title: '活動不通過，已刪除活動和寄信通知發起人',
+ 			         				icon: 'success',
+ 			         			    showConfirmButton: false,
+ 			         				timer:1500,
+ 			         			}).then((result) => {
+ 			         				activecheck();
+ 			             		})
+ 			         		},error:function(){
+ 			         			alert("發生錯誤，請稍後再嘗試操作");
+ 			         		}
+ 			         });
+  				})
+  			 }
+  		  }
+  		})
     }
     
+    const swalWithBootstrapButtons = Swal.mixin({
+  	  customClass: {
+  	    confirmButton: 'btn btn-success',
+  	    cancelButton: 'btn btn-danger'
+  	  },
+  	  buttonsStyling: false
+  })
+    
     function activeok(aid){//審核活動通過
-    	$.ajax({
-    		url:"../Gusty/activeok",
-    		type:"post",
-    		dataType:"json",
-    		async:false,
-    		data : { 
-    			"aid" :aid,                     
-            },
-    		success:function(data){
-    			Swal.fire({
-    				title: '審核通過，以寄信告知發起人',
-    				icon: 'success',
-    				confirmButtonText: '確定'
-    			})
-    		},error:function(){
-    			alert("發生錯誤，請稍後再嘗試操作");
-    		}
-    	});
-    	activecheck();
+    	
+    	Swal.fire({
+			  title: '執行中,請稍後',
+			  timerProgressBar: true,
+			  timer:100,
+			  didOpen: () => {
+			    Swal.showLoading()
+			  },
+			}).then((resultt) => {
+				$.ajax({
+					url:"../Gusty/activeok",
+	         		type:"post",
+	         		dataType:"json",
+	         		async:false,
+	         		data : { 
+	        			"aid" :aid,                     
+	                },
+	         		success:function(data){
+	         			Swal.fire({
+	         				title: '活動審核通過，已寄信告知發起人',
+	         				icon: 'success',
+	         			    showConfirmButton: false,
+	         				timer:1500,
+	         			}).then((result) => {
+	         				activecheck();
+	             		})
+	         		},error:function(){
+	         			alert("發生錯誤，請稍後再嘗試操作");
+	         		}
+	         	});
+		})
+    	
+    	
+    	
+//     	$.ajax({
+//     		url:"../Gusty/activeok",
+//     		type:"post",
+//     		dataType:"json",
+//     		async:false,
+//     		data : { 
+//     			"aid" :aid,                     
+//             },
+//     		success:function(data){
+//     			Swal.fire({
+//     				title: '審核通過，以寄信告知發起人',
+//     				icon: 'success',
+//     				confirmButtonText: '確定'
+//     			})
+//     		},error:function(){
+//     			alert("發生錯誤，請稍後再嘗試操作");
+//     		}
+//     	});
+//     	activecheck();
     }
     
     $.ajax({//一開啟網頁載入的活動一覽

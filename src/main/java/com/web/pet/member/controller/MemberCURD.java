@@ -76,14 +76,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '驗證碼錯誤，請重新輸入',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Login.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'error',\r\n"
+                    + "  title: '驗證碼錯誤，請重新輸入',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Login.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
         }
@@ -100,14 +99,13 @@ public class MemberCURD {
             		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
             		out.print("<script>");
             		out.print("Swal.fire({\r\n"
-            				+ "title: '登入失敗，您已被停權',\r\n"
-            				+ "icon: 'error',\r\n"
-            				+ "confirmButtonText: '確定'\r\n"
-            				+ "}).then((result) => {\r\n"
-            				+ "if (result.isConfirmed) {\r\n"
-            				+ "window.location.href='../Member/Login.jsp';\r\n"
-            				+ "}\r\n"
-            				+ "})");
+                            + "  icon: 'error',\r\n"
+                            + "  title: '登入失敗，您已被停權',\r\n"
+                            + "  showConfirmButton: false,\r\n"
+                            + "  timer: 1500\r\n"
+                            + "}).then((result) => {\r\n"
+                            + "window.location.href='../Member/Login.jsp';\r\n"
+                            + "})");
             		out.print("</script>");
             		out.print("</html></body>");
             		return;
@@ -116,14 +114,13 @@ public class MemberCURD {
         		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
         		out.print("<script>");
         		out.print("Swal.fire({\r\n"
-        				+ "title: '登入成功',\r\n"
-        				+ "icon: 'success',\r\n"
-        				+ "confirmButtonText: '確定'\r\n"
-        				+ "}).then((result) => {\r\n"
-        				+ "if (result.isConfirmed) {\r\n"
-        				+ "window.location.href='../Member/Member.jsp';\r\n"
-        				+ "}\r\n"
-        				+ "})");
+                        + "  icon: 'success',\r\n"
+                        + "  title: '登入成功',\r\n"
+                        + "  showConfirmButton: false,\r\n"
+                        + "  timer: 1500\r\n"
+                        + "}).then((result) => {\r\n"
+                        + "window.location.href='../Member/Member.jsp';\r\n"
+                        + "})");
         		out.print("</script>");
         		out.print("</html></body>");
         	}
@@ -132,14 +129,13 @@ public class MemberCURD {
         		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
         		out.print("<script>");
         		out.print("Swal.fire({\r\n"
-        				+ "title: '登入失敗，請重新登入',\r\n"
-        				+ "icon: 'error',\r\n"
-        				+ "confirmButtonText: '確定'\r\n"
-        				+ "}).then((result) => {\r\n"
-        				+ "if (result.isConfirmed) {\r\n"
-        				+ "window.location.href='../Member/Login.jsp';\r\n"
-        				+ "}\r\n"
-        				+ "})");
+                        + "  icon: 'error',\r\n"
+                        + "  title: '登入失敗，請重新登入',\r\n"
+                        + "  showConfirmButton: false,\r\n"
+                        + "  timer: 1500\r\n"
+                        + "}).then((result) => {\r\n"
+                        + "window.location.href='../Member/Login.jsp';\r\n"
+                        + "})");
         		out.print("</script>");
         		out.print("</html></body>");
         	}
@@ -158,14 +154,13 @@ public class MemberCURD {
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
 		out.print("Swal.fire({\r\n"
-				+ "title: '註冊成功',\r\n"
-				+ "icon: 'success',\r\n"
-				+ "confirmButtonText: '確定'\r\n"
-				+ "}).then((result) => {\r\n"
-				+ "if (result.isConfirmed) {\r\n"
-				+ "window.location.href='../Member/Login.jsp';\r\n"
-				+ "}\r\n"
-				+ "})");
+                + "  icon: 'success',\r\n"
+                + "  title: '註冊成功',\r\n"
+                + "  showConfirmButton: false,\r\n"
+                + "  timer: 1500\r\n"
+                + "}).then((result) => {\r\n"
+                + "window.location.href='../Member/Login.jsp';\r\n"
+                + "})");
 		out.print("</script>");
 		out.print("</html></body>");
 		out.close();
@@ -211,14 +206,13 @@ public class MemberCURD {
 	        		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 	        		out.print("<script>");
 	        		out.print("Swal.fire({\r\n"
-	        				+ "title: '上傳成功',\r\n"
-	        				+ "icon: 'success',\r\n"
-	        				+ "confirmButtonText: '確定'\r\n"
-	        				+ "}).then((result) => {\r\n"
-	        				+ "if (result.isConfirmed) {\r\n"
-	        				+ "window.location.href='../Member/Member.jsp';\r\n"
-	        				+ "}\r\n"
-	        				+ "})");
+	                        + "  icon: 'success',\r\n"
+	                        + "  title: '圖片上傳成功',\r\n"
+	                        + "  showConfirmButton: false,\r\n"
+	                        + "  timer: 1500\r\n"
+	                        + "}).then((result) => {\r\n"
+	                        + "window.location.href='../Member/Member.jsp';\r\n"
+	                        + "})");
 	        		out.print("</script>");
 	        		out.print("</html></body>");
 				}
@@ -233,14 +227,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '請選擇照片',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Member.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'error',\r\n"
+                    + "  title: '請選擇照片',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Member.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}
@@ -272,14 +265,13 @@ public class MemberCURD {
 		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 		out.print("<script>");
 		out.print("Swal.fire({\r\n"
-				+ "title: '登出成功',\r\n"
-				+ "icon: 'success',\r\n"
-				+ "confirmButtonText: '確定'\r\n"
-				+ "}).then((result) => {\r\n"
-				+ "if (result.isConfirmed) {\r\n"
-				+ "window.location.href='../Member/Login.jsp';\r\n"
-				+ "}\r\n"
-				+ "})");
+                + "  icon: 'success',\r\n"
+                + "  title: '登出成功',\r\n"
+                + "  showConfirmButton: false,\r\n"
+                + "  timer: 1500\r\n"
+                + "}).then((result) => {\r\n"
+                + "window.location.href='../Member/Login.jsp';\r\n"
+                + "})");
 		out.print("</script>");
 		out.print("</html></body>");
 		out.close();
@@ -301,14 +293,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '個人資料更新成功',\r\n"
-    				+ "icon: 'success',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Member.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'success',\r\n"
+                    + "  title: '個人資料更新成功',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Member.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}
@@ -317,14 +308,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '個人資料更新成功',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Member.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'error',\r\n"
+                    + "  title: '個人資料更新失敗',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Member.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}
@@ -345,14 +335,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '密碼更新成功，請重新登入',\r\n"
-    				+ "icon: 'success',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Login.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'success',\r\n"
+                    + "  title: '密碼更新成功，請重新登入',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Login.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}
@@ -361,14 +350,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '密碼更新失敗',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Member.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'error',\r\n"
+                    + "  title: '密碼更新失敗',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Member.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}
@@ -464,14 +452,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '錯誤電子郵件',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Login.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'error',\r\n"
+                    + "  title: '錯誤電子郵件',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Login.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}else {
@@ -489,14 +476,13 @@ public class MemberCURD {
     		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
     		out.print("<script>");
     		out.print("Swal.fire({\r\n"
-    				+ "title: '新密碼已送出到信箱，請使用新密碼登入',\r\n"
-    				+ "icon: 'success',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Login.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
+                    + "  icon: 'success',\r\n"
+                    + "  title: '您的新密碼已送到信箱，請使用新密碼登入',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Login.jsp';\r\n"
+                    + "})");
     		out.print("</script>");
     		out.print("</html></body>");
 		}

@@ -338,7 +338,6 @@ input[type=button] {
     	}
 
     })
-    <%session.removeAttribute("uid");%>
    	var uid =0 
    	<%session.setAttribute("uid",0);%>
     var path = '<%=basePath%>';

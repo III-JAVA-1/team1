@@ -24,7 +24,7 @@ public class AdminDao {
 		List<Member> list = new ArrayList<Member>();
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
-		String hql = "select u_id,name,phone,email,sname,zip,country,district,address,momId,gender,birth,authority FROM Member where name like '%%'";
+		String hql = "select u_Id,name,phone,email,sname,zip,country,district,address,gender,birth,authority FROM Member where name like '%%'";
 		query= session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {
@@ -468,7 +468,7 @@ public class AdminDao {
 	public Integer deletemomDao(Integer mid){//刪除保母
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
-		String hql0 = "delete PetMomOrder where mom_Id=:mid";
+		String hql0 = "delete PetMomOrder where momId=:mid";
 		String hql = "delete mom where momId=:mid";
 		result = result + session.createSQLQuery(hql0).setParameter("mid", mid).executeUpdate();
 		result = result + session.createSQLQuery(hql).setParameter("mid", mid).executeUpdate();

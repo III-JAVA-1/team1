@@ -149,13 +149,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			success:function(data){
 			$.each(data,function(i,n){
 				count=data.length;
-					if(n[10]=="男"){
+					if(n[9]=="男"){
 						boy=boy+1;
 					}
-					if(n[10]=="女"){
+					if(n[9]=="女"){
 						girl=girl+1;
 					}
-					var oldbirth = new Date(n[11]);
+					var oldbirth = new Date(n[10]);
 					if((nowdate.getYear() - oldbirth.getYear())<=30){
 						age1++;
 					}
@@ -174,7 +174,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td>"
 							+"<td style='background-color:#FFFFF4;'><input type='checkbox' onchange='stop("+n[0]+")' id='"+n[0]+"' checked data-toggle='toggle'></td></tr>"
 					);
-					if(n[12]==1){
+					if(n[11]==1){
 						$("#"+n[0]+"").attr("checked",true)
 					}else{
 						$("#"+n[0]+"").attr("checked",false)

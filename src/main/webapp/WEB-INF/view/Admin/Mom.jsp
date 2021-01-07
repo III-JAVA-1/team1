@@ -147,7 +147,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 			}
 				$("#momtable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-						+"<td><img src='<c:url value='/mom/getPic?mom_Id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+						+"<td><img src='<c:url value='/mom/getPic?momId="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
 						+"<td>"+n[1]+"</td>"
 						+"<td>"+n[2]+"</td>"
 						+"<td>"+n[3]+"</td>"

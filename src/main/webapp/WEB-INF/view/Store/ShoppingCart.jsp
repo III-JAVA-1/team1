@@ -128,7 +128,7 @@
                             // 點選+
                             console.log("點選了" + tr.id + "項目的+")
                             countBlock.value = parseInt(countBlock.value) + 1;
-                            data.quantity = data.quantity + 1;
+                            data.quantity = parseInt(data.quantity) + 1;
                             updateQuantity(data, priceBlock);
                         }
                         if (event.target.id === ("min" + tr.id)) {
@@ -137,7 +137,7 @@
                             // 購買項目不能小於1
                             if (countBlock.value > 1) {
                                 countBlock.value = parseInt(countBlock.value) - 1;
-                                data.quantity = data.quantity - 1;
+                                data.quantity = parseInt(data.quantity) - 1;
                                 updateQuantity(data, priceBlock);
                             }
                         }

@@ -24,10 +24,10 @@ public class OrderDAO {
                 data.getRemarks(),
                 data.getEcpNo(),
                 data.getPayType());
-
     }
 
-
-
-
+    public static void updateStatus(DbUtils dbu, int orderId, int status) throws SQLException {
+        String sql = "UPDATE [order] SET order_status = ? WHERE order_id = ?";
+        dbu.executeList(sql, status, orderId);
+    }
 }

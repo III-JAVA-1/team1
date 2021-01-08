@@ -35,7 +35,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="儲存" id="modify" onsubmit=return check(this)/>
+					    	<input class="btn btn-secondary" type="submit" value="儲存" id="modify" onsubmit=return modify(this)/>
 					    </div>
 				   	</div>
 			    </div>
@@ -153,42 +153,42 @@
     //禁止回上一頁
     window.history.forward(1);  
     
-    $("#modify").click(function check(form){//按預覽文章   	
+
+    
+    $("#modify").click(function modify(form){//按預覽文章     
     	
-    	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
-    	   		
-    	    	
-       		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
-       			 
-       			if(checkHeader() && checkContent()){
-       				
-       				var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
-       			 	if (modify === false) {
-       					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
-       		   			
-       		   			 return false;
-       				} 
-       	 			else {       			
-       				   	return true;//form action請求送出       			
-       	 			}
-       			 	
-       			 	
-       			}
-       			else{//內容或標題為空
-       				return false;
-       			}
-       			
-       		 }
-       		 else{ 
-       			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-       			 return false;
-       			 }
-       
-       		}else{
-       	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
-       	    	return false;
-       	    	}
-    });
+   	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){  		
+   	    	
+   		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
+   					
+   				var modifyArticle = window.confirm("確定編輯嗎？文章紀錄將儲存！");    			
+   			 	if (modifyArticle === false) {
+   					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
+   		   			 return false;
+   				} 
+   	 			else {       			
+   				   	return true;//form action請求送出       			
+   	 			}
+   			
+   		 }
+   		 else{  			 
+   			   Swal.fire({
+		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  icon: 'error',
+		  	      		  confirmButtonText: '確定'
+		  	      		})
+   			 return false;
+   			 }
+   
+   		}else{   	    	
+   	    	Swal.fire({
+		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  icon: 'error',
+		  	      		  confirmButtonText: '確定'
+		  	      		})
+   	    	return false;
+   	    	}
+   });
    
     	    
         let now = new Date();//取得當前時間，此時間格式無法順利轉成timeStamp型態
@@ -228,36 +228,37 @@
       });
     
     
-      function checkHeader(){
-      	
-      	//取得header元素
-          let headerObj = document.getElementById("header");
-           //取得header元素值
-          let headerVal = headerObj.value;   
+    function checkHeader(){
+    	
+    	//取得header元素
+        let headerObj = document.getElementById("header");
+         //取得header元素值
+        let headerVal = headerObj.value;   
 
-          let sp = document.getElementById("headerSp");
-          if(headerVal === ""){
-              sp.innerHTML="標題不可空白";
-              return false;
-          }else{
-          	sp.innerHTML="";
-          	return true;
-          }
-          
-          
-      }
-      
-      function checkContent(){  	 
+        let sp = document.getElementById("headerSp");
+        if(headerVal === ""){
+            sp.innerHTML="標題不可空白";
+            return false;
+        }else{
+        	sp.innerHTML="";
+        	return true;
+        }
+        
+        
+    }
+    
+    function checkContent(){  	 
 
-          let sp = document.getElementById("contentSp");
-          if(editor.getData() === ""){
-              sp.innerHTML="內文不可空白";
-              return false;
-          }else{
-          	sp.innerHTML="";
-          	return true;
-          }
-      }
+        let sp = document.getElementById("contentSp");
+        if(editor.getData() === ""){
+            sp.innerHTML="內文不可空白";
+            return false;
+        }else{
+        	sp.innerHTML="";
+        	return true;
+        }
+    }
+    
    
       $(".inline").colorbox({inline:true, width:"50%"});
       

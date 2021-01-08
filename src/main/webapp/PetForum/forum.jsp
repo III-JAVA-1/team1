@@ -16,13 +16,8 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-  
-  </head>
-  <!-- 等待加載 -->
-  <div id="loading">
-    <img src="image/loading.gif" alt="loading.." />
-  </div> 
+      
+  </head>  
   
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
@@ -254,7 +249,8 @@
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
-    
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	    
  	<script>
  	
     let page = 1;
@@ -442,9 +438,10 @@
 	
 			function randomArticle(){
 		$.ajax({
-			url:"../petforum/randomArticle",
+			url:"../petforum/randomArticle2",
 			type:"post",
 			dataType:"json",
+			async:false,    //同步
 			success:function(data){
 				$("#randomArticle").html("");
 				$.each(data,function(i,n){
@@ -594,12 +591,20 @@
 				    "<h4>共"+arr.totalCounts+"筆</h4>";
 				    
 				    pageUI.innerHTML = pageHtml;					
-					})
-					  alert("相關標題共"+arr.totalCounts+"筆");
+					});					  
+					 Swal.fire({
+		  	      		  title: "相關標題共"+arr.totalCounts+"筆",
+		  	      		  icon: 'success',
+		  	      		  confirmButtonText: '確定'
+		  	      		});
 				},
 				error:function(){
-					$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");
-					alert("查無相關標題");
+					$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");					
+					Swal.fire({
+		  	      		  title: "查無相關標題",
+		  	      		  icon: 'oops',
+		  	      		  confirmButtonText: '確定'
+		  	      		});
 				}
 			})
 			return false;
@@ -670,8 +675,12 @@
 			
 		//沒登入不能發表	
 		function loginStatus(){
-    		<% if(session.getAttribute("user") == null){%>
-    		window.alert("請登入！");
+    		<% if(session.getAttribute("user") == null){%>    		
+    		 Swal.fire({
+		  	      		  title: '請登入！',
+		  	      		  icon: 'error',
+		  	      		  confirmButtonText: '確定'
+		  	      		})    		
     		return false;
     		<%}else{%>return true;<%}%>
     	}
@@ -705,14 +714,7 @@
 					var serverMsg = document.getElementById('serverMsg');
 					serverMsg.value = event.data;					
 				}
-				
-		//============================================================================
-			jQuery(document).ready(function(){
-			    jQuery(window).load(function(){  //load函数
-			    	 $("#loading").fadeOut(3000);
-			    });
-			});
-			
+						
  	</script>
   </body>
 </html>

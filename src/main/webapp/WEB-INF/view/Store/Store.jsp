@@ -123,6 +123,9 @@
      src="../Store/images/upward.svg" alt="">
 <img width="50" height="50" class="add-btn" id="add" onclick="goAdd()"
      src="../Store/images/plus.svg" alt="">
+<img width="50" height="50" class="order-btn" id="order" onclick="goMySales()"
+     src="../Store/images/order.svg" alt="">
+
 
 <%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
 <%--        style="background-image: url('Store/images/home.svg')"></button>--%>
@@ -160,10 +163,12 @@
     function setAddDisplay() {
         if (memberId !== "1") {
             let goTopBtn = document.getElementById("goTop");
+            let orderBtn = document.getElementById("order");
             let addBtn = document.getElementById("add");
+            orderBtn.remove();
             addBtn.remove();
             goTopBtn.classList.remove("goTop-btn");
-            goTopBtn.classList.add("add-btn");
+            goTopBtn.classList.add("order-btn");
         }
     }
 
@@ -604,7 +609,9 @@
         location.href = "AddProduct";
     }
 
-
+    function goMySales(id) {
+        window.location.href = "../mySales?memberId=" + memberId;
+    }
 </script>
 </body>
 </html>

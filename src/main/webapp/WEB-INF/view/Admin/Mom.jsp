@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -9,92 +9,90 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!--bootstrap初始規模-->
 <link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-	
-	<%
-	String basePath = request.getScheme()+"://"+
-		request.getServerName()+":"+request.getServerPort()+
-		request.getContextPath()+"/";
-		//這會顯示localhost+port號
-	%>
-	
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<%
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+		+ request.getContextPath() + "/";
+//這會顯示localhost+port號
+%>
+
 <title>AccompanyMe</title>
 <style>
 #gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
+	width: 65px;
+	height: 65px;
+	position: fixed;
+	border-radius: 50px;
+	right: 20px;
+	bottom: 30px;
+	padding: 10px 16px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url("../Admin/image/up.png");
+	color: white;
+	cursor: pointer;
+	z-index: 1000;
+}
 </style>
 </head>
 <body>
-	
+
 	<nav class="navbar navbar-light bg-light display-4">
-  		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">會員後台</p>
-    		<div class="d-flex">
-      		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
-    		</div>
-  		</div>
+		<div class="container-fluid" style="background-color: #81C0C0;">
+			<p class="nav-link mt-2">會員後台</p>
+			<div class="d-flex">
+				<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
+			</div>
+		</div>
 	</nav>
 
 	<br>
-	
+
 	<div class="container">
-		
+
 		<div class="col">
-		
-		<div class="row justify-content-center">
-			<div class='display-4'>全部保母資料</div>
+
+			<div class="row justify-content-center">
+				<div class='display-4'>全部保母資料</div>
+			</div>
+			<div class="row justify-content-center">
+				<h4 id="count"></h4>
+			</div>
+
+			<table class="table table-hover table-bordered" id='maintable'>
+				<thead class="h4" style="background-color: #0066CC;">
+					<tr>
+						<th scope="col">編號</th>
+						<th scope="col" style="width: 100px; height: 50px;">環境照片</th>
+						<th scope="col">名稱</th>
+						<th scope="col">年資</th>
+						<th scope="col">注意事項</th>
+						<th scope="col">服務內容</th>
+						<th scope="row" style="width: 150px;">服務項目</th>
+						<th scope="col" style="width: 200px;">服務寵物</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+				<tbody id="momtable">
+
+				</tbody>
+			</table>
+
+			<div class="row justify-content-center">
+				<h1 id="tip"></h1>
+			</div>
+
 		</div>
-		<div class="row justify-content-center">
-			<h4 id="count"></h4>
-		</div>
-		
-		<table class="table table-hover table-bordered" id='maintable'>
-  		<thead class="h4" style="background-color:#0066CC;">
-    		<tr>
-      			<th scope="col">編號</th>
-      			<th scope="col" style="width:100px;height:50px;">環境照片</th>
-      			<th scope="col">名稱</th>
-      			<th scope="col">年資</th>
-      			<th scope="col">注意事項</th>
-      			<th scope="col">服務內容</th>
-      			<th scope="row"style="width:150px;">服務項目</th>
-      			<th scope="col"style="width:200px;">服務寵物</th>
-      			<th scope="col">操作</th>
-    		</tr>
-  		</thead>
-  		<tbody id="momtable">
-   
-  		</tbody>
-	</table>
-		
-		<div class="row justify-content-center">
-			<h1 id="tip"></h1>
-		</div>
-		
-		</div>
-		
+
 	</div>
-	
-	<div id="gotop">
-	</div>
-	
+
+	<div id="gotop"></div>
+
 	<br>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -107,10 +105,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	
+
 	<script>
 	
 	$("#gotop").click(function(){//回最上層JQUERY
@@ -147,7 +147,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				}
 			}
 				$("#momtable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-						+"<td><img src='<c:url value='/mom/getPic?momId="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;'></td>"
+						+"<td><img src='<c:url value='/mom/getPic?momId="+n[0]+"'/>'alt='沒有上傳圖片' style='width:100%; height:120px;'></td>"
 						+"<td>"+n[1]+"</td>"
 						+"<td>"+n[2]+"</td>"
 						+"<td>"+n[3]+"</td>"
@@ -184,37 +184,73 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	})
     
     function deletemom(mid){
-    	//alert(mid)
-    	let message = window.prompt("請輸入刪除保母的原因");
-    	if(message==null||message==""){
-    		alert("請輸入原因")
-    		return false;
-    	}else{
-    		$.ajax({
-        		url:"../Gusty/deletemom",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : { 
-        			"mid":mid,
-        			"message":message,
-                },
-        		success:function(data){
-        			Swal.fire({
-        				title: '保母已刪除，已寄信告知留言者',
-        				icon: 'success',
-        				confirmButtonText: '確定'
-        			}).then((result) => {
-        				if (result.isConfirmed) {
-        				window.location.href='<c:url value='/Gusty/goadminabality?abality=Mom'/>';
-        				}
-        			})
-        		},error:function(){
-        			alert("發生錯誤，請稍後再嘗試操作");
-        		}
-        	});
-    	}
+    	
+    	Swal.fire({
+    		  title: '請輸入刪除原因',
+    		  input: 'text',
+    		  inputAttributes: {
+    		    autocapitalize: 'off'
+    		  },
+    		  preConfirm: (login) => {
+    		},
+    		  showCancelButton: true,
+    		  cancelButtonText: '取消',
+    		  confirmButtonText: '確定',
+    		  confirmButtonColor:'#FF0000',
+    		  cancelButtonColor:'#0080FF',
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    			  if(result.value==null||result.value==""){
+    				  swalWithBootstrapButtons.fire(
+    					      '刪除原因不可為空',
+    					      '請輸入刪除原因',
+    					      'error'
+    				 )
+    			  }else{
+    				  Swal.fire({
+    					  title: '執行中,請稍後',
+    					  timerProgressBar: true,
+    					  timer:100,
+    					  didOpen: () => {
+    					    Swal.showLoading()
+    					  },
+    					  allowOutsideClick:false,
+    					}).then((resultt) => {
+    						$.ajax({
+	    						url:"../Gusty/deletemom",
+	   			         		type:"post",
+	   			         		dataType:"json",
+	   			         		async:false,
+	   			         		data : { 
+	   		        			"mid":mid,
+	   		        			"message":result.value,
+	   		                	},
+	   			         		success:function(data){
+	   			         			Swal.fire({
+	   			         				title: '保母已刪除，已寄信告知',
+	   			         				icon: 'success',
+	   			         			    showConfirmButton: false,
+	   			         				timer:1500,
+	   			         			}).then((result) => {
+	   			         				window.location.href='<c:url value='/Gusty/goadminabality?abality=Mom'/>';
+	   			             		})
+	   			         		},error:function(){
+	   			         			alert("發生錯誤，請稍後再嘗試操作");
+	   			         		}
+   			         		});
+    				})
+    			 }
+    		  }
+    		})
     }
+    
+    const swalWithBootstrapButtons = Swal.mixin({
+  	  	customClass: {
+  	    confirmButton: 'btn btn-success',
+  	    cancelButton: 'btn btn-danger'
+  	  	},
+  	  		buttonsStyling: false
+  		})
     
 	</script>
 

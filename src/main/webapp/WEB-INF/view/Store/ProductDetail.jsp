@@ -389,7 +389,7 @@ ${modProduct}
 
     function setBuyCount(input) {
         console.log(input.value);
-        if (buyCount >= 99 || buyCount >= surplus) {
+        if (input.value >= 99 || input.value >= surplus) {
             input.value = buyCount;
             return;
         }

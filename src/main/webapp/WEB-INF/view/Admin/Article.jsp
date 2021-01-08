@@ -213,67 +213,131 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     }
     
     function articledelete(aid){
-    	let message = window.prompt("請輸入刪除文章的原因，**請注意刪除文章會連文章留言一併刪除**");
-    	if(message==null||message==""){
-    		alert("請輸入原因")
-    		return false;
-    	}else{
-    		$.ajax({
-        		url:"../Gusty/articledelete",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : { 
-        			"aid":aid,
-        			"message":message,
-                },
-        		success:function(data){
-        			Swal.fire({
-        				title: '留言已刪除，已寄信告知留言者',
-        				icon: 'success',
-        				confirmButtonText: '確定'
-        			}).then((result) => {
-        				if (result.isConfirmed) {
-            				window.location.href='<c:url value='/Gusty/goadminabality?abality=Article'/>';
-            			}
-            		})
-        		},error:function(){
-        			alert("發生錯誤，請稍後再嘗試操作");
-        		}
-        	});
-    	}
+    	Swal.fire({
+    		  title: '請輸入刪除原因',
+    		  text:'請注意刪除文章會連留言一併刪除',
+    		  input: 'text',
+    		  inputAttributes: {
+    		    autocapitalize: 'off'
+    		  },
+    		  preConfirm: (login) => {
+    		},
+    		  showCancelButton: true,
+    		  cancelButtonText: '取消',
+    		  confirmButtonText: '確定',
+    		  confirmButtonColor:'#FF0000',
+    		  cancelButtonColor:'#0080FF',
+    		}).then((result) => {
+    		  if (result.isConfirmed) {
+    			  if(result.value==null||result.value==""){
+    				  swalWithBootstrapButtons.fire(
+    					      '刪除原因不可為空',
+    					      '請輸入刪除原因',
+    					      'error'
+    				 )
+    			  }else{
+    				  Swal.fire({
+    					  title: '執行中,請稍後',
+    					  timerProgressBar: true,
+    					  timer:100,
+    					  didOpen: () => {
+    					    Swal.showLoading()
+    					  },
+    					}).then((resultt) => {
+    						$.ajax({
+   			         		url:"../Gusty/articledelete",
+   			         		type:"post",
+   			         		dataType:"json",
+   			         		async:false,
+   			         		data : { 
+   			         			"aid":aid,
+   			         			"message":result.value,
+   			                 },
+   			         		success:function(data){
+   			         			Swal.fire({
+   			         				title: '文章已刪除，已寄信告知發文者',
+   			         				icon: 'success',
+   			         			    showConfirmButton: false,
+   			         				timer:1500,
+   			         			}).then((result) => {
+   			             			window.location.href='<c:url value='/Gusty/goadminabality?abality=Article'/>';
+   			             		})
+   			         		},error:function(){
+   			         			alert("發生錯誤，請稍後再嘗試操作");
+   			         		}
+   			         	});
+    				})
+    			 }
+    		  }
+    		})
     }
     
+    const swalWithBootstrapButtons = Swal.mixin({
+    	  customClass: {
+    	    confirmButton: 'btn btn-success',
+    	    cancelButton: 'btn btn-danger'
+    	  },
+    	  buttonsStyling: false
+    })
+    
     function commentdelete(cid){//文章留言刪除
-    	let message = window.prompt("請輸入刪除留言的原因");
-    	if(message==null||message==""){
-    		alert("請輸入原因")
-    		return false;
-    	}else{
-    		$.ajax({
-        		url:"../Gusty/articlecommentdelete",
-        		type:"post",
-        		dataType:"json",
-        		async:false,
-        		data : { 
-        			"cid":cid,
-        			"message":message,
-                },
-        		success:function(data){
-        			Swal.fire({
-        				title: '留言已刪除，已寄信告知留言者',
-        				icon: 'success',
-        				confirmButtonText: '確定'
-        			}).then((result) => {
-        				if (result.isConfirmed) {
-        				window.location.href='<c:url value='/Gusty/goadminabality?abality=Article'/>';
-        				}
-        			})
-        		},error:function(){
-        			alert("發生錯誤，請稍後再嘗試操作");
-        		}
-        	});
-    	}
+    	Swal.fire({
+  		  title: '請輸入刪除原因',
+  		  input: 'text',
+  		  inputAttributes: {
+  		    autocapitalize: 'off'
+  		  },
+  		  preConfirm: (login) => {
+  		},
+  		  showCancelButton: true,
+  		  cancelButtonText: '取消',
+  		  confirmButtonText: '確定',
+  		  confirmButtonColor:'#FF0000',
+  		  cancelButtonColor:'#0080FF',
+  		}).then((result) => {
+  		  if (result.isConfirmed) {
+  			  if(result.value==null||result.value==""){
+  				  swalWithBootstrapButtons.fire(
+  					      '刪除原因不可為空',
+  					      '請輸入刪除原因',
+  					      'error'
+  				 )
+  			  }else{
+  				  Swal.fire({
+  					  title: '執行中,請稍後',
+  					  timerProgressBar: true,
+  					  timer:100,
+  					  didOpen: () => {
+  					    Swal.showLoading()
+  					  },
+  					}).then((resultt) => {
+  						$.ajax({
+  							url:"../Gusty/articlecommentdelete",
+ 			         		type:"post",
+ 			         		dataType:"json",
+ 			         		async:false,
+ 			         		data : { 
+ 			         			"cid":cid,
+ 			         			"message":result.value,
+ 			                 },
+ 			         		success:function(data){
+ 			         			Swal.fire({
+ 			         				title: '留言已刪除，已寄信告知留言者',
+ 			         				icon: 'success',
+ 			         			    showConfirmButton: false,
+ 			         				timer:1500,
+ 			         			}).then((result) => {
+ 			             			window.location.href='<c:url value='/Gusty/goadminabality?abality=Article'/>';
+ 			             		})
+ 			         		},error:function(){
+ 			         			alert("發生錯誤，請稍後再嘗試操作");
+ 			         		}
+ 			         	});
+  				})
+  			 }
+  		  }
+  		})
+    
     }
     
     function articledetail(aid){//文章詳細內容

@@ -142,7 +142,7 @@
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
    <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script>
-   
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <link rel="stylesheet" href="../PetForum/css/colorbox.css" />   
    <script src="../PetForum/js/jquery.colorbox.js"></script> 
 		
@@ -178,13 +178,21 @@
    			}
    			
    		 }
-   		 else{ 
-   			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   		 else{   			 
+   			 Swal.fire({
+		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  icon: 'error',
+		  	      		  confirmButtonText: '確定'
+		  	      		})
    			 return false;
    			 }
    
    		}else{
-   	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+	   		 Swal.fire({
+		      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		      		  icon: 'error',
+		      		  confirmButtonText: '確定'
+		      		})
    	    	return false;
    	    	}
    });

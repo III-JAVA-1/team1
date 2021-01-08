@@ -187,7 +187,7 @@ public class ArticleCURD{
 		}	
 	}
 	
-	@RequestMapping("/randomArticle")
+	@RequestMapping(value={"/randomArticle", "/randomArticle2"})
 	public @ResponseBody
 	List<Article> randomArticle(){		
 		List<Article> list = service.randomArticle();

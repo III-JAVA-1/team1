@@ -22,10 +22,6 @@
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
   
-  <!-- 等待加載 -->
-  <div id="loading">
-    <img src="image/loading.gif" alt="loading.." />
-  </div> 
   
 <!--Navbar-->
 <div class="row">
@@ -193,6 +189,7 @@
 		crossorigin="anonymous"></script>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 	<script>
 		
@@ -425,8 +422,12 @@ let editCommentDisplay = 0;
   		if($("#commentContent").val() != ""){ 
   			return true;//傳送form
 		 }	 
-		else{ 
-		 window.alert("留言內容不可為空！");
+		else{		
+		 Swal.fire({
+	  	      		  title: '留言內容不可為空！',
+	  	      		  icon: 'error',
+	  	      		  confirmButtonText: '確定'
+	  	      		})
 		 return false;
 		 }  		
   	})  	
@@ -437,8 +438,12 @@ let editCommentDisplay = 0;
   		//讀取會員是否有將此文章加入最愛	
   		function favorites(item){
   			
-  			<%if(session.getAttribute("user") == null){%>  			
-  				alert("請登入！");
+  			<%if(session.getAttribute("user") == null){%>
+  				Swal.fire({
+	  	      		  title: '請登入！',
+	  	      		  icon: 'error',
+	  	      		  confirmButtonText: '確定'
+	  	      		})
   				return;
   			<%}%>
   			
@@ -459,20 +464,16 @@ let editCommentDisplay = 0;
 	    				$("#fav").attr("src", "image/favorites_1.png");
 	    			}
     			},
-    			error:function(){
-    				 alert("查無收藏紀錄！");
+    			error:function(){    				
+    				 Swal.fire({
+	  	      		  title: '查無收藏紀錄！',
+	  	      		  icon: 'oops',
+	  	      		  confirmButtonText: '確定'
+	  	      		})
     			}
   			});	
 			
-		} 	
-  	
-  //============================================================================
-	jQuery(document).ready(function(){
-	    jQuery(window).load(function(){  //load函数
-	    	 $("#loading").fadeOut(3000);
-	    });
-	});
-	        
+		} 	        
 	   
 	</script>
   </body>

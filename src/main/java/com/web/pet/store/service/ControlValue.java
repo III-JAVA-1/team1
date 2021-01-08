@@ -18,6 +18,6 @@ public class ControlValue {
     public static final String EMAIL_TOKEN = "uyvdilxkpuqnczaf";
 
     // ecpay流水號
-    public static final int ECPAY_INIT_NO = 99;
+    public static final int ECPAY_INIT_NO = 200;
 
 }

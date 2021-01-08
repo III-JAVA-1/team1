@@ -127,9 +127,11 @@
                         if (event.target.id === ("add" + tr.id)) {
                             // 點選+
                             console.log("點選了" + tr.id + "項目的+")
-                            countBlock.value = parseInt(countBlock.value) + 1;
-                            data.quantity = parseInt(data.quantity) + 1;
-                            updateQuantity(data, priceBlock);
+                            if (countBlock.value < 99) {
+                                countBlock.value = parseInt(countBlock.value) + 1;
+                                data.quantity = parseInt(data.quantity) + 1;
+                                updateQuantity(data, priceBlock);
+                            }
                         }
                         if (event.target.id === ("min" + tr.id)) {
                             // 點選-
@@ -288,7 +290,7 @@
                     // 把畫面一整列砍掉
                     tr.remove();
                     sumPrice(res);
-                    if(res.length==0){
+                    if (res.length == 0) {
                         reload();
                     }
                 } else {

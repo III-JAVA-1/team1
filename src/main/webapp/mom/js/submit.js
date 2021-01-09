@@ -80,9 +80,6 @@ function submitComment() {
         "comment": "comment"
     }
 
-
-
-
     console.log(data)
     $.ajax({
             url: "http://localhost:8080/PetProject_Final_war_exploded/mom/comment",

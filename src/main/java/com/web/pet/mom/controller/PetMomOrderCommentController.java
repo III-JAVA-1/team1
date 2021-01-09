@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @author i19
  */
 @AllArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/mom")
 public class PetMomOrderCommentController {
 

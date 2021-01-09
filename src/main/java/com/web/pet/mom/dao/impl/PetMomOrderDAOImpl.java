@@ -1,12 +1,12 @@
 package com.web.pet.mom.dao.impl;
 
+import com.web.pet.member.model.Member;
 import com.web.pet.mom.dao.PetMomOrderDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.PetMomOrder;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,14 +20,16 @@ public class PetMomOrderDAOImpl implements PetMomOrderDAO {
 
     /**
      * 寫入預約保母資料
-     *
-     * @param petMomOrder
+     *  @param petMomOrder
      * @param momId
+     * @param uId
      */
     @Override
-    public void insertPetMomOrder(PetMomOrder petMomOrder, Integer momId) {
+    public void insertPetMomOrder(PetMomOrder petMomOrder, Integer momId, Integer uId) {
         Session session = sessionFactory.getCurrentSession();
-        petMomOrder.setMom(session.get(Mom.class, momId));
+        Mom mom = session.get(Mom.class, momId);
+        petMomOrder.setMom(mom);
+//        petMomOrder.setMember(session.get(Member.class, uId));
         session.save(petMomOrder);
     }
 

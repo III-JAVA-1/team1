@@ -11,8 +11,9 @@ public interface PetMomOrderDAO {
      * 新增訂單
      * @param petMomOrder
      * @param momId
+     * @param uId
      */
-    void insertPetMomOrder(PetMomOrder petMomOrder, Integer momId);
+    void insertPetMomOrder(PetMomOrder petMomOrder, Integer momId, Integer uId);
 
     /**
      * 查詢orderId

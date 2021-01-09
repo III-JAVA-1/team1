@@ -7,7 +7,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -16,7 +15,8 @@ import java.util.Set;
  */
 @DynamicInsert
 @DynamicUpdate
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "PetMomOrder")
 public class PetMomOrder {

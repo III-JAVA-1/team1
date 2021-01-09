@@ -35,7 +35,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="新增" id="newArticle" onsubmit=return check(this)/>
+					    	<input class="btn btn-success" type="submit" value="新增" id="newArticle" onsubmit=return check(this)/>
 					    </div>
 				   	</div>
 			    </div>

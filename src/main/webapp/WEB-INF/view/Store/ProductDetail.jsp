@@ -15,8 +15,8 @@
 <body>
 <jsp:include page="Header.jsp"/>
 <div class="d-flex flex-row flex-wrap div1">
-    <div class="justify-content-start">
-        <fieldset class="fieldset1">
+    <div class="justify-content-start roll-img-div">
+        <fieldset class="product-img">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     ${indicators}
@@ -33,6 +33,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+            ${noDisplay}
         </fieldset>
     </div>
     <div class="d-flex justify-content-start flex-column bd-highlight mb-3 div2 ">
@@ -81,11 +82,16 @@
 
 
         <div class="bd-highlight btn1">
-            <button type="button" class="btn btn-danger shoppingCart-btn" onclick="addShoppingCart(${id}, false)" >
-                <img class="cart-img" src="../Store/images/add-shopping-cart.svg" width="18px" height="18px"/>加入購物車</button>
-            <button type="button" class="btn btn-warning shoppingCart-btn" onclick="addShoppingCart(${id}, true)">
-                <img class="cart-img" src="../Store/images/shopping-bag.svg" width="18px" height="18px"/>直接購買</button>
-            <img class="shoppingCart-btn" id="like" src="${likeImage}" onclick="setFavorite()" width="30px" height="30px">
+            <button type="button" class="btn btn-danger shoppingCart-btn"
+                    onclick="addShoppingCart(${id}, false, ${isDisplay})">
+                <img class="cart-img" src="../Store/images/add-shopping-cart.svg" width="18px" height="18px"/>加入購物車
+            </button>
+            <button type="button" class="btn btn-warning shoppingCart-btn"
+                    onclick="addShoppingCart(${id}, true, ${isDisplay})">
+                <img class="cart-img" src="../Store/images/shopping-bag.svg" width="18px" height="18px"/>直接購買
+            </button>
+            <img class="shoppingCart-btn" id="like" src="${likeImage}" onclick="setFavorite(${isDisplay})" width="30px"
+                 height="30px">
         </div>
     </div>
 
@@ -161,7 +167,7 @@ ${modProduct}
         }
     }
 
-    function addShoppingCart(productId, isGoNextPage) {
+    function addShoppingCart(productId, isGoNextPage, isDisplay) {
         //取消下層點擊事件
         event.stopPropagation();
 
@@ -169,6 +175,11 @@ ${modProduct}
             alert("請先登入")
             goLogin();
             return
+        }
+
+        if (!isDisplay) {
+            alert("此商品未上架無法加入購物車")
+            return;
         }
 
         let req = {
@@ -230,7 +241,7 @@ ${modProduct}
                 res.rateList.forEach(function (rateData) {
 
                     // 用三源檢查rateData.date是不是空
-                    let rateMsg = rateData.message == null ? "": rateData.message;
+                    let rateMsg = rateData.message == null ? "" : rateData.message;
 
                     rateHtml += "<div class=\"custom-message-area\">\n" +
                         "<P class=\"member-account\">"
@@ -281,10 +292,15 @@ ${modProduct}
 
     getRate();
 
-    function setFavorite() {
+    function setFavorite(isDisplay) {
 
         if (memberId == "") {
             alert("請先登入");
+            return;
+        }
+
+        if (!isDisplay) {
+            alert("此商品未上架無法加入收藏");
             return;
         }
 

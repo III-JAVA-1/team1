@@ -210,6 +210,8 @@ public class OrderAction {
 
             // 寄送訂單成立通知信
             String content = FileUtils.readTextFile(htmlResource.getFile());
+            String sendEmail =
+                    dbu.selectStringList("SELECT Email FROM Member WHERE U_Id = ?", req.getId());
             content =
                     content.replace(
                             "$content_url", ControlValue.SERVER_URL + "Member/Shoporder.jsp");
@@ -217,7 +219,7 @@ public class OrderAction {
                     .setTitle("AccompanyMe訂單成立通知信")
                     .addContent(content)
                     .setSendName("毛孩商城")
-                    .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com")
+                    .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com", sendEmail)
                     .sendMailOnThread(MailService.MailType.HTML);
 
             dbu.doCommit();

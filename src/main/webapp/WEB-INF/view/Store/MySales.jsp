@@ -17,10 +17,10 @@
 <body>
 <div class="all-card-div">
     <div class="status-btn d-flex bd-highlight">
-        <div class="p-2 bd-highlight all" onclick="setOrderStatus()">全部</div>
-        <div class="p-2 bd-highlight to-be-shipped" onclick="setOrderStatus(1)">待出貨</div>
-        <div class="p-2 bd-highlight shipped" onclick="setOrderStatus(2)">已出貨</div>
-        <div class="p-2 bd-highlight cancel" onclick="setOrderStatus(-1)">取消</div>
+        <div class="p-2 bd-highlight order-status-div order-status-div-click" id="status-all" onclick="setOrderStatus()">全部</div>
+        <div class="p-2 bd-highlight order-status-div" id="status-wait" onclick="setOrderStatus(1)">待出貨</div>
+        <div class="p-2 bd-highlight order-status-div" id="status-done" onclick="setOrderStatus(2)">已出貨</div>
+        <div class="p-2 bd-highlight order-status-div" id="status-cancel" onclick="setOrderStatus(-1)">取消</div>
     </div>
     <hr>
     <div class="d-flex bd-highlight mb-3">
@@ -84,6 +84,31 @@
 
     // 設定訂單狀態
     function setOrderStatus(status) {
+
+        let all = document.getElementById("status-all");
+        let wait = document.getElementById("status-wait");
+        let done = document.getElementById("status-done");
+        let cancel = document.getElementById("status-cancel");
+        all.classList.remove("order-status-div-click");
+        wait.classList.remove("order-status-div-click");
+        done.classList.remove("order-status-div-click");
+        cancel.classList.remove("order-status-div-click");
+
+        switch (status) {
+            case 1:
+                wait.classList.add("order-status-div-click");
+                break;
+            case 2:
+                done.classList.add("order-status-div-click");
+                break;
+            case -1:
+                cancel.classList.add("order-status-div-click");
+                break;
+            default:
+                all.classList.add("order-status-div-click");
+                break;
+        }
+
         orderStatus = status;
         getOrderList();
     }

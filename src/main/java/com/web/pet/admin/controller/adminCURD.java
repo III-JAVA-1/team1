@@ -293,7 +293,7 @@ public class adminCURD {
 	public Integer deletemomController(Integer mid,String message) throws AddressException, MessagingException{
 		Mom mom = adminService.getfullmomService(mid);
 		message = "您的保母『"+mom.getTitle()+"』已被刪除<br>原因:"+message+"<br>有任何問題歡迎來信告知，謝謝";
-		Member member = memberService.fullmemberService(mom.getMember().getU_Id());
+		Member member = memberService.fullmemberService(mid);
 		MailUtils.sendMail(member.getEmail(),message);
 		return adminService.deletemomService(mid);
 	}

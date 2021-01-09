@@ -140,7 +140,7 @@ public class OtherFunctionCURD {
 		Integer user_id=Integer.valueOf(request.getSession().getAttribute("user").toString());
 		//out.print(mom.getMom_Id());
 		Member member = memberService.fullmemberService(user_id);
-		mom.setMember(member);
+//		mom.setMember(member);
 		if (picc != null && !picc.isEmpty()) {
 			try {
 				byte[] b = picc.getBytes();

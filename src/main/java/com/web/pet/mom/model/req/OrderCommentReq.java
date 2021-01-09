@@ -17,6 +17,8 @@ public class OrderCommentReq {
 
     private String comment;
 
+    private Integer star;
+
 }
 
 

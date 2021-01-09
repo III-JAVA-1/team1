@@ -56,7 +56,7 @@ public class PetMomDAOImpl implements PetMomDAO {
                 + ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic"
                 + ",Mom.momId\r\n"
                 + "from Member,MOM\r\n"
-                + "where MOM.uId=Member.u_Id\r\n"
+                + "where MOM.momId=Member.u_Id\r\n"
                 + "and Member.country like '%" + country + "%'\r\n"
                 + "and MOM.title like '%" + title + "%'";
 
@@ -89,7 +89,7 @@ public class PetMomDAOImpl implements PetMomDAO {
                 + ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic"
                 + ",Mom.momId\r\n"
                 + "from Member,MOM\r\n"
-                + "where MOM.uId=Member.u_Id\r\n"
+                + "where MOM.momId=Member.u_Id\r\n"
                 + "and Member.country like '%" + country + "%'\r\n"
                 + "and MOM.title like '%" + title + "%'";
 

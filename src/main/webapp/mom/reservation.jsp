@@ -226,7 +226,7 @@
                     <div class="col-md-7">
                         <div style="width: 300px;height: 100px; border: solid black;border-radius: 5px;">
                             <div id="total" name="total"
-                                 onchange="printPriceResult()">0 元</div>
+                            onchange="printPriceResult()">0 元</div>
                         </div>
                     </div>
                 </div>

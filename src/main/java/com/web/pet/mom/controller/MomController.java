@@ -2,16 +2,14 @@ package com.web.pet.mom.controller;
 
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.MomData;
 import com.web.pet.mom.service.MomService;
 import com.web.pet.util.BlobToByteArray;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +23,7 @@ import java.util.List;
 /**
  * @author i19
  */
+@CrossOrigin
 @AllArgsConstructor
 @Controller
 @RequestMapping("/mom")
@@ -116,11 +115,20 @@ public class MomController {
      * @param title
      * @return
      */
+    @RequestMapping("/allMomData")
+    @ResponseBody
+    public List<MomData> allMomData(String country, String title) {
+
+        return momService.getAllMomData(country, title);
+    }
+
     @RequestMapping("/allMom")
     @ResponseBody
     public List<Mom> allMom(String country, String title) {
         return momService.getAllMoms(country, title);
     }
+
+
 
     /**
      * @param momId

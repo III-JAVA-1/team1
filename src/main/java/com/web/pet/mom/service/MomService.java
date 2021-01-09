@@ -1,6 +1,7 @@
 package com.web.pet.mom.service;
 
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.MomData;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface MomService {
      * @param title
      * @return
      */
+    List<MomData> getAllMomData(String country, String title);
+
     List<Mom> getAllMoms(String country, String title);
 
 

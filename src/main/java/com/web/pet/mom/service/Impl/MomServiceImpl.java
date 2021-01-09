@@ -3,6 +3,7 @@ package com.web.pet.mom.service.Impl;
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.MomData;
 import com.web.pet.mom.service.MomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,17 @@ public class MomServiceImpl implements MomService {
 
     @Override
     public void insertMom(Mom mom, Integer uId) {
-        if (petMomDAO.getMomByMemberId(uId) == null) {
+        mom.setMomId(uId);
+        if (petMomDAO.getMomByMomId(uId) == null) {
             petMomDAO.insertMom(mom, uId);
         } else {
             throw new MomIsExistedException();
         }
+    }
+
+    @Override
+    public List<MomData> getAllMomData(String country, String title) {
+        return petMomDAO.getAllMomData(country, title);
     }
 
     @Override

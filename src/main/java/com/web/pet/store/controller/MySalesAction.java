@@ -110,7 +110,10 @@ public class MySalesAction {
             OrderDAO.updateStatus(dbu, req.getOrderId(), req.getStatus());
             dbu.doCommit();
             if(req.getStatus()==2){
-                // 寄送訂單成立通知信
+                String sendEmail =
+                        dbu.selectStringList("SELECT a.Email FROM Member a, [order] b WHERE a.U_Id = b.customer_id\n" +
+                                "AND b.order_id=?", req.getOrderId());
+                // 寄送訂單出貨通知信
                 String content = FileUtils.readTextFile(htmlResource.getFile());
                 content =
                         content.replace(
@@ -119,7 +122,7 @@ public class MySalesAction {
                         .setTitle("AccompanyMe訂單出貨通知")
                         .addContent(content)
                         .setSendName("毛孩商城")
-                        .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com")
+                        .addSends(ControlValue.SEND_EMAIL, "eva.011601@gmail.com", sendEmail)
                         .sendMailOnThread(MailService.MailType.HTML);
             }
             res.setSuccess(true);

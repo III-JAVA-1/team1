@@ -115,31 +115,23 @@ body {
     cursor: pointer;
 }
 
-.all:hover{
-    font-size: 18px;
-    font-weight: bold;
-    color: #2626d4;
+.order-status-div{
+    font-size: 16px;
+    color: #020202;
     cursor: pointer;
 }
 
-.to-be-shipped:hover{
+.order-status-div:hover{
     font-size: 18px;
     font-weight: bold;
-    color: #2626d4;
+    color: #d41a46;
     cursor: pointer;
 }
 
-.shipped:hover{
+.order-status-div-click {
     font-size: 18px;
     font-weight: bold;
-    color: #2626d4;
-    cursor: pointer;
-}
-
-.cancel:hover{
-    font-size: 18px;
-    font-weight: bold;
-    color: #2626d4;
+    color: #d41a46;
     cursor: pointer;
 }
 

@@ -1,5 +1,6 @@
 package com.web.pet.store.controller;
 
+import com.web.pet.store.dao.FavoriteDAO;
 import com.web.pet.store.dao.ProductDAO;
 import com.web.pet.store.dto.api.UpdateProductImgReqDTO;
 import com.web.pet.store.dto.api.UpdateProductImgResDTO;
@@ -126,6 +127,9 @@ public class UpdateProductAction {
                 dbu.executeList(sql,req.getId(),url);
             }
 
+            if(req.getIsDisplay().equals("F")){
+                FavoriteDAO.deleteProduct(dbu,req.getId());
+            }
             // 儲存做過的事
             dbu.doCommit();
 

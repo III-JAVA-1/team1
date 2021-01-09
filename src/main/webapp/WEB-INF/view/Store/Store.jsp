@@ -123,6 +123,9 @@
      src="../Store/images/upward.svg" alt="">
 <img width="50" height="50" class="add-btn" id="add" onclick="goAdd()"
      src="../Store/images/plus.svg" alt="">
+<img width="50" height="50" class="order-btn" id="order" onclick="goMySales()"
+     src="../Store/images/order.svg" alt="">
+
 
 <%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
 <%--        style="background-image: url('Store/images/home.svg')"></button>--%>
@@ -160,10 +163,12 @@
     function setAddDisplay() {
         if (memberId !== "1") {
             let goTopBtn = document.getElementById("goTop");
+            let orderBtn = document.getElementById("order");
             let addBtn = document.getElementById("add");
+            orderBtn.remove();
             addBtn.remove();
             goTopBtn.classList.remove("goTop-btn");
-            goTopBtn.classList.add("add-btn");
+            goTopBtn.classList.add("order-btn");
         }
     }
 
@@ -220,7 +225,7 @@
                         "<div class=\"wei-grid my-card-img-div\">\n" +
                         "<img src=\"" + img + "\" class=\"card-img-top zoom-up-img my-card-img\" alt=\"...\">\n";
 
-                    if(!cardData.isDisplay){
+                    if (!cardData.isDisplay) {
                         cardHtml += "<img src=\"../Store/images/noDisplay.png\" class=\"card-img-top my-card-img-no-display\" alt=\"...\">\n";
                     }
 
@@ -231,16 +236,16 @@
                         "</div>" +
                         "<p class=\"card-text price-string float-left my-margin\">$" + cardData.price + "</p>\n" +
                         "<img src=\"../Store/images/shopping-cart1.svg\" class=\"shopcartimg float-right my-margin\" " +
-                        "width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "); return true\">\n";
+                        "width=\"30\" height=\"30\" onclick=\"addShoppingCart(" + cardData.id + "," + cardData.isDisplay + "); return true\">\n";
 
                     if (cardData.isFavorite) {
                         cardHtml += "<img id=\"like" + cardData.id + "\" " +
                             "src=\"../Store/images/like.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
-                            "onclick=\"setFavorite(" + cardData.id + "); return true\">\n";
+                            "onclick=\"setFavorite(" + cardData.id + "," + cardData.isDisplay + "); return true\">\n";
                     } else {
                         cardHtml += "<img id=\"like" + cardData.id + "\" " +
                             "src=\"../Store/images/noLike.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
-                            "onclick=\"setFavorite(" + cardData.id + "); return true\">\n";
+                            "onclick=\"setFavorite(" + cardData.id + "," + cardData.isDisplay + "); return true\">\n";
                     }
 
                     cardHtml += "</div>\n" + "</div>\n";
@@ -334,7 +339,7 @@
                     pageUl.innerHTML = pageHtml;
                 }
 
-                if(sort===1){
+                if (sort === 1) {
                     let storeDiv = document.getElementById("store");
                     storeDiv.scrollIntoView();
                     // 將排序選單換點亮
@@ -428,13 +433,18 @@
         getCards();
     }
 
-    function addShoppingCart(productId) {
+    function addShoppingCart(productId, isDisplay) {
         //取消下層點擊事件
         event.stopPropagation();
 
         if (memberId == "" || memberId == "null") {
             alert("請先登入")
             goLogin();
+            return
+        }
+
+        if (!isDisplay) {
+            alert("此商品未上架無法加入購物車")
             return
         }
 
@@ -478,11 +488,16 @@
         }
     }
 
-    function setFavorite(productId) {
+    function setFavorite(productId, isDisplay) {
         //取消下層點擊事件
         event.stopPropagation();
         if (memberId == "") {
             alert("請先登入");
+            return;
+        }
+
+        if (!isDisplay) {
+            alert("此商品未上架無法加入收藏")
             return;
         }
 
@@ -512,6 +527,7 @@
                 alert('error');
             }
         });
+
 
     }
 
@@ -604,7 +620,9 @@
         location.href = "AddProduct";
     }
 
-
+    function goMySales(id) {
+        window.location.href = "../mySales?memberId=" + memberId;
+    }
 </script>
 </body>
 </html>

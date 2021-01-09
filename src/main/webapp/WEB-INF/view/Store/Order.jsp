@@ -16,7 +16,7 @@
     <table class="table">
         <thead>
         <tr class="tr1">
-            <th colspan="2">訂單商品</th>
+            <th colspan="2" onclick="doInput()">訂單商品</th>
             <th scope="col">單價</th>
             <th scope="col" style="text-align: center">數量</th>
             <th scope="col">總價</th>
@@ -145,6 +145,9 @@
     function goSuccess(orderId) {
         window.location.href = "orderSuccess?memberId=" + memberId + "&orderId=" + orderId;
     }
+
+    function doInput(){
+        $("#address").val("330桃園市桃園區中正路1號");}
 
 </script>
 </body>

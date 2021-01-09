@@ -338,7 +338,6 @@ input[type=button] {
     	}
 
     })
-    <%session.removeAttribute("uid");%>
    	var uid =0 
    	<%session.setAttribute("uid",0);%>
     var path = '<%=basePath%>';
@@ -448,7 +447,7 @@ input[type=button] {
 		success:function(data){
 			$.each(data,function(i,n){
 				$("#indexactive").append("<div class='card m-2' style='width: 15rem;'>"+
-	  			"<img src='<c:url value='Gusty/getactiveimg2?act_no="+n[2]+"'/>' class='card-img-top' alt=''>"+
+	  			"<img src='<c:url value='Gusty/getactiveimg2?act_no="+n[2]+"'/>' class='card-img-top' alt='' style='height:200px;'>"+
 	  			"<div class='card-body'>"+
 	    			"<h5 class='card-title'>"+n[0]+"</h5>"+
 	    			"<p class='card-text h4'>"+n[1].substring(0,10)+"....</p>"+

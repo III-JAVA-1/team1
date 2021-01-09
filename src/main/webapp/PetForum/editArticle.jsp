@@ -35,7 +35,7 @@
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
 					     </div>
 					      <div class="form-group col-3">
-					    	<input class="btn btn-secondary" type="submit" value="新增" id="new" onsubmit=return check(this)/>
+					    	<input class="btn btn-success" type="submit" value="新增" id="newArticle" onsubmit=return check(this)/>
 					    </div>
 				   	</div>
 			    </div>
@@ -142,7 +142,7 @@
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
    <script type='text/javascript' src='../assets/javascripts/ckeditor/ckeditor.js'></script>
-   
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <link rel="stylesheet" href="../PetForum/css/colorbox.css" />   
    <script src="../PetForum/js/jquery.colorbox.js"></script> 
 		
@@ -155,17 +155,16 @@
     //禁止回上一頁
     window.history.forward(1);
     
-    $("#new").click(function check(form){//按預覽文章   	
+    $("#newArticle").click(function check(form){//按預覽文章   	
     	
    	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){    		 
    		
    	    	
    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
    			 
-   			if(checkHeader() && checkContent()){
-   				
-   				var modify = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
-   			 	if (modify === false) {
+   			if(checkHeader() && checkContent()){   				
+   				var newArticle = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
+   			 	if (newArticle === false) {
    					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
    		   			
    		   			 return false;
@@ -173,21 +172,27 @@
    	 			else {       			
    				   	return true;//form action請求送出       			
    	 			}
-   			 	
-   			 	
-   			}
+   			 }
    			else{//內容或標題為空
    				return false;
    			}
    			
    		 }
-   		 else{ 
-   			 window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+   		 else{   			 
+   			 Swal.fire({
+		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  icon: 'error',
+		  	      		  confirmButtonText: '確定'
+		  	      		})
    			 return false;
    			 }
    
    		}else{
-   	    	window.alert("尚未選擇子版 或 尚未同意討論區規則！");
+	   		 Swal.fire({
+		      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		      		  icon: 'error',
+		      		  confirmButtonText: '確定'
+		      		})
    	    	return false;
    	    	}
    });

@@ -274,7 +274,6 @@ input[type=button] {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 	
 	<script>
-	<%session.removeAttribute("uid");%>
    	var uid =1
    	<%session.setAttribute("uid",1);%>
     var path = '<%=basePath%>';

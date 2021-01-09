@@ -13,7 +13,7 @@ body {
 }
 
 .all-card-div {
-    margin: 30px 10% 10px 10%;
+    margin: 5vw 10% 10px 10%;
     padding: 20px 0;
     background-color: white;
 }
@@ -29,29 +29,42 @@ body {
     cursor: pointer;
 }
 
-.product-img {
+.product-div {
     text-align: start;
     width: 60%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .product-price {
     text-align: center;
     width: 10%;
+    display: flex;
+    align-items: center;
 }
 
 .product-status {
     text-align: center;
     width: 10%;
+    display: flex;
+    align-items: center;
 }
 
 .delivery-time {
     text-align: center;
     width: 10%;
+    display: flex;
+    align-items: center;
 }
 
 .detail-btn {
     text-align: center;
     width: 10%;
+    display: flex;
+    align-items: center;
 }
 
 .products{
@@ -66,6 +79,7 @@ body {
 .product-status-t {
     text-align: center;
     width: 10%;
+
 }
 
 .delivery-time-t {
@@ -101,32 +115,30 @@ body {
     cursor: pointer;
 }
 
-.all:hover{
-    font-size: 18px;
-    font-weight: bold;
-    color: #2626d4;
+.order-status-div{
+    font-size: 16px;
+    color: #020202;
     cursor: pointer;
 }
 
-.to-be-shipped:hover{
+.order-status-div:hover{
     font-size: 18px;
     font-weight: bold;
-    color: #2626d4;
+    color: #d41a46;
     cursor: pointer;
 }
 
-.shipped:hover{
+.order-status-div-click {
     font-size: 18px;
     font-weight: bold;
-    color: #2626d4;
+    color: #d41a46;
     cursor: pointer;
 }
 
-.cancel:hover{
-    font-size: 18px;
-    font-weight: bold;
-    color: #2626d4;
-    cursor: pointer;
+.product-img{
+    width: 120px;
+    height: 120px;
+    margin-right: 20px;
 }
 
 

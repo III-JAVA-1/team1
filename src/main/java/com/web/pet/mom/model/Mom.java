@@ -24,7 +24,6 @@ import java.util.Set;
 @Table(name = "MOM")
 public class Mom {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer momId;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String petContent;
@@ -94,8 +93,5 @@ public class Mom {
 		builder.append("]");
 		return builder.toString();
 	}
-    
-    
-    
 }
 

@@ -23,6 +23,7 @@ public class MomServiceImpl implements MomService {
     @Override
     public void insertMom(Mom mom, Integer uId) {
         if (petMomDAO.getMomByMemberId(uId) == null) {
+            mom.setMomId(uId);
             petMomDAO.insertMom(mom, uId);
         } else {
             throw new MomIsExistedException();

@@ -5,7 +5,6 @@ import com.web.pet.Active.model.JoinActBean;
 import com.web.pet.forum.model.Article;
 import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.forum.model.Comment;
-import com.web.pet.mom.model.Mom;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,7 +24,7 @@ import java.util.Set;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "Member")
+@Table(name="Member")
 public class Member {
 
     @Id
@@ -58,13 +57,10 @@ public class Member {
     @Column(nullable = true)
     private Blob img;
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-    private Mom mom;
-
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private Set<ActBean> actBean = new LinkedHashSet<>(0);
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private Set<JoinActBean> joinActBeans = new LinkedHashSet<>(0);
 
     //============================================================

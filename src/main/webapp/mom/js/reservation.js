@@ -27,31 +27,96 @@ function printPriceResult() {
     }
 }
 
-$("#timeStart").change(function () {
-    printPriceResult()
-});
+// //取得創建時間
+// function goTime() {
+//     document.getElementById("orderCreate").value = new Date();
+// }
 
-$("#timeEnd").change(function () {
-    printPriceResult()
-});
+// $("#twzipcode_My").twzipcode({
+//     zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
+//     css: ["city form-control", "town form-control"],
+//     countyName: "country", // 自訂城市 select 標籤的 name 值
+//     districtName: "district", // 自訂地區 select 標籤的 name 值
+// });
 
-$("#priceId").change(function () {
-    printPriceResult()
-});
 
-//取得創建時間
-function goTime() {
-    document.getElementById("orderCreate").value = new Date();
+function submit() {
+    console.log("submit()")
+    const data = new FormData();
+    let connPhone = $("#userPhone").val()
+    let country = $(".city").val()
+    let district = $(".town").val()
+    let address = $("#idAddress").val()
+    let petName = $("#petName").val()
+    let petBreed = $("#breed").val()
+    let petAge = $("#petAge").val()
+    let petGender = $("#petGender").val()
+    let petType = $("#petId").val()
+    let proPrice = $("#priceId").val()
+    let chooseStart = $("#timeStart").val()
+    let chooseEnd = $("#timeEnd").val()
+    let remark = $("#remark").val()
+    let momId = $("#momId").val()
+
+    console.log(connPhone)
+    console.log(country)
+    console.log(district)
+    console.log(address)
+    console.log(petName)
+    console.log(petBreed)
+    console.log(petAge)
+    console.log(petType)
+    console.log(proPrice)
+    console.log(petGender)
+    console.log(chooseStart)
+    console.log(chooseEnd)
+    console.log(remark)
+    console.log(momId)
+
+
+    data.append("connPhone", connPhone)
+    data.append("country", country)
+    data.append("district", district)
+    data.append("address", address)
+    data.append("petName", petName)
+    data.append("petBreed", petBreed)
+    data.append("petAge", petAge)
+    data.append("petGender", petGender)
+    data.append("petType", petType)
+    data.append("proPrice", proPrice)
+    data.append("chooseStart", chooseStart)
+    data.append("chooseEnd", chooseEnd)
+    data.append("remark", remark)
+    data.append("momId", momId)
+
+    console.log(data)
+    $.ajax({
+            url: "http://localhost:8080/PetProject_Final_war_exploded/mom/reservationMom",
+            type: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                console.log(data)
+                console.log('success')
+                showSuccessPage();
+            }
+        }
+    );
 }
 
-
-    $("#twzipcode_My").twzipcode({
-    zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
-    css: ["city form-control", "town form-control"],
-    countyName: "country", // 自訂城市 select 標籤的 name 值
-    districtName: "district", // 自訂地區 select 標籤的 name 值
-});
-
+function showSuccessPage() {
+    console.log('showSuccessPage()')
+    Swal.fire({
+        icon: 'success', title: '預約成功',
+        showConfirmButton: false,
+        timer: 1500,
+    }).then((result) => {
+        console.log(result)
+        window.location.href = '../mom/extar.jsp';
+    })
+}
 
 
 

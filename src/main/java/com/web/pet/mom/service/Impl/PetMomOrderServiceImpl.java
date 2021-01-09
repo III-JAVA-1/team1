@@ -35,14 +35,14 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
 //    }
 
     @Override
-    public void insertPetMomOrder(PetMomOrderReq req, Integer momId) throws ParseException {
+    public void insertPetMomOrder(PetMomOrderReq req, Integer momId, Integer uId) throws ParseException {
 
 //        if(petMomDAO.getMomByMomId(momId) != null){}
         PetMomOrder petMomOrder = new PetMomOrder();
 
 
-        petMomOrder.setOrderCreate(req.getOrderCreate());
-        petMomOrder.setStatus(req.getStatus());
+        petMomOrder.setOrderCreate(new Timestamp(System.currentTimeMillis()));
+        petMomOrder.setStatus("處理中");
         petMomOrder.setPetName(req.getPetName());
         petMomOrder.setPetBreed(req.getPetBreed());
         petMomOrder.setPetGender(req.getPetGender());
@@ -67,7 +67,7 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
 
         petMomOrder.setTotal(countTotal(price, formatDate(chooseStart), formatDate(chooseEnd)));
 
-        petMomOrderDAO.insertPetMomOrder(petMomOrder, momId);
+        petMomOrderDAO.insertPetMomOrder(petMomOrder, momId,uId );
 
     }
 

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -31,8 +32,9 @@ public class PetMomOrderCommentServiceImpl implements PetMomOrderCommentService 
 	@Override
 	public void insertComment(OrderCommentReq req) {
 		PetMomOrderComment petMomOrderComment = new PetMomOrderComment();
-
 		petMomOrderComment.setComment(req.getComment());
+		petMomOrderComment.setStar(req.getStar());
+		petMomOrderComment.setCommentNowTime(new Timestamp(System.currentTimeMillis()));
 		petMomOrderComment.setPetMomOrder(petMomOrderDAO.getOrderById(req.getOrderId()));
 		petMomOrderComment.setMom(petMomDAO.getMomByMomId(req.getUserId()));
 		petMomOrderCommentDAO.insertOrderComment(petMomOrderComment);

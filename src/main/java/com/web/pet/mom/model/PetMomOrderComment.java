@@ -15,7 +15,8 @@ import java.util.Set;
 
 @DynamicInsert
 @DynamicUpdate
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "PetMomOrderComment")
 public class PetMomOrderComment {
@@ -23,13 +24,13 @@ public class PetMomOrderComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @Column(nullable = false)
+    @Column(nullable = true , columnDefinition = "smalldatetime")
     private Timestamp commentNowTime;
 
     @Column(columnDefinition = "nvarchar(MAX)")
     private String comment;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer star;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

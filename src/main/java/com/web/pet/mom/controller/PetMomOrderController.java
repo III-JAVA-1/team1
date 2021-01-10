@@ -52,6 +52,7 @@ public class PetMomOrderController {
             petMomOrderService.insertPetMomOrder(petMomOrder, momId, uId);
         } catch (OrderIsSameMomException e) {
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST ,e.getMessage());
         }
     }
 

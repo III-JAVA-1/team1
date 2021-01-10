@@ -6,75 +6,81 @@ function sendPetMom() {
     let notices = $("#notices").val();
     let petContent = $("#petContent").val();
 
-    let myPic = $('#myPic').get(0).files[0];
+    let myPic = document.getElementById('myPic').files[0];
+    console.log(myPic)
+
     let checkPeace = $("#checkPeace").val();
     let checkBoarding = $("#checkBoarding").val();
     let checkWalkDog = $("#checkWalkDog").val();
+    let littleDog
 
-    let littleDog = null;
-    $('#littleDog').click(function () {
-        littleDog = $(this).val();
-    });
+    if (document.getElementById("littleDog").checked) {
+        littleDog = $("#littleDog").val();
+        console.log(littleDog)
+    }
+    let mediumDog
+    if (document.getElementById("mediumDog").checked) {
+        mediumDog = $("#mediumDog").val();
+        console.log(mediumDog)
+    }
+    let bigDog;
+    if (document.getElementById("bigDog").checked) {
+        bigDog = $("#bigDog").val();
+        console.log(bigDog)
+    }
 
-    let mediumDog = null;
-    $('#mediumDog').click(function () {
-        mediumDog = $(this).val();
-    });
+    let cat;
+    if (document.getElementById("cat").checked) {
+        cat = $("#cat").val();
+        console.log(cat)
+    }
 
-    let bigDog = null;
-    $('#bigDog').click(function () {
-        bigDog = $(this).val();
-    });
 
-    let cat = null;
-    $('#cat').click(function () {
-        cat = $(this).val();
-    });
+    // let inpValue = $(".inp");
+    // let inpCount = 0;
+    // for (let i = 0; i < inpValue.length; i++) {
+    //     //console.log(inpValue[i].value);
+    //     if (inpValue[i].value > 0) {
+    //         inpCount++;
+    //     }
+    // }
+    //
+    // if (inpCount < 1) {
+    //     Swal.fire('寵物品種 至少輸一個吧大哥')
+    //     return false;
+    // } else {
+    data.append("title", title)
+    data.append("experience", experience)
+    data.append("notices", notices)
+    data.append("petContent", petContent)
+    data.append("myPic", myPic)
+    data.append("proPrice1", checkPeace)
+    data.append("proPrice2", checkBoarding)
+    data.append("proPrice3", checkWalkDog)
+    data.append("bodyType1", littleDog)
+    data.append("bodyType2", mediumDog)
+    data.append("bodyType3", bigDog)
+    data.append("bodyType4", cat)
 
-    let inpValue = $(".inp");
-    let inpCount = 0;
-    for (let i = 0; i < inpValue.length; i++) {
-        //console.log(inpValue[i].value);
-        if (inpValue[i].value > 0) {
-            inpCount++;
+    console.log(data)
+    $.ajax({
+        url: "../mom/insertMom",
+        type: "POST",
+        contentType: false,
+        cache: false,
+        processData: false,
+        data: data,
+        success: function (data) {
+            console.log(data)
+            console.log('success')
+            data.statusCode()
+            showSuccessPage();
+        }, error: function () {
+            console.log("error")
+            showErrorPage();
         }
-    }
-
-    if (inpCount < 1) {
-        Swal.fire('寵物品種 至少輸一個吧大哥')
-        return false;
-    } else {
-        data.append("title",title)
-        data.append("experience",experience)
-        data.append("notices",notices)
-        data.append("petContent",petContent)
-        data.append("myPic",myPic)
-        data.append("proPrice1",checkPeace)
-        data.append("proPrice2",checkBoarding)
-        data.append("proPrice3",checkWalkDog)
-        data.append("bodyType1",littleDog)
-        data.append("bodyType2",mediumDog)
-        data.append("bodyType3",bigDog)
-        data.append("bodyType4",cat)
-
-        console.log(data)
-        $.ajax({
-            url: "../mom/insertMom",
-            type: "POST",
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: data,
-            success: function (data) {
-                console.log(data)
-                console.log('success')
-                showSuccessPage();
-            }, error: function () {
-                showErrorPage();
-            }
-        });
-
-    }
+    });
+    // // }
 }
 
 function showSuccessPage() {

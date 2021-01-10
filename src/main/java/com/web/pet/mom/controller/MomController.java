@@ -40,7 +40,7 @@ public class MomController {
      * @param request
      * @throws IOException
      */
-    @CrossOrigin("http://localhost:63342")
+    @CrossOrigin("*")
     @PostMapping(value = "/insertMom", produces = "application/json; charset=utf-8")
     public void insertMom(Mom mom,
                           @RequestParam(value = "myPic", required = false) MultipartFile myPic,
@@ -85,6 +85,7 @@ public class MomController {
 //            out.print("</html>");
         } catch (MomIsExistedException e) {
                 e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST ,e.getMessage());
 //            out.print("<html>");
 //            out.print("<body>");
 //            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");

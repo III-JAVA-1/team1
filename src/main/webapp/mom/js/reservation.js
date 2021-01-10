@@ -122,7 +122,7 @@ function showSuccessPage() {
 function showErrorPage() {
     console.log('showErrorPage()')
     Swal.fire({
-        icon: 'success', title: '預約失敗 自己無法預約自己',
+        icon: 'error', title: '預約失敗 自己無法預約自己',
         showConfirmButton: false,
         timer: 1500,
     }).then((result) => {

@@ -29,7 +29,7 @@ public class PetMomOrderDAOImpl implements PetMomOrderDAO {
         Session session = sessionFactory.getCurrentSession();
         Mom mom = session.get(Mom.class, momId);
         petMomOrder.setMom(mom);
-//        petMomOrder.setMember(session.get(Member.class, uId));
+        petMomOrder.setMember(session.get(Member.class, uId));
         session.save(petMomOrder);
     }
 

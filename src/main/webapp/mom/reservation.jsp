@@ -37,7 +37,7 @@
         </div>
         <article class="col-md-8">
 
-            <div style="margin: auto;" onsubmit="goTime()">
+            <div style="margin: auto;">
                 <b>
                     <h4>
                         <b>聯絡 <%=getsName%>

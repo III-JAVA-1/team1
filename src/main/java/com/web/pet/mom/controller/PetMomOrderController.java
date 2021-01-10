@@ -1,25 +1,25 @@
 package com.web.pet.mom.controller;
 
+import com.web.pet.mom.Exeption.OrderIsSameMomException;
 import com.web.pet.mom.model.req.PetMomOrderReq;
 import com.web.pet.mom.service.PetMomOrderService;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 
 /**
  * @author i19
  */
 @AllArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/mom")
 @Slf4j
 public class PetMomOrderController {
@@ -35,22 +35,23 @@ public class PetMomOrderController {
      * @param petMomOrder
      * @param response
      * @param request
-     * @param uId
      * @throws IOException
      */
-    @CrossOrigin("http://localhost:63342")
+
+    @SneakyThrows
     @PostMapping(value = "/reservationMom", produces = "application/json; charset=utf-8")
     public void insertPetMomOrder(
-            @ModelAttribute PetMomOrderReq petMomOrder, HttpServletResponse response, HttpServletRequest request, Integer uId) throws IOException, ParseException {
+            @ModelAttribute PetMomOrderReq petMomOrder, HttpServletResponse response, HttpServletRequest request){
         try {
             //亂碼處理
             request.setCharacterEncoding(CHARSET_CODE);
             response.setContentType(CONTENT_TYPE);
 
+            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
             Integer momId = petMomOrder.getMomId();
             petMomOrderService.insertPetMomOrder(petMomOrder, momId, uId);
-        } catch (Exception oe) {
-            log.debug(oe.getMessage(), oe);
+        } catch (OrderIsSameMomException e) {
+            e.printStackTrace();
         }
     }
 

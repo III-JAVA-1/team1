@@ -1,5 +1,8 @@
 package com.web.pet.mom.service.Impl;
 
+import com.web.pet.mom.Exeption.MomIsExistedException;
+import com.web.pet.mom.Exeption.OrderIsSameMomException;
+import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.dao.PetMomOrderDAO;
 import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.mom.model.req.PetMomOrderReq;
@@ -22,8 +25,8 @@ import java.util.Date;
 @Transactional(rollbackOn = Exception.class)
 public class PetMomOrderServiceImpl implements PetMomOrderService {
 
-//    @Autowired
-//    private PetMomDAO petMomDAO;
+
+    private PetMomDAO petMomDAO;
 
     private final PetMomOrderDAO petMomOrderDAO;
 
@@ -37,38 +40,39 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
     @Override
     public void insertPetMomOrder(PetMomOrderReq req, Integer momId, Integer uId) throws ParseException {
 
-//        if(petMomDAO.getMomByMomId(momId) != null){}
-        PetMomOrder petMomOrder = new PetMomOrder();
+        if(petMomDAO.getMomByMomId(momId) != petMomDAO.getMomByMemberId(uId)) {
+            PetMomOrder petMomOrder = new PetMomOrder();
+            req.setUId(uId);
+            petMomOrder.setOrderCreate(new Timestamp(System.currentTimeMillis()));
+            petMomOrder.setStatus("處理中");
+            petMomOrder.setPetName(req.getPetName());
+            petMomOrder.setPetBreed(req.getPetBreed());
+            petMomOrder.setPetGender(req.getPetGender());
+            petMomOrder.setPetAge(req.getPetAge());
+            petMomOrder.setPetType(req.getPetType());
+            petMomOrder.setRemark(req.getRemark());
+            petMomOrder.setCountry(req.getCountry());
+            petMomOrder.setDistrict(req.getDistrict());
+            petMomOrder.setAddress(req.getAddress());
+            petMomOrder.setConnPhone(req.getConnPhone());
 
+            String chooseStart = req.getChooseStart();
+            petMomOrder.setChooseStart(new Timestamp(formatDate(chooseStart).getTime()));
 
-        petMomOrder.setOrderCreate(new Timestamp(System.currentTimeMillis()));
-        petMomOrder.setStatus("處理中");
-        petMomOrder.setPetName(req.getPetName());
-        petMomOrder.setPetBreed(req.getPetBreed());
-        petMomOrder.setPetGender(req.getPetGender());
-        petMomOrder.setPetAge(req.getPetAge());
-        petMomOrder.setPetType(req.getPetType());
-        petMomOrder.setRemark(req.getRemark());
-        petMomOrder.setCountry(req.getCountry());
-        petMomOrder.setDistrict(req.getDistrict());
-        petMomOrder.setAddress(req.getAddress());
-        petMomOrder.setConnPhone(req.getConnPhone());
+            String chooseEnd = req.getChooseEnd();
+            petMomOrder.setChooseEnd(new Timestamp(formatDate(chooseEnd).getTime()));
 
-        String chooseStart = req.getChooseStart();
-        petMomOrder.setChooseStart(new Timestamp(formatDate(chooseStart).getTime()));
+            String proPrice = req.getProPrice();
 
-        String chooseEnd = req.getChooseEnd();
-        petMomOrder.setChooseEnd(new Timestamp(formatDate(chooseEnd).getTime()));
+            int price = Integer.parseInt(proPrice.split(" ")[1]);
+            petMomOrder.setService(proPrice);
 
-        String proPrice = req.getProPrice();
+            petMomOrder.setTotal(countTotal(price, formatDate(chooseStart), formatDate(chooseEnd)));
 
-        int price = Integer.parseInt(proPrice.split(" ")[1]);
-        petMomOrder.setService(proPrice);
-
-        petMomOrder.setTotal(countTotal(price, formatDate(chooseStart), formatDate(chooseEnd)));
-
-        petMomOrderDAO.insertPetMomOrder(petMomOrder, momId,uId );
-
+            petMomOrderDAO.insertPetMomOrder(petMomOrder, momId, uId);
+        }else {
+            throw new OrderIsSameMomException();
+        }
     }
 
     private Date formatDate(String date) throws ParseException {

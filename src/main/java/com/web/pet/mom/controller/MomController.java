@@ -7,18 +7,13 @@ import com.web.pet.util.BlobToByteArray;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Blob;
 import java.util.List;
 
@@ -26,7 +21,7 @@ import java.util.List;
  * @author i19
  */
 @AllArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/mom")
 public class MomController {
 
@@ -45,6 +40,7 @@ public class MomController {
      * @param request
      * @throws IOException
      */
+    @CrossOrigin("http://localhost:63342")
     @PostMapping(value = "/insertMom", produces = "application/json; charset=utf-8")
     public void insertMom(Mom mom,
                           @RequestParam(value = "myPic", required = false) MultipartFile myPic,
@@ -69,42 +65,41 @@ public class MomController {
                 throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
             }
         }
-        PrintWriter out = response.getWriter();
         try {
             momService.insertMom(mom, uId);
 
-            out.print("<html>");
-            out.print("<body>");
-            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-            out.print("<script>");
-            out.print("Swal.fire({\r\n"
-                    + "  icon: 'success',\r\n"
-                    + "  title: '註冊成功',\r\n"
-                    + "  showConfirmButton: false,\r\n"
-                    + "  timer: 1500\r\n"
-                    + "}).then((result) => {\r\n"
-                    + "window.location.href='../mom/extar.jsp';\r\n"
-                    + "})");
-            out.print("</script>");
-            out.print("</body>");
-            out.print("</html>");
+//            out.print("<html>");
+//            out.print("<body>");
+//            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+//            out.print("<script>");
+//            out.print("Swal.fire({\r\n"
+//                    + "  icon: 'success',\r\n"
+//                    + "  title: '註冊成功',\r\n"
+//                    + "  showConfirmButton: false,\r\n"
+//                    + "  timer: 1500\r\n"
+//                    + "}).then((result) => {\r\n"
+//                    + "window.location.href='../mom/extar.jsp';\r\n"
+//                    + "})");
+//            out.print("</script>");
+//            out.print("</body>");
+//            out.print("</html>");
         } catch (MomIsExistedException e) {
-
-            out.print("<html>");
-            out.print("<body>");
-            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-            out.print("<script>");
-            out.print("Swal.fire({\r\n"
-                    + "  icon: 'error',\r\n"
-                    + "  title: '"+e.getMessage()+"',\r\n"
-                    + "  showConfirmButton: false,\r\n"
-                    + "  timer: 1500\r\n"
-                    + "}).then((result) => {\r\n"
-                    + "window.location.href='../mom/extar.jsp';\r\n"
-                    + "})");
-            out.print("</script>");
-            out.print("</body>");
-            out.print("</html>");
+                e.printStackTrace();
+//            out.print("<html>");
+//            out.print("<body>");
+//            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+//            out.print("<script>");
+//            out.print("Swal.fire({\r\n"
+//                    + "  icon: 'error',\r\n"
+//                    + "  title: '"+e.getMessage()+"',\r\n"
+//                    + "  showConfirmButton: false,\r\n"
+//                    + "  timer: 1500\r\n"
+//                    + "}).then((result) => {\r\n"
+//                    + "window.location.href='../mom/extar.jsp';\r\n"
+//                    + "})");
+//            out.print("</script>");
+//            out.print("</body>");
+//            out.print("</html>");
         }
     }
 

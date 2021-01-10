@@ -6,6 +6,7 @@ import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.service.MomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.util.List;

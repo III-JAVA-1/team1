@@ -91,7 +91,7 @@ function submit() {
 
     console.log(data)
     $.ajax({
-            url: "http://localhost:8080/PetProject_Final_war_exploded/mom/reservationMom",
+            url: "../mom/reservationMom",
             type: "POST",
             contentType: false,
             cache: false,
@@ -101,15 +101,28 @@ function submit() {
                 console.log(data)
                 console.log('success')
                 showSuccessPage();
+            }, error: function () {
+                showErrorPage();
             }
-        }
-    );
+        });
 }
 
 function showSuccessPage() {
     console.log('showSuccessPage()')
     Swal.fire({
         icon: 'success', title: '預約成功',
+        showConfirmButton: false,
+        timer: 1500,
+    }).then((result) => {
+        console.log(result)
+        window.location.href = '../mom/extar.jsp';
+    })
+}
+
+function showErrorPage() {
+    console.log('showErrorPage()')
+    Swal.fire({
+        icon: 'success', title: '預約失敗 自己無法預約自己',
         showConfirmButton: false,
         timer: 1500,
     }).then((result) => {

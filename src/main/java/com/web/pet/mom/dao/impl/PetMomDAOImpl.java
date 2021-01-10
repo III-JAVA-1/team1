@@ -26,14 +26,12 @@ public class PetMomDAOImpl implements PetMomDAO {
     @Override
     public void insertMom(Mom mom, Integer uId) {
         Session session = sessionFactory.getCurrentSession();
-//        mom.setMember(session.get(Member.class, uId));
+        mom.setMember(session.get(Member.class, uId));
         session.save(mom);
     }
 
     @Override
     public Mom getMomByMemberId(int userId) {
-        Member member = sessionFactory.getCurrentSession().get(Member.class, userId);
-//        return member.getMom();
         return getMomByMomId(userId);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.pet.admin.controller.adminCURD;
 import com.web.pet.admin.dao.AdminDao;
 import com.web.pet.member.model.Member;
 import com.web.pet.mom.dao.PetMomDAO;
@@ -121,6 +122,18 @@ public class AdminService {
 	
 	public void addnewstoreService(PetshopBean petshopBean){//新增店家
 		adaminDao.addnewstoreDao(petshopBean);
+	}
+	
+	public List<Object[]> editshopSevice(Integer id) {//修改店家秀出資料
+		return adaminDao.editshopDao(id);
+	}
+	
+	public PetshopBean originpetshopService(Integer id) {//取得一筆店家物件
+		return adaminDao.originpetshopDao(id);
+	}
+	
+	public Integer editpetshopgoService(PetshopBean petshopBean) {//店家修改資料確認送出
+		return adaminDao.editpetshopgoDao(petshopBean);
 	}
 	
 	public List<Object[]> petshopallService(String search,Integer page){//顯示全部店家

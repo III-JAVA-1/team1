@@ -221,6 +221,13 @@ input[type=button] {
 							}
 						%>
                     </li>
+                    <li class="nav-item" style="color:white;">
+                    	<%
+                    		if(!(session.getAttribute("user")==null)&&!(session.getAttribute("user")=="")){
+                    			out.print("<a class='nav-link' onclick='return logout()' href='#'>登出</a>");
+                    		}
+	                    %>
+                    </li>
                 </ul>
             </div>
     </nav>
@@ -486,7 +493,10 @@ input[type=button] {
 			}
 		});
 	});
-    
+    function logout(){
+		window.location.href="<c:url value='/Gusty/logout'/>";
+		return false;
+	}
 	</script>
 	
 </body>

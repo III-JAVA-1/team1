@@ -67,7 +67,8 @@ public class OtherFunctionDao {
 				+ "where favorite.customer_id=:id\r\n"
 				+ "and favorite.product_id=product.product_id\r\n"
 				+ "and product.product_id=product_image.product_id\r\n"
-				+ "and product.is_display='T'";
+				+ "and product.is_display='T'\r\n"
+				+ "order by product.product_id";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("id", user_id);
 		list = query.list();
 		if(list.isEmpty()) {
@@ -78,7 +79,6 @@ public class OtherFunctionDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	public int delteloveDao(String product_id,Integer user_id){//會員頁面取消收藏商品
 		Session session = sessionFactory.getCurrentSession();
 		String hql="delete from favorite where product_id=:id and customer_id=:uid";
@@ -238,7 +238,7 @@ public class OtherFunctionDao {
 	public List<Object[]> memberpetshopDao(Integer user_id){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select storename,date,name,phone,item,address,id\r\n"
+		String hql="select storename,date,name,phone,item,address,id,other\r\n"
 				+ "from Salon_reserv\r\n"
 				+ "where fk_id=:user_id\r\n"
 				+ "and storename like '%%'";

@@ -1,5 +1,6 @@
 package com.web.pet.admin.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Blob;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.pet.Active.model.ActBean;
 import com.web.pet.Active.service.ActService;
@@ -266,6 +268,54 @@ public class adminCURD {
 		out.print("</script>");
 		out.print("</html></body>");
 		out.close();
+	}
+	
+	@RequestMapping("/editpetshop")//修改店家秀出資料
+	@ResponseBody
+	public List<Object[]> editshopController(Integer id){
+		return adminService.editshopSevice(id);
+	}
+	
+	@RequestMapping("/editpetshopgo")//店家確定修改資料
+	public void editpetshopgoController(PetshopBean petshopBean,MultipartFile imgg,HttpServletResponse response) throws IOException {
+		//File file = new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\");
+		PrintWriter out = response.getWriter();
+		if(imgg==null) {petshopBean.setImage(adminService.originpetshopService(petshopBean.getId()).getImage());}
+		else {
+			//imgg.transferTo(new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
+			imgg.transferTo(new File("C:\\AdvancedWebWorkSpace\\Git\\team1\\src\\main\\webapp\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
+			petshopBean.setImage("image/"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf(".")));
+		}
+		response.setContentType(CONTENT_TYPE);
+		if(adminService.editpetshopgoService(petshopBean)>0) {
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+                    + "  icon: 'success',\r\n"
+                    + "  title: '修改成功',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='http://localhost:8087/PetProject_Final/Gusty/goadminabality?abality=Petshop';\r\n"
+                    + "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
+		}else {
+			out.print("<html><body>");
+    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+    		out.print("<script>");
+    		out.print("Swal.fire({\r\n"
+                    + "  icon: 'error',\r\n"
+                    + "  title: '修改失敗',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='http://localhost:8087/PetProject_Final/Gusty/goadminabality?abality=Petshop';\r\n"
+                    + "})");
+    		out.print("</script>");
+    		out.print("</html></body>");
+		}
 	}
 	
 	@RequestMapping("/petshopall")//顯示全部店家

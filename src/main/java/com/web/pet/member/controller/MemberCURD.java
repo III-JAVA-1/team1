@@ -489,4 +489,57 @@ public class MemberCURD {
 		out.close();
 	}
 	
+	@RequestMapping("/fastlogin")
+	public void adminfastlogin(HttpServletRequest request,HttpServletResponse response,String where) throws IOException {
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();
+		if(where.equals("admin")) {
+			request.getSession().setAttribute("user",1);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+	                + "  icon: 'success',\r\n"
+	                + "  title: '登入成功',\r\n"
+	                + "  showConfirmButton: false,\r\n"
+	                + "  timer: 1500\r\n"
+	                + "}).then((result) => {\r\n"
+	                + "window.location.href='../Member/Member.jsp';\r\n"
+	                + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}else if(where.equals("normal1")) {
+			request.getSession().setAttribute("user",2);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+	                + "  icon: 'success',\r\n"
+	                + "  title: '登入成功',\r\n"
+	                + "  showConfirmButton: false,\r\n"
+	                + "  timer: 1500\r\n"
+	                + "}).then((result) => {\r\n"
+	                + "window.location.href='../Member/Member.jsp';\r\n"
+	                + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}else {
+			request.getSession().setAttribute("user",3);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+	                + "  icon: 'success',\r\n"
+	                + "  title: '登入成功',\r\n"
+	                + "  showConfirmButton: false,\r\n"
+	                + "  timer: 1500\r\n"
+	                + "}).then((result) => {\r\n"
+	                + "window.location.href='../Member/Member.jsp';\r\n"
+	                + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}
+		
+	}
+	
 }

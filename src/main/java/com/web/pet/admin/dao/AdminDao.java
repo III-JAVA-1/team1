@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.id.IntegralDataTypeHolder;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -407,6 +408,36 @@ public class AdminDao {
 	public void addnewstoreDao(PetshopBean petshopBean){//新增店家
 		Session session = sessionFactory.getCurrentSession();
 		session.save(petshopBean);
+	}
+	
+	@SuppressWarnings("unchecked")//修改店家秀出資料
+	public List<Object[]> editshopDao(Integer id){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select id,name,address,phone,type,pet,image\n"
+				+ "from petshop\n"
+				+ "where id=:id";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql).setParameter("id", id);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	public PetshopBean originpetshopDao(Integer id) {//取得一筆店家物件
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(PetshopBean.class, id);
+	}
+	
+	public Integer editpetshopgoDao(PetshopBean petshopBean) {//店家修改資料送出
+		Integer result=0;
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(petshopBean);
+		result++;
+		return result;
 	}
 	
 	@SuppressWarnings("unchecked")//顯示全部店家

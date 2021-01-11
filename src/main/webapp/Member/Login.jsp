@@ -77,16 +77,17 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<br>
 			
 			<div class="row justify-content-center">
+			<Button  type="submit" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true">登錄</Button>
+			<a href="Register.jsp" class="btn btn-success btn-lg active ml-3" role="button" aria-pressed="true">註冊</a>
+			<Button  type="button" onclick="forgetshow()" class="btn btn-danger btn-lg active ml-3" role="button" aria-pressed="true">忘記密碼</Button>
 			<div class="g-signin2 ml-3" data-onsuccess="onSignIn" onclick="clicked()" data-theme="dark"></div>
-				<Button  type="submit" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true">登錄</Button>
-				<a href="Register.jsp" class="btn btn-success btn-lg active ml-3" role="button" aria-pressed="true">註冊</a>
-				<Button  type="button" onclick="forgetshow()" class="btn btn-danger btn-lg active ml-3" role="button" aria-pressed="true">忘記密碼</Button>
 			</div>
 			<br>
 			<div class="row justify-content-center">
-			<button type="button" class="btn btn-info m-3" onclick='admingogo()'>管理者</button>
-			<button type="button" class="btn btn-info m-3" onclick='normalgogo()'>一般人</button>
-			<button type="button" class="btn btn-info m-3" onclick='normal2gogo()'>給我用</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=admin'/>"'>管理者</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal1'/>"'>一般人</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal2'/>"'>給我用</button>
+			<button type="button" class="btn btn-info m-3" onclick='lock()'>封鎖用</button>
 			</div>
 <!-- 			<div class="row justify-content-center"> -->
 			
@@ -251,20 +252,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		}
     	}
     	
-    	function admingogo(){
-    		$("#LoginEmail").val("eeit125team1@gmail.com")
-    		$("#LoginPassword").val("abc123456")
+    	function lock(){
+    		$("#LoginEmail").val("qwe78889@gmail.com")
+    		$("#LoginPassword").val("asd456")
     	}
     	
-    	function normalgogo(){
-    		$("#LoginEmail").val("ching89118@gmail.com")
-    		$("#LoginPassword").val("abc123")
-    	}
-    	
-    	function normal2gogo(){
-    		$("#LoginEmail").val("qaz789@gmail.com")
-    		$("#LoginPassword").val("abcd1234")
-    	}
 	</script>
 
 </body>

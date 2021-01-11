@@ -54,6 +54,13 @@
 	
 		
 		
+  .newen{
+  padding:20px 100px 100px 20px;
+  border-width:3px;
+  border-style:dashed;
+  border-color:#FFAC55;
+  }
+		
 		
 	</style>
 
@@ -85,7 +92,7 @@
 
     <!--Nav尾-->
     
-<div style="width: 1100px;background-color:#FFFFFF;margin: auto;">
+<div style="width: 1100px;background-color:#FFFFFF;margin: auto;padding:10px 100px;">
    		<div id="fb-root"></div>
      		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v9.0" nonce="bZUjiJpf"></script>
 			<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
@@ -94,58 +101,73 @@
 			<br>
 		<div style="text-align:center;">
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
-   			<img id="img" style="width:800px;" src="image/tantanEX.jpg" >
+   			<img id="img" style="width:800px;" src="" >
 		</div>
 		<br>   			
-   		<table style="width: 1000px; border: 2px solid black;margin: auto;">
+<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
    			
-   				<tr>
-   					<td class="acstyle">活動名稱</td>
-   					<td class="acstyle">活動時間</td>
-					<td class="acstyle">活動類別</td>
-   				</tr> 
+<!--    				<tr> -->
+<!--    					<td class="acstyle">活動名稱</td> -->
+<!--    					<td class="acstyle">活動時間</td> -->
+<!-- 					<td class="acstyle">活動類別</td> -->
+<!--    				</tr>  -->
 		
-   				<tr>
-   					<td class="acstyle" id="act_name"></td>
-   					<td class="acstyle" id="act_time"></td>
-   					<td class="acstyle" id="act_type"></td>
-   				</tr> 			
+<!--    				<tr> -->
+<!--    					<td class="acstyle" id="act_name"></td> -->
+<!--    					<td class="acstyle" id="act_time"></td> -->
+<!--    					<td class="acstyle" id="act_type"></td> -->
+<!--    				</tr> 			 -->
 
    			
    			
-   		</table>
-   		<br>
-   		<table style="width: 1000px; border: 2px solid black;margin: auto;">
+<!--    		</table> -->
+<!--    		<br> -->
+<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
    			
-   				<tr>
-   					<td class="acstyle">承辦單位</td>
-   					<td class="acstyle">連絡人</td>
-   					<td class="acstyle">連絡電話</td>
-   					<td class="acstyle">活動地點</td>
+<!--    				<tr> -->
+<!--    					<td class="acstyle">承辦單位</td> -->
+<!--    					<td class="acstyle">連絡人</td> -->
+<!--    					<td class="acstyle">連絡電話</td> -->
+<!--    					<td class="acstyle">活動地點</td> -->
    					
-   				</tr> 
+<!--    				</tr>  -->
 		
-   				<tr>		
-   					<td class="acstyle" id="act_org"></td>
-   					<td class="acstyle" id="act_orgman"></td>
-   					<td class="acstyle" id="act_phone"></td>
-   					<td class="acstyle" id="act_where"></td>
+<!--    				<tr>		 -->
+<!--    					<td class="acstyle" id="act_org"></td> -->
+<!--    					<td class="acstyle" id="act_orgman"></td> -->
+<!--    					<td class="acstyle" id="act_phone"></td> -->
+<!--    					<td class="acstyle" id="act_where"></td> -->
    					
-   				</tr> 			
+<!--    				</tr> 			 -->
 				
    			
    			
-   		</table>
+<!--    		</table> -->
    		<br>
-   		<table style="width: 1000px; border: 2px solid black;margin: auto;">
-   				<tr>
-					<td class="acstyle">活動簡介</td>
-   				</tr>
-				<tr>
-					<td class="acstyle" id="act_content"></td>
-   				</tr>
+<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
+<!--    				<tr> -->
+<!-- 					<td class="acstyle">活動簡介</td> -->
+<!--    				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td class="acstyle" id="act_content"></td> -->
+<!--    				</tr> -->
    		
-   		</table>
+<!--    		</table> -->
+   		
+   		
+   		
+   		<h2 style="text-align:center;" id="act_name"></h2>
+   		<br>
+   		<div class="newen" style="">
+   		<p id="act_time"></p>
+   		<p id="act_type"></p>
+   		<p id="act_org"></p>
+   		<p id="act_orgman"></p>
+   		<p id="act_phone"></p>
+   		<p id="act_where"></p>
+   		<p id="act_content"></p>  		
+   		</div>
+   		
    		
    		<br>
    		
@@ -217,13 +239,13 @@
     					$("#img").attr("src","<c:url value='../Wu/getimg?act_no="+n.act_no+"'/>");
     					$("#act_name").html(n.act_name);
     					$("title").html(n.act_name);
-    					$("#act_time").html(n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
-    					$("#act_content").html(n.act_content);
-    					$("#act_org").html(n.act_organize);
-    					$("#act_orgman").html(n.act_orgman);
-    					$("#act_phone").html(n.act_orgphone);
-    					$("#act_type").html(n.act_type);
-    					$("#act_where").html(n.act_where);
+    					$("#act_time").html("活動時間: "+n.starttime.substr(0,10)+" ~ "+n.endtime.substr(0,10));
+    					$("#act_content").html("活動簡介: "+n.act_content);
+    					$("#act_org").html("主辦單位: "+n.act_organize);
+    					$("#act_orgman").html("承辦人: "+n.act_orgman);
+    					$("#act_phone").html("連絡電話: "+n.act_orgphone);
+    					$("#act_type").html("活動種類: "+n.act_type);
+    					$("#act_where").html("活動地點:"+n.act_where);
     					$("#starttime").val(n.starttime.substr(0,10));
     					$("#endtime").val(n.endtime.substr(0,10));
     				

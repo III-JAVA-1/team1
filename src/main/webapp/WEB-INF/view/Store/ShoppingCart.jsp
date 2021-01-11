@@ -4,16 +4,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="Store/js/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="Store/js/test.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="Store/css/shoppingCart.css" rel="stylesheet">
+    <link href="css/shoppingCart.css" rel="stylesheet">
 
     <title>我的購物車</title>
 </head>
 <body>
+<jsp:include page="Header.jsp"/>
 <div class="tb1">
     <table class="table table-hover">
         <thead>
@@ -36,11 +37,13 @@
 </div>
 <div class="total">
     <P class="p1" id="totalPrice">小計:$</P>
+    <P class="remarks">※請記得勾選要購買的項目</P>
     <div class="btn1">
         <button type="button" class="btn btn-warning" onclick="goStore()">返回逛逛</button>
         <button type="button" class="btn btn-primary" onclick="goOrder()">去買單</button>
     </div>
 </div>
+<jsp:include page="Footer.jsp"/>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.zmin.js"
@@ -86,7 +89,7 @@
                         + data.shoppingCartId
                         + "\" name=\"checkboxName\">\n"
                         + "<label for=\"vehicle1\"></label><br></th>\n"
-                        + "<td><img src=\""
+                        + "<td class=\"shopping-item-img\"><img src=\""
                         + img
                         + "\" width=\"150px\" height=\"150px\"></td>\n"
                         + "<td class=\"shopping-item-name\">"
@@ -337,7 +340,7 @@
 
     // 返回商店頁面
     function goStore() {
-        window.location.href = "Store/?memberId=" + memberId;
+        window.location.href = "../Store/?memberId=" + memberId;
     }
 
     // 前往訂單頁面
@@ -349,7 +352,7 @@
             }
         })
         if (b) {
-            window.location.href = "order?memberId=" + memberId;
+            window.location.href = "../order?memberId=" + memberId;
         } else {
             alert("請選取要購買項目");
         }

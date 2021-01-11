@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(241, 237, 237);
+    background-color: rgb(241, 237, 237) !important;
 }
 
 tr {
@@ -44,15 +44,28 @@ tr {
     text-align: right;
     margin: 0px 20px 10px 0px;
     padding-top: 10px;
-    font-size: 16pt;
+    font-size: 20pt;
     color: red;
 }
 
 .shopping-item-name {
-    width: 30vw;
-
+    /*width: 30vw;*/
+    vertical-align:middle !important;
+    padding-left: 50px !important;
+    /*font-size: 12pt;*/
 }
 
+.shopping-item-img{
+    width: 150px;
+    height: 150px;
+}
+
+.remarks{
+    text-align: right;
+    margin: 0px 20px 10px 0px;
+    font-size: 10pt;
+    color: #8d8888;
+}
 
 
 

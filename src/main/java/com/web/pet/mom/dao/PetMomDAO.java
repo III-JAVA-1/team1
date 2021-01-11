@@ -1,7 +1,7 @@
 package com.web.pet.mom.dao;
 
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.model.MomData;
+import com.web.pet.mom.model.req.MomData;
 
 import java.util.List;
 
@@ -37,10 +37,7 @@ public interface PetMomDAO {
      * @param title
      * @return
      */
-    List<MomData> getAllMomData(String country, String title);
-
-
-    List<Mom> getAllMoms(String country, String title);
+    List<MomData> getAllMoms(String country, String title);
 
 
     /**
@@ -55,5 +52,5 @@ public interface PetMomDAO {
      * @param momId
      * @return
      */
-    List<Mom> getReservation(Integer momId);
+    List<MomData> getReservation(Integer momId);
 }

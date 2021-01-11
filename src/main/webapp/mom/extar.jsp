@@ -34,7 +34,7 @@
             height: 50px;
             text-align: center;
             border: none;
-            background-image: url("../images/up.png");
+            background-image: url("/images/up.png");
             background-size: 50px 50px;
         }
 
@@ -263,12 +263,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
-<!-- TWzipcode的js -->
-<script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-
 </body>
 
 </html>

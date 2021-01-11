@@ -2,10 +2,12 @@ package com.web.pet.mom.dao.impl;
 
 
 import com.web.pet.member.model.Member;
+import com.web.pet.mom.Exeption.MomSearchNotFoundException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.model.MomData;
+import com.web.pet.mom.model.req.MomData;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -40,23 +42,23 @@ public class PetMomDAOImpl implements PetMomDAO {
         return sessionFactory.getCurrentSession().get(Mom.class, momId);
     }
 
+    @SneakyThrows
     @Override
-    public List<MomData> getAllMomData(String country, String title) {
+    public List<MomData> getAllMoms(String country, String title) {
         if (country == null) {
             country = "";
         }
         if (title == null) {
             title = "";
         }
-        String sql = "select Member.country , MOM.title , Member.sname ,"
-                + "Mom.bodyType1"
-                + ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.notices"
-                + ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic"
-                + ",Mom.momId\r\n"
-                + "from Member,MOM\r\n"
-                + "where MOM.momId=Member.u_Id\r\n"
-                + "and Member.country like '%" + country + "%'\r\n"
-                + "and MOM.title like '%" + title + "%'";
+        String sql = "select Member.country , MOM.title , Member.sname \n" +
+                ",Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
+                ",Mom.notices,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3\n" +
+                ",Mom.momId,Member.Img\n" +
+                "from Member,MOM\n" +
+                "where MOM.momId=Member.u_Id\n" +
+                "and Member.country like '%" + country + "%'" +
+                "and MOM.title like '%" + title + "%'";
 
         Session session = sessionFactory.getCurrentSession();
         List<Object[]> resultList = session.createNativeQuery(sql).getResultList();
@@ -66,38 +68,7 @@ public class PetMomDAOImpl implements PetMomDAO {
             list.add(MomData.mappingMomData(objects));
         }
         if (list.isEmpty()) {
-            return null;
-        } else {
-            return list;
-        }
-
-    }
-
-    @Override
-    public List<Mom> getAllMoms(String country, String title) {
-        if (country == null) {
-            country = "";
-        }
-        if (title == null) {
-            title = "";
-        }
-        String sql = "select Member.country , MOM.title , Member.sname ,"
-                + "Mom.bodyType1"
-                + ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.notices"
-                + ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic"
-                + ",Mom.momId\r\n"
-                + "from Member,MOM\r\n"
-                + "where MOM.momId=Member.u_Id\r\n"
-                + "and Member.country like '%" + country + "%'\r\n"
-                + "and MOM.title like '%" + title + "%'";
-
-        Session session = sessionFactory.getCurrentSession();
-
-        List<Mom> list = session.createNativeQuery(sql).getResultList();
-
-
-        if (list.isEmpty()) {
-            return null;
+            throw new MomSearchNotFoundException();
         } else {
             return list;
         }
@@ -110,18 +81,25 @@ public class PetMomDAOImpl implements PetMomDAO {
         return session.get(Mom.class, momId);
     }
 
+    @SneakyThrows
     @Override
-    public List<Mom> getReservation(Integer momId) {
+    public List<MomData> getReservation(Integer momId) {
 
-        String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1"
-                + ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4"
-                + ",Mom.proPrice1,Mom.proPrice2,Mom.proPrice3"
-                + ",Mom.momId\r\n"
-                + "from Member,MOM\r\n"
-                + "where Member.u_Id = " + momId
-                + "AND MOM.momId = " + momId;
+        String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1\n" +
+                ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
+                ",Mom.notices,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic\n" +
+                ",Mom.momId,Member.Address,Member.District,\n" +
+                "Member.Img,Member.Phone,Mom.Experience,Mom.petContent\n" +
+                "from Member,MOM\n" +
+                "where Member.u_Id =" + momId +
+                "AND MOM.momId =" + momId;
 
-        Session session = sessionFactory.getCurrentSession();
-        return session.createNativeQuery(sql).getResultList();
+        Session currentSession = sessionFactory.getCurrentSession();
+        List<Object[]> result = currentSession.createNativeQuery(sql).getResultList();
+        List<MomData> list = new LinkedList<>();
+        for (Object[] objects : result) {
+            list.add(MomData.mappingOrderData(objects));
+        }
+        return list;
     }
 }

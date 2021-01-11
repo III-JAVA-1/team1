@@ -35,37 +35,40 @@ function search() {
             title: $("#selectTitle").val(),
         },
         success: function (data) {
-            $.each(data, function (n, m) {
+
+            console.log(data)
+            data.forEach(function (data) {
+                console.log(data.pic)
                 let type = "<div class='col-md-4' >"
-                    + "<img src='../mom/getPic?momId="+m[12]+"' style='width:230px; height:180px;'/>"
+                    + "<img src='data:image/png;base64," + data.img + "' style='width:230px; height:180px;'/>"
                     + "</div>"
                     + "<div class='col-md-1'></div>"
                     + "<div class='col-md-7'>"
-                    + "<h5 >" + m[1] + "</h5>"
-                    + " <h5 >" + m[2] + "</h5>"
-                if (m[3] != null) {
+                    + "<h5 >" + data.title + "</h5>"
+                    + " <h5 >" + data.notices + "</h5>"
+                if (data.bodyType1 != null) {
                     type += "<small>迷你犬(0~4kg):接受</small> <br>"
-                }else{
+                } else {
                     type += "<small>迷你犬(0~4kg):不接受</small> <br>"
                 }
-                if (m[4] != null) {
+                if (data.bodyType2 != null) {
                     type += "<small>中型犬(10~24kg):接受</small> <br>"
-                }else {
+                } else {
                     type += "<small>中型犬(10~24kg):不接受</small> <br>"
                 }
-                if (m[5] != null) {
+                if (data.bodyType3 != null) {
                     type += "<small>大型犬(24kg以上):接受</small> <br>"
-                }else {
+                } else {
                     type += "<small>大型犬(24kg以上):不接受</small> <br>"
                 }
-                if (m[6] != null) {
+                if (data.bodyType4 != null) {
                     type += "<small>貓:接受</small>"
-                }else {
+                } else {
                     type += "<small>貓:不接受</small>"
                 }
                 type += "<form name='goReser'  action='reservation.jsp' method='post' onsubmit='return goTo()'>" +
-                    "<input type='hidden' name='momId' value='"+m[12]+"'/>" +
-                    "<input type='hidden' name='sname' value='"+m[2]+"'/>" +
+                    "<input type='hidden' name='momId' value='"+data.momId+"'/>" +
+                    "<input type='hidden' name='sname' value='" + data.sname + "'/>" +
                     "<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>" +
                     "<hr>"
 
@@ -78,10 +81,3 @@ function search() {
 
     });
 };
-
-//地址
-$("#twzipcode_My").twzipcode({
-    css: ["city form-control", "town form-control"],
-    countyName: "city", // 自訂城市 select 標籤的 name 值
-    districtName: "town", // 自訂地區 select 標籤的 name 值
-});

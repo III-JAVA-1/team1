@@ -96,6 +96,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       					<th scope="col">手機</th>
       					<th scope="col">預約服務</th>
       					<th scope="col">地址</th>
+      					<th scope="col">備註</th>
       					<th scope="col">操作</th>
     				</tr>
   				</thead>
@@ -191,6 +192,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			   		"<td>"+n[3]+"</td>"+
 			   		"<td>"+n[4]+"</td>"+
 			   		"<td>"+n[5]+"</td>"+
+			   		"<td>"+n[7]+"</td>"+
 					"<td><button type='button' class='btn btn-info' onclick='editorder("+n[6]+")'>修改訂單</button>"+
 			   		"<button type='button' class='btn btn-danger' onclick='orderdelete("+n[6]+")'>刪除訂單</button></td></tr>");
 			});

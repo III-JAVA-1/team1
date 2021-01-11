@@ -17,7 +17,11 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+	 <style>
+      	html {
+		    scroll-behavior: smooth
+		}
+      </style>
   </head>
   <body style="background-image: url(image/bg.jpg);">
   <jsp:include page="Header.jsp"/>
@@ -85,6 +89,24 @@
 					    <span class="db_line1_message_span"><button type="button"  onclick="editComment();location.href='#editCommentInfo'" style='background-color:#666;color:white';">我要回覆</button></span>				
 					</div>
 					<%}%>
+					
+				<!-- 這邊一定要發GET請求才不會出trouble -->
+			  <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
+		           <div class="db_line1_release">
+		           <!-- 獲取StringQuery的posterUid -->
+		           <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
+		           <!-- 獲取StringQuery的viewing -->
+		           <input type='hidden' value='<%=request.getParameter("viewing") %>' name='viewing'>
+		          <!-- 發文者才會看到按鈕 --> 
+		         <%  
+		         	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
+		        	 	if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
+		           			out.print("<span class='db_line1_message_span'><button type='submit' style='background-color:#666;color:white';>修改文章</button></span>"); 
+		               	}
+		         	}
+		          %>               
+		          </div>
+		        </form>
 				
               
 			          <!-- Article -->
@@ -93,23 +115,7 @@
 			          </div>
 			          <!-- end of Article -->
                 
-		            <!-- 這邊一定要發GET請求才不會出trouble -->
-		          <form action="<c:url value='/petforum/sendOriginalPost'/>" method="GET">
-		            <div class="db_line1_release">
-		            <!-- 獲取StringQuery的posterUid -->
-		            <input type='hidden' value='<%=request.getParameter("posterUid") %>' name='posterUid'>
-		            <!-- 獲取StringQuery的viewing -->
-		            <input type='hidden' value='<%=request.getParameter("viewing") %>' name='viewing'>
-		           <!-- 發文者才會看到按鈕 --> 
-		          <%  
-		          	if(session.getAttribute("user")!=null && session.getAttribute("user")!=""){
-		         	 	if(session.getAttribute("user").toString().equals(request.getParameter("u_Id").toString())){ 
-		            			out.print("<button type='submit' class='btn btn-secondary'>我要修改</button> "); 
-		                	}
-		          	}
-		           %>               
-            </div>
-          </form>
+		          
          <hr/>    
 <!--end of Aticle-->
 
@@ -129,9 +135,8 @@
 
 <!-- editComment UI -->
 <div id='editCommentInfo' style='display:none;'>
-    <div class="bubbleContainer">
-		<h5>留言</h5>
-	        <div class="bubbleBody">                        
+    <div class="bubbleContainer">		
+	        <div class="bubbleBody">	                          
 			 <form id="message" action="<c:out value="../petforum/commitComment"/>" method="POST">
 			 	<div class="divForm">
 				 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>

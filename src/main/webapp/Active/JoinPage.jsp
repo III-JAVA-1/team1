@@ -13,7 +13,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!--bootstrap初始規模-->
-<title>AccompanyMe</title>
+<title>活動報名</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
@@ -50,7 +50,7 @@
 	</nav>
 
 	<!--Nav尾-->
-	<div style="background-color: rgb(240, 232, 219); margin-bottom: 50px; width: 800px; margin: auto;">
+	<div style="background-color:#FFFFFF; margin-bottom: 50px; width: 800px; margin: auto;">
 		<H1 style="text-align: center;">活動報名</H1>
 
 
@@ -65,7 +65,7 @@
 		
 		
 		
-		<div style="text-align: center;">
+		<div class="container" style="padding:10px 100px;">
 
 			
 		
@@ -90,25 +90,28 @@
 					
 					
 					<div>
-					<span>名字:</span>
+					<p>名字:</p>
 					<input type="text" name="name" id="name" readonly="readonly">
 					</div>
 
 					<br>
 
 					<div>
-					<span>電子郵件:</span>
+					<p>電子郵件:</p>
 					<input type="text" name="email" id="email" >
 					</div>
 					
 					<br>
 					
-					<div>
-					<p>地址</p>
-					<span>市</span><input type="text" name="country" id="country">
-					<span>區</span><input type="text" name="district" id="district">
-					<span>地址</span><input type="text" name="address" id="address">					
-					</div>
+			<div>
+
+<!-- 					<p>地址:</p> -->
+					<p>地址:</p>
+					<input size=6  type="text" name="country" id="country">
+					<input size=16  type="text" name="district" id="district">
+					<input size=25  type="text" name="address" id="address">					
+
+			</div>
 
 					<br> 
 				
@@ -136,12 +139,14 @@
 				</div>
 								
 				<br> <br> 
+				<div class="row justify-content-center">
 				<input type="hidden" id="JoinTime" name="JoinTime"  value="<%= (new java.util.Date()).toLocaleString()%>">
 				<input type="hidden" name="now" id="now" value="<%= new Date(new java.util.Date().getTime())%>" /> 
 				<input type="hidden" id="stt" name="stt" >
-				<button type="submit" id="BtnSend" name="todo" value="join" onClick="check()">送出</button>
+				<button class="btn btn-primary btn-lg" type="submit" id="BtnSend" name="todo" value="join" onClick="check()">送出</button>
 				
 				</form>
+				</div>
 			</div>
 		<br> 
 	</div>

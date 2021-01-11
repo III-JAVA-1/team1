@@ -21,7 +21,7 @@
 
 <jsp:include page="Header.jsp"/>
 
-<body>
+<body style="background-color:#F0F0F0;">
 <!-- NavBar頭-->
     <nav class="navbar navbar-expand-sm bg-light">
 
@@ -48,7 +48,7 @@
 
 
 
-	<div class="container">
+	<div class="container" style="background-color:#FFFFFF;width: 1000px;">
 
 		<div class="row justify-content-center">
 			<H1>新增活動</H1>
@@ -202,6 +202,7 @@
 			</div>
 
 		</form>
+<br><br>
 
 	</div>
 <br><br>

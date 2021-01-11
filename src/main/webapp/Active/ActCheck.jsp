@@ -29,7 +29,8 @@
 	}
 	.checktable{
 	border: 2px solid #000093;
-	width: 1500px;
+	width: 1000px;
+	background-color:#FFFFFF;
 	}
 		
 	</style>
@@ -38,7 +39,7 @@
 </head>
 <jsp:include page="Header.jsp" />
 
-<body>
+<body style="background-color:#F0F0F0;">
  
 
     <!-- container的開頭-->
@@ -73,8 +74,8 @@
         
         <tbody> 
         	<tr> 	
-         		<td class="acstyle" style="width: 500px;">活動名稱</td>
-                <td class="acstyle">備註欄</td>
+         		<td class="acstyle" >活動名稱</td>
+                <td class="acstyle" style="width: 500px;">備註欄</td>
                 <td class="acstyle">參加狀況</td>
                 <td class="acstyle">變更參加狀態</td>
         	</tr>
@@ -83,7 +84,7 @@
 		<tbody id="WhatTable">
         </tbody>  
     </table>
-    
+  
     
     <div>        
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

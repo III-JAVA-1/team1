@@ -242,9 +242,9 @@ function pagechange(page){
 		type:"post",
 		dataType:"json",
 		data:{
-			storename: $("#storename").val(),
-			pettype: $("#pettype").val(),
-			shoptype: $("#shoptype").val(),
+			storename: "",
+			pettype: "",
+			shoptype: "",
 		},
 		success:function(data){
 			for(let i=0;i<(data.length/12);i=i+1){

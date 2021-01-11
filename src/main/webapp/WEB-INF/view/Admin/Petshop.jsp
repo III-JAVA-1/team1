@@ -103,7 +103,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		<input class="form-check-input" type="radio" id="cat" value="貓" name="pet" required="required">
   		<label class="form-check-label" for="cat">貓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label></div>
 		<div class="form-check form-check-inline">
-  		<input class="form-check-input" type="radio" id="dogcat" value="其他" name="pet" required="required">
+  		<input class="form-check-input" type="radio" id="dogcat" value="狗貓" name="pet" required="required">
   		<label class="form-check-label" for="dogcat">都有</label>
 		</div></div><br>
 		
@@ -143,6 +143,68 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</div>
 		
 	</div>
+	
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">修改店家</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <img src='' onerror='findimg(this)' style='width:100%;height:250px;' id='previewedit'/>
+<!--       <img src='' onerror='findimg(this)' style='width:100%;height:250px;' id='newimg' alt='無法預覽，尚未上傳圖片'> -->
+        <form action="../Gusty/editpetshopgo" method="post" enctype="multipart/form-data">
+        	<input type="hidden" class="form-control" id='editid' name='id'>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">圖片:</label>
+            <input type="file" class="form-control" id='editimg' name='imgg'>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">店家名稱:</label>
+            <input type="text" class="form-control" required="required" id='editname' name='name'>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">地址:</label>
+            <input type="text" class="form-control" required="required" id='editaddress' name='address'>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">手機:</label>
+            <input type="text" class="form-control" required="required" id='editphone' name='phone'>
+          </div>
+          <div class="form-group">
+            <div class="form-check form-check-inline">商店類型:&nbsp&nbsp
+  			<input class="form-check-input edittype" type="radio" id="editbeautiful" value="美容店" required="required" name="type">
+  			<label class="form-check-label" for="beautiful">美容店</label></div>
+			<div class="form-check form-check-inline">
+  			<input class="form-check-input edittype" type="radio" id="editpet" value="寵物店" required="required" name="type">
+  			<label class="form-check-label" for="pet">寵物店</label></div>
+			<div class="form-check form-check-inline">
+  			<input class="form-check-input edittype" type="radio" id="editother" value="其他" required="required" name="type">
+  			<label class="form-check-label" for="other">其他</label></div>
+          </div>
+          <div class="form-group">
+            <div class="form-check form-check-inline">服務寵物:&nbsp&nbsp
+  			<input class="form-check-input editpet" type="radio" id="editdog" value="狗" name="pet" required="required">
+  			<label class="form-check-label" for="dog">狗&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label></div>
+			<div class="form-check form-check-inline">
+  			<input class="form-check-input editpet" type="radio" id="editcat" value="貓" name="pet" required="required">
+  			<label class="form-check-label" for="cat">貓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label></div>
+			<div class="form-check form-check-inline">
+  			<input class="form-check-input editpet" type="radio" id="editdogcat" value="狗貓" name="pet" required="required">
+  			<label class="form-check-label" for="dogcat">都有</label></div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary">確定修改</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 	<div id="gotop">
 	</div><br>
@@ -211,7 +273,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	    		"<p class='card-text'>"+n[3]+"</p>"+
     	    		"<p class='card-text'>商店類型:&nbsp"+n[4]+"</p>"+
     	    		"<p class='card-text'>服務寵物:&nbsp"+n[5]+"</p>"+
-    	    		"<p class='card-text'><button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
+    	    		"<p class='card-text'><button type='button' class='btn btn-primary mr-1' onclick='editshop("+n[0]+")' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo'>修改店家</button>"+
+    	    		"<button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
     	  			"</div></div>");
     			});
     		},error:function(){
@@ -244,7 +307,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	    		"<p class='card-text'>"+n[3]+"</p>"+
 	    		"<p class='card-text'>商店類型:&nbsp"+n[4]+"</p>"+
 	    		"<p class='card-text'>服務寵物:&nbsp"+n[5]+"</p>"+
-	    		"<p class='card-text'><button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
+	    		"<p class='card-text'><button type='button' class='btn btn-primary mr-1' onclick='editshop("+n[0]+")' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo'>修改店家</button>"+
+	    		"<button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
 	  			"</div></div>");
 			});
 		}
@@ -271,13 +335,53 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	    		"<p class='card-text'>"+n[3]+"</p>"+
     	    		"<p class='card-text'>商店類型:&nbsp"+n[4]+"</p>"+
     	    		"<p class='card-text'>服務寵物:&nbsp"+n[5]+"</p>"+
-    	    		"<p class='card-text'><button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
+    	    		"<p class='card-text'><button type='button' class='btn btn-primary mr-1' onclick='editshop("+n[0]+")' data-toggle='modal' data-target='#exampleModal' data-whatever='@mdo'>修改店家</button>"+
+    	    		"<button type='button' class='btn btn-danger' onclick='deletestore("+n[0]+")' >刪除店家</button></p>"+
     	  			"</div></div>");
     			});
     		}
     	});
     }
     
+    function editshop(id){
+    	//alert(storename)
+    	$.ajax({
+    		url:"../Gusty/editpetshop",
+    		type:"post",
+    		dataType:"json",
+    		async:false,
+    		data : { 
+    			"id":id,
+            },
+    		success:function(data){
+    			$.each(data,function(i,n){
+    				if(n[6].indexOf("image")==0){n[6]="../Petshop/"+n[6]}
+    				$("#editid").val(n[0])
+    				$("#previewedit").attr("src",n[6])
+					$("#editname").val(n[1])
+					$("#editaddress").val(n[2])
+					$("#editphone").val(n[3])
+					$(".edittype[name=type][value="+n[4]+"]").attr('checked',true);
+					$(".editpet[name=pet][value="+n[5]+"]").attr('checked',true);
+    			});
+    		}
+    	});
+    }
+    
+    $("#editimg").change(function(){
+        //當檔案改變後，做一些事 
+       readURL(this);   // this代表<input id="imgInp">
+     });
+     function readURL(input){
+    	  if(input.files && input.files[0]){
+    	    var reader = new FileReader();
+    	    reader.onload = function (e) {
+    	       $("#previewedit").attr('src', e.target.result);
+    	    }
+    	    reader.readAsDataURL(input.files[0]);
+    	  }
+    	}
+     
     function deletestore(sid){
     	$.ajax({
     		url:"../Gusty/petshopdelete",

@@ -79,12 +79,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="row justify-content-center">
-				<div class="form-group row">														
-					<input class="form-check-input" type="checkbox" id="ckObey">											
-					<label class="col-sm-3 col-form-label" for="ckObey" class="form-check-label">我已閱讀過並同意遵守討論區規則，<a class='inline' href="#inline_content">按這裡檢視討論區規則</a></label>					
-				</div>
-			</div>
 		</form:form>
 	</div>	 	
 </div>
@@ -157,7 +151,7 @@
     
     $("#modify").click(function modify(form){//按預覽文章     
     	
-   	 if($("#ckObey").prop("checked") && $("#forumId").find("option:selected").val() != null){  		
+   	 if($("#forumId").find("option:selected").val() != null){  		
    	    	
    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
    					
@@ -173,7 +167,7 @@
    		 }
    		 else{  			 
    			   Swal.fire({
-		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  title: '尚未選擇子版',
 		  	      		  icon: 'error',
 		  	      		  confirmButtonText: '確定'
 		  	      		})
@@ -182,7 +176,7 @@
    
    		}else{   	    	
    	    	Swal.fire({
-		  	      		  title: '尚未選擇子版 或 尚未同意討論區規則！',
+		  	      		  title: '尚未選擇子版',
 		  	      		  icon: 'error',
 		  	      		  confirmButtonText: '確定'
 		  	      		})

@@ -17,8 +17,8 @@ public class Mytest {
 
 	@Test
 	public void test() throws Exception {
-		String key = DigestUtils.sha512Hex("abcd1234");
-        System.out.println(key);
+		String aa="123.jpg";
+		System.out.println(aa.substring(aa.indexOf(".")));
 	}
 
 }

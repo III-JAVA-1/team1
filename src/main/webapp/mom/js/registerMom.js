@@ -16,22 +16,27 @@ function sendPetMom() {
 
     if (document.getElementById("littleDog").checked) {
         littleDog = $("#littleDog").val();
+        data.append("bodyType1", littleDog)
         console.log(littleDog)
     }
+
     let mediumDog
     if (document.getElementById("mediumDog").checked) {
         mediumDog = $("#mediumDog").val();
+        data.append("bodyType2", mediumDog)
         console.log(mediumDog)
     }
     let bigDog;
     if (document.getElementById("bigDog").checked) {
         bigDog = $("#bigDog").val();
+        data.append("bodyType3", bigDog)
         console.log(bigDog)
     }
 
     let cat;
     if (document.getElementById("cat").checked) {
         cat = $("#cat").val();
+        data.append("bodyType4", cat)
         console.log(cat)
     }
 
@@ -57,10 +62,6 @@ function sendPetMom() {
     data.append("proPrice1", checkPeace)
     data.append("proPrice2", checkBoarding)
     data.append("proPrice3", checkWalkDog)
-    data.append("bodyType1", littleDog)
-    data.append("bodyType2", mediumDog)
-    data.append("bodyType3", bigDog)
-    data.append("bodyType4", cat)
 
     console.log(data)
     $.ajax({
@@ -71,12 +72,11 @@ function sendPetMom() {
         processData: false,
         data: data,
         success: function (data) {
-            console.log(data)
-            console.log('success')
-            data.statusCode()
             showSuccessPage();
+            console.log(data);
+            console.log('success');
         }, error: function () {
-            console.log("error")
+            console.log("error");
             showErrorPage();
         }
     });

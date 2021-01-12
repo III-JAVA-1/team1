@@ -19,6 +19,7 @@ import java.util.List;
 @EnableWebMvc
 @Controller
 @Slf4j
+@RequestMapping("/Store")
 public class ShoppingCartAction {
 
     /**

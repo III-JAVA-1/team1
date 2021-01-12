@@ -295,31 +295,35 @@
                 "momId": <%=getMom%>
             },
             success: function (data) {
-                $.each(data, function (n, m) {
+
+                console.log(data)
+                data.forEach(function (data) {
+
+                    console.log(data.proPrice1)
                     let pet = "<option>貓或狗</option>";
-                    if (m[3] != null) {
-                        pet += "<option id='type1' name='type1'>" + m[3] + "</option>"
+                    if (data.bodyType1 != null) {
+                        pet += "<option id='type1' name='type1'>" + data.bodyType1 + "</option>"
                     }
-                    if (m[4] != null) {
-                        pet += "<option id='type2' name='type2'>" + m[4] + "</option>"
+                    if (data.bodyType2 != null) {
+                        pet += "<option id='type2' name='type2'>" + data.bodyType2 + "</option>"
                     }
-                    if (m[5] != null) {
-                        pet += "<option id='type3' name='type3'>" + m[5] + "</option>"
+                    if (data.bodyType3 != null) {
+                        pet += "<option id='type3' name='type3'>" + data.bodyType3 + "</option>"
                     }
-                    if (m[6] != null) {
-                        pet += "<option id='type4' name='type4'>" + m[6] + "</option>"
+                    if (data.bodyType4 != null) {
+                        pet += "<option id='type4' name='type4'>" + data.bodyType4 + "</option>"
                     }
                     $("#petId").append(pet);
 
                     let price = "<option>服務種類</option>";
-                    if (m[7] != null) {
-                        price += "<option id='service1' name='service1'>到府遛狗 " + m[7] + " 元</option>"
+                    if (data.proPrice1 != null) {
+                        price += "<option id='service1' name='service1'>到府遛狗 " +data.proPrice1 + " 元</option>"
                     }
-                    if (m[8] != null) {
-                        price += "<option id='service2' name='service2'>安親照顧 " + m[8] + " 元</option>"
+                    if (data.proPrice2 != null) {
+                        price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元</option>"
                     }
-                    if (m[9] != null) {
-                        price += "<option id='service3' name='service3'>寄宿照顧 " + m[9] + " 元</option>"
+                    if (data.proPrice3 != null) {
+                        price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元</option>"
                     }
                     $("#priceId").append(price)
                 });

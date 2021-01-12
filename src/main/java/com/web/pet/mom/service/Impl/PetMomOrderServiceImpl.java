@@ -1,6 +1,5 @@
 package com.web.pet.mom.service.Impl;
 
-import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.Exeption.OrderIsSameMomException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.dao.PetMomOrderDAO;
@@ -22,11 +21,11 @@ import java.util.Date;
  */
 @AllArgsConstructor
 @Service
-@Transactional(rollbackOn = Exception.class)
+@Transactional(rollbackOn =  Exception.class)
 public class PetMomOrderServiceImpl implements PetMomOrderService {
 
 
-    private PetMomDAO petMomDAO;
+    private final PetMomDAO petMomDAO;
 
     private final PetMomOrderDAO petMomOrderDAO;
 

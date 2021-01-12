@@ -16,7 +16,11 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-      
+	<style>
+      	html {
+		    scroll-behavior: smooth
+		}
+      </style>
   </head>  
   
   <body style="background-image: url(image/bg.jpg);">
@@ -45,14 +49,14 @@
     </div>
     <div class="hd_line2">
            <div class="hd_line2_a">
-           <a style="border-color:#39C;" href="#table" onclick="getForum('全部'); "><img src="image/Home_logo.png"/></a>
+           <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('全部'); "><img src="image/Home_logo.png"/></a>
            <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
-            <a style="border-color:#ccc" href="#table" onclick="getForum('協尋'); ">走失協尋</a>
-            <a style="border-color:#39C;" href="#table" onclick="getForum('送養');">汪喵送養</a>
-            <a style="border-color:#ccc;" href="#table" onclick="getForum('日常');">汪喵日常</a>
-            <a style="border-color:#39C;" href="#table" onclick="getForum('聊天');">寵物聊天</a>
-            <a style="border-color:#ccc;" href="#table" onclick="getForum('徵友'); ">汪喵徵友</a>
-            <a style="border-color:#39C;" href="#table" onclick="getForum('心得'); ">心得分享</a>
+            <a class="scroll" style="border-color:#ccc" href="#scrollHere" onclick="getForum('協尋'); ">走失協尋</a>
+            <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('送養');">汪喵送養</a>
+            <a class="scroll" style="border-color:#ccc;" href="#scrollHere" onclick="getForum('日常');">汪喵日常</a>
+            <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('聊天');">寵物聊天</a>
+            <a class="scroll" style="border-color:#ccc;" href="#scrollHere" onclick="getForum('徵友'); ">汪喵徵友</a>
+            <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('心得'); ">心得分享</a>
             </div>
             <div class="hd_line2_banner"></div>
                    <img src="image/banner.png" width="100" height="60">
@@ -69,13 +73,11 @@
 
 <!-- Breadcrumb Nav -->
 <div class="row">
-    <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">
-    
+    <div class="col-9 col-sm-9 col-xl-9 forum-col" id="bread_wrapper">    
         <ol class="breadcrumb">
         	<img src="image/broadcast.png"/>
             <marquee direction="right" width="800px" scrollamount="2" behavior="alternate">多了解毛孩一點、給牠最好的，陪我們一起慢慢變老…</marquee>         
-        </ol>
-   
+        </ol>   
 </div>
 </div>        
 <!---End of Breadcrumb Navbar-->
@@ -123,25 +125,27 @@
                 
 <!--end of Featured-->
 
-<!--Selection-->              
-               		
-                    <div class="db_line1_select">
-                        <select id="selector" style="color: #666" onchange=selectOptions()>
-                            <option>最新發佈</option>
-                            <option>最新回覆</option>
-                        </select>
-                    </div>
+<!--Selection-->         		
                     
-                    <div class="db_line1_pagination">
-                       
+                    
+        <div class="db_line1_pagination" style="margin-top:30px;">
+            <div class="db_line1_select">
+            	<div id="scrollHere" style="display:inline;background-color:#ccc;border-radius:15px;">
+				    <a class="scroll" style="border-color:#39C;" href="#table" onclick="getForum('全部'); ">🏠</a>             
+					/ <span id="whichForum"style="color:red"></span>
+				</div>                
+                <select id="selector" style="color: #666;margin-left:30px;" onchange=selectOptions()>
+                    <option>最新發佈</option>
+                    <option>最新回覆</option>
+                </select>	                   
+            </div>         
           <!-- 有登入才能看到此按鈕 -->
             <div class="db_line1_release">
-			 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
-			    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
-			</form>            
-            </div>        
-           </div>
-                
+				 <form action="<c:url value='/petforum/newArticle'/>" method="POST" onsubmit="return loginStatus()">
+				    <span class="db_line1_message_span"><button type="submit"  style='background-color:#666;color:white';">我要發表</button></span>
+				</form>
+            </div>
+       </div>
 <!--end of Selection--> 
                 
 <!--Table-->
@@ -183,31 +187,21 @@
         </div> <!--db_line1_left-->
 
             
-            <div class="db_line1_right">
-                <div class="db_line1_right_featured">
-                    <h5>好文專欄</h5>                            
-                </div>
+          <div class="db_line1_right">
+            <div class="db_line1_right_featured">
+                <h5>好文專欄</h5>                            
+            </div>
             <div id="randomArticle" class="db_line1_right_featured2">
 			<!-- AJAx -->
             </div>
             
-           <h5 style="display:inline;">汪喵冷知識</h5>
-           <img style="margin-left:10px;" src="image/Q&A.png"/>
-		   <hr />
-		   <p class="qaSpan">下方發言處，輸入：</p>
-		   <p style="font-weight:bold">開始：<span class="qaSpan">OK</span> / 下一則：<span class="qaSpan">N</span> / 離開：<span class="qaSpan">Q</span></p>
-		   <label style="font-weight:bold;color:#39C">發言</label>
-		   <br>
-		   <textarea rows="2" cols="35" id="clientMsg"></textarea>
-		   <br>
-		   <button onclick="send()">送出</button>
-		   <br>
-		   <label style="font-weight:bold;color:#39C">回覆</label>
-		   <br>
-		   <textarea rows="15" cols="35" id="serverMsg" readonly="readonly" placeholder="汪喵冷知識，準備好一探究竟了嗎？"></textarea>
-			            
-            
-            </div>
+            <div style="background-color:#FFD306; border-radius:15px;height:120px;width:280px;padding:10px;text-align:center;">
+	            <span>汪喵冷知識，準備好一探究竟了嗎？</span>
+	            <button id="enter" type="button" class="btn btn-outline-success" onclick="QandA()">來去瞧瞧</button><br>
+	            <img src="image/dog.png">
+	            <img src="image/forest.png">
+			</div>      	  
+      	  </div>
 </div>
 </div>
    
@@ -225,14 +219,15 @@
 </footer>
 </div>
 <button id="myBtn"><a href="#top" ><img src="image/icons8-upward-arrow-24.png"></a></button>
- 
-      
+
+     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- for slider -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 	 <!-- for slider -->
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -251,8 +246,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	    
- 	<script>
- 	
+ 	<script> 	
     let page = 1;
   
 	function selectAll(){		
@@ -495,8 +489,13 @@
 			success:function(arr){	
 				$("#article").html("");
 				$("#page").html("");
+				$("#whichForum").html("");
 				
-				let totalPages = arr.totalPages;	
+				let totalPages = arr.totalPages;
+				
+				if(item === "全部"){item="*"}
+				$("#whichForum").append(item);
+				
 				$.each(arr.articleList,function(i,val){
 					
 				console.log(val[0]);
@@ -507,8 +506,6 @@
 				"<td><div>"+val[3]+"</div>"+
 				"<div>"+val[4]+"</div></td>"+
 				"</tr>");
-				
-				
 				
 				// 頁碼元件
 			    let pageUI = document.getElementById("page");
@@ -701,20 +698,42 @@
 			
 		
 			//Send Message
-				function send() {
-					clientMsg = document.getElementById('clientMsg');
-					if (clientMsg.value) {
-						socketConn.send(clientMsg.value);
-						clientMsg.value = '';
-					}
+				function send(item) {
+					$("#serverMsg").html("");
+					socketConn.send(item);
 				}
 			
 				// Recive Message
 				socketConn.onmessage = function(event) {
-					var serverMsg = document.getElementById('serverMsg');
-					serverMsg.value = event.data;					
+					$("#serverMsg").append(event.data);
 				}
-						
+				
+		//===============================================================
+		
+			function QandA(){
+				Swal.fire({
+	      		  	title:"<h2 style='display:inline;'>汪喵冷知識</h2><img style='margin-left:10px;' src='image/Q&A.png'/><hr />",
+	      		  	html:"<button type='button' style='margin-right:10px' class='btn btn-outline-success' onclick=send('ok')>開始</button>"+
+	 			   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('n')>下一則</button>"+
+				   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('cat')>貓</button>"+
+				   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('dog')>狗</button>"+
+				   "<button type='button' style='margin-right:10px' class='btn btn-outline-danger' onclick=send('q')>離開</button>"+
+				   "<br>"+		   
+				   "<div id='serverMsg' style='text-align:left; margin-top:10px;'></div>",
+	    			width: '1000px',
+	      		confirmButtonText: '確定'
+	      		})
+		}
+
+		//===============================================================	
+			
+	$(".scroll").click(function(){
+	    $('html,body').animate({
+		      scrollTop:$('#scrollHere').offset().top
+				}, 1000);})
+				
+				
+	
  	</script>
   </body>
 </html>

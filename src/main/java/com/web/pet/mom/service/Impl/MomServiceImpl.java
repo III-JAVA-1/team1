@@ -3,10 +3,10 @@ package com.web.pet.mom.service.Impl;
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.req.MomData;
 import com.web.pet.mom.service.MomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -32,13 +32,13 @@ public class MomServiceImpl implements MomService {
     }
 
     @Override
-    public List<Mom> getAllMoms(String country, String title) {
+    public List<MomData> getAllMoms(String country, String title) {
         return petMomDAO.getAllMoms(country, title);
     }
 
 
     @Override
-    public List<Mom> getReservation(Integer momId) {
+    public List<MomData> getReservation(Integer momId) {
         return petMomDAO.getReservation(momId);
     }
 

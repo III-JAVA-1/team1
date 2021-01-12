@@ -18,20 +18,7 @@
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 	
-	<style>
-	.carousel-item {
-  height: 65vh;
-  min-height: 300px;
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-	
-	
-	</style>
-	
+<link rel="stylesheet" href="css/content.css">
 </head>
 <jsp:include page="Header.jsp"/>
 <body>
@@ -104,39 +91,6 @@
 <br><br>
 
 </body>
-<script>
-// var activity;
-// var POL=0;
-// $().ready(
-// 		function() {//ajax活動表格
-// 			$.ajax({
-// 				url : "../Wu/Activity",
-// 				type : "post",
-// 				dataType : "json",
-// 				success : function(data) {
-// 					$.each(data, function(i, n) {
-// 						if(i==0||activity!=n[1]){
-// 						activity=n[1];POL=POL+1;
-// 						if(POL>3){return false;}
-// 						$("#rollbox").append(
-// 							"<div class='carousel-item' style='background-image: url('image/art.jpg')'>"
-// 			                    +"<div class='carousel-caption d-none d-md-block'>"
-// 			                        +"<h3>"+n[1]+"</h3>"
-// 			                        +"<p>"+n[4]+"</p>"
-// 			                    +"</div>"
-// 			                  +"</div>"
-										
-// 						);
-
-// 					}
-// 					});
-// 				}
-// 			});
-
-// 		});
-
-
-</script>
 <jsp:include page="Footer.jsp"/>
 </html>
 

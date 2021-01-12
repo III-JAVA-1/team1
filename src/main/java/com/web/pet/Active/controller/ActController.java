@@ -116,7 +116,7 @@ public class ActController {
 		
 		actservice.insertJoinService(joinactbean,uid,act_no);
 		out.print("<script>");
-		out.print("window.alert('成功參加活動');window.location.href='../Active/ActIndex.jsp';");
+		out.print("window.alert('成功參加活動');window.location.href='../Active/ActCheck.jsp';");
 		out.print("</script>");
 		out.close();
 	}

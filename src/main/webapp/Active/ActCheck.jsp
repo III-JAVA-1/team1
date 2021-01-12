@@ -18,24 +18,11 @@
     <!-- Custom styles for this template -->
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
 	
-	<script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
+<!-- 	<script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script> -->
+<!-- <link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css"> -->
 	
 	
-	<style>
-	
-	.acstyle{
-	border: 1px solid #ACD6FF;
-	}
-	.checktable{
-	border: 2px solid #000093;
-	width: 1000px;
-	background-color:#FFFFFF;
-	}
-		
-	</style>
-	
-	
+<link rel="stylesheet" href="css/content.css">	
 </head>
 <jsp:include page="Header.jsp" />
 
@@ -84,10 +71,12 @@
 		<tbody id="WhatTable">
         </tbody>  
     </table>
-  
-    
-    <div>        
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!--     <br><br><br><br><br><br><br><br><br><br> -->
+  	<hr>
+  	<h3 style="text-align:center;">其他活動</h3>		
+    <br><br>
+    <div class="row justify-content-center" id="indexactive">        
+    <br>
     </div>
     
 <!--     測試用取消參加 -->
@@ -145,6 +134,21 @@ $().ready(function(){//ajax完整活動資訊
 				
 		}
 		
+	    $.ajax({
+			url:"../Gusty/indexactive",
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				$.each(data,function(i,n){
+					$("#indexactive").append("<div class='card m-2' style='width: 15rem;height:350px;'>"+
+		  			"<img src='<c:url value='../Gusty/getactiveimg2?act_no="+n[2]+"'/>' class='card-img-top' alt='' style='height:200px;'>"+
+		  			"<div class='card-body'>"+
+		    			"<h5 class='card-title'><a href='ActShow.jsp?get="+n[2]+"' class='card-title'>"+n[0]+"</a></h5>"+
+		    			"<p class='card-text h4'>"+n[1].substring(0,10)+"....</p>"+
+		  			"</div></div>");
+				});
+			}
+		});
 </script>
 <jsp:include page="Footer.jsp" />
 </html>

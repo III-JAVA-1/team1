@@ -103,6 +103,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			window.location.href="<c:url value='/Gusty/logout'/>";
 			return false;
 		}	
+		
+		function gogo()
+    	{
+    		<%
+    			if(session.getAttribute("user")==null)
+    			{%>window.alert("請先登入"); return false;
+    			<%}else{%>
+    			return  true;
+    			<%}%>
+    				
+    				
+    		return false;
+    	}
 		</script>
 </body>
 </html>

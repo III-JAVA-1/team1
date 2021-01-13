@@ -3,7 +3,9 @@
 <head>
     <title>Title</title>
 </head>
+<jsp:include page="Header.jsp"/>
 <body>
     <h1>Hi</h1>
 </body>
+<jsp:include page="Footer.jsp"/>
 </html>

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="java.sql.Timestamp" %>
-<%@ page import="java.util.Date" %>
 <!doctype html>
 <html lang="zh-Hant-TW">
 
@@ -13,7 +11,7 @@
     <!--bootstrap初始規模-->
     <title>AccompanyMe</title>
     <script src="js/reservation.js"></script>
-
+    <script src="js/reservationGo.js"></script>
     <link rel="stylesheet" href="css/registerMom.css">
 
 
@@ -29,7 +27,6 @@
 <jsp:include page="Header.jsp"/>
 
 <%String getMom = request.getParameter("momId");%>
-<%String getsName = request.getParameter("sname");%>
 
 <div class="container">
     <div class="row">
@@ -40,7 +37,7 @@
             <div style="margin: auto;">
                 <b>
                     <h4>
-                        <b>聯絡 <%=getsName%>
+                        <b><p id="sName">聯絡</p>
                         </b>
 
                     </h4>
@@ -239,6 +236,10 @@
                     <!-- checked -->
                     <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1"><p style="color: red;">我同意AccompanyMe的服務條款</p></label> -->
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="directInputReservation()">一鍵輸入
+                    </button>
                     <button type="button" name="reservation"
                             id="reservation" class="btn btn-primary"
                             onclick="submit()">送出
@@ -278,9 +279,10 @@
 <script>
     $("#twzipcode_My").twzipcode({
         zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
-        css: ["city form-control", "town form-control"],
+        css: ["city form-control","town form-control"],
         countyName: "country", // 自訂城市 select 標籤的 name 值
         districtName: "district", // 自訂地區 select 標籤的 name 值
+
     });
 </script>
 
@@ -297,10 +299,11 @@
             success: function (data) {
 
                 console.log(data)
-                data.forEach(function (data) {
 
+                    let sName = data.sname
+                    $("#sName").text("聯絡 "+sName)
                     console.log(data.proPrice1)
-                    let pet = "<option>貓或狗</option>";
+                    let pet = "<option>請選擇貓或狗</option>";
                     if (data.bodyType1 != null) {
                         pet += "<option id='type1' name='type1'>" + data.bodyType1 + "</option>"
                     }
@@ -317,16 +320,15 @@
 
                     let price = "<option>服務種類</option>";
                     if (data.proPrice1 != null) {
-                        price += "<option id='service1' name='service1'>到府遛狗 " +data.proPrice1 + " 元</option>"
+                        price += "<option id='service1' name='service1'>到府遛狗 " +data.proPrice1 + " 元/1hr</option>"
                     }
                     if (data.proPrice2 != null) {
-                        price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元</option>"
+                        price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元/1hr</option>"
                     }
                     if (data.proPrice3 != null) {
-                        price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元</option>"
+                        price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元/1hr</option>"
                     }
                     $("#priceId").append(price)
-                });
             }
 
         });

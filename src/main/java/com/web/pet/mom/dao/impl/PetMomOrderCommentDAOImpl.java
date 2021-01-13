@@ -8,9 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
 /**
  * @author i19
  */
@@ -28,11 +25,11 @@ public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO{
 
 
     @Override
-    public List<PetMomOrderComment> searchOrderComment(int uId) { //查詢一筆評論
+    public PetMomOrderComment searchOrderComment(int uId) { //查詢一筆評論
 
         String hql = "FROM PetMomOrderComment WHERE momId = :uId";
         Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("momId", uId);
-        return query.getResultList();
+        return (PetMomOrderComment) query.getResultList();
 
     }
 

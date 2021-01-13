@@ -22,7 +22,7 @@ public interface PetMomDAO {
      * @param userId
      * @return
      */
-    Mom getMomByMemberId(int userId);
+    Mom getMomByMemberId(int userId );
 
     /**
      * 取得momId
@@ -52,5 +52,5 @@ public interface PetMomDAO {
      * @param momId
      * @return
      */
-    List<MomData> getReservation(Integer momId);
+    MomData getReservation(Integer momId);
 }

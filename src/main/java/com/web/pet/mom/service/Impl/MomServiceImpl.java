@@ -38,7 +38,7 @@ public class MomServiceImpl implements MomService {
 
 
     @Override
-    public List<MomData> getReservation(Integer momId) {
+    public MomData getReservation(Integer momId) {
         return petMomDAO.getReservation(momId);
     }
 

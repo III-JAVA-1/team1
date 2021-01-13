@@ -32,7 +32,7 @@ public interface MomService {
      * @param momId
      * @return
      */
-    List<MomData> getReservation(Integer momId);
+    MomData getReservation(Integer momId);
 
     /**
      * 顯示圖片

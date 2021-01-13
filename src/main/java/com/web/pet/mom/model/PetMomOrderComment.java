@@ -24,13 +24,13 @@ public class PetMomOrderComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @Column(nullable = true , columnDefinition = "smalldatetime")
+    @Column(nullable = false , columnDefinition = "smalldatetime")
     private Timestamp commentNowTime;
 
     @Column(columnDefinition = "nvarchar(MAX)")
     private String comment;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer star;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

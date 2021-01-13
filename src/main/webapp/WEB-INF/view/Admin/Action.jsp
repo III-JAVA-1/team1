@@ -62,8 +62,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center h1">活動類型比例</div>
 		<canvas id="activetype" width="50" height="30"></canvas>
 		</div>
-		</div><br>
-
+		</div><br></div>
+		
 		<div class="row justify-content-center " >
   			<ul class="nav nav-tabs ">
   				<li class="nav-item">
@@ -77,19 +77,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center h4">
 		<div id='total'></div>
 		</div>
+		<div style="width:90%;margin: auto;">
 		<div class='row'>
 			<div class='col'>
 			<table class="table table-hover table-bordered h4" id='maintable'>
   			<thead style="background-color:#8080C0">
     		<tr><th scope="col">活動編號</th>
-      			<th scope="col" style="width:500px;">活動名稱</th>
-      			<th scope="col" style="width:500px;">活動內容</th>
+      			<th scope="col">活動名稱</th>
+      			<th scope="col">活動內容</th>
       			<th scope="col">活動新增時間</th>
       			<th scope="col">舉辦單位</th>
       			<th scope="col">舉辦人姓名</th>
       			<th scope="col">舉辦人手機</th>
       			<th scope="col">活動類型</th>
-      			<th scope="col" style="width:500px;">活動地址</th>
+      			<th scope="col">活動地址</th>
       			<th scope="col">活動時間</th>
       			<th scope="col" id='contro'>參加人員</th></tr>
   			</thead>
@@ -102,9 +103,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center h4" id='tip'>
 			</div>
 			
-		</div>
+		</div></div>
 		
-	</div><br>
+	<br>
 
 	<div id="gotop">
 	</div>
@@ -382,28 +383,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	         		}
 	         	});
 		})
-    	
-    	
-    	
-//     	$.ajax({
-//     		url:"../Gusty/activeok",
-//     		type:"post",
-//     		dataType:"json",
-//     		async:false,
-//     		data : { 
-//     			"aid" :aid,                     
-//             },
-//     		success:function(data){
-//     			Swal.fire({
-//     				title: '審核通過，以寄信告知發起人',
-//     				icon: 'success',
-//     				confirmButtonText: '確定'
-//     			})
-//     		},error:function(){
-//     			alert("發生錯誤，請稍後再嘗試操作");
-//     		}
-//     	});
-//     	activecheck();
     }
     
     $.ajax({//一開啟網頁載入的活動一覽

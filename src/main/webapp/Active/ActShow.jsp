@@ -23,46 +23,7 @@
     <!-- Custom styles for this template -->
 <!--     <link href="../Styles/index.css" rel="stylesheet"> -->
 <script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
-
-
-	<style>
-	
-	.acstyle{
-	border: 1px solid black;
-	text-align: center;
-	}
-		
-		
-	.js-social-share {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding-left: 0;
-    line-height: 1;
-    list-style: none;
-  }
-  .js-social-share li {
-    padding-right: 1rem;
-    height: 22px;
-  }	
-  .passtext{
-  font-size:20px;
-  }
-	
-		
-		
-  .newen{
-  padding:20px 100px 100px 20px;
-  border-width:3px;
-  border-style:dashed;
-  border-color:#FFAC55;
-  }
-		
-		
-	</style>
+<link rel="stylesheet" href="css/content.css">
 
 
 
@@ -103,58 +64,8 @@
 <%--    			<img src="<c:url value='/Gusty/getallimg?id=<%=getact %>'>" style="with=800px;">       --%>
    			<img id="img" style="width:800px;" src="" >
 		</div>
-		<br>   			
-<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
-   			
-<!--    				<tr> -->
-<!--    					<td class="acstyle">活動名稱</td> -->
-<!--    					<td class="acstyle">活動時間</td> -->
-<!-- 					<td class="acstyle">活動類別</td> -->
-<!--    				</tr>  -->
-		
-<!--    				<tr> -->
-<!--    					<td class="acstyle" id="act_name"></td> -->
-<!--    					<td class="acstyle" id="act_time"></td> -->
-<!--    					<td class="acstyle" id="act_type"></td> -->
-<!--    				</tr> 			 -->
+		<br><br>
 
-   			
-   			
-<!--    		</table> -->
-<!--    		<br> -->
-<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
-   			
-<!--    				<tr> -->
-<!--    					<td class="acstyle">承辦單位</td> -->
-<!--    					<td class="acstyle">連絡人</td> -->
-<!--    					<td class="acstyle">連絡電話</td> -->
-<!--    					<td class="acstyle">活動地點</td> -->
-   					
-<!--    				</tr>  -->
-		
-<!--    				<tr>		 -->
-<!--    					<td class="acstyle" id="act_org"></td> -->
-<!--    					<td class="acstyle" id="act_orgman"></td> -->
-<!--    					<td class="acstyle" id="act_phone"></td> -->
-<!--    					<td class="acstyle" id="act_where"></td> -->
-   					
-<!--    				</tr> 			 -->
-				
-   			
-   			
-<!--    		</table> -->
-   		<br>
-<!--    		<table style="width: 1000px; border: 2px solid black;margin: auto;"> -->
-<!--    				<tr> -->
-<!-- 					<td class="acstyle">活動簡介</td> -->
-<!--    				</tr> -->
-<!-- 				<tr> -->
-<!-- 					<td class="acstyle" id="act_content"></td> -->
-<!--    				</tr> -->
-   		
-<!--    		</table> -->
-   		
-   		
    		
    		<h2 style="text-align:center;" id="act_name"></h2>
    		<br>

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+	/*
+	*FB Line分享的東西
+	*/
+.js-social-share {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-left: 0;
+	line-height: 1;
+	list-style: none;
+}
+
+.js-social-share li {
+	padding-right: 1rem;
+	height: 22px;
+}
+
+.passtext {
+	font-size: 20px;
+}
+
+
+
+	/*
+	*表格內文格式
+	*/
+.newen {
+	padding: 20px 100px 100px 20px;
+	border-width: 3px;
+	border-style: dashed;
+	border-color: #FFAC55;
+}
+
+.acstyle {
+	border: 1px solid #ACD6FF;
+}
+
+.checktable {
+	border: 2px solid #000093;
+	width: 1000px;
+	background-color: #FFFFFF;
+}
+
+
+
+	/*
+	*活動首頁的那個東西
+	*/
+	.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

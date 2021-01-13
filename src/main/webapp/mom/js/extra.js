@@ -17,7 +17,6 @@
 //     console.log(myJson)
 // })
 
-
 search();
 
 //ajax查詢
@@ -45,32 +44,31 @@ function search() {
                     + "<div class='col-md-1'></div>"
                     + "<div class='col-md-7'>"
                     + "<h5 >" + data.title + "</h5>"
-                    + " <h5 >" + data.notices + "</h5>"
+                    + " <h5 >" + data.country +" "+ data.district+"</h5>"
                 if (data.bodyType1 != null) {
-                    type += "<small>迷你犬(0~4kg):接受</small> <br>"
+                    type += "<small>迷你犬(0~4kg):O</small> <br>"
                 } else {
-                    type += "<small>迷你犬(0~4kg):不接受</small> <br>"
+                    type += "<small>迷你犬(0~4kg):X</small> <br>"
                 }
                 if (data.bodyType2 != null) {
-                    type += "<small>中型犬(10~24kg):接受</small> <br>"
+                    type += "<small>中型犬(10~24kg):O</small> <br>"
                 } else {
-                    type += "<small>中型犬(10~24kg):不接受</small> <br>"
+                    type += "<small>中型犬(10~24kg):X</small> <br>"
                 }
                 if (data.bodyType3 != null) {
-                    type += "<small>大型犬(24kg以上):接受</small> <br>"
+                    type += "<small>大型犬(24kg以上):O</small> <br>"
                 } else {
-                    type += "<small>大型犬(24kg以上):不接受</small> <br>"
+                    type += "<small>大型犬(24kg以上):X</small> <br>"
                 }
                 if (data.bodyType4 != null) {
-                    type += "<small>貓:接受</small>"
+                    type += "<small>貓:O</small>"
                 } else {
-                    type += "<small>貓:不接受</small>"
+                    type += "<small>貓:X</small>"
                 }
-                type += "<form name='goReser'  action='reservation.jsp' method='post' onsubmit='return goTo()'>" +
-                    "<input type='hidden' name='momId' value='"+data.momId+"'/>" +
-                    "<input type='hidden' name='sname' value='" + data.sname + "'/>" +
-                    "<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>" +
+                type += "<button class='btn btn-secondary' type='button'"+
+                    "style='position: absolute; bottom: 10px; right: 20px;' onclick='return goTo()'><a href='momDetail.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'>保母詳細資料</a></button>" +
                     "<hr>"
+
 
                 $("#showMom").append(type);
 

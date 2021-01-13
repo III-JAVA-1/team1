@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Blob;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "MOM")
+@Table(name = "Mom")
 public class Mom {
     @Id
     private Integer momId;
@@ -56,11 +57,13 @@ public class Mom {
     private Member member;
 
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
-    private Set<PetMomOrder> orders = new LinkedHashSet<>(0);
+    private Set<PetMomOrder> orders = new HashSet<>(0);
 
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
-    private Set<PetMomOrderComment> petMomOrderComments = new LinkedHashSet<>(0);
+    private Set<PetMomOrderComment> petMomOrderComments = new HashSet<>(0);
 
+    @OneToMany(mappedBy = "mom" ,cascade = CascadeType.ALL)
+	private Set<Favorite> favorites  = new HashSet<>(0);
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

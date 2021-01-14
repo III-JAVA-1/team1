@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.alibaba.fastjson.support.moneta.MonetaCodec;
 import com.web.pet.member.model.Member;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.PetMomOrder;
+import com.web.pet.petshop.model.PetshopBean;
 import com.web.pet.store.dto.table.OrderDTO;
 
 
@@ -279,12 +281,88 @@ public class OtherFunctionDao {
 		}
 	}
 	
+	public Mom getoneMomDao(Integer mid) {//取得一筆保母物件
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(Mom.class, mid);
+	}
+	
 	public Integer membereditmomDao(Mom mom){//會員保母資料修改
 		Session session = sessionFactory.getCurrentSession();
 		Integer result=0;
 		session.merge(mom);
 		result++;
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面我的保母訂單
+	public List<Object[]> mymomorderDao(Integer mid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select country,district,address,chooseStart,chooseEnd,service,total,status,orderId \r\n"
+				+ "from PetMomOrder\r\n"
+				+ "where momId=:mid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("mid", mid);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面保母訂單寵物詳細資料
+	public List<Object[]> mymomorderpetdetailDao(Integer oid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select petName,petGender,petBreed,petAge,petType,remark\r\n"
+				+ "from PetMomOrder\r\n"
+				+ "where orderId=:oid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("oid", oid);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public PetMomOrder momorderacceptDao(Integer oid) {//取得一筆保母訂單物件
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(PetMomOrder.class, oid);
+	}
+	
+	public Integer momorderaccepteditDao(PetMomOrder petMomOrder) {//預約成功修改訂單狀態
+		Integer result=0;
+		Session session = sessionFactory.getCurrentSession();
+		session.merge(petMomOrder);
+		result++;
+		return result;
+	}
+	
+	public Integer rejectmomorderDao(Integer oid) {//預約拒絕並修改訂單狀態
+		Integer result=0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql="update PetMomOrder \r\n"
+				+ "set status='拒絕'\r\n"
+				+ "where orderId=:oid";
+		result = session.createQuery(hql).setParameter("oid",oid).executeUpdate();
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面我預約的保母訂單資料
+	public List<Object[]> othermomorderDao(Integer uid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select country,district,address,chooseStart,chooseEnd,service,status,total,orderId\r\n"
+				+ "from PetMomOrder\r\n"
+				+ "where uid=:uid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("uid", uid);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
 	}
 	
 	/////////////////////////會員保母功能////////////////////////////////

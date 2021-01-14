@@ -491,9 +491,23 @@ public class AdminDao {
 	
 	public Mom getfullmomDao(Integer mid) {//取得一筆保母物件
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("Dao");
 		Mom mom = session.get(Mom.class, mid);
 		return mom;
+	}
+	
+	@SuppressWarnings("unchecked")//顯示保母詳細資料注意和內容
+	public List<Object[]> momdetailDao(Integer mid){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select title,notices,petContent from Mom where momId=:mid";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql).setParameter("mid", mid);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
 	}
 	
 	public Integer deletemomDao(Integer mid){//刪除保母

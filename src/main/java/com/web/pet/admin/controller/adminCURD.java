@@ -338,6 +338,12 @@ public class adminCURD {
 		return adminService.allmomService();
 	}
 	
+	@RequestMapping("/momdetail")//顯示保母詳細資料注意和內容
+	@ResponseBody
+	public List<Object[]> momdetailController(Integer mid){
+		return adminService.momdetailService(mid);
+	}
+	
 	@RequestMapping("/deletemom")//刪除保母
 	@ResponseBody
 	public Integer deletemomController(Integer mid,String message) throws AddressException, MessagingException{

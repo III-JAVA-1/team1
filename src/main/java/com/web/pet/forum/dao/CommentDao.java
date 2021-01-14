@@ -42,27 +42,7 @@ public class CommentDao {
 		return count;
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	public List<Comment> getAllComments(String hql) {
-		
-		List<Comment> list = new ArrayList<Comment>();
-		//hql = "FROM Comment";// 不是表格名稱是類別名稱
-		Session session = sessionFactory.getCurrentSession();
-		 Query<Comment> query = session.createQuery(hql);
-		list = query.getResultList();
-		
-		return list;
-	}
 
-
-	public Comment getComment(Integer commentId) {		
-		
-		Session session = sessionFactory.getCurrentSession();
-		Comment comment = session.get(Comment.class, commentId);
-		return comment;
-	}
-	
 	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getCommentByPosterUid(Integer posterUid){//按posterUid找留言
@@ -81,6 +61,13 @@ public class CommentDao {
 		if(list.isEmpty()) {return null;}		
 		else {return list;}
 		
+	}
+	
+	public Comment getComment(Integer commentId) {		
+		
+		Session session = sessionFactory.getCurrentSession();
+		Comment comment = session.get(Comment.class, commentId);
+		return comment;
 	}
 
 }

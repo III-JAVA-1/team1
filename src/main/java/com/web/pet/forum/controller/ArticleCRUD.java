@@ -52,12 +52,13 @@ public class ArticleCRUD{
 
 	/**
 	 *  Description: AJAX按不同討論區找文章 -  click a標籤
+	 *  AJAX網頁開啟加載所有文章 - $().ready
 	 *  @author ching  DateTime 2021/1/14 下午 01:15:35
 	 *  @param forumId
 	 *  @param page
 	 *  @return
 	 */
-	@RequestMapping("/selectForum")
+	@RequestMapping(value={"/selectForum", "/selectAll"})
 	public 	@ResponseBody
 	ListWithPaging selectForum(
 			@RequestParam(value = "forumId",required = false) String forumId,
@@ -67,27 +68,6 @@ public class ArticleCRUD{
 		ListWithPaging res = service.getArticleByForumId(forumId, page);		
 		return res;
 	}
-	
-	
-
-	/**
-	 *  Description: AJAX網頁開啟加載所有文章 - $().ready	
-	 *  @author ching  DateTime 2021/1/14 下午 01:16:12
-	 *  @param forumId
-	 *  @param page
-	 *  @return
-	 */
-	@RequestMapping("/selectAll")
-	public @ResponseBody
-	ListWithPaging selectAll(
-			@RequestParam(value = "forumId",required = false) String forumId,
-			@RequestParam(value = "page", required = false) Integer page
-			){
-		if(forumId == null) {return null;}
-		ListWithPaging res = service.getArticleByForumId(forumId, page);		
-		return res;
-	}	
-	
 	
 
 	/**
@@ -155,7 +135,7 @@ public class ArticleCRUD{
 			HttpServletRequest request) {
 		
 		if(posterUid == null) {return null;}
-		System.out.println("posterUid"+posterUid);
+		
 		//需要的是閱讀者的u_Id，非發文者的u_Id
 		Integer sessionU_Id = null;
 		if(request.getSession().getAttribute("user")!=null){

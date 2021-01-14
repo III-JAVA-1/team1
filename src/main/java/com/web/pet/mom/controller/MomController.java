@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
-import java.util.Base64;
 import java.util.List;
 
 /**
@@ -24,8 +23,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/mom")
 public class MomController {
-
-    public static final Base64.Decoder DECODER = Base64.getDecoder();
 
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 
@@ -95,7 +92,7 @@ public class MomController {
      * @return 顯示預約時由保母ID查出的保母資料
      */
     @RequestMapping("/showReservation")
-    public List<MomData> getReservation(Integer momId) {
+    public MomData getReservation(@RequestParam Integer momId) {
 
         return momService.getReservation(momId);
     }

@@ -54,7 +54,7 @@ public class PetMomDAOImpl implements PetMomDAO {
         String sql = "select Member.country , MOM.title , Member.sname \n" +
                 ",Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
                 ",Mom.notices,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3\n" +
-                ",Mom.momId,Member.Img\n" +
+                ",Mom.momId,Member.Img,Member.District\n" +
                 "from Member,MOM\n" +
                 "where MOM.momId=Member.u_Id\n" +
                 "and Member.country like '%" + country + "%'" +
@@ -83,7 +83,7 @@ public class PetMomDAOImpl implements PetMomDAO {
 
     @SneakyThrows
     @Override
-    public List<MomData> getReservation(Integer momId) {
+    public MomData getReservation(Integer momId) {
 
         String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1\n" +
                 ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
@@ -95,11 +95,7 @@ public class PetMomDAOImpl implements PetMomDAO {
                 "AND MOM.momId =" + momId;
 
         Session currentSession = sessionFactory.getCurrentSession();
-        List<Object[]> result = currentSession.createNativeQuery(sql).getResultList();
-        List<MomData> list = new LinkedList<>();
-        for (Object[] objects : result) {
-            list.add(MomData.mappingOrderData(objects));
-        }
-        return list;
+        Object result = currentSession.createNativeQuery(sql).uniqueResult();
+        return MomData.mappingOrderData((Object[]) result);
     }
 }

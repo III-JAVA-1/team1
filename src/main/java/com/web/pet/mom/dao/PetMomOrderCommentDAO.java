@@ -20,7 +20,7 @@ public interface PetMomOrderCommentDAO {
      * @param uId
      * @return
      */
-    List<PetMomOrderComment> searchOrderComment(int uId);
+    PetMomOrderComment searchOrderComment(int uId);
 
     /**
      * 更新訂單評論

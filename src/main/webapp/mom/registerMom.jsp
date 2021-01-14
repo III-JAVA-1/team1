@@ -12,7 +12,8 @@
     <!--bootstrap初始規模-->
     <title>AccompanyMe</title>
 
-    <script src="js/registerMom.js"></script>>
+    <script src="js/registerMom.js"></script>
+    <script src="js/registerGO.js"></script>
     <link rel="stylesheet" href="css/registerMom.css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -226,6 +227,10 @@
                     <!-- checked -->
                     <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1"><p style="color: red;">我同意AccompanyMe的服務條款</p></label> -->
+                    <button type="button" name="go"
+                            id="go" class="btn btn-primary"
+                            onclick="directInputRegister()">一鍵輸入
+                    </button>
                     <button type="button" name="registerMom"
                             id="registerMom" class="btn btn-primary"
                             onclick="sendPetMom()">送出

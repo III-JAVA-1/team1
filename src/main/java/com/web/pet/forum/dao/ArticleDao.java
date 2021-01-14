@@ -324,6 +324,15 @@ public class ArticleDao {
 	}
 	
 	
+	
+	
+	/**
+	 *  Description: 整合分頁設定
+	 *  @author ching  DateTime 2021/1/14 下午 03:13:47
+	 *  @param sql
+	 *  @param page
+	 *  @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Object> getPagination(String sql, Integer page){
 		Session session = sessionFactory.getCurrentSession();
@@ -337,6 +346,13 @@ public class ArticleDao {
 	
 	
 	
+	
+	/**
+	 *  Description: 計算總比數與總頁數
+	 *  @author ching  DateTime 2021/1/14 下午 03:14:02
+	 *  @param total1
+	 *  @return
+	 */
 	public Integer[] getTotals(Object total1) {
 		Integer totalCounts = (Integer)total1;			
 		double total2 = totalCounts / 10.0;			

@@ -100,8 +100,8 @@
                 <div class="db_line1_featured2">                
                 <!-- slider start -->
                       <div class="slider">
-			          <ul id="imgContent">
-					<!--AJAX -->
+			          <ul id="imgContent" style="display:inline;">
+						<!-- AJAX -->
 			          </ul>
 			        <div class="controller">
 			          	<div class="prev-btn btns">

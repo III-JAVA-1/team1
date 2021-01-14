@@ -17,7 +17,6 @@
 //     console.log(myJson)
 // })
 
-
 search();
 
 //ajax查詢
@@ -35,39 +34,41 @@ function search() {
             title: $("#selectTitle").val(),
         },
         success: function (data) {
-            $.each(data, function (n, m) {
+
+            console.log(data)
+            data.forEach(function (data) {
+                console.log(data.pic)
                 let type = "<div class='col-md-4' >"
-                    + "<img src='../mom/getPic?momId="+m[12]+"' style='width:230px; height:180px;'/>"
+                    + "<img src='data:image/png;base64," + data.img + "' style='width:230px; height:180px;'/>"
                     + "</div>"
                     + "<div class='col-md-1'></div>"
                     + "<div class='col-md-7'>"
-                    + "<h5 >" + m[1] + "</h5>"
-                    + " <h5 >" + m[2] + "</h5>"
-                if (m[3] != null) {
-                    type += "<small>迷你犬(0~4kg):接受</small> <br>"
-                }else{
-                    type += "<small>迷你犬(0~4kg):不接受</small> <br>"
+                    + "<h5 >" + data.title + "</h5>"
+                    + " <h5 >" + data.country +" "+ data.district+"</h5>"
+                if (data.bodyType1 != null) {
+                    type += "<small>迷你犬(0~4kg):O</small> <br>"
+                } else {
+                    type += "<small>迷你犬(0~4kg):X</small> <br>"
                 }
-                if (m[4] != null) {
-                    type += "<small>中型犬(10~24kg):接受</small> <br>"
-                }else {
-                    type += "<small>中型犬(10~24kg):不接受</small> <br>"
+                if (data.bodyType2 != null) {
+                    type += "<small>中型犬(10~24kg):O</small> <br>"
+                } else {
+                    type += "<small>中型犬(10~24kg):X</small> <br>"
                 }
-                if (m[5] != null) {
-                    type += "<small>大型犬(24kg以上):接受</small> <br>"
-                }else {
-                    type += "<small>大型犬(24kg以上):不接受</small> <br>"
+                if (data.bodyType3 != null) {
+                    type += "<small>大型犬(24kg以上):O</small> <br>"
+                } else {
+                    type += "<small>大型犬(24kg以上):X</small> <br>"
                 }
-                if (m[6] != null) {
-                    type += "<small>貓:接受</small>"
-                }else {
-                    type += "<small>貓:不接受</small>"
+                if (data.bodyType4 != null) {
+                    type += "<small>貓:O</small>"
+                } else {
+                    type += "<small>貓:X</small>"
                 }
-                type += "<form name='goReser'  action='reservation.jsp' method='post' onsubmit='return goTo()'>" +
-                    "<input type='hidden' name='momId' value='"+m[12]+"'/>" +
-                    "<input type='hidden' name='sname' value='"+m[2]+"'/>" +
-                    "<input class='btn btn-secondary' type='submit' value='預約' style='position: absolute; bottom: 10px; right: 20px;'/>" +
+                type += "<button class='btn btn-secondary' type='button'"+
+                    "style='position: absolute; bottom: 10px; right: 20px;' onclick='return goTo()'><a href='momDetail.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'>保母詳細資料</a></button>" +
                     "<hr>"
+
 
                 $("#showMom").append(type);
 
@@ -78,10 +79,3 @@ function search() {
 
     });
 };
-
-//地址
-$("#twzipcode_My").twzipcode({
-    css: ["city form-control", "town form-control"],
-    countyName: "city", // 自訂城市 select 標籤的 name 值
-    districtName: "town", // 自訂地區 select 標籤的 name 值
-});

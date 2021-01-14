@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -66,7 +66,7 @@ public class PetMomOrder {
     private Mom mom;
 
     @OneToMany(mappedBy = "petMomOrder", cascade = CascadeType.ALL)
-    private Set<PetMomOrderComment> petMomOrderComments = new LinkedHashSet<>(0);
+    private Set<PetMomOrderComment> petMomOrderComments = new HashSet<>(0);
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "uid", referencedColumnName = "u_id")

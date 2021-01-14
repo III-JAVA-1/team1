@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -19,12 +20,6 @@
 	crossorigin="anonymous">
 
 
-<style>
-.acstyle {
-	border: 1px solid black;
-	text-align: center;
-}
-</style>
 
 
 </head>
@@ -84,10 +79,12 @@
   	</div></div>
 
 	<div>        
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br>
+    	<input type='hidden' name='now' id='now' value='<%= new Date(new java.util.Date().getTime())%>' /> 
     </div>
 
 	</div>
+
 	</div>
 	<script>		
 				//ajax活動表格
@@ -104,23 +101,34 @@
 							
 							$.each(data, function(i, n) {
 							if(i>=0&&i<6){
-
-
-								$("#good").append(
-												"<div class='card m-3' style='width: 17rem;'>"
-												+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
-									  			+"<div class='card-body'>"
-									  			+"<div style='height:120px;'>"
-									    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
-									    		+"</div>"
-									    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
-									    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
-									    		+"<div class='card-footer bg-transparent border-success'>"
-									    		+"<p class='card-text'>"+n[8]+"</p>"
-									  			+"</div></div></div>"							
-
-								
-								);
+								if(Date.parse(n[3].substr(0,10)) < Date.parse(now.value)){
+									$("#good").append(
+											"<div class='card m-3' style='width: 17rem;'>"
+											+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+								  			+"<div class='card-body'>"
+								  			+"<div style='height:140px;'>"
+								    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+								    		+"<p>(活動已結束)</p>"
+								    		+"</div>"
+								    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+								    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+								    		+"<div class='card-footer bg-transparent border-success'>"
+								    		+"<p class='card-text'>"+n[8]+"</p>"
+								  			+"</div></div></div>");  
+    							}else{
+    								$("#good").append(
+											"<div class='card m-3' style='width: 17rem;'>"
+											+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+								  			+"<div class='card-body'>"
+								  			+"<div style='height:140px;'>"
+								    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+								    		+"</div>"
+								    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+								    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+								    		+"<div class='card-footer bg-transparent border-success'>"
+								    		+"<p class='card-text'>"+n[8]+"</p>"
+								  			+"</div></div></div>");		
+    							}
 							}
 							});
 						}
@@ -129,7 +137,7 @@
 				
 		
 		
-		
+		//查詢分類
 	$("#acttype").change(function(){
 			$("#tip").html("");
 			$("#page").html("");
@@ -152,33 +160,46 @@
 					$.each(data, function(i, n) {
 						
 						if(i>=0&&i<6){
-
-						$("#good").append(
-								"<div class='card m-3' style='width: 17rem;'>"
-								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
-					  			+"<div class='card-body'>"
-					  			+"<div style='height:120px;'>"
-					    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
-					    		+"</div>"
-					    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
-					    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
-					    		+"<div class='card-footer bg-transparent border-success'>"
-					    		+"<p class='card-text'>"+n[8]+"</p>"
-					  			+"</div></div></div>"
-					  													
-
-						);
+							if(Date.parse(n[3].substr(0,10)) < Date.parse(now.value)){
+								$("#good").append(
+										"<div class='card m-3' style='width: 17rem;'>"
+										+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+							  			+"<div class='card-body'>"
+							  			+"<div style='height:140px;'>"
+							    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+							    		+"<p>(活動已結束)</p>"
+							    		+"</div>"
+							    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+							    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+							    		+"<div class='card-footer bg-transparent border-success'>"
+							    		+"<p class='card-text'>"+n[8]+"</p>"
+							  			+"</div></div></div>");  
+							}else{
+								$("#good").append(
+										"<div class='card m-3' style='width: 17rem;'>"
+										+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+							  			+"<div class='card-body'>"
+							  			+"<div style='height:140px;'>"
+							    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+							    		+"</div>"
+							    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+							    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+							    		+"<div class='card-footer bg-transparent border-success'>"
+							    		+"<p class='card-text'>"+n[8]+"</p>"
+							  			+"</div></div></div>");	
+						
 						}			
-					});
+					}});
 				},
 				error:function(){
-        			$("#tip").html("查無資料");
+        			$("#tip").html("查無資料<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
+        			
         			}
 			});
 			
 		});
 		
-	
+	//換頁
 	function pagechange(page){
 		console.log($(page).val());
 		$("#tip").html("");
@@ -200,24 +221,39 @@
 				
 				$.each(data,function(i,n){
 					if(i+1>=$(page).val()*6-6+1&&i+1<=$(page).val()*6){
-						$("#good").append(
-								"<div class='card m-3' style='width: 17rem;'>"
-								+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
-					  			+"<div class='card-body'>"
-					  			+"<div style='height:120px;'>"
-					    		+"<h3 class='card-title'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
-					    		+"</div>"
-					    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
-					    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
-					    		+"<div class='card-footer bg-transparent border-success'>"
-					    		+"<p class='card-text'>"+n[8]+"</p>"
-					  			+"</div></div></div>");
-						
-					}
-			});
+						if(Date.parse(n[3].substr(0,10)) < Date.parse(now.value)){
+							$("#good").append(
+									"<div class='card m-3' style='width: 17rem;'>"
+									+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+						  			+"<div class='card-body'>"
+						  			+"<div style='height:140px;'>"
+						    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+						    		+"<p>(活動已結束)</p>"
+						    		+"</div>"
+						    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+						    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+						    		+"<div class='card-footer bg-transparent border-success'>"
+						    		+"<p class='card-text'>"+n[8]+"</p>"
+						  			+"</div></div></div>");  
+						}else{
+							$("#good").append(
+									"<div class='card m-3' style='width: 17rem;'>"
+									+"<img src='<c:url value='../Wu/getimg?act_no="+n[0]+"'/>'alt='沒有上傳圖片' class='card-img-top' style='height:200px;'>"
+						  			+"<div class='card-body'>"
+						  			+"<div style='height:140px;'>"
+						    		+"<h3 class='card-title' name='act_name'><a href='ActShow.jsp?get="+n[0]+"' class='card-title'>"+n[1]+"</a></h3>"
+						    		+"</div>"
+						    		+"<p class='card-text'>"+n[4].substr(0,20) +"...</p>"
+						    		+"<p class='card-text'>"+n[2].substr(0,10) + " ~ "+ n[3].substr(0,10) +"</p>"
+						    		+"<div class='card-footer bg-transparent border-success'>"
+						    		+"<p class='card-text'>"+n[8]+"</p>"
+						  			+"</div></div></div>");	
+			}
+						}
+					});
 			},
 			error:function(){
-    			$("#tip").html("查無資料");
+    			$("#tip").html("查無資料<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
     			}
 			});
 		

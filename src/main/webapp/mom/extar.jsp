@@ -34,7 +34,7 @@
             height: 50px;
             text-align: center;
             border: none;
-            background-image: url("../images/up.png");
+            background-image: url("images/up.png");
             background-size: 50px 50px;
         }
 
@@ -159,6 +159,7 @@
 
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
 <script>
+
     function go() {
         <%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
         Swal.fire({
@@ -199,7 +200,7 @@
 
         });
         <%} else {%>
-        return true;
+        return  true
         <%}%>
         return false;
     }
@@ -233,7 +234,7 @@
     });
 </script>
 
-<script src="js/extra.js"></script>
+
 
 <jsp:include page="Footer.jsp"/>
 <!--要include 的地方-->
@@ -258,17 +259,11 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChBlcBS8CVWG0N3smlRpMO678wobs4bdA&callback=initMap">
 </script>
 <!--把key= 到 &的金鑰換成自己的 googlemap 引用script設定-->
-
+<script src="js/extra.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
-<!-- TWzipcode的js -->
-<script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
-
 </body>
 
 </html>

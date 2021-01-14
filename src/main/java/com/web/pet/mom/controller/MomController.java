@@ -2,11 +2,10 @@ package com.web.pet.mom.controller;
 
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.req.MomData;
 import com.web.pet.mom.service.MomService;
 import com.web.pet.util.BlobToByteArray;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,39 +67,9 @@ public class MomController {
         try {
             momService.insertMom(mom, uId);
 
-//            out.print("<html>");
-//            out.print("<body>");
-//            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-//            out.print("<script>");
-//            out.print("Swal.fire({\r\n"
-//                    + "  icon: 'success',\r\n"
-//                    + "  title: '註冊成功',\r\n"
-//                    + "  showConfirmButton: false,\r\n"
-//                    + "  timer: 1500\r\n"
-//                    + "}).then((result) => {\r\n"
-//                    + "window.location.href='../mom/extar.jsp';\r\n"
-//                    + "})");
-//            out.print("</script>");
-//            out.print("</body>");
-//            out.print("</html>");
         } catch (MomIsExistedException e) {
-                e.printStackTrace();
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST ,e.getMessage());
-//            out.print("<html>");
-//            out.print("<body>");
-//            out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-//            out.print("<script>");
-//            out.print("Swal.fire({\r\n"
-//                    + "  icon: 'error',\r\n"
-//                    + "  title: '"+e.getMessage()+"',\r\n"
-//                    + "  showConfirmButton: false,\r\n"
-//                    + "  timer: 1500\r\n"
-//                    + "}).then((result) => {\r\n"
-//                    + "window.location.href='../mom/extar.jsp';\r\n"
-//                    + "})");
-//            out.print("</script>");
-//            out.print("</body>");
-//            out.print("</html>");
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }
     }
 
@@ -112,9 +81,9 @@ public class MomController {
      * @param title
      * @return
      */
-    @RequestMapping("/allMom")
-    @ResponseBody
-    public List<Mom> allMom(String country, String title) {
+    @RequestMapping(value = "/allMom", produces = "application/json; charset=utf-8")
+    public List<MomData> allMom(String country, String title) {
+
         return momService.getAllMoms(country, title);
     }
 
@@ -123,8 +92,7 @@ public class MomController {
      * @return 顯示預約時由保母ID查出的保母資料
      */
     @RequestMapping("/showReservation")
-    @ResponseBody
-    public List<Mom> getReservation(Integer momId) {
+    public MomData getReservation(@RequestParam Integer momId) {
 
         return momService.getReservation(momId);
     }
@@ -137,30 +105,11 @@ public class MomController {
      * @return
      */
     @RequestMapping(value = "/getPic")
-    public ResponseEntity<byte[]> getPicture(@RequestParam Integer momId) {
+    public byte[] getPicture(@RequestParam Integer momId) {
 
         Mom mom = momService.showPic(momId);
         Blob blob = mom.getPic();
-        if (blob == null) {
-            return null;
-        } else {
-            byte[] body = BlobToByteArray.blobToByteArray(blob);
-            return new ResponseEntity<>(body, HttpStatus.OK);
-        }
+
+        return BlobToByteArray.blobToByteArray(blob);
     }
-
-//	@GetMapping(value = "/extar.jsp" , produces = "application/json; charset=utf-8")
-//	public String list(Model model) {
-//		List<Mom> list = momService.getAllMoms();
-//		model.addAttribute("mom" , list);
-//		return "mom/extar.jsp";
-//	}
-
-//	@PostMapping(value = "/reservtionMom" , produces = "application/json; charset=utf-8")
-//	public String insertPetMomOrder(@ModelAttribute("user") PetMomOrder petMomOrder) {
-//		petMomOrderService.insertPetMomOrder(petMomOrder);
-
-
-//		return "reservtionMom";			
-//	}
 }

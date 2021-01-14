@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * @author i19
@@ -41,7 +40,7 @@ public class PetMomOrderCommentServiceImpl implements PetMomOrderCommentService 
 	}
 
 	@Override
-	public List<PetMomOrderComment> searchComment(int uId){
+	public PetMomOrderComment searchComment(int uId){
 		return petMomOrderCommentDAO.searchOrderComment(uId);
 	}
 

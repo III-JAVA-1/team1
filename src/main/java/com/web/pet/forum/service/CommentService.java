@@ -25,44 +25,51 @@ public class CommentService {
 	@Autowired
 	private CommentDao dao;	
 	
+
 	/**
-	 * @author ching
-	 *	新增一則留言
+	 *  Description: 新增一則留言
+	 *  @author ching  DateTime 2021/1/14 下午 01:36:42
+	 *  @param comment
+	 *  @param posterUid
+	 *  @param u_Id
+	 *  @return
 	 */
 	public int saveComment(Comment comment, Integer posterUid, Integer u_Id) {		
 		
 		return dao.saveComment(comment, posterUid, u_Id);
 	}	
 	
+
 	/**
-	 * @author ching
-	 *	依hql條件取得所有留言
+	 *  Description: 依hql條件取得所有留言
+	 *  @author ching  DateTime 2021/1/14 下午 01:37:00
+	 *  @param hql
+	 *  @return
 	 */
 	public List<Comment> getAllComments(String hql) {			
 		 List<Comment> list = dao.getAllComments(hql);		
 		return list;
 	}	
 	
+
 	/**
-	 * @author ching
-	 *	取得一則留言	
+	 *  Description: 取得一則留言
+	 *  @author ching  DateTime 2021/1/14 下午 01:37:13
+	 *  @param commentId
+	 *  @return
 	 */
 	public Comment getComment(Integer commentId) {	
 		 Comment comment = dao.getComment(commentId);
 		return comment;		
-	}
+	}	
+
 	
+
 	/**
-	 * @author ching
-	 *	修改留言
-	 */
-	public int modifyComment(Comment comment) {
-		return dao.modifyComment(comment);
-	}
-	
-	/**
-	 * @author ching
-	 *	按posterUid找留言
+	 *  Description: 按posterUid找留言
+	 *  @author ching  DateTime 2021/1/14 下午 01:37:32
+	 *  @param posterUid
+	 *  @return
 	 */
 	public List<Object[]> getCommentByPosterUid(Integer posterUid){
 		List<Object[]> list = dao.getCommentByPosterUid(posterUid);

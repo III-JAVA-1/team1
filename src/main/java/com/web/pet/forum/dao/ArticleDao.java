@@ -16,8 +16,12 @@ import com.web.pet.member.model.Member;
 
 
 /**
- * @author ching
- *
+ *  Class Name: ArticleDao.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:20:45 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
  */
 @Repository
 public class ArticleDao {
@@ -56,9 +60,13 @@ public class ArticleDao {
 		return article;
 	}
 	
+
 	/**
-	 * @author ching
-	 *	按forumId找文章
+	 *  Description: 按forumId找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:21:03
+	 *  @param forumId
+	 *  @param page
+	 *  @return
 	 */
 	@SuppressWarnings("unchecked")
 	public ListWithPaging getArticleByForumId(String forumId, Integer page){	
@@ -131,9 +139,12 @@ public class ArticleDao {
 		
 	}
 	
+
 	/**
-	 * @author ching
-	 *	按favoriteId找文章
+	 *  Description: 按favoriteId找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:21:18
+	 *  @param favoriteId
+	 *  @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getArticleByFavoriteId(Integer favoriteId){
@@ -156,10 +167,13 @@ public class ArticleDao {
 		else {return list;}		
 	}
 	
-	
+
 	/**
-	 * @author ching
-	 *	按2Uid找文章
+	 *  Description: 按2Uid找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:21:29
+	 *  @param u_Id
+	 *  @param posterUid
+	 *  @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getArticleBy2Uid(Integer u_Id, Integer posterUid){
@@ -179,9 +193,12 @@ public class ArticleDao {
 		else {return list;}				
 	}
 	
+
 	/**
-	 * @author ching
-	 *	按posterUid找文章
+	 *  Description: 按posterUid找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:21:43
+	 *  @param posterUid
+	 *  @return
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Article> getArticleByPosterUid(Integer posterUid){
@@ -194,10 +211,14 @@ public class ArticleDao {
 		return list;
 	}
 	
+
 	/**
-	 * @author ching
-	 *	按關鍵字找文章
-	 */	
+	 *  Description: 按關鍵字找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:21:55
+	 *  @param inputText
+	 *  @param page
+	 *  @return
+	 */
 	@SuppressWarnings("unchecked")
 	public ListWithPaging getArticleByHeaderKey(String inputText, Integer page){
 		inputText = "'%"+inputText+"%'";
@@ -237,9 +258,11 @@ public class ArticleDao {
 	
 	
 	/**
-	 * @author ching
-	 *	按關鍵字找文章
-	 */	
+	 *  Description: 按關鍵字找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:22:07
+	 *  @param page
+	 *  @return
+	 */
 	@SuppressWarnings("unchecked")
 	public ListWithPaging getArticleByLatestComment(Integer page){		
 		ListWithPaging res = new ListWithPaging();		
@@ -314,10 +337,13 @@ public class ArticleDao {
 		}
 	}
 	
-	
+
 	/**
-	 * @author ching
-	 *	修改文章需要merge
+	 *  Description: 修改文章需要merge
+	 *  @author ching  DateTime 2021/1/14 下午 01:22:29
+	 *  @param article
+	 *  @param u_Id
+	 *  @return
 	 */
 	public int modifyArticle(Article article, Integer u_Id) { 
 		int count = 0;
@@ -328,9 +354,12 @@ public class ArticleDao {
 		return count;
 	}
 	
+
 	/**
-	 * @author ching
-	 *	更新文章物件
+	 *  Description: 更新文章物件
+	 *  @author ching  DateTime 2021/1/14 下午 01:22:47
+	 *  @param article
+	 *  @return
 	 */
 	public int updateArticle(Article article) {
 		int count = 0;
@@ -340,9 +369,12 @@ public class ArticleDao {
 		return count;
 	}	
 	
+
 	/**
-	 * @author ching
-	 *	刪除文章
+	 *  Description: 刪除文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:23:02
+	 *  @param article
+	 *  @return
 	 */
 	public int deleteArticle(Article article) { 
 		int count = 0;
@@ -352,9 +384,12 @@ public class ArticleDao {
 		return count;
 	}
 	
+
 	/**
-	 * @author ching
-	 *	計算並設定每篇文章的回應數
+	 *  Description: 計算並設定每篇文章的回應數
+	 *  @author ching  DateTime 2021/1/14 下午 01:23:13
+	 *  @param article
+	 *  @return
 	 */
 	public int setCommentCounts(Article article) {
 		int count = 0;

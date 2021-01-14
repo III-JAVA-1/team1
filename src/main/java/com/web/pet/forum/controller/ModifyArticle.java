@@ -21,9 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.pet.forum.model.Article;
 import com.web.pet.forum.service.ArticleService;
 
+
 /**
- * @author ching
- *
+ *  Class Name: ModifyArticle.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:18:28 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
  */
 @RequestMapping("petforum")
 @Controller
@@ -35,10 +40,12 @@ public class ModifyArticle {
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
 	
-	
+
 	/**
-	 * @author ching
-	 *	傳送原始文章資料
+	 *  Description: 傳送原始文章資料
+	 *  @author ching  DateTime 2021/1/14 下午 01:18:38
+	 *  @param posterUid
+	 *  @return
 	 */
 	@ModelAttribute
 	@RequestMapping("/sendOriginalPost")//傳送原始文章資料
@@ -53,10 +60,14 @@ public class ModifyArticle {
 		return mv;
 	}
 	
-	
+
 	/**
-	 * @author ching
-	 *	修改文章
+	 *  Description: 修改文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:18:55
+	 *  @param article
+	 *  @param request
+	 *  @param response
+	 *  @throws IOException
 	 */
 	@RequestMapping("/modifyPost")
 	public void modifyPost(		

@@ -157,19 +157,39 @@ public class MsgScoketHandle  extends TextWebSocketHandler{
 	    	catMapper.put(k1, k2);
 	    }
 	 
-	    //關閉連線 刪除session
+	  
+	    /**
+	     *  Description: 關閉連線 刪除session
+	     *  @author ching  DateTime 2021/1/14 下午 01:43:21
+	     *  @param session
+	     *  @param status
+	     *  @throws Exception
+	     */
 	    @Override
 	    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 	        sessions.remove(session); //從List中移除	        
 	    }
 
-	    //連線成功 新增session
+	  
+	    /**
+	     *  Description: 連線成功 新增session
+	     *  @author ching  DateTime 2021/1/14 下午 01:43:38
+	     *  @param session
+	     *  @throws Exception
+	     */
 	    @Override
 	    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 	        sessions.add(session);
 	    }
 
-	    //處理用戶發送的訊息 再回傳給用戶	  
+	 
+	    /**
+	     *  Description: 處理用戶發送的訊息 再回傳給用戶
+	     *  @author ching  DateTime 2021/1/14 下午 01:43:53
+	     *  @param session
+	     *  @param message
+	     *  @throws Exception
+	     */
 	    @Override
 	    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 	    	 String clientMessage = message.getPayload(); 	    	

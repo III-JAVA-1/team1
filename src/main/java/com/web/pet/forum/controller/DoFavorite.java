@@ -12,6 +12,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.pet.forum.service.ArticleFavoriteService;
 
+
+
+
+/**
+ *  Class Name: DoFavorite.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:33:21 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
+ */
 @RequestMapping("/petforum")
 @Controller
 public class DoFavorite {
@@ -20,7 +31,15 @@ public class DoFavorite {
 	private ArticleFavoriteService service;
 	
 	
-	@RequestMapping("/searchFavoriteRecord")
+	
+	/**
+	 *  Description:
+	 *  @author ching  DateTime 2021/1/14 下午 01:34:01
+	 *  @param posterUid
+	 *  @param request
+	 *  @return
+	 */
+	@RequestMapping("/searchFavoriteRecord")	
 	public @ResponseBody
 	Boolean searchFavoriteRecord(
 			@RequestParam(value="posterUid",required = false) Integer posterUid,			

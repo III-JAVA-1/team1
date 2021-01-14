@@ -38,32 +38,7 @@ public class CommentService {
 		
 		return dao.saveComment(comment, posterUid, u_Id);
 	}	
-	
 
-	/**
-	 *  Description: 依hql條件取得所有留言
-	 *  @author ching  DateTime 2021/1/14 下午 01:37:00
-	 *  @param hql
-	 *  @return
-	 */
-	public List<Comment> getAllComments(String hql) {			
-		 List<Comment> list = dao.getAllComments(hql);		
-		return list;
-	}	
-	
-
-	/**
-	 *  Description: 取得一則留言
-	 *  @author ching  DateTime 2021/1/14 下午 01:37:13
-	 *  @param commentId
-	 *  @return
-	 */
-	public Comment getComment(Integer commentId) {	
-		 Comment comment = dao.getComment(commentId);
-		return comment;		
-	}	
-
-	
 
 	/**
 	 *  Description: 按posterUid找留言
@@ -74,6 +49,17 @@ public class CommentService {
 	public List<Object[]> getCommentByPosterUid(Integer posterUid){
 		List<Object[]> list = dao.getCommentByPosterUid(posterUid);
 		return list;
+	}	
+
+	/**
+	 *  Description: 取得一則留言
+	 *  @author ching  DateTime 2021/1/14 下午 02:30:33
+	 *  @param commentId
+	 *  @return
+	 */
+	public Comment getComment(Integer commentId) {	
+		 Comment comment = dao.getComment(commentId);
+		return comment;		
 	}
 	
 }

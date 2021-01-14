@@ -44,31 +44,6 @@ public class ArticleFavoriteService {
 		
 	
 	/**
-	 *  Description: 依hql條件取得所有收藏
-	 *  @author ching  DateTime 2021/1/14 下午 01:40:50
-	 *  @param hql
-	 *  @return
-	 */
-	public List<ArticleFavorite> getAllArticleFavorites(String hql) {			
-		 List<ArticleFavorite> list = dao.getAllArticleFavorites(hql);		
-		return list;
-	}	
-	
-	
-	
-	/**
-	 *  Description: 取得一個收藏
-	 *  @author ching  DateTime 2021/1/14 下午 01:41:06
-	 *  @param articleFavoriteId
-	 *  @return
-	 */
-	public ArticleFavorite getArticleFavorite(Integer articleFavoriteId) {		
-		 ArticleFavorite articleFavorite = dao.getArticleFavorite(articleFavoriteId);
-		return articleFavorite;		
-	}
-	
-	
-	/**
 	 *  Description: 按u_Id,posterUid找收藏
 	 *  @author ching  DateTime 2021/1/14 下午 01:41:33
 	 *  @param sessionU_Id

@@ -17,10 +17,13 @@ import com.web.pet.member.model.Member;
 
 
 
-
 /**
- * @author ching
- *
+ *  Class Name: CommentDao.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:35:16 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
  */
 @Repository
 public class CommentDao {
@@ -60,6 +63,7 @@ public class CommentDao {
 		return comment;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getCommentByPosterUid(Integer posterUid){//按posterUid找留言
 		List<Object[]> list = new ArrayList<Object[]>();
@@ -77,18 +81,6 @@ public class CommentDao {
 		if(list.isEmpty()) {return null;}		
 		else {return list;}
 		
-	}
-	
-	/**
-	 * @author ching
-	 *	修改留言需要merge
-	 */
-	public int modifyComment(Comment comment) {
-		int count =0;
-		Session session = sessionFactory.getCurrentSession();
-		session.merge(comment);
-		count++;
-		return count;
 	}
 
 }

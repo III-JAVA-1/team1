@@ -184,7 +184,7 @@ input[type=button] {
 			
 			<div class="col-4">
 			<div class="card functioncard ">
-			<a href="<c:url value='/Gusty/goadminabality?abality=Store'/>" class="nav-link">
+			<a href="<c:url value='/Gusty/goadminstore?memberId=1'/>" class="nav-link">
   				<img src="../Admin/image/shop.png" class="card-img-top" alt="...">
   				<hr>
   				<div class="card-body h2">

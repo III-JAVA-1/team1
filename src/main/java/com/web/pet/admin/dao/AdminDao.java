@@ -71,6 +71,8 @@ public class AdminDao {
 			return list;
 		}
 	}
+
+
 	
 	@SuppressWarnings("unchecked")//銷售總金額
 	public List<Object[]> allsales (Integer month){

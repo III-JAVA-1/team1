@@ -17,7 +17,9 @@
 <body>
 <div class="all-card-div">
     <div class="status-btn d-flex bd-highlight">
-        <div class="p-2 bd-highlight order-status-div order-status-div-click" id="status-all" onclick="setOrderStatus()">全部</div>
+        <div class="p-2 bd-highlight order-status-div order-status-div-click" id="status-all"
+             onclick="setOrderStatus()">全部
+        </div>
         <div class="p-2 bd-highlight order-status-div" id="status-wait" onclick="setOrderStatus(1)">待出貨</div>
         <div class="p-2 bd-highlight order-status-div" id="status-done" onclick="setOrderStatus(2)">已出貨</div>
         <div class="p-2 bd-highlight order-status-div" id="status-cancel" onclick="setOrderStatus(-1)">取消</div>
@@ -25,10 +27,8 @@
     <hr>
     <div class="d-flex bd-highlight mb-3">
         <nav class="navbar navbar-light mr-auto p-2 bd-highlight">
-            <form>
-                <input class="form-control mr-sm-2 search-bar" id="searchInput" type="search" placeholder="Search"
-                       aria-label="Search">
-            </form>
+            <input class="form-control mr-sm-2 search-bar" id="searchInput" type="text" placeholder="請輸入訂單編號"
+                   aria-label="Search">
         </nav>
         <div class="date-div">訂單成立日期(單)
             <input class="p-2 bd-highlight date-bar" type="text" name="daterange" value="01/01/2021 - 12/31/2021"/>
@@ -74,8 +74,7 @@
 
     // 監聽按下enter
     searchInput.addEventListener("keyup", function (event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             orderId = searchInput.value;
             getOrderList();
@@ -155,11 +154,12 @@
                         "</div>\n" +
                         " <div class=\"product-price p-2 bd-highlight\">NT$" + data.cost + "</div>\n" +
                         "<div class=\"product-status\">" +
-                        "<select class=\"form-control p-2 bd-highlight\" onchange='editStatus(" + data.orderId + ", this.value)'>\n";
+                        "<select class=\"form-control p-2 bd-highlight\" " +
+                        "onchange='editStatus(this ," + data.orderId + ", this.value" + "," + data.orderStatus + ")'>\n";
 
                     if (data.orderStatus === -1) {
                         cardHtml +=
-                            "<option value='1'>待出貨</option>\n" +
+                            "<option value='1' >待出貨</option>\n" +
                             "<option value='2'>已出貨</option>\n" +
                             "<option value='-1' selected>已取消</option>\n";
                     } else if (data.orderStatus === 1) {
@@ -197,35 +197,48 @@
 
     getOrderList();
 
-    function editStatus(orderId, status) {
-        let req = {
-            "orderId": parseInt(orderId),
-            "status": parseInt(status)
-        };
+    function editStatus(selector, orderId, status, orgStatus) {
 
-        // 跟server post傳輸
-        $.ajax({
-            // 傳輸格式
-            type: "POST",
-            // 要傳輸的位置
-            url: "mySales/editOrderStatus",
-            // 要傳輸的資料(只有Post才有) body
-            data: JSON.stringify(req),
-            // 傳輸的格式
-            dataType: "json",
-            // 傳輸的格式
-            contentType: "application/json",
-            // 成功時要做的事(res後端回傳訊息)
-            success: function (res) {
-                if (!res.success) {
+        if (confirm('確定要修改訂單狀態嗎?')) {
+            // 修改
+            let req = {
+                "orderId": parseInt(orderId),
+                "status": parseInt(status)
+            };
+
+            // 跟server post傳輸
+            $.ajax({
+                // 傳輸格式
+                type: "POST",
+                // 要傳輸的位置
+                url: "mySales/editOrderStatus",
+                // 要傳輸的資料(只有Post才有) body
+                data: JSON.stringify(req),
+                // 傳輸的格式
+                dataType: "json",
+                // 傳輸的格式
+                contentType: "application/json",
+                // 成功時要做的事(res後端回傳訊息)
+                success: function (res) {
+                    if (!res.success) {
+                        alert("發生了一點錯誤")
+                    }
+                },
+                // 失敗時要做的事
+                error: function () {
                     alert("發生了一點錯誤")
                 }
-            },
-            // 失敗時要做的事
-            error: function () {
-                alert("發生了一點錯誤")
+            });
+        } else {
+            // 不修改
+            if (orgStatus === -1) {
+                selector.selectedIndex = 2;
+            } else if (orgStatus === 1) {
+                selector.selectedIndex = 0;
+            } else {
+                selector.selectedIndex = 1;
             }
-        });
+        }
     }
 
     /**

@@ -14,7 +14,7 @@
 </head>
 <body>
 <jsp:include page="Header.jsp"/>
-<div class="d-flex flex-row flex-wrap div1">
+<div class="d-flex flex-wrap div1">
     <div class="justify-content-start roll-img-div">
         <fieldset class="product-img">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -36,11 +36,9 @@
             ${noDisplay}
         </fieldset>
     </div>
-    <div class="d-flex justify-content-start flex-column bd-highlight mb-3 div2 ">
-        <h3>${productName}</h3>
-
-
-        <div class="d-flex bd-highlight mb-3">
+    <div class="d-flex justify-content-start flex-column bd-highlight mb-3 div2 flex-fill">
+        <h3 class="product-title">${productName}</h3>
+        <div class="d-flex bd-highlight p-2 mb-3">
             <p id="topRate" class="line-rate" onclick="goRateArea()">尚無評價</p>
             <div id="topStarDiv" onclick="goRateArea()">
             </div>

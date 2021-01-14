@@ -1,13 +1,15 @@
 .roll-img-div {
-    width: 25vw;
-    height: 25vw;
+    width: 90vw;
+    height: 90vw;
     margin: 20px 0 0 20px;
     position: relative;
+    max-width: 380px;
+    max-height: 380px;
 }
 
 .roll-img {
-    width: 25vw;
-    height: 25vw;
+    width: 100%;
+    height: 100%;
 }
 
 .product-img {
@@ -41,15 +43,14 @@
     background-color: white;
     border: 2px solid white;
     margin: 50px 100px 20px 100px; /*上右下左*/
-    padding: .9375rem .9375rem;
+    padding: 20px 40px 20px 15px;
 }
 
 .div2 {
     background-color: white;
     border: 2px solid white;
-    width: 48vw;
     margin-bottom: 15%;
-    padding: 20px 0 0 60px;
+    padding: 20px 0 0 40px;
 }
 
 .div3 {
@@ -87,40 +88,41 @@ body {
     background-color: rgb(247, 243, 243) !important;
 }
 
-#pen { /*修改按鈕*/
-    position: fixed;
-    right: 30px;
-    bottom: 171px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    cursor: pointer;
-}
+/*#pen { !*修改按鈕*!*/
+/*    position: fixed;*/
+/*    right: 30px;*/
+/*    bottom: 171px;*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    text-align: center;*/
+/*    cursor: pointer;*/
+/*}*/
 
-#trash { /*刪除按鈕*/
-    position: fixed;
-    right: 30px;
-    bottom: 101px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    cursor: pointer;
-}
+/*#trash { !*刪除按鈕*!*/
+/*    position: fixed;*/
+/*    right: 30px;*/
+/*    bottom: 101px;*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    text-align: center;*/
+/*    cursor: pointer;*/
+/*}*/
 
 #shopcart { /*購物車按鈕*/
     position: fixed;
     right: 30px;
-    bottom: 31px;
+    bottom: 61px;
     width: 50px;
     height: 50px;
     text-align: center;
+    border: none;
     cursor: pointer;
 }
 
-.cart-count {
+.cart-count{
     position: fixed;
     right: 13px;
-    bottom: 65px;
+    bottom: 95px;
     width: 23px;
     height: 23px;
     text-align: center;
@@ -249,3 +251,6 @@ body {
     margin: 0 5px;
 }
 
+.product-title{
+    max-width: 50vw;
+}

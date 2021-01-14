@@ -64,7 +64,8 @@
 <script>
     let memberId = "${memberId}";
     function goMySales() {
-        window.location.href = "mySales?memberId=" + memberId;
+        // window.location.href = "mySales?memberId=" + memberId;
+        history.back();
     }
 
 </script>

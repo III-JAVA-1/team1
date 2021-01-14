@@ -121,10 +121,10 @@
 <div id="cartCount" class="cart-count">0</div>
 <img width="50" height="50" class="goTop-btn" id="goTop"
      src="../Store/images/upward.svg" alt="">
-<img width="50" height="50" class="add-btn" id="add" onclick="goAdd()"
-     src="../Store/images/plus.svg" alt="">
-<img width="50" height="50" class="order-btn" id="order" onclick="goMySales()"
-     src="../Store/images/order.svg" alt="">
+<%--<img width="50" height="50" class="add-btn" id="add" onclick="goAdd()"--%>
+<%--     src="../Store/images/plus.svg" alt="">--%>
+<%--<img width="50" height="50" class="order-btn" id="order" onclick="goMySales()"--%>
+<%--     src="../Store/images/order.svg" alt="">--%>
 
 
 <%--<button type="button" class="btn btn-outline-primary" id="goindex" onclick="goIndex()"--%>
@@ -160,19 +160,19 @@
         }).scroll();
     });
 
-    function setAddDisplay() {
-        if (memberId !== "1") {
-            let goTopBtn = document.getElementById("goTop");
-            let orderBtn = document.getElementById("order");
-            let addBtn = document.getElementById("add");
-            orderBtn.remove();
-            addBtn.remove();
-            goTopBtn.classList.remove("goTop-btn");
-            goTopBtn.classList.add("order-btn");
-        }
-    }
-
-    setAddDisplay();
+    // function setAddDisplay() {
+    //     if (memberId !== "1") {
+    //         let goTopBtn = document.getElementById("goTop");
+    //         let orderBtn = document.getElementById("order");
+    //         let addBtn = document.getElementById("add");
+    //         orderBtn.remove();
+    //         addBtn.remove();
+    //         goTopBtn.classList.remove("goTop-btn");
+    //         goTopBtn.classList.add("order-btn");
+    //     }
+    // }
+    //
+    // setAddDisplay();
 
     // 查詢條件
     let animal = null;
@@ -250,42 +250,42 @@
 
                     cardHtml += "</div>\n" + "</div>\n";
 
-                    //判斷有登入才顯示
-                    if (memberId !== "" && memberId === "1") {
-                        cardHtml +=
-                            "<div>\n" +
-                            "<div class=\"delete-btn d-flex justify-content-center\">\n" +
-                            "<button type=\"button\" class=\"btn btn-warning modify-btn\" onclick=\"goUpdate(" + cardData.id + ")\">修改</button>\n" +
-                            "<button id='deleteBtn' type=\"button\" class=\"btn btn-danger modify-btn\" " +
-                            "data-toggle=\"modal\" data-target=\"#modalCenter" + cardData.id + "\">刪除</button>\n" +
-                            "</div>\n" +
-                            "</div>\n" +
-
-                            "<div class=\"modal fade\" id=\"modalCenter" + cardData.id + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
-                            "aria-hidden=\"true\">\n" +
-                            "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
-                            "<div class=\"modal-content\">\n" +
-
-                            "<div class=\"modal-header\">\n" +
-                            "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
-                            "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
-                            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n" +
-                            "<span aria-hidden=\"true\">&times;</span>\n" +
-                            "</button>\n" +
-                            "</div>\n" +
-
-                            "<div class=\"modal-body\">\n" +
-                            "確認是否要刪除商品\n" +
-                            "</div>\n" +
-                            "<div class=\"modal-footer\">\n" +
-                            "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n" +
-                            "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\" onclick=\"doDelete(" + cardData.id + " )\">刪除</button>\n" +
-                            "</div>\n" +
-
-                            "</div>\n" +
-                            "</div>\n" +
-                            "</div>";
-                    }
+                    // //判斷有登入才顯示
+                    // if (memberId !== "" && memberId === "1") {
+                    //     cardHtml +=
+                    //         "<div>\n" +
+                    //         "<div class=\"delete-btn d-flex justify-content-center\">\n" +
+                    //         "<button type=\"button\" class=\"btn btn-warning modify-btn\" onclick=\"goUpdate(" + cardData.id + ")\">修改</button>\n" +
+                    //         "<button id='deleteBtn' type=\"button\" class=\"btn btn-danger modify-btn\" " +
+                    //         "data-toggle=\"modal\" data-target=\"#modalCenter" + cardData.id + "\">刪除</button>\n" +
+                    //         "</div>\n" +
+                    //         "</div>\n" +
+                    //
+                    //         "<div class=\"modal fade\" id=\"modalCenter" + cardData.id + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n" +
+                    //         "aria-hidden=\"true\">\n" +
+                    //         "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n" +
+                    //         "<div class=\"modal-content\">\n" +
+                    //
+                    //         "<div class=\"modal-header\">\n" +
+                    //         "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n" +
+                    //         "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n" +
+                    //         "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n" +
+                    //         "<span aria-hidden=\"true\">&times;</span>\n" +
+                    //         "</button>\n" +
+                    //         "</div>\n" +
+                    //
+                    //         "<div class=\"modal-body\">\n" +
+                    //         "確認是否要刪除商品\n" +
+                    //         "</div>\n" +
+                    //         "<div class=\"modal-footer\">\n" +
+                    //         "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n" +
+                    //         "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\" onclick=\"doDelete(" + cardData.id + " )\">刪除</button>\n" +
+                    //         "</div>\n" +
+                    //
+                    //         "</div>\n" +
+                    //         "</div>\n" +
+                    //         "</div>";
+                    // }
 
                     cardHtml +=
                         "</div>\n" +

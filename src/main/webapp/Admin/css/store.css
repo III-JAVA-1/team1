@@ -1,6 +1,3 @@
-/*body {*/
-/*    padding-top: 56px;*/
-/*}*/
 
 .portfolio-item {
     margin-bottom: 30px;
@@ -14,18 +11,7 @@
 .goTop-btn { /*回到top按鈕設計*/
     position: fixed;
     right: 30px;
-    bottom: 121px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-}
-
-.shopcart-btn { /*購物車按鈕*/
-    position: fixed;
-    right: 30px;
-    bottom: 61px;
+    bottom: 181px;
     width: 50px;
     height: 50px;
     text-align: center;
@@ -36,7 +22,7 @@
 .add-btn { /*新增商品按鈕*/
     position: fixed;
     right: 30px;
-    bottom: 181px;
+    bottom: 121px;
     width: 50px;
     height: 50px;
     text-align: center;
@@ -44,26 +30,30 @@
     cursor: pointer;
 }
 
-.cart-count{
+.order-btn{
     position: fixed;
-    right: 13px;
-    bottom: 95px;
-    width: 23px;
-    height: 23px;
+    right: 30px;
+    bottom: 61px;
+    width: 50px;
+    height: 50px;
     text-align: center;
-    color: red;
-    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
 .my-searchbar {
-    width: 40% !important;
+    width: 25% !important;
     margin-top: 20px;
+    margin-left: 810px;
+    position: relative;
 }
 
-.logo-img {
-    width: 300px;
-    height: 120px;
-    margin: 30px 5% 30px 0;
+#searchButton{
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*right : 0px;*/
+    border: 0.5px solid #c4c1c1;
+    background-color: revert;
 }
 
 .fieldset1 {
@@ -94,12 +84,11 @@
     color: red;
     font-size: 16pt;
     font-weight: bold;
-
 }
 
 .all-button{
     margin: 5px 5px;
-    border-radius: 30px;
+    /*border-radius: 5px;*/
 }
 
 .button-sort{
@@ -133,10 +122,6 @@
     transform: scale(1.05);
     -ms-transform: scale(1.05);
     -webkit-transform: scale(1.05);
-}
-
-.shopcartimg{
-    margin-left:10px;
 }
 
 .title-div{
@@ -180,4 +165,18 @@
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+.chart-div{
+    width: 500px;
+    height: 250px;
+    margin: 20px;
+}
+
+.all-chart-div{
+    margin-bottom: 20px;
+}
+
+.trash-img{
+    margin-left:10px;
 }

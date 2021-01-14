@@ -56,13 +56,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center" onclick='changever()'>
 				<img src="<c:url value='/Gusty/captcha'/>" id='ver' style="width:250px; height:100px;">
 			</div>
-			
+			<div class="row justify-content-center">**點擊驗證碼圖示可更換驗證碼**</div><br>
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
 					<label for="safecode" class="col-sm-3 col-form-label col-form-label-lg">驗證碼:</label>
 					<div class="col-xs-4">
 						<input type="text" class="form-control form-control-lg" id="safecode" name="verCode" required autocomplete="off" placeholder="英文不分大小寫">
 					</div>
+					
 				</div>
 			</div>
 			<div class="row justify-content-center">

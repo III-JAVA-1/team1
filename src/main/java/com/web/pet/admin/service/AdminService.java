@@ -154,6 +154,10 @@ public class AdminService {
 		return adaminDao.getfullmomDao(mid);
 	}
 	
+	public List<Object[]> momdetailService(Integer mid){//顯示保母詳細資料注意和內容
+		return adaminDao.momdetailDao(mid);
+	}
+	
 	public Integer deletemomService(Integer mid){//刪除保母
 		return adaminDao.deletemomDao(mid);
 	}

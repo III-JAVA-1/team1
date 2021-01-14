@@ -172,7 +172,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			   		"<td>"+n[4]+"</td>"+
     			   		"<td>"+n[6]+"</td>"+
     			   		"<td>"+n[5]+"</td>"+
-    			   		"<td><button type='button' onclick='detail("+n[0]+")' class='btn btn-info'>詳細訂單資訊</button></td></tr>");
+    			   		"<td><button type='button' onclick='detail("+n[0]+")' class='btn btn-info'>詳細訂單</button></td></tr>");
     			});
     			$('#maintable').DataTable({
     				"language": {

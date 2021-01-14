@@ -58,9 +58,6 @@ public class Member {
     @Column(nullable = true)
     private Blob img;
 
-    @OneToOne(mappedBy = "member",fetch = FetchType.LAZY)
-    private Mom mom;
-
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private Set<ActBean> actBean = new LinkedHashSet<>(0);
 

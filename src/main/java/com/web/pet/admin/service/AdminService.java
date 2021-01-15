@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.pet.admin.controller.adminCURD;
 import com.web.pet.admin.dao.AdminDao;
 import com.web.pet.member.model.Member;
-import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.petshop.model.PetshopBean;
 
@@ -160,6 +158,10 @@ public class AdminService {
 	
 	public Integer deletemomService(Integer mid){//刪除保母
 		return adaminDao.deletemomDao(mid);
+	}
+	
+	public List<Object[]> momhottimeService(Integer month){//本月保母預約熱度
+		return adaminDao.momhottimeDao(month);
 	}
 	
 	//////////////////////////////保母管理////////////////////////////////////

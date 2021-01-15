@@ -43,7 +43,7 @@
     <div class="all-chart-div d-flex flex-wrap align-items-start">
         <div class="d-flex justify-content-start">
             <div class="row justify-content-center chart-div">
-                <div class='h3'>本月銷售商品Top10</div>
+                <div class='h3'>本月銷售商品種類排行</div>
                 <canvas id="storesales" width="100" height="50"></canvas>
             </div>
         </div>
@@ -192,15 +192,11 @@
         }
     });
 
-    //     console.log(new Date().getMonth());
-    //     console.log(storename);
-    //     console.log(storeamount);
 
     Chart.defaults.global.defaultFontSize = 16;
     Chart.defaults.global.defaultFontColor = '#000000';
 
     var storesales = document.getElementById('storesales').getContext('2d');
-    //Chart.defaults.global.defaultFontStyle = '微軟正黑體';
     var chart = new Chart(storesales, {
         type: 'bar',
         data: {
@@ -218,20 +214,19 @@
                     '#F9F900',
                     '#5CADAD',
                     '#9AFF02',
-                    '#642100'
                 ],
                 borderWidth: 2,
             }]
         },
-        options: {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        display: false //this will remove only the label
-                    }
-                }]
-            }
-        }
+//         options: {
+//             scales: {
+//                 xAxes: [{
+//                     ticks: {
+//                         display: false //this will remove only the label
+//                     }
+//                 }]
+//             }
+//         }
     });
 
     var ctx = document.getElementById("sales").getContext('2d');
@@ -243,7 +238,7 @@
             datasets: [{
                 label: '當日銷售總金額(NT)',
                 data: storeallmoney,
-                fill: true,
+                fill: false,
                 backgroundColor: '#00FFFF',
                 borderColor: '#CE0000',
                 borderWidth: 2

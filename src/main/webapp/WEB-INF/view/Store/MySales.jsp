@@ -50,6 +50,9 @@
     </div>
 </div>
 
+<img width="50" height="50" class="return-btn" id="return" onclick="goReturn()"
+     src="Store/images/left-arrow.svg" alt="">
+
 <script>
 
     let memberId = "${memberId}";
@@ -246,6 +249,10 @@
      */
     function goDetail(orderId) {
         window.location.href = "orderDetailPage?memberId=" + memberId + "&orderId=" + orderId;
+    }
+
+    function goReturn() {
+        history.back();
     }
 </script>
 

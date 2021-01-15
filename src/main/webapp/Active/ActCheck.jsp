@@ -17,11 +17,9 @@
 
     <!-- Custom styles for this template -->
 	<script src="https://www.w3schools.com/lib/w3.js"></script><!--要include 的程式 最下面還有-->
-	
-<!-- 	<script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script> -->
-<!-- <link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css"> -->
-	
-	
+
+
+
 <link rel="stylesheet" href="css/content.css">	
 </head>
 <jsp:include page="Header.jsp" />
@@ -71,7 +69,7 @@
 		<tbody id="WhatTable">
         </tbody>  
     </table>
-<!--     <br><br><br><br><br><br><br><br><br><br> -->
+
   	<hr>
   	<h3 style="text-align:center;">其他活動</h3>		
     <br><br>
@@ -79,14 +77,12 @@
     <br>
     </div>
     
-<!--     測試用取消參加 -->
-<!-- 				<form method='post' action='../Wu/NoJoin'>   -->
-<!-- 				<input type='text' name='jid' id='jid' value='1'/> -->
-<!-- 				<button type='submit' id='BtnSend' value='cancelbt' onclick='return rusure()'>取消參加</button> -->
-<!-- 				</form> -->
+
 
 </body>
 <script>
+
+
 $().ready(function(){//ajax完整活動資訊
 	$.ajax({
 		url:"../Wu/WhatJoin",
@@ -97,24 +93,34 @@ $().ready(function(){//ajax完整活動資訊
 		},
 		success : function(data) {
 			$.each(data,function(i,n){
+				if(n[2] == "已參加"){
+					$("#WhatTable").append(						
+							"<tr>"						
+							+"<td class='acstyle'><a href='ActShow.jsp?get="+n[4]+"'/>" + n[0]+ "</td>"
+							+"<td class='acstyle'>"+ n[1] +"</td>"
+							+"<td class='acstyle'>"+ n[2] +"</td>"						
+							+"<td class='acstyle'>"						
+							+"<form method='post' action='../Wu/NoJoin'>"
+						    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
+							+"<button type='submit' id='BtnSend' class='btn btn-primary btn-sm' value='cancelbt'  onclick='return rusure()'>取消參加</button>"
+							+"</form>"						
+							+"</td>"						
+							+"</tr>"
+									);					
+				}else{
+					$("#WhatTable").append(						
+							"<tr>"						
+							+"<td class='acstyle'><a href='ActShow.jsp?get="+n[4]+"'/>" + n[0]+ "</td>"
+							+"<td class='acstyle'>"+ n[1] +"</td>"
+							+"<td class='acstyle'>"+ n[2] +"</td>"						
+							+"<td class='acstyle'>"											
+							+"</td>"						
+							+"</tr>"
+									);
+				}
+				
 
-				$("#WhatTable").append(						
-						"<tr>"						
-						+"<td class='acstyle'><a href='ActShow.jsp?get="+n[4]+"'/>" + n[0]+ "</td>"
-						+"<td class='acstyle'>"+ n[1] +"</td>"
-						+"<td class='acstyle'>"+ n[2] +"</td>"						
-						+"<td class='acstyle'>"						
-						+"<form method='post' action='../Wu/NoJoin'>"
-					    +"<input type='hidden' name='jid' id='jid' value='"+n[3]+"'/>"							
-						+"<button type='submit' id='BtnSend' class='btn btn-primary btn-sm' value='cancelbt'  onclick='return rusure()'>取消參加</button>"
-						+"</form>"						
-						+"</td>"						
-						+"</tr>"
-								);
 
-// 				if(n[2]=="取消參加"){
-// 					$("#BtnSend").attr("disabled","disabled")
-// 				}
 					});
 				}
 			});
@@ -122,17 +128,7 @@ $().ready(function(){//ajax完整活動資訊
 		});
 		
 		
-		function rusure()
-		{
-			if(confirm("確定要取消參加嗎?"))
-// 			alert("已取消參加");
-				return true;
-			else
-// 			alert("已取消取消操作");
-				return false;
-				
-				
-		}
+
 		
 	    $.ajax({
 			url:"../Gusty/indexactive",
@@ -149,6 +145,19 @@ $().ready(function(){//ajax完整活動資訊
 				});
 			}
 		});
+	    
+		function rusure()
+		{
+			if(confirm("確定要取消參加嗎?"))
+// 			alert("已取消參加");
+				return true;
+			else
+// 			alert("已取消取消操作");
+				return false;
+				
+				
+		}
+
 </script>
 <jsp:include page="Footer.jsp" />
 </html>

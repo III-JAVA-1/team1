@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-5">
                         <input type="text" class="form-control" id="title"
-                               name="title" placeholder="請輸入服務標題" required=" ">
+                               name="title" placeholder="請輸入服務標題">
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-2">
                         <input type="number" class="form-control" id="experience"
-                               name="experience" value="0" min="0" max="99" required=" ">
+                               name="experience" value="0" min="0" max="99">
                     </div>
                     <div class="yearPosition">年</div>
                 </div>
@@ -132,7 +132,7 @@
                     <div class="col-md-7 picFrame">
                         <div>
                             <div class="picPosition">
-                                <input type="file" name="myPic"  id="myPic" required=" "/>
+                                <input type="file" name="myPic"  id="myPic"/>
                                 <!-- 									<div class='row'> -->
                                 <!-- 										<div id='previewMultiple'></div> -->
                                 <!-- 									</div> -->

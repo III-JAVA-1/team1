@@ -1,17 +1,14 @@
 package com.web.pet.mom.model;
 
 import com.web.pet.member.model.Member;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Blob;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -30,7 +27,7 @@ public class Mom {
     private String petContent;
     @Column(columnDefinition = "nvarchar(MAX)")
     private String notices;
-    @Column(columnDefinition = "nvarchar(MAX)" ,nullable = false)
+    @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String title;
     @Column(nullable = false)
     private Integer experience;
@@ -62,39 +59,7 @@ public class Mom {
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
     private Set<PetMomOrderComment> petMomOrderComments = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "mom" ,cascade = CascadeType.ALL)
-	private Set<Favorite> favorites  = new HashSet<>(0);
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Mom [momId=");
-		builder.append(momId);
-		builder.append(", petContent=");
-		builder.append(petContent);
-		builder.append(", notices=");
-		builder.append(notices);
-		builder.append(", title=");
-		builder.append(title);
-		builder.append(", experience=");
-		builder.append(experience);
-		builder.append(", proPrice1=");
-		builder.append(proPrice1);
-		builder.append(", proPrice2=");
-		builder.append(proPrice2);
-		builder.append(", proPrice3=");
-		builder.append(proPrice3);
-		builder.append(", bodyType1=");
-		builder.append(bodyType1);
-		builder.append(", bodyType2=");
-		builder.append(bodyType2);
-		builder.append(", bodyType3=");
-		builder.append(bodyType3);
-		builder.append(", bodyType4=");
-		builder.append(bodyType4);
-		builder.append(", pic=");
-		builder.append(pic);
-		builder.append("]");
-		return builder.toString();
-	}
+    @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
+    private Set<FavoriteMom> favoriteMoms = new HashSet<>(0);
 }
 

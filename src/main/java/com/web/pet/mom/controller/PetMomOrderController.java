@@ -6,14 +6,17 @@ import com.web.pet.mom.service.PetMomOrderService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+import java.sql.Blob;
+
+import static com.web.pet.mom.config.MomConstant.CHARSET_CODE;
+import static com.web.pet.mom.config.MomConstant.CONTENT_TYPE;
 
 /**
  * @author i19
@@ -23,9 +26,6 @@ import java.io.IOException;
 @RequestMapping("/mom")
 @Slf4j
 public class PetMomOrderController {
-    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-
-    private static final String CHARSET_CODE = "UTF-8";
 
     private final PetMomOrderService petMomOrderService;
 
@@ -41,15 +41,19 @@ public class PetMomOrderController {
     @SneakyThrows
     @PostMapping(value = "/reservationMom", produces = "application/json; charset=utf-8")
     public void insertPetMomOrder(
-            @ModelAttribute PetMomOrderReq petMomOrder, HttpServletResponse response, HttpServletRequest request){
+            @RequestParam(value = "picUser", required = false) MultipartFile picUser,
+            PetMomOrderReq petMomOrder, HttpServletResponse response, HttpServletRequest request){
+
         try {
             //亂碼處理
             request.setCharacterEncoding(CHARSET_CODE);
             response.setContentType(CONTENT_TYPE);
 
             Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
+//            Integer uId = 1;
             Integer momId = petMomOrder.getMomId();
-            petMomOrderService.insertPetMomOrder(petMomOrder, momId, uId);
+
+            petMomOrderService.insertPetMomOrder(picUser,petMomOrder, momId, uId);
         } catch (OrderIsSameMomException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST ,e.getMessage());
@@ -57,5 +61,7 @@ public class PetMomOrderController {
     }
 
 }
+
+
 
 

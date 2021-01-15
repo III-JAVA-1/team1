@@ -8,8 +8,11 @@ import com.web.pet.mom.model.req.PetMomOrderReq;
 import com.web.pet.mom.service.PetMomOrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,7 +24,7 @@ import java.util.Date;
  */
 @AllArgsConstructor
 @Service
-@Transactional(rollbackOn =  Exception.class)
+@Transactional(rollbackOn = Exception.class)
 public class PetMomOrderServiceImpl implements PetMomOrderService {
 
 
@@ -29,19 +32,12 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
 
     private final PetMomOrderDAO petMomOrderDAO;
 
-
-//     if (petMomDAO.getMomByMemberId(u_Id) == null) {
-//        petMomDAO.insertMom(mom, u_Id);
-//    } else {
-//        throw new MomIsExistedException();
-//    }
-
     @Override
-    public void insertPetMomOrder(PetMomOrderReq req, Integer momId, Integer uId) throws ParseException {
+    public void insertPetMomOrder(MultipartFile picUser, PetMomOrderReq req, Integer momId, Integer uId) throws ParseException {
 
-        if(petMomDAO.getMomByMomId(momId) != petMomDAO.getMomByMemberId(uId)) {
+        if (!petMomDAO.getMomByMomId(momId).equals(petMomDAO.getMomByMemberId(uId))) {
             PetMomOrder petMomOrder = new PetMomOrder();
-            req.setUId(uId);
+
             petMomOrder.setOrderCreate(new Timestamp(System.currentTimeMillis()));
             petMomOrder.setStatus("處理中");
             petMomOrder.setPetName(req.getPetName());
@@ -54,6 +50,18 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
             petMomOrder.setDistrict(req.getDistrict());
             petMomOrder.setAddress(req.getAddress());
             petMomOrder.setConnPhone(req.getConnPhone());
+
+            if (picUser != null && !picUser.isEmpty()) {
+                try {
+                    byte[] b = picUser.getBytes();
+                    Blob blob = new SerialBlob(b);
+                    petMomOrder.setPicUser(blob);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+                }
+            }
 
             String chooseStart = req.getChooseStart();
             petMomOrder.setChooseStart(new Timestamp(formatDate(chooseStart).getTime()));
@@ -69,7 +77,7 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
             petMomOrder.setTotal(countTotal(price, formatDate(chooseStart), formatDate(chooseEnd)));
 
             petMomOrderDAO.insertPetMomOrder(petMomOrder, momId, uId);
-        }else {
+        } else {
             throw new OrderIsSameMomException();
         }
     }
@@ -82,6 +90,7 @@ public class PetMomOrderServiceImpl implements PetMomOrderService {
 
     /**
      * 計算訂單價錢
+     *
      * @param price
      * @param timeStart
      * @param timeEnd

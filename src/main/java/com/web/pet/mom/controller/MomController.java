@@ -11,10 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.util.List;
+
+import static com.web.pet.mom.config.MomConstant.CHARSET_CODE;
+import static com.web.pet.mom.config.MomConstant.CONTENT_TYPE;
 
 /**
  * @author i19
@@ -23,10 +25,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/mom")
 public class MomController {
-
-    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-
-    private static final String CHARSET_CODE = "UTF-8";
 
     private final MomService momService;
 
@@ -52,20 +50,8 @@ public class MomController {
 //        //取得session
         Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
 
-        //上傳圖片
-        if (myPic != null && !myPic.isEmpty()) {
-            try {
-                byte[] b = myPic.getBytes();
-                Blob blob = new SerialBlob(b);
-                mom.setPic(blob);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-            }
-        }
         try {
-            momService.insertMom(mom, uId);
+            momService.insertMom(myPic,mom, uId);
 
         } catch (MomIsExistedException e) {
             e.printStackTrace();

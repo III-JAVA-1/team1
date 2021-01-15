@@ -65,8 +65,8 @@ function search() {
                 } else {
                     type += "<small>貓:X</small>"
                 }
-                type += "<button class='btn btn-secondary' type='button'"+
-                    "style='position: absolute; bottom: 10px; right: 20px;' onclick='return goTo()'><a href='momDetail.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'>保母詳細資料</a></button>" +
+                type += "<a href='momDetail.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'><button class='btn btn-secondary' type='button'"+
+                    "style='position: absolute; bottom: 10px; right: 20px;' onclick='return goTo()'>保母詳細資料</button></a>" +
                     "<hr>"
 
 

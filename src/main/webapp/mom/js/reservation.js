@@ -39,7 +39,6 @@ function printPriceResult() {
 //     districtName: "district", // 自訂地區 select 標籤的 name 值
 // });
 
-
 function submit() {
     console.log("submit()")
     const data = new FormData();
@@ -47,6 +46,7 @@ function submit() {
     let country = $(".city").val()
     let district = $(".town").val()
     let address = $("#idAddress").val()
+    let picUser = document.getElementById("picUser").files[0];
     let petName = $("#petName").val()
     let petBreed = $("#breed").val()
     let petAge = $("#petAge").val()
@@ -58,6 +58,7 @@ function submit() {
     let remark = $("#remark").val()
     let momId = $("#momId").val()
 
+    console.log(picUser)
     console.log(connPhone)
     console.log(country)
     console.log(district)
@@ -73,7 +74,6 @@ function submit() {
     console.log(remark)
     console.log(momId)
 
-
     data.append("connPhone", connPhone)
     data.append("country", country)
     data.append("district", district)
@@ -88,23 +88,24 @@ function submit() {
     data.append("chooseEnd", chooseEnd)
     data.append("remark", remark)
     data.append("momId", momId)
+    data.append("picUser", picUser)
 
     console.log(data)
     $.ajax({
-            url: "../mom/reservationMom",
-            type: "POST",
-            contentType: false,
-            cache: false,
-            processData: false,
-            data: data,
-            success: function (data) {
-                console.log(data)
-                console.log('success')
-                showSuccessPage();
-            }, error: function () {
-                showErrorPage();
-            }
-        });
+        url: "../mom/reservationMom",
+        type: "POST",
+        contentType: false,
+        cache: false,
+        processData: false,
+        data: data,
+        success: function (data) {
+            showSuccessPage()
+            console.log(data)
+            console.log('success')
+        }, error: function () {
+            showErrorPage()
+        }
+    });
 }
 
 function showSuccessPage() {
@@ -130,9 +131,6 @@ function showErrorPage() {
         window.location.href = '../mom/extar.jsp';
     })
 }
-
-
-
 
 
 

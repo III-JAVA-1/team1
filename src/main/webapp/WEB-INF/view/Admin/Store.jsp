@@ -318,7 +318,7 @@
                         "<img src=\"../Store/images/trash1.svg\" class=\"trash-img float-right my-margin\" " +
                         "width=\"30\" height=\"30\" data-toggle=\"modal\" data-target=\"#modalCenter" + cardData.id + "\">\n" +
                         "<img id=\"like" + cardData.id + "\" " +
-                        "src=\"../Store/images/pencil.svg\" class=\"float-right my-margin\" width=\"30\" height=\"30\" " +
+                        "src=\"../Store/images/pencil.svg\" class=\"pencil-img float-right my-margin\" width=\"30\" height=\"30\" " +
                         "onclick=\"goUpdate(" + cardData.id + ")\">\n";
 
 

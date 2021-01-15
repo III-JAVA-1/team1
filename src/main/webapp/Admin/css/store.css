@@ -179,4 +179,9 @@
 
 .trash-img{
     margin-left:10px;
+    cursor: pointer;
+}
+
+.pencil-img{
+    cursor: pointer;
 }

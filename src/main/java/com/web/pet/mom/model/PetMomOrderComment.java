@@ -1,13 +1,12 @@
 package com.web.pet.mom.model;
 
+import com.web.pet.member.model.Member;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * @author i19
@@ -40,4 +39,8 @@ public class PetMomOrderComment {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
     private PetMomOrder petMomOrder;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "uId", referencedColumnName = "u_Id")
+    private Member member;
 }

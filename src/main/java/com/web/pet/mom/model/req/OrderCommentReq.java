@@ -15,6 +15,10 @@ public class OrderCommentReq {
 
     private Integer orderId;
 
+    private Timestamp commentNowTime;
+
+    private Integer momId;
+
     private String comment;
 
     private Integer star;

@@ -96,7 +96,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			</ul>
 			</div><br>
   			
-  			<div class="row justify-content-start" id="favoriteMom">
+  			<div class="row justify-content-start" id="favorite">	
 			</div>
 			
 			<div class="d-flex justify-content-center" >
@@ -155,7 +155,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		success:function(data){
 			$.each(data,function(i,n){
 				if(i==0||n[1]!=name){
-					$("#favoriteMom").append("<div class='card col-4' style='width: 18rem;'>"+
+					$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
 			  				"<img src='"+n[3]+"' class='card-img-top' alt=''>"+
 			  				"<div class='card-body'>"+
 			    				"<a class='h5' href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'><p class='card-text'>"+n[1]+"</p></a>"+
@@ -174,11 +174,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	});
     
     function forum(){
-    	$("#favoriteMom").html("");
+    	$("#favorite").html("");
     	$("#favorite2").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
-    	$("#favoriteMom").append("<table class='table table-hover table-bordered' id='maintable'><thead class='h4' style='background-color:#8F4586;'><tr>"+
+    	$("#favorite").append("<table class='table table-hover table-bordered' id='maintable'><thead class='h4' style='background-color:#8F4586;'><tr>"+
     			"<th scope='col'>文章名稱</th>"+
     			"<th scope='col'>文章子版</th>"+
     			"<th scope='col'>發文時間</th>"+
@@ -235,7 +235,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     }
     
     function store(){
-    	$("#favoriteMom").html("");
+    	$("#favorite").html("");
     	$("#favorite2").html("");
     	$("#forum").removeClass("active");
     	$("#store").addClass("active");
@@ -249,7 +249,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			success:function(data){
     				$.each(data,function(i,n){
     					if(i==0||n[1]!=name){
-    						$("#favoriteMom").append("<div class='card col-4' style='width: 18rem;'>"+
+    						$("#favorite").append("<div class='card col-4' style='width: 18rem;'>"+
     				  				"<img src='"+n[3]+"' class='card-img-top' alt=''>"+
     				  				"<div class='card-body'>"+
     				    				"<a class='h5' href='<c:url value='../Store/productDetail?id="+n[0]+"&memberId="+userid+"'/>'><p class='card-text'>"+n[1]+"</p></a>"+

@@ -140,7 +140,8 @@
 				 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>
 		            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
 	            </div>
-				<button class="btnSendMessage" id="sendMessage" type="submit" form="message" onsubmit=return checkCommentContent(this)>送出留言</button>
+	            <button class="btnSendMessage" style="background-color: #39C;" type="button" id="pressInput">一鍵輸入</button>
+				<button class="btnSendMessage" id="sendMessage" type="submit" form="message"  onsubmit=return checkCommentContent(this)>送出留言</button>
 	         </form>
 	       </div>
  	</div>
@@ -461,8 +462,15 @@ function favorites(item){
  	      	})
   		}
 	});	
-} 	        
-	   
+}
+
+//=======================================================================	
+	
+	   $("#pressInput").click(function pressInput(){
+    	$("#commentContent").val("加油 別灰心 一定會找到的");//設定徵友文章評論    	
+    });
+ 
+   
 	</script>
   </body>
 </html>

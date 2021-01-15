@@ -28,18 +28,15 @@
 	<div class="row justify-content-center">
 				<div class="form-group row w-50">
 					<div class="form-row">
-						<div class="form-group col-3">
+						<div class="form-group col-4">
 							<input class="btn btn-secondary" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
 						</div>
-						<div class="form-group col-3">
+						<div class="form-group col-4">
 					    	<input class="btn btn-secondary" type="button" value="草稿" id="store">
 					    </div>
-					    <div class="form-group col-3">
+					    <div class="form-group col-4">
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
-					     </div>
-					      <div class="form-group col-3">
-					    	<input class="btn btn-success" type="submit" value="儲存" id="modify" onsubmit=return modify(this)/>
-					    </div>
+					     </div>					     
 				   	</div>
 			    </div>
 			</div>
@@ -82,9 +79,17 @@
 					</div>
 				</div>
 			</div>
+			<div class="row justify-content-center">
+				<div class="form-group row">
+		    		<div class="form-group col-6">
+						<input class="btn btn-success" type="submit" value="儲存" id="modify" onsubmit=return modify(this)/>
+					</div>		    		
+				</div>
+			</div>
 		</form:form>
 	</div>	 	
 </div>
+
 
 <!-- This contains the hidden content for inline calls -->
 		<div style='display:none'>

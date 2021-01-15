@@ -80,7 +80,7 @@ div.bubbleContainer::after {
 button.btnSendMessage {
   width: 100px;
   height: 30px;
-  display: block;
+  display: inline;
   margin: 0 auto;
   background-color: #01B468;
   border: 3px solid white;

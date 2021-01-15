@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +50,8 @@ public class PetMomOrder {
     private String address;
     @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
     private String connPhone;
+
+    private Blob picUser;
 
     @Column(nullable = false,columnDefinition = "smalldatetime")
     private Timestamp chooseStart;

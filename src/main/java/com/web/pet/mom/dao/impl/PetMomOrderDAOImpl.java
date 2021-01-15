@@ -27,8 +27,7 @@ public class PetMomOrderDAOImpl implements PetMomOrderDAO {
     @Override
     public void insertPetMomOrder(PetMomOrder petMomOrder, Integer momId, Integer uId) {
         Session session = sessionFactory.getCurrentSession();
-        Mom mom = session.get(Mom.class, momId);
-        petMomOrder.setMom(mom);
+        petMomOrder.setMom(session.get(Mom.class, momId));
         petMomOrder.setMember(session.get(Member.class, uId));
         session.save(petMomOrder);
     }

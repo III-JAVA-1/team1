@@ -8,17 +8,26 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--bootstrap初始規模-->
+
     <title>AccompanyMe</title>
+
     <script src="js/reservation.js"></script>
     <script src="js/reservationGo.js"></script>
+
     <link rel="stylesheet" href="css/registerMom.css">
 
-
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
 
+    <!--sweetAlert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!--要include 的程式 最下面還有-->
@@ -59,8 +68,7 @@
                         <span class="uppercase">*</span>
                     </div>
                     <div class="col-md-5">
-                        <input type="text" class="form-control" id="userPhone" name="connPhone" placeholder="請輸入手機號"
-                               required=" ">
+                        <input type="text" class="form-control" id="userPhone" name="connPhone" placeholder="請輸入手機號">
                     </div>
                 </div>
 
@@ -75,8 +83,7 @@
                     </div>
                     <div class="form-inline col-md-8" role="form">
                         <div id="twzipcode_My"></div>
-                        <input class="form-control" id="idAddress" type="text" name="address" required=" "
-                               placeholder="地址">
+                        <input class="form-control" id="idAddress" type="text" name="address" placeholder="地址">
                     </div>
                 </div>
 
@@ -93,8 +100,7 @@
                         <span class="uppercase">*</span>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="petName" name="petName"
-                               required=" ">
+                        <input type="text" class="form-control" id="petName" name="petName">
                     </div>
                 </div>
 
@@ -107,7 +113,7 @@
                         <span class="uppercase">*</span>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="breed" name="petBreed" required=" ">
+                        <input type="text" class="form-control" id="breed" name="petBreed">
                     </div>
                 </div>
 
@@ -121,7 +127,7 @@
                     </div>
                     <div class="col-md-2">
                         <input type="number" class="form-control" id="petAge" name="petAge" value="0" min="0"
-                               max="99" required=" ">
+                               max="99">
                     </div>
                     <div style="line-height:2.5rem;height:2.5rem;padding-left:0;">
                         歲
@@ -160,6 +166,26 @@
                     </div>
                 </div>
 
+                <br>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="picUser">寶貝照片</label> <span class="uppercase">*</span>
+                    </div>
+
+                    <div class="col-md-7 picFrame">
+                        <div>
+                            <div class="picPosition">
+                                <input type="file" name="picUser" id="picUser"/>
+                                <!-- 									<div class='row'> -->
+                                <!-- 										<div id='previewMultiple'></div> -->
+                                <!-- 									</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <b>
                     <div class="st1">服務項目</div>
                 </b>
@@ -186,7 +212,7 @@
                         <label for="timeStart">預約時段(起)</label>
                     </div>
                     <div class="col-md-5 num">
-                        <input class="form-control" type="datetime-local" name="chooseStart" required=" "
+                        <input class="form-control" type="datetime-local" name="chooseStart"
                                id="timeStart" onchange="printPriceResult()">
                     </div>
                 </div>
@@ -201,7 +227,7 @@
                     <div class="col-md-5">
                         <input class="form-control" id="timeEnd"
                                type="datetime-local" name="chooseEnd"
-                               required=" " onchange="printPriceResult()">
+                               onchange="printPriceResult()">
                     </div>
                 </div>
                 <br>
@@ -223,7 +249,8 @@
                     <div class="col-md-7">
                         <div style="width: 300px;height: 100px; border: solid black;border-radius: 5px;">
                             <div id="total" name="total"
-                                 onchange="printPriceResult()">0 元</div>
+                                 onchange="printPriceResult()">0 元
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,34 +279,16 @@
     </div>
 </div>
 
-
-<script
-        src="https://code.jquery.com/jquery-3.5.1.min.js"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-        crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
 <!--include 的下半部分-->
 <jsp:include page="Footer.jsp"/>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--bootstrap的東西-->
 
 <!-- TWzipcode的js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 
 <script>
     $("#twzipcode_My").twzipcode({
         zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
-        css: ["city form-control","town form-control"],
+        css: ["city form-control", "town form-control"],
         countyName: "country", // 自訂城市 select 標籤的 name 值
         districtName: "district", // 自訂地區 select 標籤的 name 值
 
@@ -300,35 +309,35 @@
 
                 console.log(data)
 
-                    let sName = data.sname
-                    $("#sName").text("聯絡 "+sName)
-                    console.log(data.proPrice1)
-                    let pet = "<option>請選擇貓或狗</option>";
-                    if (data.bodyType1 != null) {
-                        pet += "<option id='type1' name='type1'>" + data.bodyType1 + "</option>"
-                    }
-                    if (data.bodyType2 != null) {
-                        pet += "<option id='type2' name='type2'>" + data.bodyType2 + "</option>"
-                    }
-                    if (data.bodyType3 != null) {
-                        pet += "<option id='type3' name='type3'>" + data.bodyType3 + "</option>"
-                    }
-                    if (data.bodyType4 != null) {
-                        pet += "<option id='type4' name='type4'>" + data.bodyType4 + "</option>"
-                    }
-                    $("#petId").append(pet);
+                let sName = data.sname
+                $("#sName").text("聯絡 " + sName)
+                console.log(data.proPrice1)
+                let pet = "<option>請選擇貓或狗</option>";
+                if (data.bodyType1 != null) {
+                    pet += "<option id='type1' name='type1'>" + data.bodyType1 + "</option>"
+                }
+                if (data.bodyType2 != null) {
+                    pet += "<option id='type2' name='type2'>" + data.bodyType2 + "</option>"
+                }
+                if (data.bodyType3 != null) {
+                    pet += "<option id='type3' name='type3'>" + data.bodyType3 + "</option>"
+                }
+                if (data.bodyType4 != null) {
+                    pet += "<option id='type4' name='type4'>" + data.bodyType4 + "</option>"
+                }
+                $("#petId").append(pet);
 
-                    let price = "<option>服務種類</option>";
-                    if (data.proPrice1 != null) {
-                        price += "<option id='service1' name='service1'>到府遛狗 " +data.proPrice1 + " 元/1hr</option>"
-                    }
-                    if (data.proPrice2 != null) {
-                        price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元/1hr</option>"
-                    }
-                    if (data.proPrice3 != null) {
-                        price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元/1hr</option>"
-                    }
-                    $("#priceId").append(price)
+                let price = "<option>服務種類</option>";
+                if (data.proPrice1 != null) {
+                    price += "<option id='service1' name='service1'>到府遛狗 " + data.proPrice1 + " 元/1hr</option>"
+                }
+                if (data.proPrice2 != null) {
+                    price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元/1hr</option>"
+                }
+                if (data.proPrice3 != null) {
+                    price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元/1hr</option>"
+                }
+                $("#priceId").append(price)
             }
 
         });

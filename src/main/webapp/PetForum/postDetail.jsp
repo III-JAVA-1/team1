@@ -45,16 +45,15 @@
         <div class="hd_line2">
            <div class="hd_line2_a">
             <a style="border-color:#39C;" href="forum.jsp"><img src="image/Home_logo.png"/></a>
-           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
+           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function-->
           
             </div>
-            <div class="hd_line2_banner"></div>
+            <div class="hd_line2_banner">
                    <img src="image/banner.png" width="100" height="60">
-                   <img src="image/step.png" width="30" height="30">
-                   <img src="image/step.png" width="30" height="30">                              
-                   <img src="image/step01.png" width="30" height="30">
-                   <img src="image/step.png" width="30" height="30">
-                   <img src="image/step01.png" width="30" height="30">
+                   <img src="image/illust.png" width="670" height="60">
+            </div>
+            <div class="hd_line2_banner2">                
+                   <img src="image/banner2.png" width="100" height="60">
             </div>
     </div>
     </div>
@@ -107,17 +106,13 @@
 		         	}
 		          %>               
 		          </div>
-		        </form>
-				
-              
+		        </form>              
 			          <!-- Article -->
 			          <div id="article" class="db_line1_left_article">
 			              <!-- AJAX整個文章資料顯示在這裡 --> 
 			          </div>
 			          <!-- end of Article -->
-                
-		          
-         <hr/>    
+         		<hr/>    
 <!--end of Aticle-->
 
 <!--Message-->

@@ -5,23 +5,28 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.pet.member.model.Member;
+import com.sun.xml.bind.Util;
 import com.web.pet.member.service.MemberService;
 import com.web.pet.member.service.OtherFunctionService;
 import com.web.pet.mom.model.Mom;
+import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.store.dto.table.OrderDTO;
+import com.web.pet.util.Compare;
+import com.web.pet.util.MailUtils;
+
+import sun.util.resources.cldr.vun.CalendarData_vun_TZ;
 
 @RequestMapping("/Gusty")
 @Controller
@@ -138,53 +143,125 @@ public class OtherFunctionCURD {
 		response.setContentType(CONTENT_TYPE);
 		PrintWriter out = response.getWriter();
 		Integer user_id=Integer.valueOf(request.getSession().getAttribute("user").toString());
+		mom.setMomId(user_id);
+		mom.setMember(memberService.fullmemberService(user_id));
 		//out.print(mom.getMom_Id());
-		Member member = memberService.fullmemberService(user_id);
-		mom.setMember(member);
-		if (picc != null && !picc.isEmpty()) {
+		if(picc==null||picc.isEmpty()) {
+			mom.setPic(otherFunctionService.getoneMomService(user_id).getPic());
+			if(Compare.compareObject(mom, otherFunctionService.getoneMomService(user_id))==false) {
+				out.print("<html><body>");
+				out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+				out.print("<script>");
+				out.print("Swal.fire({\r\n"
+	                    + "  icon: 'error',\r\n"
+	                    + "  title: '修改失敗，請至少修改一筆資料',\r\n"
+	                    + "  showConfirmButton: false,\r\n"
+	                    + "  timer: 1500\r\n"
+	                    + "}).then((result) => {\r\n"
+	                    + "window.location.href='../Member/Editmom.jsp';\r\n"
+	                    + "})");
+				out.print("</script>");
+				out.print("</html></body>");
+			}
+		}else {
 			try {
 				byte[] b = picc.getBytes();
 				Blob blob = new SerialBlob(b);
 				mom.setPic(blob);
-				if(otherFunctionService.membereditmomService(mom)>0) {
+				if (otherFunctionService.membereditmomService(mom) > 0) {
 					out.print("<html><body>");
-	        		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-	        		out.print("<script>");
-	        		out.print("Swal.fire({\r\n"
-	        				+ "title: '修改成功',\r\n"
-	        				+ "icon: 'success',\r\n"
-	        				+ "confirmButtonText: '確定'\r\n"
-	        				+ "}).then((result) => {\r\n"
-	        				+ "if (result.isConfirmed) {\r\n"
-	        				+ "window.location.href='../Member/Editmom.jsp';\r\n"
-	        				+ "}\r\n"
-	        				+ "})");
-	        		out.print("</script>");
-	        		out.print("</html></body>");
+					out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+					out.print("<script>");
+					out.print("Swal.fire({\r\n"
+	                        + "  icon: 'success',\r\n"
+	                        + "  title: '修改成功',\r\n"
+	                        + "  showConfirmButton: false,\r\n"
+	                        + "  timer: 1500\r\n"
+	                        + "}).then((result) => {\r\n"
+	                        + "window.location.href='../Member/Editmom.jsp';\r\n"
+	                        + "})");
+					out.print("</script>");
+					out.print("</html></body>");
 				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
-		else {
-			out.print("<html><body>");
-    		out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-    		out.print("<script>");
-    		out.print("Swal.fire({\r\n"
-    				+ "title: '請選擇圖片',\r\n"
-    				+ "icon: 'error',\r\n"
-    				+ "confirmButtonText: '確定'\r\n"
-    				+ "}).then((result) => {\r\n"
-    				+ "if (result.isConfirmed) {\r\n"
-    				+ "window.location.href='../Member/Editmom.jsp';\r\n"
-    				+ "}\r\n"
-    				+ "})");
-    		out.print("</script>");
-    		out.print("</html></body>");
-		}
 		out.close();
+	}
+	
+	@RequestMapping("/mymomorder")
+	@ResponseBody
+	public List<Object[]> mymomorderController(Integer mid){//會員頁面顯示我的保母訂單
+		return otherFunctionService.mymomorderService(mid);
+	}
+	
+	@RequestMapping("/mymomorderpetdetail")
+	@ResponseBody
+	public List<Object[]> mymomorderpetdetailController(Integer oid){//會員頁面顯示我的保母訂單寵物詳細資料
+		return otherFunctionService.mymomorderoetdetailService(oid);
+	}
+	
+	@RequestMapping("/momorderaccept")//會員保母訂單接受寄信並修改訂單狀態
+	public void orderacceptController(Integer oid,HttpServletResponse response) throws IOException, AddressException, MessagingException {
+		response.setContentType(CONTENT_TYPE);
+		PrintWriter out = response.getWriter();
+		PetMomOrder petMomOrder = otherFunctionService.momorderacceptService(oid);
+		petMomOrder.setStatus("接受");
+		String email = petMomOrder.getMember().getEmail();
+		String message = "您預約保母服務: "+petMomOrder.getMom().getTitle()+" 保母已接受此次預約<br>有任何問題歡迎來信告知，謝謝";
+		if(otherFunctionService.momorderaccepteditService(petMomOrder)>0) {
+			MailUtils.sendMail(email,message);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+                    + "  icon: 'success',\r\n"
+                    + "  title: '接受成功，已寄信通知預約者',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Momorder.jsp';\r\n"
+                    + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}else {
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+                    + "  icon: 'error',\r\n"
+                    + "  title: '接受失敗',\r\n"
+                    + "  showConfirmButton: false,\r\n"
+                    + "  timer: 1500\r\n"
+                    + "}).then((result) => {\r\n"
+                    + "window.location.href='../Member/Momorder.jsp';\r\n"
+                    + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}
+		
+		out.close();
+	}
+	
+	@RequestMapping("/rejectmomorder")//預約拒絕並修改訂單狀態
+	@ResponseBody
+	public Integer rejectmomorderController(Integer oid,String message) throws AddressException, MessagingException {
+		Integer result =0;
+		PetMomOrder petMomOrder = otherFunctionService.momorderacceptService(oid);
+		String email = petMomOrder.getMember().getEmail();
+		message = "您預約保母服務: "+petMomOrder.getMom().getTitle()+" 保母已拒絕此次預約<br>原因:"+message+"<br>有任何問題歡迎來信告知，謝謝";
+		result = otherFunctionService.rejectmomorderService(oid);
+		MailUtils.sendMail(email,message);
+		return result;
+	}
+	
+	@RequestMapping("/othermomorder")//會員頁面我預約的保母訂單資料
+	@ResponseBody
+	public List<Object[]> othermomorderController(Integer uid) {
+		return otherFunctionService.othermomorderService(uid);
 	}
 	
 	/////////////////////////會員保母功能////////////////////////////////

@@ -593,7 +593,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             datasets: [{
                 label: '當日活動發起數量',
                 data: activehotamount,
-                fill: true,
+                fill: false,
                 backgroundColor: '#FF8040',
                 borderColor: '#808040',
                 borderWidth: 2

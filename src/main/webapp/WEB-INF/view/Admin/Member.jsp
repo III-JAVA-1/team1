@@ -89,8 +89,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
       			<th scope="col">編號</th>
-      			<th scope="col" style="width:100px;height:50px;">大頭貼</th>
-      			<th scope="col">姓名</th>
+      			<th scope="col" style="width:110px;height:90px;">大頭貼</th>
+      			<th scope="col" style='width:70px;'>姓名</th>
       			<th scope="col">手機</th>
       			<th scope="col">電子郵件</th>
       			<th scope="col">暱稱</th>
@@ -166,13 +166,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						age3++;
 					}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:80px; height:80px;' onerror='imgDisplay(this)'></td>"
+							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:110px; height:90px; margin:auto;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n[1]+"</td>"
 							+"<td>"+n[2]+"</td>"
 							+"<td>"+n[3]+"</td>"
 							+"<td>"+n[4]+"</td>"
 							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td>"
-							+"<td style='background-color:#FFFFF4;'><input type='checkbox' onchange='stop("+n[0]+")' id='"+n[0]+"' checked data-toggle='toggle'></td></tr>"
+							+"<td style='background-color:#D7FFEE;'><input type='checkbox' onchange='stop("+n[0]+")' id='"+n[0]+"' checked data-toggle='toggle'></td></tr>"
 					);
 					if(n[11]==1){
 						$("#"+n[0]+"").attr("checked",true)

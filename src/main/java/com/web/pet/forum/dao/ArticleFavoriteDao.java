@@ -15,9 +15,6 @@ import com.web.pet.forum.model.ArticleFavorite;
 import com.web.pet.member.model.Member;
 
 
-
-
-
 @Repository
 public class ArticleFavoriteDao {
 	
@@ -35,29 +32,16 @@ public class ArticleFavoriteDao {
 		return count;
 	}
 	
-	
+		
+	/**
+	 *  Description: 按u_Id,posterUid找收藏
+	 *  @author ching  DateTime 2021/1/14 下午 02:26:46
+	 *  @param sessionU_Id
+	 *  @param posterUid
+	 *  @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<ArticleFavorite> getAllArticleFavorites(String hql) {
-		
-		List<ArticleFavorite> list = new ArrayList<ArticleFavorite>();
-		//hql = "FROM ArticleFavoriteDao";// 不是表格名稱是類別名稱
-		Session session = sessionFactory.getCurrentSession();
-		 Query<ArticleFavorite> query = session.createQuery(hql);
-		list = query.getResultList();
-		
-		return list;
-	}
-
-
-	public ArticleFavorite getArticleFavorite(Integer likeId) {		
-		
-		Session session = sessionFactory.getCurrentSession();
-		ArticleFavorite articleFavorite = session.get(ArticleFavorite.class, likeId);
-		return articleFavorite;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){//按u_Id,posterUid找收藏
+	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session=sessionFactory.getCurrentSession();
 		String sql = "select af.favoriteId\r\n" + 
@@ -74,7 +58,15 @@ public class ArticleFavoriteDao {
 		
 	}
 	
-	public int removeArticleFavorite(Integer posterUid, Integer sessionU_Id) { //移除收藏
+	
+	/**
+	 *  Description: 移除收藏
+	 *  @author ching  DateTime 2021/1/14 下午 02:27:02
+	 *  @param posterUid
+	 *  @param sessionU_Id
+	 *  @return
+	 */
+	public int removeArticleFavorite(Integer posterUid, Integer sessionU_Id) {
 		int count =0;		
 		@SuppressWarnings("unused")
 		List<ArticleFavorite> list = new ArrayList<ArticleFavorite>();		

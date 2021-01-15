@@ -123,35 +123,35 @@ public class ProductDetailAction {
             // 把jsp的${id}換成後面的值
             model.addAttribute("id", id);
 
-            if (StringUtils.isNotEmpty(memberId) && memberId.equals("1")) {
-                model.addAttribute("memberId", memberId);
-                String modProductHtml =
-                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n"
-                                + "<img id=\"trash\" width=\"50\" height=\"50\" src=\"../Store/images/trash.svg\" alt=\"\"\n"
-                                + "data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n"
-                                + "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n"
-                                + "aria-hidden=\"true\">\n"
-                                + "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n"
-                                + "<div class=\"modal-content\">\n"
-                                + "<div class=\"modal-header\">\n"
-                                + "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n"
-                                + "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n"
-                                + "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n"
-                                + "<span aria-hidden=\"true\">&times;</span>\n"
-                                + "</button>\n"
-                                + "</div>\n"
-                                + "<div class=\"modal-body\">\n"
-                                + "確認是否要刪除商品\n"
-                                + "</div>\n"
-                                + "<div class=\"modal-footer\">\n"
-                                + "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n"
-                                + "<button type=\"button\" class=\"btn btn-danger\" onclick=\"doDelete()\">刪除</button>\n"
-                                + "</div>\n"
-                                + "</div>\n"
-                                + "</div>\n"
-                                + "</div>";
-                model.addAttribute("modProduct", modProductHtml);
-            }
+//            if (StringUtils.isNotEmpty(memberId) && memberId.equals("1")) {
+//                model.addAttribute("memberId", memberId);
+//                String modProductHtml =
+//                        "<img id=\"pen\" width=\"50\" height=\"50\" onclick=\"goUpdate()\" src=\"../Store/images/pen.svg\" alt=\"\">\n"
+//                                + "<img id=\"trash\" width=\"50\" height=\"50\" src=\"../Store/images/trash.svg\" alt=\"\"\n"
+//                                + "data-toggle=\"modal\" data-target=\"#exampleModalCenter\">\n"
+//                                + "<div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\"\n"
+//                                + "aria-hidden=\"true\">\n"
+//                                + "<div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n"
+//                                + "<div class=\"modal-content\">\n"
+//                                + "<div class=\"modal-header\">\n"
+//                                + "<img src=\"../Store/images/warning.svg\" width=\"25\" height=\"25\">\n"
+//                                + "<h5 class=\"modal-title\" id=\"exampleModalCenterTitle\">注意</h5>\n"
+//                                + "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n"
+//                                + "<span aria-hidden=\"true\">&times;</span>\n"
+//                                + "</button>\n"
+//                                + "</div>\n"
+//                                + "<div class=\"modal-body\">\n"
+//                                + "確認是否要刪除商品\n"
+//                                + "</div>\n"
+//                                + "<div class=\"modal-footer\">\n"
+//                                + "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">取消</button>\n"
+//                                + "<button type=\"button\" class=\"btn btn-danger\" onclick=\"doDelete()\">刪除</button>\n"
+//                                + "</div>\n"
+//                                + "</div>\n"
+//                                + "</div>\n"
+//                                + "</div>";
+//                model.addAttribute("modProduct", modProductHtml);
+//            }
 
             // 產品售出量
             sql = "SELECT SUM(quantity) FROM order_item WHERE product_id = ?";

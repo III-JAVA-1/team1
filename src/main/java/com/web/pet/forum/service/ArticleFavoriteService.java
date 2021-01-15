@@ -12,6 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.web.pet.forum.dao.ArticleFavoriteDao;
 import com.web.pet.forum.model.ArticleFavorite;
 
+
+
+/**
+ *  Class Name: ArticleFavoriteService.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:41:57 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
+ */
 @EnableTransactionManagement
 @Transactional
 @Service
@@ -20,26 +30,41 @@ public class ArticleFavoriteService {
 	@Autowired
 	private ArticleFavoriteDao dao;	
 	
-	public int saveArticleFavorite(Integer posterUid, Integer u_Id) {//新增一個收藏
+	
+	/**
+	 *  Description: 新增一個收藏
+	 *  @author ching  DateTime 2021/1/14 下午 01:40:05
+	 *  @param posterUid
+	 *  @param u_Id
+	 *  @return
+	 */
+	public int saveArticleFavorite(Integer posterUid, Integer u_Id) {
 		return dao.saveArticleFavorite(posterUid, u_Id);
 	}	
+		
 	
-	public List<ArticleFavorite> getAllArticleFavorites(String hql) {//依hql條件取得所有收藏			
-		 List<ArticleFavorite> list = dao.getAllArticleFavorites(hql);		
-		return list;
-	}	
-
-	public ArticleFavorite getArticleFavorite(Integer articleFavoriteId) {//取得一個收藏		
-		 ArticleFavorite articleFavorite = dao.getArticleFavorite(articleFavoriteId);
-		return articleFavorite;		
-	}
-	
-	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){//按u_Id,posterUid找收藏
+	/**
+	 *  Description: 按u_Id,posterUid找收藏
+	 *  @author ching  DateTime 2021/1/14 下午 01:41:33
+	 *  @param sessionU_Id
+	 *  @param posterUid
+	 *  @return
+	 */
+	public List<Object[]> getArticleFavoriteBy2Uid(Integer sessionU_Id, Integer posterUid){
 		List<Object[]> list = dao.getArticleFavoriteBy2Uid(sessionU_Id, posterUid);
 		return list;
 	}
 	
-	public int removeArticleFavorite(Integer posterUid, Integer u_Id) {//移除收藏
+	
+	
+	/**
+	 *  Description: 移除收藏
+	 *  @author ching  DateTime 2021/1/14 下午 01:42:09
+	 *  @param posterUid
+	 *  @param u_Id
+	 *  @return
+	 */
+	public int removeArticleFavorite(Integer posterUid, Integer u_Id) {
 		return dao.removeArticleFavorite(posterUid, u_Id);
 	}
 	

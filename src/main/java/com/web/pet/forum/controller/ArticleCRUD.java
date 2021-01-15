@@ -28,12 +28,16 @@ import com.web.pet.util.BlobToByteArray;
 
 
 /**
- * @author ching
- *
+ *  Class Name: ArticleCRUD.java
+ *  Description: 
+ *  @author ching  DateTime 2021/1/14 下午 01:28:39 
+ *  @company 
+ *  @email public192021@gmail.com
+ *  @version 1.0
  */
 @RequestMapping("/petforum")
 @Controller
-public class ArticleCURD{
+public class ArticleCRUD{
 	
 	@Autowired
 	private ArticleService service;	
@@ -45,11 +49,16 @@ public class ArticleCURD{
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
 	private static final String CHARSET_CODE = "UTF-8";
 	
+
 	/**
-	 * @author ching
-	 *	AJAX按不同討論區找文章 -  click a標籤
+	 *  Description: AJAX按不同討論區找文章 -  click a標籤
+	 *  AJAX網頁開啟加載所有文章 - $().ready
+	 *  @author ching  DateTime 2021/1/14 下午 01:15:35
+	 *  @param forumId
+	 *  @param page
+	 *  @return
 	 */
-	@RequestMapping("/selectForum")
+	@RequestMapping(value={"/selectForum", "/selectAll"})
 	public 	@ResponseBody
 	ListWithPaging selectForum(
 			@RequestParam(value = "forumId",required = false) String forumId,
@@ -60,26 +69,13 @@ public class ArticleCURD{
 		return res;
 	}
 	
-	
+
 	/**
-	 * @author ching
-	 *	AJAX網頁開啟加載所有文章 - $().ready	
-	 */
-	@RequestMapping("/selectAll")
-	public @ResponseBody
-	ListWithPaging selectAll(
-			@RequestParam(value = "forumId",required = false) String forumId,
-			@RequestParam(value = "page", required = false) Integer page
-			){
-		if(forumId == null) {return null;}
-		ListWithPaging res = service.getArticleByForumId(forumId, page);		
-		return res;
-	}	
-	
-	
-	/**
-	 * @author ching
-	 *	按關鍵字找文章
+	 *  Description: 按關鍵字找文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:16:29
+	 *  @param inputText
+	 *  @param page
+	 *  @return
 	 */
 	@GetMapping("/selectHeader")
 	public @ResponseBody
@@ -92,9 +88,12 @@ public class ArticleCURD{
 		return list;
 	}
 	
+
 	/**
-	 * @author ching
-	 *	找最新回覆文章
+	 *  Description: 找最新回覆文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:16:45
+	 *  @param page
+	 *  @return
 	 */
 	@GetMapping("/lastestReply")
 	public @ResponseBody
@@ -105,9 +104,11 @@ public class ArticleCURD{
 	}
 	
 	
+
 	/**
-	 * @author ching
-	 *	找前top3瀏覽率文章
+	 *  Description: 找前top3瀏覽率文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:16:59
+	 *  @return
 	 */
 	@GetMapping(value={"/highestViewing","/highestViewingHeader"})
 	public @ResponseBody
@@ -117,9 +118,14 @@ public class ArticleCURD{
 	}
 	
 	
+
 	/**
-	 * @author ching
-	 *	AJAX把article帶到postDetail.jsp
+	 *  Description: AJAX把article帶到postDetail.jsp
+	 *  @author ching  DateTime 2021/1/14 下午 01:17:14
+	 *  @param posterUid
+	 *  @param u_Id
+	 *  @param request
+	 *  @return
 	 */
 	@RequestMapping("/viewPost")
 	public @ResponseBody
@@ -129,7 +135,7 @@ public class ArticleCURD{
 			HttpServletRequest request) {
 		
 		if(posterUid == null) {return null;}
-		System.out.println("posterUid"+posterUid);
+		
 		//需要的是閱讀者的u_Id，非發文者的u_Id
 		Integer sessionU_Id = null;
 		if(request.getSession().getAttribute("user")!=null){
@@ -164,9 +170,12 @@ public class ArticleCURD{
 	}
 	
 	
+
 	/**
-	 * @author ching
-	 *	postDetail.jsp秀出會員圖片
+	 *  Description: postDetail.jsp秀出會員圖片
+	 *  @author ching  DateTime 2021/1/14 下午 01:17:26
+	 *  @param u_Id
+	 *  @return
 	 */
 	@RequestMapping(value="/getMemberImg")
 	public ResponseEntity<byte[]> getAvatar(@RequestParam Integer u_Id) {
@@ -187,6 +196,7 @@ public class ArticleCURD{
 		}	
 	}
 	
+	
 	@RequestMapping(value={"/randomArticle", "/randomArticle2"})
 	public @ResponseBody
 	List<Article> randomArticle(){		
@@ -195,10 +205,11 @@ public class ArticleCURD{
 		return list;
 	}
 	
-	
+
 	/**
-	 * @author ching
-	 *	準備發表新文章
+	 *  Description: 準備發表新文章
+	 *  @author ching  DateTime 2021/1/14 下午 01:17:39
+	 *  @return
 	 */
 	@RequestMapping("/newArticle")
 	public ModelAndView newPost() {

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,10 +39,15 @@ import com.web.pet.member.service.MemberService;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.petshop.model.PetshopBean;
 import com.web.pet.util.BlobToByteArray;
+import com.web.pet.util.DbUtils;
+import com.web.pet.util.ExceptionUtils;
 import com.web.pet.util.MailUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping(value="/Gusty")
 @Controller
+@Slf4j
 public class adminCURD {
 	
 	private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
@@ -102,7 +112,7 @@ public class adminCURD {
 	public List<Object[]> allsales(Integer month){
 		return adminService.allsales(month);
 	}
-	
+
 	//////////////////////////////商城管理////////////////////////////////////
 	
 	@RequestMapping("/activehottime")//活動顯示時間熱度
@@ -338,6 +348,12 @@ public class adminCURD {
 		return adminService.allmomService();
 	}
 	
+	@RequestMapping("/momdetail")//顯示保母詳細資料注意和內容
+	@ResponseBody
+	public List<Object[]> momdetailController(Integer mid){
+		return adminService.momdetailService(mid);
+	}
+	
 	@RequestMapping("/deletemom")//刪除保母
 	@ResponseBody
 	public Integer deletemomController(Integer mid,String message) throws AddressException, MessagingException{
@@ -346,6 +362,12 @@ public class adminCURD {
 		Member member = memberService.fullmemberService(mom.getMember().getU_Id());
 		MailUtils.sendMail(member.getEmail(),message);
 		return adminService.deletemomService(mid);
+	}
+	
+	@RequestMapping("/momhott")//顯示保母預約熱度
+	@ResponseBody
+	public List<Object[]> momhottimeController(Integer month){
+		return adminService.momhottimeService(month);
 	}
 	
 	//////////////////////////////保母管理////////////////////////////////////
@@ -358,6 +380,60 @@ public class adminCURD {
 	@RequestMapping(value="/goadminabality")//Admin其他功能的超連結
 	public String goadminfunction(@RequestParam String abality) {
 		return "Admin/"+abality;
+	}
+
+	@GetMapping("/goadminstore")//Admin其他功能的超連結
+	public String goadminstore(
+			Model model,
+			@RequestParam(value = "memberId", required = false) String memberId,
+			@RequestParam(value = "sort", required = false) String sort) {
+
+		// 資料庫連線處理
+		try (DbUtils dbu = new DbUtils()) {
+			// 組選項html字串
+			StringBuilder stringBuilder = new StringBuilder();
+			ResultSet resultSet =
+					dbu.queryList("SELECT category_id, category_name FROM product_category");
+
+			stringBuilder.append(
+					"<button type=\"button\" class=\"btn btn-outline-secondary all-button category-btn active\" onclick=\"categoryClick(this)\" value=\"");
+			stringBuilder.append(0);
+			stringBuilder.append("\">");
+			stringBuilder.append("全部");
+			stringBuilder.append("</button>");
+
+			// 拆解資料庫資料
+			while (resultSet.next()) {
+				stringBuilder.append(
+						"<button type=\"button\" class=\"btn btn-outline-secondary all-button category-btn\" onclick=\"categoryClick(this)\" value=\"");
+				stringBuilder.append(resultSet.getInt(1));
+				stringBuilder.append("\">");
+				stringBuilder.append(resultSet.getString(2));
+				stringBuilder.append("</button>");
+			}
+
+			// 重要!!!resultSet使用完畢必須關閉釋放資源,否則後台服務會塞爆
+			resultSet.close();
+
+			// 設定AddProduct.jsp中${product_category}的值
+			model.addAttribute("product_category", stringBuilder.toString());
+
+			if (StringUtils.isNotEmpty(memberId)) {
+				model.addAttribute("memberId", memberId);
+			}
+			if (StringUtils.isNotEmpty(sort)) {
+				try {
+					model.addAttribute("sort", Integer.valueOf(sort));
+				} catch (Exception e) {
+					model.addAttribute("sort", 0);
+				}
+			} else {
+				model.addAttribute("sort", 0);
+			}
+		} catch (SQLException e) {
+			log.error(ExceptionUtils.getErrorDetail(e));
+		}
+		return "Admin/Store";
 	}
 	
 	/////////////////////////////其他功能管理////////////////////////////////////

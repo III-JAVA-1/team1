@@ -93,6 +93,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   				<li class="nav-item">
     				<a class="nav-link h3" href="#" onclick="forum(this); return false;" id="forum">文章</a>
   				</li>
+  				<li class="nav-item">
+    				<a class="nav-link h3" href="#" onclick="mom(this); return false;" id="mom">保母</a>
+  				</li>
 			</ul>
 			</div><br>
   			
@@ -178,6 +181,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#favorite2").html("");
     	$("#store").removeClass("active");
     	$("#forum").addClass("active");
+    	$("#mom").removeClass("active");
     	$("#favorite").append("<table class='table table-hover table-bordered' id='maintable'><thead class='h4' style='background-color:#8F4586;'><tr>"+
     			"<th scope='col'>文章名稱</th>"+
     			"<th scope='col'>文章子版</th>"+
@@ -239,6 +243,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#favorite2").html("");
     	$("#forum").removeClass("active");
     	$("#store").addClass("active");
+    	$("#mom").removeClass("active");
     	 $.ajax({
     			url:"../Gusty/favoritestore",
     			type:"post",
@@ -266,6 +271,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			}
     		});
     	return false;
+    }
+    
+    function mom(){
+    	$("#mom").addClass("active");
+    	$("#forum").removeClass("active");
+    	$("#store").removeClass("active");
+    	$("#favorite").html("");
+    	$("#favorite2").html("");
     }
     
     function deletelove(pid){

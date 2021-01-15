@@ -54,6 +54,13 @@
 	<br>
 
 	<div class="container">
+	
+	<div class="row justify-content-center">
+		<div class="col-12">
+		<div class="row justify-content-center h1">本月保母預約數量</div>
+		<canvas id="momhot" width="100" height="30"></canvas>
+		</div>
+	</div><br>
 
 		<div class="col">
 
@@ -65,16 +72,16 @@
 			</div>
 
 			<table class="table table-hover table-bordered" id='maintable'>
-				<thead class="h4" style="background-color: #0066CC;">
+				<thead class="h4" style="background-color:#ECFFFF;">
 					<tr>
 						<th scope="col">編號</th>
 						<th scope="col" style="width: 100px; height: 50px;">環境照片</th>
-						<th scope="col">名稱</th>
+						<th scope="col">服務名稱</th>
 						<th scope="col">年資</th>
-						<th scope="col">注意事項</th>
-						<th scope="col">服務內容</th>
-						<th scope="row" style="width: 150px;">服務項目</th>
-						<th scope="col" style="width: 200px;">服務寵物</th>
+						<th scope="col">注意事項&服務內容</th>
+						<th scope="col" style="width: 150px;">服務項目</th>
+						<th scope="col" style="width: 160px;">服務寵物</th>
+						<th scope="col">評價</th>
 						<th scope="col">操作</th>
 					</tr>
 				</thead>
@@ -110,6 +117,7 @@
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 
 	<script>
 	
@@ -150,10 +158,10 @@
 						+"<td><img src='<c:url value='/mom/getPic?momId="+n[0]+"'/>'alt='沒有上傳圖片' style='width:100%; height:120px;'></td>"
 						+"<td>"+n[1]+"</td>"
 						+"<td>"+n[2]+"</td>"
-						+"<td>"+n[3]+"</td>"
-						+"<td>"+n[4]+"</td>"
+						+"<td><button type='button' class='btn btn-primary' onclick='momdetail("+n[0]+")' >點我查看</button></td>"
 						+"<td>到府遛狗:&nbsp"+n[5]+"<br>安親照顧:&nbsp"+n[6]+"<br>寄宿照顧:&nbsp"+n[7]+"</td>"
 						+"<td>"+n[8]+"、<br>"+n[9]+"、<br>"+n[10]+"、<br>"+n[11]+"</td>"
+						+"<td><button type='button' class='btn btn-info' onclick='mommessage("+n[0]+")'>點我查看</button></td>"
 						+"<td><button type='button' class='btn btn-danger' onclick='deletemom("+n[0]+")'>刪除保母</button></td></tr>");
 			});
 		}
@@ -182,6 +190,39 @@
 	        }
 	    }
 	})
+	
+	function momdetail(mid){
+    	//alert(mid)
+    	Swal.fire({
+  		  	title: '<div id="momname"></div>&nbsp注意事項&服務內容',
+  		  	html:"<div class='h4'>注意事項:&nbsp</div>"+
+  		  		 "<div id='notice'></div><hr>"+
+  		  		 "<div class='h4'>服務內容:&nbsp</div>"+
+  		  		 "<div id='content'></div>",
+			width: '1000px',
+  		confirmButtonText: '確定'
+  		})
+  		$.ajax({
+  			url:"../Gusty/momdetail",
+  			type:"post",
+  			dataType:"json",
+  			async:false,
+  			data : {
+  				"mid":mid,
+  	        },
+  			success:function(data){
+  			$.each(data,function(i,n){
+  					$("#momname").append(n[0])
+  					$("#notice").append(n[1])
+  					$("#content").append(n[2])
+  				});
+  			}
+  		});
+    }
+    
+    function mommessage(mid){
+    	//alert(mid)
+    }
     
     function deletemom(mid){
     	
@@ -251,7 +292,42 @@
   	  	},
   	  		buttonsStyling: false
   		})
+  		
+    var momhotday=[];//熱度日期
+    var momamount=[];//熱度數量
+    $.ajax({
+		url:"../Gusty/momhott",
+		type:"post",
+		dataType:"json",
+		async:false,
+		data : {   
+			"month" :new Date().getMonth()+1, 
+        },
+		success:function(data){
+			$.each(data,function(i,n){				
+				momhotday[i]=n[0]
+				momamount[i]=n[1]
+			});
+		}
+	});
     
+    var momhottime = document.getElementById("momhot").getContext('2d');//熱度時間
+    var momhottimeChart = new Chart(momhottime, {
+        type: 'line',
+        data: {
+            labels: momhotday,
+            datasets: [{
+                label: '當日保母預約訂單數量',
+                data: momamount,
+                fill: false,
+                backgroundColor: '#8600FF',
+                borderColor: '#FF0000',
+                borderWidth: 2
+            }], 
+        },
+    });
+  		
+  		
 	</script>
 
 </body>

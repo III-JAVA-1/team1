@@ -9,13 +9,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">  
-    <link rel="stylesheet" type="text/css" href="css/slider.css">  
+    <link rel="stylesheet" type="text/css" href="css/slider.css">     
     
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<style>
       	html {
 		    scroll-behavior: smooth
@@ -100,8 +100,8 @@
                 <div class="db_line1_featured2">                
                 <!-- slider start -->
                       <div class="slider">
-			          <ul id="imgContent">
-					<!--AJAX -->
+			          <ul id="imgContent" style="display:inline;">
+						<!-- AJAX -->
 			          </ul>
 			        <div class="controller">
 			          	<div class="prev-btn btns">
@@ -222,148 +222,93 @@
 
      
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- for slider -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
-	 <!-- for slider -->
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-		crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-		crossorigin="anonymous"></script>
-		
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->    
+	  
+	<!-- Bootstrap CSS -->  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	    
  	<script> 	
-    let page = 1;
-  
-	function selectAll(){		
-	
-		$.ajax({
-			url:"../petforum/selectAll",
-			type:"POST",		
-			dataType:"json",
-			data:{
-				"forumId":"全部",
-				"page":page
-			},
-			success:function(arr){					
-				$("#article").html("");				
-				
-				let totalPages = arr.totalPages;				
-					
-				$.each(arr.articleList,function(i,val){ 
-				
-				console.log("123"+val[1]);
-				
-				$("#article").append("<tr>"+
-				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
-				"<td><div>"+val[1]+"</div></td>"+
-				"<td>"+val[2]+"</td>"+
-				"<td><div>"+val[3]+"</div>"+
-				"<div>"+val[4]+"</div></td>"+
-				"</tr>");
-				
-				//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
-				
-				
-				// 頁碼元件
-			    let pageUI = document.getElementById("page");
-			 	// 要組頁碼的Html
-			    let previousPage = page === 1 ? 1 : page - 1;
-			    let nextPage = page === totalPages ? totalPages : page + 1;
-			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-			    
-			    for (let i = 1; i <= totalPages; i++) {
-			        if (i === page) {
-			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-			        } 
-			        else {
-			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-			        }
-			    }
-			    
-			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-			    "<h4>共"+arr.totalCounts+"筆</h4>";
-			    
-			    pageUI.innerHTML = pageHtml;
-				
-				})
-				
-			},
-			error:function(){
-				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
-			}
-		})
-	}	
-	
+let page = 1;
+ 
+function selectAll(){		
 
+	$.ajax({
+		url:"../petforum/selectAll",
+		type:"POST",		
+		dataType:"json",
+		data:{
+			"forumId":"全部",
+			"page":page
+		},
+		success:function(arr){					
+			$("#article").html("");				
+			
+			showPagination(arr);				
+			articleElementAppend(arr);
+			
+		},
+		error:function(){
+			$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+		}
+	})
+}	
 
-	//load 全部文章(分頁)
-	
-	selectAll()
-	getHighestViewing()
-	randomArticle()
+//load 全部文章(分頁)
+
+selectAll();
+getHighestViewing();
+randomArticle();
 		
 //========================================================================	
-	//只顯示Top1文章
-	function getHighestViewing(){
-	
-		$.ajax({
-			url:"../petforum/highestViewing",
-			type:"GET",		
-			dataType:"json",			
-			success:function(data){
-				$("#articleHeader").html("");
-				$("#imgContent").html("");
-				
-				let posterUid = data[0][0];
-				let u_Id = data[0][1];
-				let header = data[0][2];				
-				let content;
-				
-				if(!data[0][3].includes('imgur')){
-					content = "image/hidden.png";					
-				}
-				else{
-					content = data[0][3].substring(data[0][3].indexOf('https'), data[0][3].indexOf(".jpg"));
-					content = content+".jpg";
-					console.log("456"+content);
-				}			
-				
-				$("#imgContent").append(
-				"<li><img src="+content+" width=416px height=234px /></li>"					
-				);
-				
-				 $("#articleHeader").append(
-							"<p><a style='text-decoration:none;' href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
-						);	
-				
-			},
-			error:function(){
-				$("#imgContent").append("查無資料");				
+//只顯示Top1文章
+function getHighestViewing(){
+
+	$.ajax({
+		url:"../petforum/highestViewing",
+		type:"GET",		
+		dataType:"json",			
+		success:function(data){
+			$("#articleHeader").html("");
+			$("#imgContent").html("");
+			
+			let posterUid = data[0][0];
+			let u_Id = data[0][1];
+			let header = data[0][2];				
+			let content;
+			
+			if(!data[0][3].includes('imgur')){
+				content = "image/hidden.png";					
 			}
-		})
-	
-	}
+			else{
+				content = data[0][3].substring(data[0][3].indexOf('https'), data[0][3].indexOf(".jpg"));
+				content = content+".jpg";					
+			}			
+			
+			$("#imgContent").append(
+			"<li><img src="+content+" width=416px height=234px /></li>"					
+			);
+			
+			 $("#articleHeader").append(
+						"<p><a style='text-decoration:none;' href='http://"+window.location.host+"/PetProject_Final/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id+"'>"+header+"</a></p>"					
+					);	
+			
+		},
+		error:function(){
+			$("#imgContent").append("查無資料");				
+		}
+	})
+
+}
 //========================================================================	
-	//根據切換電視牆顯示前Top3文章	
-	let lastSlideIndex = 2; 	
-    let firstSlideIndex = 0;
+//根據切換電視牆顯示前Top3文章	
+let lastSlideIndex = 2; 	
+let firstSlideIndex = 0;
 	
-	function getHighestViewingHeader(){
+function getHighestViewingHeader(){
 	
 	$.ajax({
 		url:"../petforum/highestViewingHeader",
@@ -384,8 +329,7 @@
 			}
 			else{
 				content = str.substring(str.indexOf('https'), str.indexOf(".jpg"));
-				content = content+".jpg";
-				console.log("456"+content);
+				content = content+".jpg";				
 			}			
 			
 			$("#imgContent").append(
@@ -404,33 +348,32 @@
 	})
 }
 
-	//電視牆切換	
-    function show(){
-        let move = 0-(416*firstSlideIndex);       
-    }	
-	
-	$(".prev-btn").click(function(){
-		firstSlideIndex--;//往前一張索引減1
-	    if(firstSlideIndex<0)firstSlideIndex=lastSlideIndex;//索引不可能有-1，所以當索引小於0就等於最後一張的索引值
-	    
-	    show()
-	    getHighestViewingHeader();
-	});
-	
-	$(".next-btn").click(function(){
-		firstSlideIndex++;//往後一張索引加1
-	    if(firstSlideIndex>lastSlideIndex)firstSlideIndex=0;//索引不可能大於最大索引值，所以當索引大於最大索引值就等於第一張的索引值
-	    console.log("aaaa"+firstSlideIndex);
-	    
-	    show()
-	    getHighestViewingHeader();
-	})				  
-  
+//電視牆切換	
+function show(){
+    let move = 0-(416*firstSlideIndex);       
+}	
+
+$(".prev-btn").click(function(){
+	firstSlideIndex--;//往前一張索引減1
+    if(firstSlideIndex<0)firstSlideIndex=lastSlideIndex;//索引不可能有-1，所以當索引小於0就等於最後一張的索引值
+    
+    show();
+    getHighestViewingHeader();
+});
+
+$(".next-btn").click(function(){
+	firstSlideIndex++;//往後一張索引加1
+    if(firstSlideIndex>lastSlideIndex){firstSlideIndex=0;}//索引不可能大於最大索引值，所以當索引大於最大索引值就等於第一張的索引值	   
+    
+    show();
+    getHighestViewingHeader();
+})				  
+ 
 	
 	
 //========================================================================
 	
-			function randomArticle(){
+function randomArticle(){
 		$.ajax({
 			url:"../petforum/randomArticle2",
 			type:"post",
@@ -453,8 +396,7 @@
 					}
 					else{
 						content = n[3].substring(n[3].indexOf('https'), n[3].indexOf(".jpg"));
-						content = content+".jpg";
-						console.log("456"+content);
+						content = content+".jpg";					
 					}			
 					
 					$("#randomArticle").append("<div class='imag'>"+
@@ -469,268 +411,223 @@
 			error:function(){				
 				$("#randomArticle").append("查無資料");				
 		}
-		});
-	}
-    	
+	});
+}    	
 	
-	//===========================================================================
+//===========================================================================
 	
-		function getForum(item){//參數來自button的value(固定用item接)	
+function getForum(item){//參數來自button的value	
+	
+	$.ajax({
+		url:"../petforum/selectForum",
+		type:"POST",		
+		dataType:"json",
+		data:{
+			"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
+			"page":page
+		},
+		success:function(arr){	
+			$("#article").html("");
+			$("#page").html("");
+			$("#whichForum").html("");
+			
+			showPagination(arr);
+			
+			if(item === "全部"){item="*"}
+			$("#whichForum").append(item);
+			
+			articleElementAppend(arr);
+		},
+		error:function(){
+			$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+		}
+	})
+	return false;
+}
 		
-		console.log(item);
+//==================================================================
+			
+function goAjax(){
+	
+	let inputText = $("#inputText").val();
+	console.log($("#inputText").val());
+	
+	$.ajax({
+		url:"../petforum/selectHeader",
+		type:"GET",		
+		dataType:"json",
+		data:{
+			"inputText":inputText,
+			"page":page					
+		},
+		success:function(arr){	
+			$("#article").html("");
+			$("#page").html("");
+			
+			showPagination(arr);	
+			articleElementAppend(arr);
+			
+			 Swal.fire({
+  	      		  title: "相關標題共"+arr.totalCounts+"筆",
+  	      		  icon: 'success',
+  	      		  confirmButtonText: '確定'
+  	      		});
+		},
+		error:function(){
+			$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");					
+			Swal.fire({
+  	      		  title: "查無相關標題",
+  	      		  icon: 'oops',
+  	      		  confirmButtonText: '確定'
+  	      		});
+		}
+	})
+	return false;
+}
+	
+			
+//==================================================================
+		
+function selectOptions(){
+	
+		if($("#selector").val() === "最新發佈"){
+			selectAll();
+		}else{
+		
 		$.ajax({
-			url:"../petforum/selectForum",
-			type:"POST",		
+			url:"../petforum/lastestReply",
+			type:"GET",		
 			dataType:"json",
-			data:{
-				"forumId":item,//forumId取得按鈕傳來的值傳到@Controller
-				"page":page
+			data:{						
+				"page":page					
 			},
 			success:function(arr){	
 				$("#article").html("");
 				$("#page").html("");
-				$("#whichForum").html("");
 				
-				let totalPages = arr.totalPages;
-				
-				if(item === "全部"){item="*"}
-				$("#whichForum").append(item);
-				
-				$.each(arr.articleList,function(i,val){
-					
-				console.log(val[0]);
-				$("#article").append("<tr>"+
-				"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
-				"<td><div>"+val[1]+"</div></td>"+
-				"<td>"+val[2]+"</td>"+
-				"<td><div>"+val[3]+"</div>"+
-				"<div>"+val[4]+"</div></td>"+
-				"</tr>");
-				
-				// 頁碼元件
-			    let pageUI = document.getElementById("page");
-			 	// 要組頁碼的Html
-			    let previousPage = page === 1 ? 1 : page - 1;
-			    let nextPage = page === totalPages ? totalPages : page + 1;
-			    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-			    
-			    for (let i = 1; i <= totalPages; i++) {
-			        if (i === page) {
-			            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-			        } 
-			        else {
-			            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-			        }
-			    }
-			    
-			    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-			    "<h4>共"+arr.totalCounts+"筆</h4>";
-			    
-			    pageUI.innerHTML = pageHtml;
-				
-				})				
+				showPagination(arr);	
+				articleElementAppend(arr); 
 			},
 			error:function(){
-				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>")
+				$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");						
 			}
 		})
 		return false;
 	}
-		
-		//==================================================================
-			
-		function goAjax(){
-			
-			let inputText = $("#inputText").val();
-			console.log($("#inputText").val());
-			
-			$.ajax({
-				url:"../petforum/selectHeader",
-				type:"GET",		
-				dataType:"json",
-				data:{
-					"inputText":inputText,
-					"page":page					
-				},
-				success:function(arr){	
-					$("#article").html("");
-					$("#page").html("");
-					
-					let totalPages = arr.totalPages;	
-					$.each(arr.articleList,function(i,val){
-						
-					console.log(val[0]);
-					$("#article").append("<tr>"+
-					"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
-					"<td><div>"+val[1]+"</div></td>"+
-					"<td>"+val[2]+"</td>"+
-					"<td><div>"+val[3]+"</div>"+
-					"<div>"+val[4]+"</div></td>"+
-					"</tr>");					
-					
-					// 頁碼元件
-				    let pageUI = document.getElementById("page");
-				 	// 要組頁碼的Html
-				    let previousPage = page === 1 ? 1 : page - 1;
-				    let nextPage = page === totalPages ? totalPages : page + 1;
-				    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-				    
-				    for (let i = 1; i <= totalPages; i++) {
-				        if (i === page) {
-				            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        } 
-				        else {
-				            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-				        }
-				    }
-				    
-				    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-				    "<h4>共"+arr.totalCounts+"筆</h4>";
-				    
-				    pageUI.innerHTML = pageHtml;					
-					});					  
-					 Swal.fire({
-		  	      		  title: "相關標題共"+arr.totalCounts+"筆",
-		  	      		  icon: 'success',
-		  	      		  confirmButtonText: '確定'
-		  	      		});
-				},
-				error:function(){
-					$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");					
-					Swal.fire({
-		  	      		  title: "查無相關標題",
-		  	      		  icon: 'oops',
-		  	      		  confirmButtonText: '確定'
-		  	      		});
-				}
-			})
-			return false;
-		}
+ }			
 	
+//==================================================================
 			
-		//==================================================================
+//沒登入不能發表	
+function loginStatus(){
+	<% if(session.getAttribute("user") == null){%>    		
+	 Swal.fire({
+      		  title: '請登入！',
+      		  icon: 'error',
+      		  confirmButtonText: '確定'
+      		})    		
+	return false;
+	<%}else{%>return true;<%}%>
+}
 		
-			function selectOptions(){
-			
-				if($("#selector").val() === "最新發佈"){
-					selectAll();
-				}else{
+//==================================================================
 				
-				$.ajax({
-					url:"../petforum/lastestReply",
-					type:"GET",		
-					dataType:"json",
-					data:{						
-						"page":page					
-					},
-					success:function(arr){	
-						$("#article").html("");
-						$("#page").html("");
-						
-						let totalPages = arr.totalPages;	
-						$.each(arr.articleList,function(i,val){
-							
-						console.log(val[0]);
-						$("#article").append("<tr>"+
-						"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
-						"<td><div>"+val[1]+"</div></td>"+
-						"<td>"+val[2]+"</td>"+
-						"<td><div>"+val[3]+"</div>"+
-						"<div>"+val[4]+"</div></td>"+
-						"</tr>");						
-						
-						// 頁碼元件
-					    let pageUI = document.getElementById("page");
-					 	// 要組頁碼的Html
-					    let previousPage = page === 1 ? 1 : page - 1;
-					    let nextPage = page === totalPages ? totalPages : page + 1;
-					    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
-					    
-					    for (let i = 1; i <= totalPages; i++) {
-					        if (i === page) {
-					            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-					        } 
-					        else {
-					            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
-					        }
-					    }
-					    
-					    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
-					    "<h4>共"+arr.totalCounts+"筆</h4>";
-					    
-					    pageUI.innerHTML = pageHtml;					
-						})						 
-					},
-					error:function(){
-						$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");						
-					}
-				})
-				return false;
-			}
-		 }			
-		//==================================================================
-			
-		//沒登入不能發表	
-		function loginStatus(){
-    		<% if(session.getAttribute("user") == null){%>    		
-    		 Swal.fire({
-		  	      		  title: '請登入！',
-		  	      		  icon: 'error',
-		  	      		  confirmButtonText: '確定'
-		  	      		})    		
-    		return false;
-    		<%}else{%>return true;<%}%>
-    	}
-		
-		 function setPage(nextPage) {
-		        page = nextPage;
-		        let tableDiv = document.getElementById("table");
-		        tableDiv.scrollIntoView();
-		        selectAll();
-		    } 
+function setPage(nextPage) {
+    page = nextPage;
+    let tableDiv = document.getElementById("table");
+    tableDiv.scrollIntoView();
+    selectAll();
+}
 		 
 		 
-		//=====================================================================
+//==================================================================
+		 
+function showPagination(arr){
 
-			var url="ws://" + window.location.host + "<%=request.getContextPath() %>/webSocket";
-			//Open the web socket connection to the server
-			var socketConn = new WebSocket(url);
+	let totalPages = arr.totalPages;
+	// 頁碼元件
+    let pageUI = document.getElementById("page");
+ 	// 要組頁碼的Html
+    let previousPage = page === 1 ? 1 : page - 1;
+    let nextPage = page === totalPages ? totalPages : page + 1;
+    let pageHtml ="<span><a class='page-link' onclick='setPage(" + previousPage + ")' aria-label=\"Previous\">&laquo;</a></span>"
+    
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === page) {
+            pageHtml += "<span style='background-color:#3399CC;'><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+        } 
+        else {
+            pageHtml += "<span><a class='page-link' onclick='setPage(" + i + ")'>" + i + "</a></span>";
+        }
+    }
+    
+    pageHtml += "<span><a class='page-link' onclick='setPage(" + nextPage + ")' aria-label=\"Next\">&raquo;</a></span>"+
+    "<h4>共"+arr.totalCounts+"筆</h4>";
+    
+    pageUI.innerHTML = pageHtml;		
+}
+		 
+//=====================================================================
 			
+function articleElementAppend(arr){
 		
-			//Send Message
-				function send(item) {
-					$("#serverMsg").html("");
-					socketConn.send(item);
-				}
+$.each(arr.articleList,function(i,val){ 
+	
+	$("#article").append("<tr>"+
+	"<td><h5><a class='table_h5_a' href='postDetail.jsp?posterUid="+val[5]+"&u_Id="+val[6]+"'>"+val[0]+"</a></h5></td>"+
+	"<td><div>"+val[1]+"</div></td>"+
+	"<td>"+val[2]+"</td>"+
+	"<td><div>"+val[3]+"</div>"+
+	"<div>"+val[4]+"</div></td>"+
+	"</tr>");
+	
+	//val[0]:header,val[1]:reply,val[2]:viewing,val[3]:sname,val[4]=updatedTime,val[5]:posterUid,val[6]:u_Id	
+					
+	})
+}
 			
-				// Recive Message
-				socketConn.onmessage = function(event) {
-					$("#serverMsg").append(event.data);
-				}
+//=====================================================================
+
+var url="ws://" + window.location.host + "<%=request.getContextPath() %>/webSocket";
+//Open the web socket connection to the server
+var socketConn = new WebSocket(url);
+
+
+//Send Message
+function send(item) {
+	$("#serverMsg").html("");
+	socketConn.send(item);
+}
+
+// Recive Message
+socketConn.onmessage = function(event) {
+	$("#serverMsg").append(event.data);
+}
 				
-		//===============================================================
+//===============================================================
 		
-			function QandA(){
-				Swal.fire({
-	      		  	title:"<h2 style='display:inline;'>汪喵冷知識</h2><img style='margin-left:10px;' src='image/Q&A.png'/><hr />",
-	      		  	html:"<button type='button' style='margin-right:10px' class='btn btn-outline-success' onclick=send('ok')>開始</button>"+
-	 			   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('n')>下一則</button>"+
-				   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('cat')>貓</button>"+
-				   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('dog')>狗</button>"+
-				   "<button type='button' style='margin-right:10px' class='btn btn-outline-danger' onclick=send('q')>離開</button>"+
-				   "<br>"+		   
-				   "<div id='serverMsg' style='text-align:left; margin-top:10px;'></div>",
-	    			width: '1000px',
-	      		confirmButtonText: '確定'
-	      		})
-		}
+function QandA(){
+	Swal.fire({
+ 		  	title:"<h2 style='display:inline;'>汪喵冷知識</h2><img style='margin-left:10px;' src='image/Q&A.png'/><hr />",
+ 		  	html:"<button type='button' style='margin-right:10px' class='btn btn-outline-success' onclick=send('ok')>開始</button>"+
+  		   "<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('n')>下一則</button>"+
+	   		"<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('cat')>貓</button>"+
+	   		"<button type='button' style='margin-right:10px' class='btn btn-outline-info' onclick=send('dog')>狗</button>"+
+	   		"<button type='button' style='margin-right:10px' class='btn btn-outline-danger' onclick=send('q')>離開</button>"+
+	   		"<br>"+		   
+	   		"<div id='serverMsg' style='text-align:left; margin-top:10px;'></div>",
+  			width: '1000px',
+    		confirmButtonText: '確定'
+  		})
+}
 
-		//===============================================================	
-			
-	$(".scroll").click(function(){
-	    $('html,body').animate({
-		      scrollTop:$('#scrollHere').offset().top
-				}, 1000);})
+//===============================================================	
+		
+$(".scroll").click(function(){
+   $('html,body').animate({
+      scrollTop:$('#scrollHere').offset().top
+		}, 1000);
+})
 				
 				
 	

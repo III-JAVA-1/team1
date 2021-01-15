@@ -353,9 +353,10 @@ public class OtherFunctionDao {
 	public List<Object[]> othermomorderDao(Integer uid){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select country,district,address,chooseStart,chooseEnd,service,status,total,orderId\r\n"
-				+ "from PetMomOrder\r\n"
-				+ "where uid=:uid";
+		String hql="select PetMomOrder.country,PetMomOrder.district,PetMomOrder.address,PetMomOrder.chooseStart,PetMomOrder.chooseEnd,PetMomOrder.service,PetMomOrder.status,PetMomOrder.total,PetMomOrderComment.comment,PetMomOrder.orderId\r\n"
+				+ "from PetMomOrder left join PetMomOrderComment\r\n"
+				+ "on PetMomOrder.orderId=PetMomOrderComment.orderId\r\n"
+				+ "where PetMomOrder.uid=:uid";
 		Query<Object[]> query = session.createSQLQuery(hql).setParameter("uid", uid);
 		list = query.getResultList();
 		if(list.isEmpty()) {

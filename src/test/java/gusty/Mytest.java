@@ -17,8 +17,12 @@ public class Mytest {
 
 	@Test
 	public void test() throws Exception {
-		String aa="123.jpg";
-		System.out.println(aa.substring(aa.indexOf(".")));
+		
+		System.out.println(DigestUtils.sha512Hex("www123"));
+		System.out.println(DigestUtils.sha512Hex("qqq456"));
+		System.out.println(DigestUtils.sha512Hex("zx123456"));
+		System.out.println(DigestUtils.sha512Hex("5566"));
+		System.out.println(DigestUtils.sha512Hex("a12345"));
 	}
 
 }

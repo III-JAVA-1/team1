@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.id.IntegralDataTypeHolder;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -55,12 +54,13 @@ public class AdminDao {
 	public List<Object[]> storetop10(Integer month){
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select top 10 product.product_name,count(order_item.product_id) as '數量'\n"
-				+ "from order_item,product,[dbo].[order]\n"
+		String hql = "select product_category.category_name,count(order_item.product_id) as '數量'\n"
+				+ "from order_item,product,[dbo].[order],product_category\n"
 				+ "where month([dbo].[order].date)=:month\n"
 				+ "and order_item.product_id = product.product_id\n"
 				+ "and order_item.order_id=[dbo].[order].order_id\n"
-				+ "group by product.product_name\n"
+				+ "and product.category_id=product_category.category_id\n"
+				+ "group by product_category.category_name\n"
 				+ "order by count(order_item.product_id) desc";
 		Query<Object[]> query=null;
 		query = session.createSQLQuery(hql).setParameter("month", month);
@@ -521,6 +521,29 @@ public class AdminDao {
 		result = result + session.createSQLQuery(hql).setParameter("mid", mid).executeUpdate();
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")//本月保母預約熱度
+	public List<Object[]> momhottimeDao(Integer month){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select cast(day(orderCreate)as nvarchar)+'日' as'日期',count(day(orderCreate)) as'訂單數量'\n"
+				+ "from PetMomOrder\n"
+				+ "where month(orderCreate)=:month\n"
+				+ "group by day(orderCreate)";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql).setParameter("month", month);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+//	select Mom.title,count(PetMomOrder.momId)保母預約前3名
+//	from PetMomOrder,Mom
+//	where Mom.momId=PetMomOrder.momId
+//	group by Mom.title,PetMomOrder.momId
 	
 	//////////////////////////////保母管理////////////////////////////////////
 	

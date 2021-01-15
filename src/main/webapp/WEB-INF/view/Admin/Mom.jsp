@@ -54,6 +54,13 @@
 	<br>
 
 	<div class="container">
+	
+	<div class="row justify-content-center">
+		<div class="col-12">
+		<div class="row justify-content-center h1">本月保母預約數量</div>
+		<canvas id="momhot" width="100" height="30"></canvas>
+		</div>
+	</div><br>
 
 		<div class="col">
 
@@ -72,8 +79,8 @@
 						<th scope="col">服務名稱</th>
 						<th scope="col">年資</th>
 						<th scope="col">注意事項&服務內容</th>
-						<th scope="row" style="width: 150px;">服務項目</th>
-						<th scope="col" style="width: 200px;">服務寵物</th>
+						<th scope="col" style="width: 150px;">服務項目</th>
+						<th scope="col" style="width: 160px;">服務寵物</th>
 						<th scope="col">評價</th>
 						<th scope="col">操作</th>
 					</tr>
@@ -110,6 +117,7 @@
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 
 	<script>
 	
@@ -284,7 +292,42 @@
   	  	},
   	  		buttonsStyling: false
   		})
+  		
+    var momhotday=[];//熱度日期
+    var momamount=[];//熱度數量
+    $.ajax({
+		url:"../Gusty/momhott",
+		type:"post",
+		dataType:"json",
+		async:false,
+		data : {   
+			"month" :new Date().getMonth()+1, 
+        },
+		success:function(data){
+			$.each(data,function(i,n){				
+				momhotday[i]=n[0]
+				momamount[i]=n[1]
+			});
+		}
+	});
     
+    var momhottime = document.getElementById("momhot").getContext('2d');//熱度時間
+    var momhottimeChart = new Chart(momhottime, {
+        type: 'line',
+        data: {
+            labels: momhotday,
+            datasets: [{
+                label: '當日保母預約訂單數量',
+                data: momamount,
+                fill: false,
+                backgroundColor: '#8600FF',
+                borderColor: '#FF0000',
+                borderWidth: 2
+            }], 
+        },
+    });
+  		
+  		
 	</script>
 
 </body>

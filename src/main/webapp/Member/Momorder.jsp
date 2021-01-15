@@ -198,12 +198,18 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			   			"<td><button type='button' onclick='petdetail("+n[8]+")' class='btn btn-success'>寵物資訊</button></td>"+
 			   			"<td>"+n[5]+"</td>"+
 			   			"<td>"+n[6]+"</td>"+
-			   			"<td><button type='button' onclick='evaluatee("+n[8]+")' class='btn btn-dark'>點我查看</button></td>"+
+			   			"<td id='a"+n[8]+"'></td>"+
 			   			"<td id='"+n[8]+"'></td></tr>");
 				if(n[7]=="處理中"){
+					$("#a"+n[8]+"").append("尚未接受訂單");
 					$("#"+n[8]+"").append("<button type='button' onclick='accept("+n[8]+")' class='btn btn-info'>接受</button>"
 						+"<hr><button type='button' onclick='reject("+n[8]+")' class='btn btn-danger'>拒絕</button>");
-				}else{
+				}else if(n[7]=='拒絕'){
+					$("#a"+n[8]+"").append("訂單已被拒絕");
+					$("#"+n[8]+"").append(n[7]);
+				}
+				else{
+					$("#a"+n[8]+"").append("<button type='button' onclick='evaluatee("+n[8]+")' class='btn btn-dark'>點我查看</button>");
 					$("#"+n[8]+"").append(n[7]);
 				}
 			});
@@ -382,12 +388,18 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				   			"<td><button type='button' onclick='petdetail("+n[8]+")' class='btn btn-success'>寵物資訊</button></td>"+
     				   			"<td>"+n[5]+"</td>"+
     				   			"<td>"+n[6]+"</td>"+
-    				   			"<td><button type='button' onclick='evaluatee("+n[8]+")' class='btn btn-dark'>點我查看</button></td>"+
+    				   			"<td id='a"+n[8]+"'></td>"+
     				   			"<td id='"+n[8]+"'></td></tr>");
     					if(n[7]=="處理中"){
+    						$("#a"+n[8]+"").append("尚未接受訂單");
     						$("#"+n[8]+"").append("<button type='button' onclick='accept("+n[8]+")' class='btn btn-info'>接受</button>"
     							+"<hr><button type='button' onclick='reject("+n[8]+")' class='btn btn-danger'>拒絕</button>");
-    					}else{
+    					}else if(n[7]=='拒絕'){
+    						$("#a"+n[8]+"").append("訂單已被拒絕");
+    						$("#"+n[8]+"").append(n[7]);
+    					}
+    					else{
+    						$("#a"+n[8]+"").append("<button type='button' onclick='evaluatee("+n[8]+")' class='btn btn-dark'>點我查看</button>");
     						$("#"+n[8]+"").append(n[7]);
     					}
     				});
@@ -458,11 +470,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				$.each(data,function(i,n){
     					$("#mymomtable").append("<tr><th scope='row'>"+n[0]+""+n[1]+""+n[2]+"</th>"+
     				   			"<td>"+n[3].substring(0,16)+"&nbsp~&nbsp<br>"+n[4].substring(0,16)+"</td>"+
-    				   			"<td><button type='button' onclick='petdetail("+n[8]+")' class='btn btn-success'>寵物資訊</button></td>"+
+    				   			"<td><button type='button' onclick='petdetail("+n[9]+")' class='btn btn-success'>寵物資訊</button></td>"+
     				   			"<td>"+n[5]+"</td>"+
-    				   			"<td>"+n[6]+"</td>"+
-    				   			"<td><button type='button' onclick='evaluatee("+n[8]+")' class='btn btn-dark'>去寫評價</button></td>"+
-    				   			"<td>"+n[7]+"</td></tr>");
+    				   			"<td>"+n[7]+"</td>"+
+    				   			"<td id='b"+n[9]+"'></td>"+
+    				   			"<td>"+n[6]+"</td></tr>");
+    					if(n[6]=="處理中"){
+    						$("#b"+n[9]+"").html("訂單尚在處理")	
+    					}else if(n[6]=="接受"){
+    						$("#b"+n[9]+"").html("<button type='button' onclick='evaluatee("+n[9]+")' class='btn btn-dark'>去寫評價</button>")
+    					}else if(n[6]=="接受"&&n[8]!=null){
+    						$("#b"+n[9]+"").html("您已經寫過評價")
+    					}else if(n[6]=="拒絕"){
+    						$("#b"+n[9]+"").html("訂單已被拒絕")
+    					}
     				});
     				$('#maintable').DataTable({
     					"language": {

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.web.pet.forum.dao.ArticleFavoriteDao;
-import com.web.pet.forum.model.ArticleFavorite;
+
 
 
 

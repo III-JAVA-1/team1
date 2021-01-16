@@ -1,7 +1,6 @@
 package com.web.pet.forum.controller;
 
 import java.sql.Blob;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;

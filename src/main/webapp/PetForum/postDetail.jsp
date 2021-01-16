@@ -133,24 +133,24 @@
 <div id='editCommentInfo' style='display:none;'>
     <div class="bubbleContainer">		
 	        <div class="bubbleBody">	                          
-			 <form id="message" action="<c:out value="../petforum/commitComment"/>" method="POST">
+			 <form id="message">
 			 	<div class="divForm">
 				 	<input type="hidden" id="commentUpdatedtime" name="commentUpdatedtime"/>
-				 	<input type="hidden" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
-				 	<input type="hidden" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>
+				 	<input type="hidden" id="posterUid" name="posterUid" value="<%=request.getParameter("posterUid")%>"/>
+				 	<input type="hidden" id="u_Id" name="u_Id" value="<%=request.getParameter("u_Id")%>"/>
 		            <textarea id="commentContent" name="commentContent" placeholder="在這裡輸入...."></textarea>
 	            </div>
-	            <button class="btnSendMessage" style="background-color: #39C;" type="button" id="pressInput">一鍵輸入</button>
-				<button class="btnSendMessage" id="sendMessage" type="submit" form="message"  onsubmit=return checkCommentContent(this)>送出留言</button>
+	            <div style="text-align:center;">
+		            <button class="btnSendMessage" style="background-color: #39C;" type="button" id="pressInput">一鍵輸入</button>
+					<button class="btnSendMessage" id="sendMessage" type="button" onclick="checkCommentContent()">送出留言</button>
+				</div>
 	         </form>
 	       </div>
  	</div>
 </div>
 <!-- end of editComment UI -->
 </div>
-</div> <!--db_line1_left-->
-
-           
+</div> <!--db_line1_left-->           
 	           <div class="db_line1_right">
                 <div class="db_line1_right_featured">
                     <h5 style="color:#666;text-align:left">好文專欄</h5>                            
@@ -192,65 +192,58 @@ loadComment();//加載留言信息
 randomArticle();
 		
 function loadComment(){	
-		$.ajax({
-	url:"../petforum/viewComment",
-	type:"POST",		
-	dataType:"json",
-	data:{
-		"posterUid":<%=request.getParameter("posterUid")%>,
-	},
-	success:function(data){	
-		$("#comment").html("");
-		$.each(data,function(i,n){						
-			console.log(n[0]);//u_Id				
-			console.log(n[1]);//sname
-		
-			//初始資料沒有會員暱稱
-			var memberSname;
-			if(n[1] === undefined){
-				memberSname = "Author Name";
-			}
-			else{
-				memberSname = n[1];
-			}
+	$.ajax({
+		url:"../petforum/viewComment",
+		type:"POST",		
+		dataType:"json",
+		data:{
+			"posterUid":<%=request.getParameter("posterUid")%>,
+		},
+		success:function(data){		
+			$("#comment").html("");
+			$.each(data,function(i,n){		
 			
-			//2F....
-			var floor = (i+1)+1;
-			//想辦法讓留言顯示時換行
-			var comment = n[2].replace(/\n/g,'<br/>');
-			
-			//Member.u_Id,Member.sname,Comment.commentContent,Comment.commentUpdatedtime
-			//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示留言相關信息					
-			$("#comment").append("<div class='db_line1_left_article'>"+
-			"<div id='member' class='article_left'>"+
-			"<div class='article_left_img'>"+
-			"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+n[0]+"'/>'"+
-			" style='border: 1px solid #666;border-radius: 15px;width: 120px;height: 120px;'  onerror='imgDisplay(this)'>"+
-			"</div>"+
-			"<div class='article_left_a'>"+
-			"<a href='#'>"+memberSname+"</a><br/>"+
-			"<span style='border-radius: 8px;background-color: #666;color: white'>"+floor+"F</span>"+
-			"</div>"+
-			"</div>"+
-			"<div class='article_right'>"+
-			"<div id='article' class='article_main'>"+
-			"<div class='article_main'>"+
-			"<div class='article_main_content'>"+comment+
-			"</div>"+
-			"</div>"+					
-			"<div>"+
-			"<span style='font-size: 10px;'>"+n[3]+"</span>"+
-			"</div>"+
-			"</div>"+
-			"</div>"+
-			"</div>"+
-			"<hr/>");				
-			
-		}) 
-		
-	},
-		error:function(){
-			$("#comment").append("<h2>"+"查無留言資料"+"</h2>")
+				//初始資料沒有會員暱稱
+				var memberSname;
+				if(n[1] === undefined){
+					memberSname = "Author Name";
+				}
+				else{
+					memberSname = n[1];
+				}
+				
+				//2F....
+				var floor = (i+1)+1;
+				//想辦法讓留言顯示時換行
+				var comment = n[2].replace(/\n/g,'<br/>');
+				
+				//Member.u_Id,Member.sname,Comment.commentContent,Comment.commentUpdatedtime
+				//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示留言相關信息					
+				$("#comment").append("<div class='db_line1_left_article'>"+
+				"<div id='member' class='article_left'>"+
+				"<div class='article_left_img'>"+
+				"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+n[0]+"'/>'"+
+				" style='border: 1px solid #666;border-radius: 15px;width: 120px;height: 120px;'  onerror='imgDisplay(this)'>"+
+				"</div>"+
+				"<div class='article_left_a'>"+
+				"<a href='#'>"+memberSname+"</a><br/>"+
+				"<span style='border-radius: 8px;background-color: #666;color: white'>"+floor+"F</span>"+
+				"</div>"+
+				"</div>"+
+				"<div class='article_right'>"+
+				"<div id='article' class='article_main'>"+
+				"<div class='article_main'>"+
+				"<div class='article_main_content'>"+comment+
+				"</div>"+
+				"</div>"+					
+				"<div>"+
+				"<span style='font-size: 10px;'>"+n[3]+"</span>"+
+				"</div>"+
+				"</div>"+
+				"</div>"+
+				"</div>"+
+				"<hr/>");			
+			}) 			
 		}
 	})
 }		
@@ -402,15 +395,77 @@ let editCommentDisplay = 0;
   	}else{
   		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;
   	}    	
-  }
-  	
+  }  	
  
   	
 //留言內容不可為空
- $("#sendMessage").click(function checkCommentContent(form){
+ function checkCommentContent(){
+ 	if($("#commentContent").val() != ""){
  		
- 	if($("#commentContent").val() != ""){ 
- 		return true;//傳送form
+ 		let formData = {
+			commentUpdatedtime:$("#commentUpdatedtime").val(),
+			posterUid:$("#posterUid").val(),
+			u_Id:$("#u_Id").val(),
+			commentContent:$("#commentContent").val()			
+ 		}	
+ 	
+	    $.ajax({
+	        url : "../petforum/commitComment",
+		    contentType:"application/json;charset=utf-8",
+		    dataType:"json",
+	        data : JSON.stringify(formData), 		       
+	        type : "post",
+	        success : function(data) {
+	        	
+	        	//初始資料沒有會員暱稱
+				var memberSname;
+				if(data[0][1] === undefined){
+					memberSname = "Author Name";
+				}
+				else{
+					memberSname = data[0][1];
+				}
+				
+				//2F....
+				var floor = (data.length)+1;
+				//想辦法讓留言顯示時換行
+				
+				var comment = $('#commentContent').val().replace(/\n/g,'<br/>');
+				
+				//Member.u_Id,Member.sname,Comment.commentContent,Comment.commentUpdatedtime
+				//顯示會員相關信息(顯示會員圖片發送另一個請求)+顯示留言相關信息					
+				$("#comment").append("<div class='db_line1_left_article'>"+
+				"<div id='member' class='article_left'>"+
+				"<div class='article_left_img'>"+
+				"<img id='imgshow' src='<c:url value='/petforum/getMemberImg?u_Id="+data[0][0]+"'/>'"+
+				" style='border: 1px solid #666;border-radius: 15px;width: 120px;height: 120px;'  onerror='imgDisplay(this)'>"+
+				"</div>"+
+				"<div class='article_left_a'>"+
+				"<a href='#'>"+memberSname+"</a><br/>"+
+				"<span style='border-radius: 8px;background-color: #666;color: white'>"+floor+"F</span>"+
+				"</div>"+
+				"</div>"+
+				"<div class='article_right'>"+
+				"<div id='article' class='article_main'>"+
+				"<div class='article_main'>"+
+				"<div class='article_main_content'>"+comment+
+				"</div>"+
+				"</div>"+					
+				"<div>"+
+				"<span style='font-size: 10px;'>"+data[0][3]+"</span>"+
+				"</div>"+
+				"</div>"+
+				"</div>"+
+				"</div>"+
+				"<hr/>");	
+ 		   $("#commentContent").val(""); 
+ 		   $("#editCommentInfo").css("display","none");
+	            
+	        }, error:function(xhr, ajaxOptions, thrownError){ 
+	            console.log(xhr.status); 
+	            console.log(thrownError); 
+	        }
+	    });
 	 }	 
 	else{		
 	 Swal.fire({
@@ -418,9 +473,10 @@ let editCommentDisplay = 0;
   	      		  icon: 'error',
   	      		  confirmButtonText: '確定'
   	      		})
-	 return false;
-	 }  		
- })  	
+	
+	 } 
+}
+ 	
     	
 //=========================================================================== 	
    
@@ -466,9 +522,9 @@ function favorites(item){
 
 //=======================================================================	
 	
-	   $("#pressInput").click(function pressInput(){
-    	$("#commentContent").val("加油 別灰心 一定會找到的");//設定徵友文章評論    	
-    });
+ $("#pressInput").click(function pressInput(){
+ 	$("#commentContent").val("加油 別灰心 一定會找到的");//設定徵友文章評論    	
+ });
  
    
 	</script>

@@ -1,7 +1,7 @@
 package com.web.pet.forum.model;
 
 
-import java.sql.Blob;
+
 import java.sql.Timestamp;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,7 +23,6 @@ import com.web.pet.member.model.Member;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

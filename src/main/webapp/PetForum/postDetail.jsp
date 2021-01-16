@@ -124,7 +124,7 @@
 <!-- 有登入才能看到此按鈕 -->
 <%if(session.getAttribute("user") != null) {%>
  <div class="db_line1_message">				
-    <span class="db_line1_message_span"><button type="button"  onclick='editComment()' style='background-color:#666;color:white';">我要回覆</button></span>				
+    <span class="db_line1_message_span"><button type="button"  onclick="editComment();location.href='#editCommentInfo'" style='background-color:#666;color:white';">我要回覆</button></span>				
 </div>
 <%}%>
 	
@@ -389,8 +389,9 @@ let commentContentObj = document.getElementById("commentContent");
 //	顯示編輯留言的介面
 let editCommentDisplay = 0;
   	function editComment(){
+  		$("#commentContent").focus();
   	
-  	if(editCommentDisplay == 0){
+  	if(editCommentDisplay == 0){  		
   		$("#editCommentInfo").css("display","");editCommentDisplay = 1;
   	}else{
   		$("#editCommentInfo").css("display","none");editCommentDisplay = 0;

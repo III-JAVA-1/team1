@@ -515,10 +515,14 @@ public class AdminDao {
 	public Integer deletemomDao(Integer mid){//刪除保母
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
-		String hql0 = "delete PetMomOrder where momId=:mid";
-		String hql = "delete mom where momId=:mid";
-		result = result + session.createSQLQuery(hql0).setParameter("mid", mid).executeUpdate();
-		result = result + session.createSQLQuery(hql).setParameter("mid", mid).executeUpdate();
+		String hql1 = "delete favoriteMom where momId=:mid";
+		String hql2 = "delete PetMomOrderComment where momId=:mid";
+		String hql3 = "delete PetMomOrder where momId=:mid";
+		String hql4 = "delete mom where momId=:mid";
+		result = result + session.createSQLQuery(hql1).setParameter("mid", mid).executeUpdate();
+		result = result + session.createSQLQuery(hql2).setParameter("mid", mid).executeUpdate();
+		result = result + session.createSQLQuery(hql3).setParameter("mid", mid).executeUpdate();
+		result = result + session.createSQLQuery(hql4).setParameter("mid", mid).executeUpdate();
 		return result;
 	}
 	
@@ -540,10 +544,44 @@ public class AdminDao {
 		}
 	}
 	
-//	select Mom.title,count(PetMomOrder.momId)保母預約前3名
-//	from PetMomOrder,Mom
-//	where Mom.momId=PetMomOrder.momId
-//	group by Mom.title,PetMomOrder.momId
+	@SuppressWarnings("unchecked")//顯示保母評價
+	public List<Object[]> mommessageDao(Integer mid){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select Mom.title,PetMomOrderComment.comment,PetMomOrderComment.commentNowTime,PetMomOrderComment.star,Member.sname,PetMomOrderComment.commentId\r\n"
+				+ "from PetMomOrderComment,Member,Mom\r\n"
+				+ "where PetMomOrderComment.momId=:mid\r\n"
+				+ "and PetMomOrderComment.uId=Member.u_Id\r\n"
+				+ "and PetMomOrderComment.momId=Mom.momId";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql).setParameter("mid", mid);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")//顯示保母接單top3
+	public List<Object[]> momordertop3Dao(Integer month){
+		List<Object[]> list = new ArrayList<>();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select Top 3 Mom.title,count(PetMomOrder.momId)as '訂單數量' \r\n"
+				+ "from PetMomOrder,Mom\r\n"
+				+ "where Mom.momId=PetMomOrder.momId\r\n"
+				+ "and MONTH(PetMomOrder.orderCreate)=:month\r\n"
+				+ "group by Mom.title,PetMomOrder.momId\r\n"
+				+ "order by count(PetMomOrder.momId) desc";
+		Query<Object[]> query=null;
+		query = session.createSQLQuery(hql).setParameter("month", month);
+		list=query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
 	
 	//////////////////////////////保母管理////////////////////////////////////
 	

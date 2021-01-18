@@ -121,5 +121,17 @@ public class OtherFunctionService {
 		return otherFunctionDao.othermomorderDao(uid);
 	}
 	
+	public List<Object[]> momorderevaluateeService(Integer oid){//會員頁面顯示保母評價
+		return otherFunctionDao.momorderevaluateeDao(oid);
+	}
+	
+	public List<Object[]> lovemomService(Integer uid){//會員頁面收藏保母
+		return otherFunctionDao.lovemomDao(uid);
+	}
+	
+	public Integer deletelovemomService(Integer fid){//會員頁面取消收藏保母
+		return otherFunctionDao.deletelovemomDao(fid);
+	}
+	
 	/////////////////////////會員店家功能////////////////////////////////
 }

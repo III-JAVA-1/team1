@@ -91,10 +91,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   				<thead class="h5" style="background-color:#FF00FF;">
     				<tr>
       					<th scope="col">訂單編號</th>
-      					<th scope="col">結帳日期</th>
+      					<th scope="col" style='width:90px;'>結帳日期</th>
       					<th scope="col">總金額</th>
       					<th scope="col">訂單狀態</th>
-      					<th scope="col">收貨地址</th>
+      					<th scope="col" style='width:100px;'>收貨地址</th>
       					<th scope="col">付款方式</th>
       					<th scope="col">備註</th>
       					<th scope="col">詳細資料</th>

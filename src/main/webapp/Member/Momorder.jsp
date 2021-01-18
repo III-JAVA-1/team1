@@ -268,7 +268,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	//alert(oid)
     	Swal.fire({
   		  title: '寵物詳細資訊',
-  		  html:"<img src='image/dog.jpg' style='width:400px;height:350px;'>"+
+  		  html:"<img src='<c:url value='/Gusty/momorderimg?oid="+oid+"'/>'  style='width:400px;height:350px;'>"+
   			  "<div class='h4'><div id='pett'></div>"+
   			  "<div id='pettype'></div>"+
   			  "<div id='remark'></div></div>",
@@ -364,7 +364,52 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     })
     
     function evaluatee(oid){//保母評價詳細資訊
-    	alert(oid)
+    	//alert(oid)
+    	Swal.fire({
+  		  title: '保母評價',
+  		  html:"<table class='table table-hover table-bordered '>"+
+  				'<thead class="h5" style="background-color:#C2C287;">'+
+				'<tr>'+
+					'<th scope="col">評價內容</th>'+
+					'<th scope="col">評價日期</th>'+
+					'<th scope="col">評價等級</th>'+
+					'<th scope="col">評價會員</th>'+
+				'</tr>'+
+			'</thead>'+
+			'<tbody id="evaluateetable" class="h5">'+
+			'</tbody>'+
+			'</table>'+
+			'<div id="tipp"></div>',
+			width: '800px',
+  		confirmButtonText: '確定'
+  		})
+  		
+  		$.ajax({
+      		url:"../Gusty/momorderevaluatee",
+      		type:"post",
+      		dataType:"json",
+      		data : { 
+      			"oid" : oid
+              },
+      		success:function(data){
+      			$.each(data,function(i,n){
+      				$("#evaluateetable").append("<tr><th scope='row'>"+n[0]+"</th>"+
+      			   		"<td>"+n[1]+"</td>"+
+      			   		"<td id=o"+n[4]+"></td>"+
+      			   		"<td>"+n[3]+"</td></tr>");
+      				if(n[2]>0){
+      					for(let i=1;i<=5;i=i+1){
+      						if(i<=n[2]){$("#o"+n[4]+"").append("★")}
+      						else{$("#o"+n[4]+"").append("☆")}
+      					}
+      				}else{
+      					$("#o"+n[4]+"").append("沒有評價")
+      				}
+      			});
+      		},error:function(){
+      			$("#tipp").append("對方尚未評價")
+      		}
+      	});
     }
     
     function momchange(change){//切換查看

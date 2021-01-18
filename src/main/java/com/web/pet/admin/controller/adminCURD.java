@@ -370,6 +370,18 @@ public class adminCURD {
 		return adminService.momhottimeService(month);
 	}
 	
+	@RequestMapping("/mommessage")//顯示保母評價
+	@ResponseBody
+	public List<Object[]> mommessageController(Integer mid){
+		return adminService.mommessageService(mid);
+	}
+	
+	@RequestMapping("/momordertop3")//顯示保母接單top3
+	@ResponseBody
+	public List<Object[]> momordertop3Controller(Integer month){
+		return adminService.momordertop3Service(month);
+	}
+	
 	//////////////////////////////保母管理////////////////////////////////////
 	
 	@RequestMapping(value="/goadmin")//輸入正確密碼回傳Admin字串，進到Admin頁面

@@ -279,6 +279,75 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	$("#store").removeClass("active");
     	$("#favorite").html("");
     	$("#favorite2").html("");
+    	$.ajax({
+			url:"../Gusty/momlove",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"uid" : <%=session.getAttribute("user")%>,
+	        },
+			success:function(data){
+				$.each(data,function(i,n){
+					let count=0;
+					for(let i=2;i<=5;i=i+1){
+						if(n[i]==null){
+							n[i]=""
+						}else{
+							if(count==0){
+								count=count+1;
+							}else{
+								n[i]="<br>"+n[i];
+							}
+						}
+					}
+					for(let i=6;i<=8;i=i+1){
+						if(n[i]==null){
+							n[i]="未提供此服務"
+						}
+					}
+					$("#favorite").append("<div class='card m-1' style='width: 17rem;'>"+
+					  "<img src='<c:url value='/mom/getPic?momId="+n[9]+"'/>' style='width:100%;height:200px;' class='card-img-top' alt='沒有圖片'>"+
+					  "<div class='card-body'>"+
+					    "<h5 class='card-title h2'>"+n[0]+"</h5>"+
+					    "<p class='card-text h4'>年資: "+n[1]+"年 <br>接受寵物體型:<br> "+n[2]+" "+n[3]+" "+n[4]+" "+n[5]+"</p>"+
+					  "</div>"+
+					  "<ul class='list-group list-group-flush h4'>"+
+					    "<li class='list-group-item'>到府遛狗: "+n[6]+"</li>"+
+					    "<li class='list-group-item'>安親照顧: "+n[7]+"</li>"+
+					    "<li class='list-group-item'>寄宿照顧: "+n[8]+"</li>"+
+					  "</ul>"+
+					  "<div class='card-body'>"+
+					    "<a href='../mom/momDetail.jsp?momId="+n[9]+"' class='card-link btn btn-primary'>詳細資料</a>"+
+					    "<button type='button' class='btn btn-danger m-3' onclick=deletelovemom("+n[10]+") >取消收藏</button>"+
+					  "</div></div>");
+				});
+			},error:function(){
+				$("#favorite2").html("沒有收藏保母");
+			}
+		});
+	return false;
+    }
+    
+    function deletelovemom(fid){
+    	//alert(loveid)
+    	$.ajax({
+			url:"../Gusty/delmomlove",
+			type:"post",
+			dataType:"json",
+			data : { 
+				"fid" : fid,
+	        },
+			success:function(data){
+				Swal.fire({
+	    		title: '取消收藏成功',
+	    		icon: 'success',
+	    		confirmButtonText: '確定'
+	    		}).then((result) => {
+	    		if (result.isConfirmed) {
+	    			mom()
+	    		}})			
+			},
+		});
     }
     
     function deletelove(pid){

@@ -164,5 +164,13 @@ public class AdminService {
 		return adaminDao.momhottimeDao(month);
 	}
 	
+	public List<Object[]> mommessageService(Integer mid){//顯示保母評價
+		return adaminDao.mommessageDao(mid);
+	}
+	
+	public List<Object[]> momordertop3Service(Integer month){//顯示保母接單top3
+		return adaminDao.momordertop3Dao(month);
+	}
+	
 	//////////////////////////////保母管理////////////////////////////////////
 }

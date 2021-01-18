@@ -56,9 +56,14 @@
 	<div class="container">
 	
 	<div class="row justify-content-center">
-		<div class="col-12">
+		<div class="col-6">
 		<div class="row justify-content-center h1">本月保母預約數量</div>
-		<canvas id="momhot" width="100" height="30"></canvas>
+		<canvas id="momhot" width="100" height="60"></canvas>
+		</div>
+		
+		<div class="col-6">
+		<div class="row justify-content-center h1">本月保母接單Top3</div>
+		<canvas id="momtop3" width="100" height="60"></canvas>
 		</div>
 	</div><br>
 
@@ -143,15 +148,22 @@
         },
 		success:function(data){
 		$.each(data,function(i,n){
+			let count=0;
 			$("#count").html("保母總數:&nbsp"+data.length);
 			for(let i=5;i<8;i=i+1){
 				if(n[i]==null){
-					n[i]="無"
+					n[i]="未提供此服務"
 				}
 			}
 			for(let i=8;i<12;i=i+1){
 				if(n[i]==null){
 					n[i]=""
+				}else{
+					if(count==0){
+						count=count+1;
+					}else{
+						n[i]="<br>"+n[i]
+					}
 				}
 			}
 				$("#momtable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
@@ -160,7 +172,7 @@
 						+"<td>"+n[2]+"</td>"
 						+"<td><button type='button' class='btn btn-primary' onclick='momdetail("+n[0]+")' >點我查看</button></td>"
 						+"<td>到府遛狗:&nbsp"+n[5]+"<br>安親照顧:&nbsp"+n[6]+"<br>寄宿照顧:&nbsp"+n[7]+"</td>"
-						+"<td>"+n[8]+"、<br>"+n[9]+"、<br>"+n[10]+"、<br>"+n[11]+"</td>"
+						+"<td>"+n[8]+""+n[9]+""+n[10]+""+n[11]+"</td>"
 						+"<td><button type='button' class='btn btn-info' onclick='mommessage("+n[0]+")'>點我查看</button></td>"
 						+"<td><button type='button' class='btn btn-danger' onclick='deletemom("+n[0]+")'>刪除保母</button></td></tr>");
 			});
@@ -222,12 +234,59 @@
     
     function mommessage(mid){
     	//alert(mid)
+    	Swal.fire({
+    		  title: '<div id="sub"></div>',
+    		  html:"<table class='table table-hover table-bordered '>"+
+    				'<thead class="h5" style="background-color:#C2C287;">'+
+  				'<tr>'+
+  					'<th scope="col">評價內容</th>'+
+  					'<th scope="col">評價日期</th>'+
+  					'<th scope="col">評價等級</th>'+
+  					'<th scope="col">評價會員</th>'+
+  				'</tr>'+
+  			'</thead>'+
+  			'<tbody id="evaluateetable" class="h5">'+
+  			'</tbody>'+
+  			'</table>'+
+  			'<div id="tipp"></div>',
+  			width: '800px',
+    		confirmButtonText: '確定'
+    		})
+    		
+    		$.ajax({
+        		url:"../Gusty/mommessage",
+        		type:"post",
+        		dataType:"json",
+        		data : { 
+        			"mid" : mid
+                },
+        		success:function(data){
+        			$.each(data,function(i,n){
+        				$("#sub").html(n[0]+" 保母評價")
+        				$("#evaluateetable").append("<tr><th scope='row'>"+n[1]+"</th>"+
+        			   		"<td>"+n[2]+"</td>"+
+        			   		"<td id=o"+n[5]+"></td>"+
+        			   		"<td>"+n[4]+"</td></tr>");
+        				if(n[3]>0){
+        					for(let i=1;i<=5;i=i+1){
+        						if(i<=n[3]){$("#o"+n[5]+"").append("★")}
+        						else{$("#o"+n[5]+"").append("☆")}
+        					}
+        				}else{
+        					$("#o"+n[5]+"").append("對方尚未評價")
+        				}
+        			});
+        		},error:function(){
+        			$("#tipp").append("尚未有評價")
+        		}
+        	});
     }
     
     function deletemom(mid){
     	
     	Swal.fire({
     		  title: '請輸入刪除原因',
+    		  html:'<div style="color:red;">**刪除保母會連該保母的相關資料一併刪除**</div>',
     		  input: 'text',
     		  inputAttributes: {
     		    autocapitalize: 'off'
@@ -292,6 +351,42 @@
   	  	},
   	  		buttonsStyling: false
   		})
+  		
+  	var momordertitletop3=[];//保母TOP3服務名稱
+    var momorderamounttop3=[];//保母TOP3訂單數量
+    $.ajax({
+		url:"../Gusty/momordertop3",
+		type:"post",
+		dataType:"json",
+		async:false,
+		data : {   
+			"month" :new Date().getMonth()+1, 
+        },
+		success:function(data){
+			$.each(data,function(i,n){				
+				momordertitletop3[i]=n[0]
+				momorderamounttop3[i]=n[1]
+			});
+		}
+	});
+  		
+  	var momordertop3 = document.getElementById('momtop3').getContext('2d');//預約數量top3
+    var momordertop3chart = new Chart(momordertop3, {
+        type: 'bar',
+        data: {
+            labels: momordertitletop3,
+            datasets: [{
+                label: '訂單數量',
+                data: momorderamounttop3,
+                backgroundColor: [
+                    '#005AB5',
+                    '#FF0000',
+                    '#9F35FF'  
+                ],
+                borderWidth: 2,
+            }]
+        },
+    });	
   		
     var momhotday=[];//熱度日期
     var momamount=[];//熱度數量

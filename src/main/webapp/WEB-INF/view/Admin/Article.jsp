@@ -215,7 +215,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     function articledelete(aid){
     	Swal.fire({
     		  title: '請輸入刪除原因',
-    		  text:'請注意刪除文章會連留言一併刪除',
+    		  html:'<div style="color:red;">**請注意刪除文章會連文章相關資料一併刪除**</div>',
     		  input: 'text',
     		  inputAttributes: {
     		    autocapitalize: 'off'

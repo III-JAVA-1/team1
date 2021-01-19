@@ -16,18 +16,26 @@
 // }).then((myJson)=>{
 //     console.log(myJson)
 // })
-
+let pageValue = 1
 search();
 
-function pageGo(){
-   let show =  $("#pageShow").val()
-    console.log(show)
+function pageGo(page){
+
+  //  console.log("page"+page.value)
+    pageValue = page.value
+   // console.log(pageValue)
+    search()
+
 }
+
+
 //ajax查詢
 function search() {
     $('#showMom').html("")
     $('#tip').html("")
-
+    $('#page').html("")
+    $('#pageF').html("")
+    $('#pageB').html("")
 
     $.ajax({
         url: "../mom/allMom",
@@ -36,15 +44,17 @@ function search() {
         data: {
             country: $("#selectArea").val(),
             title: $("#selectTitle").val(),
-            currPage : 1,
+            currPage : pageValue,
             pageSize : 5,
         },
         success: function (data) {
+
             $("#pageF").append("<li>«</li>")
-            for(let i=0;i<data.totalDataSize/5;i++){
+            for(let i=1 ;i<(data.totalDataSize/5)+1;i++){
                 //console.log(i);
-                $("#page").append("<li id='pageShow' value='"+(i+1)+"' onclick='pageGo(this)'>"+(i+1)+"</li>");
+                $("#page").append("<li value='"+i+"' onclick='pageGo(this)'>"+i+"</li>");
             }
+
             $("#pageB").append("<li>»</li>")
             console.log(data)
             console.log(data.momDataList)
@@ -84,6 +94,7 @@ function search() {
             });
         }, error: function () {
             $("#tip").html("沒有你要找的保母哦");
+            pageValue = 1
         }
 
     });

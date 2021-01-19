@@ -89,7 +89,7 @@ public class OtherFunctionService {
 		return otherFunctionDao.membermomDao(user_id);
 	}
 	
-	public Mom getoneMomService(Integer mid) {
+	public Mom getoneMomService(Integer mid) {//取得一筆保母物件
 		return otherFunctionDao.getoneMomDao(mid);
 	}
 	
@@ -109,8 +109,8 @@ public class OtherFunctionService {
 		return otherFunctionDao.momorderacceptDao(oid);
 	}
 	
-	public Integer momorderaccepteditService(PetMomOrder petMomOrder) {//預約成功修改訂單狀態
-		return otherFunctionDao.momorderaccepteditDao(petMomOrder);
+	public Integer momorderaccepteditService(Integer oid) {//預約成功修改訂單狀態
+		return otherFunctionDao.momorderaccepteditDao(oid);
 	}
 	
 	public Integer rejectmomorderService(Integer oid) {//預約拒絕並修改訂單狀態
@@ -119,6 +119,18 @@ public class OtherFunctionService {
 	
 	public List<Object[]> othermomorderService(Integer uid){//會員頁面我預約的保母訂單資料
 		return otherFunctionDao.othermomorderDao(uid);
+	}
+	
+	public List<Object[]> momorderevaluateeService(Integer oid){//會員頁面顯示保母評價
+		return otherFunctionDao.momorderevaluateeDao(oid);
+	}
+	
+	public List<Object[]> lovemomService(Integer uid){//會員頁面收藏保母
+		return otherFunctionDao.lovemomDao(uid);
+	}
+	
+	public Integer deletelovemomService(Integer fid){//會員頁面取消收藏保母
+		return otherFunctionDao.deletelovemomDao(fid);
 	}
 	
 	/////////////////////////會員店家功能////////////////////////////////

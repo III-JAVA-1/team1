@@ -290,10 +290,10 @@ public class adminCURD {
 	public void editpetshopgoController(PetshopBean petshopBean,MultipartFile imgg,HttpServletResponse response) throws IOException {
 		//File file = new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\");
 		PrintWriter out = response.getWriter();
-		if(imgg==null) {petshopBean.setImage(adminService.originpetshopService(petshopBean.getId()).getImage());}
+		if(imgg==null||imgg.isEmpty()) {petshopBean.setImage(adminService.originpetshopService(petshopBean.getId()).getImage());}
 		else {
 			//imgg.transferTo(new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
-			imgg.transferTo(new File("C:\\AdvancedWebWorkSpace\\Git\\team1\\src\\main\\webapp\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
+			imgg.transferTo(new File("C:\\Java\\SpringMvcWorkspace\\git\\team1\\src\\main\\webapp\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
 			petshopBean.setImage("image/"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf(".")));
 		}
 		response.setContentType(CONTENT_TYPE);
@@ -368,6 +368,18 @@ public class adminCURD {
 	@ResponseBody
 	public List<Object[]> momhottimeController(Integer month){
 		return adminService.momhottimeService(month);
+	}
+	
+	@RequestMapping("/mommessage")//顯示保母評價
+	@ResponseBody
+	public List<Object[]> mommessageController(Integer mid){
+		return adminService.mommessageService(mid);
+	}
+	
+	@RequestMapping("/momordertop3")//顯示保母接單top3
+	@ResponseBody
+	public List<Object[]> momordertop3Controller(Integer month){
+		return adminService.momordertop3Service(month);
 	}
 	
 	//////////////////////////////保母管理////////////////////////////////////

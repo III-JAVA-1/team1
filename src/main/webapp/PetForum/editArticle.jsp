@@ -28,18 +28,15 @@
 			<div class="row justify-content-center">
 				<div class="form-group row w-50">
 					<div class="form-row">
-						<div class="form-group col-3">
+						<div class="form-group col-4">
 							<input class="btn btn-secondary" type="button" value="取消" id="cancel" onclick="location.href='<c:url value='/PetForum/forum.jsp'/>'">
 						</div>
-						<div class="form-group col-3">
+						<div class="form-group col-4">
 					    	<input class="btn btn-secondary" type="button" value="草稿" id="store">
 					    </div>
-					    <div class="form-group col-3">
+					    <div class="form-group col-4">
 					    	<input class="btn btn-secondary" type="button" value="回復" id="back">
-					     </div>
-					      <div class="form-group col-3">
-					    	<input class="btn btn-success" type="submit" value="新增" id="newArticle" onsubmit=return check(this)/>
-					    </div>
+					     </div>					      
 				   	</div>
 			    </div>
 			</div>
@@ -87,6 +84,9 @@
 				<div class="form-group row">														
 					<input class="form-check-input" type="checkbox" id="ckObey">											
 					<label class="col-sm-3 col-form-label" for="ckObey" class="form-check-label">我已閱讀過並同意遵守討論區規則，<a class='inline' href="#inline_content">按這裡檢視討論區規則</a></label>					
+		    		<div class="form-group col-6">
+						<input class="btn btn-success" type="submit" value="新增" id="newArticle" onsubmit=return check(this)/>
+					</div>		    		
 				</div>
 			</div>
 		</form:form>
@@ -161,11 +161,11 @@
    	    	
    		 if($("#forumId").find("option:selected").val() != "請選擇子版"){
    			 
-   			if(checkHeader() && checkContent()){   				
+   			if(checkHeader() && checkContent()){
+   				
    				var newArticle = window.confirm("確定新增嗎？文章紀錄將儲存！");    			
    			 	if (newArticle === false) {
-   					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';
-   		   			
+   					 window.alert('=== 跳轉回首頁===');window.location.href='../PetForum/forum.jsp';   		   			
    		   			 return false;
    				} 
    	 			else {       			
@@ -243,7 +243,7 @@
 
         let sp = document.getElementById("headerSp");
         if(headerVal === ""){
-            sp.innerHTML="標題不可空白";
+            sp.innerHTML="*標題不可空白";
             return false;
         }else{
         	sp.innerHTML="";
@@ -257,7 +257,7 @@
 
         let sp = document.getElementById("contentSp");
         if(editor.getData() === ""){
-            sp.innerHTML="內文不可空白";
+            sp.innerHTML="*內文不可空白";
             return false;
         }else{
         	sp.innerHTML="";

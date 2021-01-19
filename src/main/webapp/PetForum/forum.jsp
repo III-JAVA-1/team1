@@ -8,8 +8,7 @@
     <title>汪喵討論區</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
 	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 	  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -50,7 +49,7 @@
     <div class="hd_line2">
            <div class="hd_line2_a">
            <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('全部'); "><img src="image/Home_logo.png"/></a>
-           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function(固定用this取)-->
+           <!-- 按下後呼叫getForum(this)，把this(這個按鈕) 的val傳到function-->
             <a class="scroll" style="border-color:#ccc" href="#scrollHere" onclick="getForum('協尋'); ">走失協尋</a>
             <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('送養');">汪喵送養</a>
             <a class="scroll" style="border-color:#ccc;" href="#scrollHere" onclick="getForum('日常');">汪喵日常</a>
@@ -58,13 +57,11 @@
             <a class="scroll" style="border-color:#ccc;" href="#scrollHere" onclick="getForum('徵友'); ">汪喵徵友</a>
             <a class="scroll" style="border-color:#39C;" href="#scrollHere" onclick="getForum('心得'); ">心得分享</a>
             </div>
-            <div class="hd_line2_banner"></div>
-                   <img src="image/banner.png" width="100" height="60">
-                   <img src="image/step.png" width="30" height="30">
-                   <img src="image/step.png" width="30" height="30">                              
-                   <img src="image/step01.png" width="30" height="30">
-                   <img src="image/step.png" width="30" height="30">
-                   <img src="image/step01.png" width="30" height="30">
+            <div class="hd_line2_banner">
+                 <img src="image/banner.png" width="100" height="60">                 
+                 <img src="image/step.png" width="30" height="30"> 
+                 <img src="image/step.png" width="30" height="30">
+                 <img src="image/step01.png" width="30" height="30">
             </div>
     </div>
 </div>
@@ -227,8 +224,8 @@
 	<!-- Bootstrap CSS -->  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>		
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	    
  	<script> 	

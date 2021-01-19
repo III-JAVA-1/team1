@@ -92,10 +92,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col" style="width:110px;height:90px;">大頭貼</th>
       			<th scope="col" style='width:70px;'>姓名</th>
       			<th scope="col">手機</th>
-      			<th scope="col">電子郵件</th>
-      			<th scope="col">暱稱</th>
+      			<th scope="col" style='width:120px;'>電子郵件</th>
+      			<th scope="col" style='width:50px;'>暱稱</th>
       			<th scope="col">地址</th>
-      			<th scope="col">停權處理</th>
+      			<th scope="col">停權</th>
     		</tr>
   		</thead>
   		<tbody id="membertable">
@@ -172,38 +172,29 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 							+"<td>"+n[3]+"</td>"
 							+"<td>"+n[4]+"</td>"
 							+"<td>"+n[5]+n[6]+n[7]+n[8]+"</td>"
-							+"<td style='background-color:#D7FFEE;'><input type='checkbox' onchange='stop("+n[0]+")' id='"+n[0]+"' checked data-toggle='toggle'></td></tr>"
+							+"<td style='background-color:#D7FFEE;'><div class='custom-control custom-switch'>"
+							  +"<input type='checkbox' class='custom-control-input' onchange='stop("+n[0]+")' id='"+n[0]+"'>"
+							  +"<label class='custom-control-label' id='l"+n[0]+"' for='"+n[0]+"'>正常</label>"
+							  +"</div></td></tr>"
+							//+"<td style='background-color:#D7FFEE;'><input type='checkbox' class='custom-control-input' id='customSwitch1'></td></tr>"
 					);
 					if(n[11]==1){
 						$("#"+n[0]+"").attr("checked",true)
+						$("#l"+n[0]+"").html("停權")
 					}else{
 						$("#"+n[0]+"").attr("checked",false)
-					}
-					
+						$("#l"+n[0]+"").html("正常")
+					}				
 				});
 			}
 		});
 	
 	function stop(id){
-		//alert(id)
-		if(document.getElementById(id).checked){
-			//alert("停權")
-			$.ajax({
-				url:"../Gusty/memberupdateauthority",
-				type:"post",
-				dataType:"json",
-				async:false,
-				data : {   
-					"user_id":id,
-	            },
-				success:function(data){
-					
-				},error:function(){
-					alert("發生錯誤，請稍後再嘗試")
-				}
-			});
+		if($("#"+id+"").prop("checked")){
+			$("#l"+id+"").html("停權")
 		}else{
-			//alert("正常")
+			$("#l"+id+"").html("正常")
+		}
 			$.ajax({
 				url:"../Gusty/memberupdateauthority",
 				type:"post",
@@ -217,8 +208,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 				},error:function(){
 					alert("發生錯誤，請稍後再嘗試")
 				}
-			});
-		}
+			});	
 	}
 	
 	$('#maintable').DataTable({

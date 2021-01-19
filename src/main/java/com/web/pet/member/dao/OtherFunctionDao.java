@@ -331,11 +331,11 @@ public class OtherFunctionDao {
 		return session.get(PetMomOrder.class, oid);
 	}
 	
-	public Integer momorderaccepteditDao(PetMomOrder petMomOrder) {//預約成功修改訂單狀態
+	public Integer momorderaccepteditDao(Integer oid) {//預約成功修改訂單狀態
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(petMomOrder);
-		result++;
+		String hql="update PetMomOrder set status = '接受' where orderId=:oid";
+		result = result + session.createSQLQuery(hql).setParameter("oid", oid).executeUpdate();
 		return result;
 	}
 	
@@ -364,6 +364,48 @@ public class OtherFunctionDao {
 		}else {
 			return list; 
 		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面顯示保母評價
+	public List<Object[]> momorderevaluateeDao(Integer oid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select PetMomOrderComment.comment,PetMomOrderComment.commentNowTime,PetMomOrderComment.star,Member.sname,PetMomOrderComment.commentId\r\n"
+				+ "from PetMomOrderComment,Member\r\n"
+				+ "where PetMomOrderComment.uId=Member.u_Id \r\n"
+				+ "and orderId=:oid";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("oid", oid);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //會員頁面收藏保母
+	public List<Object[]> lovemomDao(Integer uid){
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> list = new ArrayList<Object[]>();
+		String hql="select Mom.title,Mom.experience,Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.momId,favoriteMom.favoriteId\r\n"
+				+ "from favoriteMom,Mom\r\n"
+				+ "where favoriteMom.uId=:uid\r\n"
+				+ "and favoriteMom.momId=Mom.momId";
+		Query<Object[]> query = session.createSQLQuery(hql).setParameter("uid", uid);
+		list = query.getResultList();
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list; 
+		}
+	}
+	
+	public Integer deletelovemomDao(Integer fid){//會員頁面取消收藏保母
+		Integer result=0;
+		Session session = sessionFactory.getCurrentSession();
+		String hql="delete from favoriteMom where favoriteId=:fid";
+		result = result + session.createSQLQuery(hql).setParameter("fid", fid).executeUpdate();
+		return result;
 	}
 	
 	/////////////////////////會員保母功能////////////////////////////////

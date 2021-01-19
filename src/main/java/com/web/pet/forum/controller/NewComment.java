@@ -1,21 +1,22 @@
 package com.web.pet.forum.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.socket.TextMessage;
+
 
 import com.web.pet.forum.model.Comment;
 import com.web.pet.forum.service.CommentService;
-import com.web.pet.forum.webSocket.MsgScoketHandle;
-import com.web.pet.member.model.Member;
-import com.web.pet.member.service.MemberService;
+
 
 @RequestMapping("/petforum")
 @Controller
@@ -26,12 +27,14 @@ public class NewComment {
 
 
 	@RequestMapping("/commitComment")
-	public String commitComment(
-			Comment comment,
-			@RequestParam(value = "posterUid",required = false) Integer posterUid,
-			@RequestParam(value = "u_Id",required = false) Integer u_Id,
-			HttpServletRequest request
-			) {
+	public @ResponseBody List<Object[]> commitComment(
+			   @RequestBody Map<String, String> params,		
+			   HttpServletRequest request
+			) {		
+		 	String commentUpdatedtime = params.get("commentUpdatedtime");
+	        Integer posterUid = Integer.valueOf(params.get("posterUid"));
+	        String u_Id = params.get("u_Id");
+	        String commentContent = params.get("commentContent");
 		//把從前端送來的Comment物件insert到資料庫
 		//需要的是留言者的u_Id，非發文者的u_Id		
 		Integer sessionU_Id = null;
@@ -40,8 +43,21 @@ public class NewComment {
 			System.out.println("sessionU_Id"+sessionU_Id);
 		}
 		
-		service.saveComment(comment, posterUid, sessionU_Id);		
-		return "redirect:/PetForum/postDetail.jsp?posterUid="+posterUid+"&u_Id="+u_Id;
+		Comment comment = new Comment();
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		try {
+			ts = Timestamp.valueOf(commentUpdatedtime);
+			System.out.println(ts);
+			} catch (Exception e) {
+			e.printStackTrace();
+			} 
+		comment.setCommentUpdatedtime(ts);
+		comment.setCommentContent(commentContent);		
+		service.saveComment(comment, posterUid, sessionU_Id);
+		if(posterUid == null) {return null;}
+		List<Object[]> list = service.getCommentByPosterUid(posterUid);
+		
+		return list;
 	}
 	
 	

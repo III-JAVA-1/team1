@@ -42,7 +42,7 @@ div.bubbleContainer div.bubbleBody {
 
 div.bubbleContainer div.bubbleBody div.divForm {
   padding: 30px;
-  box-sizing: border-box;
+  box-sizing: border-box;  
 }
 
 div.bubbleContainer div.bubbleBody div.divForm * {
@@ -80,13 +80,13 @@ div.bubbleContainer::after {
 button.btnSendMessage {
   width: 100px;
   height: 30px;
-  display: block;
+  display: inline;
   margin: 0 auto;
   background-color: #01B468;
   border: 3px solid white;
   outline: none;
   border-radius: 12px;
   font-size: 20px;
-  font-family: "Shadows Into Light";
+  font-family: "Shadows Into Light";  
   color: white;
 }

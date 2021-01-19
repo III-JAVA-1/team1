@@ -457,6 +457,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 2,
             }]
         },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                    }
+                }]
+            }
+        }
     });
     
     var petshophotday=[];//熱度日期

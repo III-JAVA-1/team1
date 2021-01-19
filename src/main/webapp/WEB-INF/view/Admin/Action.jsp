@@ -167,7 +167,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
     						"<td>"+n[8]+"</td>"+
-    						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
+    						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
     						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
     			});
     			$('#maintable').DataTable({
@@ -226,8 +226,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
     						"<td>"+n[8]+"</td>"+
-    						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
-    						"<td><button type='button' class='btn btn-danger' onclick='deleteactive("+n[0]+")'>不予許</button>"+
+    						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
+    						"<td style='width:80px;'><button type='button' class='btn btn-danger' onclick='deleteactive("+n[0]+")'>不予許</button><hr>"+
     						"&nbsp<button type='button' class='btn btn-primary' onclick='activeok("+n[0]+")'>通過</button>"+
     						"</td></tr>");
     			});
@@ -404,7 +404,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 						"<td>"+n[6]+"</td>"+
 						"<td>"+n[7]+"</td>"+
 						"<td>"+n[8]+"</td>"+
-						"<td>"+n[9].substring(0,10)+"~"+n[10].substring(0,10)+"</td>"+
+						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
 						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
 			});
 			$('#maintable').DataTable({
@@ -616,7 +616,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 ],
                 borderWidth: 2,
             }]
-        },
+        },options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                    }
+                }]
+            }
+        }
     });
     
     var activetype = document.getElementById("activetype").getContext('2d');//顯示活動比例

@@ -509,7 +509,8 @@ public class MemberCURD {
 	                + "})");
 			out.print("</script>");
 			out.print("</html></body>");
-		}else if(where.equals("normal1")) {
+		}
+		if(where.equals("normal1")) {
 			request.getSession().setAttribute("user",2);
 			out.print("<html><body>");
 			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
@@ -524,8 +525,42 @@ public class MemberCURD {
 	                + "})");
 			out.print("</script>");
 			out.print("</html></body>");
-		}else {
+		}
+		if(where.equals("normal2")) {
 			request.getSession().setAttribute("user",3);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+	                + "  icon: 'success',\r\n"
+	                + "  title: '登入成功',\r\n"
+	                + "  showConfirmButton: false,\r\n"
+	                + "  timer: 1500\r\n"
+	                + "}).then((result) => {\r\n"
+	                + "window.location.href='../Member/Member.jsp';\r\n"
+	                + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}
+		if(where.equals("mom1")) {
+			request.getSession().setAttribute("user",28);
+			out.print("<html><body>");
+			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
+			out.print("<script>");
+			out.print("Swal.fire({\r\n"
+	                + "  icon: 'success',\r\n"
+	                + "  title: '登入成功',\r\n"
+	                + "  showConfirmButton: false,\r\n"
+	                + "  timer: 1500\r\n"
+	                + "}).then((result) => {\r\n"
+	                + "window.location.href='../Member/Member.jsp';\r\n"
+	                + "})");
+			out.print("</script>");
+			out.print("</html></body>");
+		}
+		
+		if(where.equals("mom2")) {
+			request.getSession().setAttribute("user",29);
 			out.print("<html><body>");
 			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
 			out.print("<script>");

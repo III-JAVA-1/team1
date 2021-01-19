@@ -19,7 +19,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 	<header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size:28px;">
-            <a class="navbar-brand" href="index.jsp"><img src="image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
+            <a class="navbar-brand" href="index.jsp"><img src="../image/AccompanyMe.png" style="width:200px; height:80px;" alt=""></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -90,15 +90,14 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center">
 			<button type="button" class="btn btn-primary" onclick="location.href='../index.jsp'" >點我回首頁</button>
 			</div>
-			<div class="row justify-content-center">
-			<div class="h1">提示信息:${msg}</div>
-			</div>
-			<div class="row justify-content-center">
-			<div class="h1">系統異常消息:${exception.message}</div>
-			</div>
+<!-- 			<div class="row justify-content-center"> -->
+<%-- 			<div class="h1">提示信息:${msg}</div> --%>
+<!-- 			</div> -->
+<!-- 			<div class="row justify-content-center"> -->
+<%-- 			<div class="h1">系統異常消息:${exception.message}</div> --%>
+<!-- 			</div> -->
 			</div>	
 		</div>
-
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

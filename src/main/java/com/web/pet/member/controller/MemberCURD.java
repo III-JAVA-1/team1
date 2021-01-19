@@ -413,6 +413,7 @@ public class MemberCURD {
 				member.setName(name);
 				member.setEmail(email);
 				member.setPassword(pictureUrl);
+				member.setAuthority(0);
 				member.setSname("Google登入者");
 				member.setBirth(new java.sql.Date(new java.util.Date().getTime()));
 				memberService.insertMemberService(member);

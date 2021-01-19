@@ -56,7 +56,7 @@ public void inseert(Salon_reservBean salon_reservBean,HttpServletRequest request
 
     	PrintWriter out= response.getWriter();
 		out.print("<script>");
-		out.print("window.alert('預約成功'); window.location='../Petshop/mainshop.jsp'");
+		out.print("window.alert('預約成功'); window.location='../Member/Petshop.jsp'");
 		out.print("</script>");
 		out.close();
 	}

@@ -331,11 +331,11 @@ public class OtherFunctionDao {
 		return session.get(PetMomOrder.class, oid);
 	}
 	
-	public Integer momorderaccepteditDao(PetMomOrder petMomOrder) {//預約成功修改訂單狀態
+	public Integer momorderaccepteditDao(Integer oid) {//預約成功修改訂單狀態
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
-		session.merge(petMomOrder);
-		result++;
+		String hql="update PetMomOrder set status = '接受' where orderId=:oid";
+		result = result + session.createSQLQuery(hql).setParameter("oid", oid).executeUpdate();
 		return result;
 	}
 	

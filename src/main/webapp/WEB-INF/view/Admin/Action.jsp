@@ -160,7 +160,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
     						"<td>"+n[1]+"</td>"+
-    						"<td>"+n[2].substring(0,10)+".....<br><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
     						"<td>"+n[3]+"</td>"+
     						"<td>"+n[4]+"</td>"+
     						"<td>"+n[5]+"</td>"+
@@ -219,7 +219,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
     						"<td>"+n[1]+"</td>"+
-    						"<td>"+n[2].substring(0,10)+".....<br><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
     						"<td>"+n[3]+"</td>"+
     						"<td>"+n[4]+"</td>"+
     						"<td>"+n[5]+"</td>"+
@@ -397,7 +397,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){				
 				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
 						"<td>"+n[1]+"</td>"+
-						"<td>"+n[2].substring(0,10)+".....<br><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
 						"<td>"+n[3]+"</td>"+
 						"<td>"+n[4]+"</td>"+
 						"<td>"+n[5]+"</td>"+

@@ -89,7 +89,7 @@ public class OtherFunctionService {
 		return otherFunctionDao.membermomDao(user_id);
 	}
 	
-	public Mom getoneMomService(Integer mid) {
+	public Mom getoneMomService(Integer mid) {//取得一筆保母物件
 		return otherFunctionDao.getoneMomDao(mid);
 	}
 	
@@ -109,8 +109,8 @@ public class OtherFunctionService {
 		return otherFunctionDao.momorderacceptDao(oid);
 	}
 	
-	public Integer momorderaccepteditService(PetMomOrder petMomOrder) {//預約成功修改訂單狀態
-		return otherFunctionDao.momorderaccepteditDao(petMomOrder);
+	public Integer momorderaccepteditService(Integer oid) {//預約成功修改訂單狀態
+		return otherFunctionDao.momorderaccepteditDao(oid);
 	}
 	
 	public Integer rejectmomorderService(Integer oid) {//預約拒絕並修改訂單狀態

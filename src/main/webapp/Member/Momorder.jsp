@@ -293,7 +293,36 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     }
     
     function accept(oid){//接受訂單
-    	window.location.href="<c:url value='/Gusty/momorderaccept?oid="+oid+"'/>";
+    	Swal.fire({
+			  title: '執行中,請稍後',
+			  timerProgressBar: true,
+			  timer:100,
+			  didOpen: () => {
+			    Swal.showLoading()
+			  },
+			}).then((resultt) => {
+				$.ajax({
+					url:"../Gusty/momorderaccept",
+	         		type:"post",
+	         		dataType:"json",
+	         		async:false,
+	         		data : { 
+	        			"oid" :oid,                     
+	                },
+	         		success:function(data){
+	         			Swal.fire({
+	         				title: '訂單已接受，已寄信通知顧客',
+	         				icon: 'success',
+	         			    showConfirmButton: false,
+	         				timer:1500,
+	         			}).then((result) => {
+	         				window.location.reload()
+	             		})
+	         		},error:function(){
+	         			alert("發生錯誤，請稍後再嘗試操作");
+	         		}
+	         	});
+		})
     }
     
     function reject(oid){//拒絕訂單

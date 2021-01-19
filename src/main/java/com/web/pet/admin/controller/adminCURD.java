@@ -290,10 +290,10 @@ public class adminCURD {
 	public void editpetshopgoController(PetshopBean petshopBean,MultipartFile imgg,HttpServletResponse response) throws IOException {
 		//File file = new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\");
 		PrintWriter out = response.getWriter();
-		if(imgg==null) {petshopBean.setImage(adminService.originpetshopService(petshopBean.getId()).getImage());}
+		if(imgg==null||imgg.isEmpty()) {petshopBean.setImage(adminService.originpetshopService(petshopBean.getId()).getImage());}
 		else {
 			//imgg.transferTo(new File("C:\\apache-tomcat-9.0.40\\webapps\\PetProject_Final\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
-			imgg.transferTo(new File("C:\\AdvancedWebWorkSpace\\Git\\team1\\src\\main\\webapp\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
+			imgg.transferTo(new File("C:\\Java\\SpringMvcWorkspace\\git\\team1\\src\\main\\webapp\\Petshop\\image\\"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf("."))));
 			petshopBean.setImage("image/"+petshopBean.getId()+""+imgg.getOriginalFilename().substring(imgg.getOriginalFilename().indexOf(".")));
 		}
 		response.setContentType(CONTENT_TYPE);

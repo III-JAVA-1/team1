@@ -552,7 +552,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     					if(n[6]=="處理中"){
     						$("#b"+n[9]+"").html("訂單尚在處理")	
     					}else if(n[6]=="接受"){
-    						$("#b"+n[9]+"").html("<button type='button' onclick='evaluatee("+n[9]+")' class='btn btn-dark'>去寫評價</button>")
+    						$("#b"+n[9]+"").html("<button type='button' onclick='location.href=\"../mom/comment.jsp?orderId="+n[9]+"\"' class='btn btn-dark'>去寫評價</button>")
     					}else if(n[6]=="接受"&&n[8]!=null){
     						$("#b"+n[9]+"").html("您已經寫過評價")
     					}else if(n[6]=="拒絕"){

@@ -89,6 +89,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal1'/>"'>一般人</button>
 			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal2'/>"'>給我用</button>
 			<button type="button" class="btn btn-info m-3" onclick='lock()'>封鎖用</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=mom1'/>"'>保母用1</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=mom2'/>"'>保母用2</button>
 			</div>
 <!-- 			<div class="row justify-content-center"> -->
 			

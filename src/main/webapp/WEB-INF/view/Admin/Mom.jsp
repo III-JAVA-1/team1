@@ -385,7 +385,15 @@
                 ],
                 borderWidth: 2,
             }]
-        },
+        },options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                    }
+                }]
+            }
+        }
     });	
   		
     var momhotday=[];//熱度日期

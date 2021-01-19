@@ -30,12 +30,11 @@ public class FavoriteMomController {
         request.setCharacterEncoding(CHARSET_CODE);
         response.setContentType(CONTENT_TYPE);
 
-
         try {
-//            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
-            Integer uId = 1;
-//            Integer momId = req.getMomId();
-            Integer momId = 2;
+            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
+//            Integer uId = 1;
+            Integer momId = req.getMomId();
+//            Integer momId = 3;
 
             favoriteMomService.insertFavoriteMom(req, uId, momId);
         } catch (FavoriteSameMomException e) {

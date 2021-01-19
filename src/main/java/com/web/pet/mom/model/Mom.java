@@ -59,7 +59,5 @@ public class Mom {
     @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
     private Set<PetMomOrderComment> petMomOrderComments = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "mom", cascade = CascadeType.ALL)
-    private Set<FavoriteMom> favoriteMoms = new HashSet<>(0);
 }
 

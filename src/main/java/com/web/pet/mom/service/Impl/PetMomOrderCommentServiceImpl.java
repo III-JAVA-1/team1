@@ -29,15 +29,13 @@ public class PetMomOrderCommentServiceImpl implements PetMomOrderCommentService 
     public void insertComment(OrderCommentReq req, Integer uId, Integer momId, Integer orderId) {
         if (petMomDAO.getMomByMomId(momId).equals(petMomDAO.getMomByMemberId(uId))) {
             throw new CommentIsSameMomException();
-        } else if (petMomOrderCommentDAO.getCommentByOrderId(orderId).equals(null)) {
+        }else {
             PetMomOrderComment petMomOrderComment = new PetMomOrderComment();
             petMomOrderComment.setComment(req.getComment());
             petMomOrderComment.setStar(req.getStar());
             petMomOrderComment.setCommentNowTime(new Timestamp(System.currentTimeMillis()));
 
             petMomOrderCommentDAO.insertOrderComment(petMomOrderComment, uId, momId, orderId);
-        }else {
-            throw new CommentIsSameMomException();
         }
     }
 

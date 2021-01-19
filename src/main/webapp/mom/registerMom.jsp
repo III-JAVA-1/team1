@@ -228,7 +228,7 @@
                     <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1"><p style="color: red;">我同意AccompanyMe的服務條款</p></label> -->
                     <button type="button" name="go"
-                            id="go" class="btn btn-primary"
+                            id="go" class="btn btn-secondary"
                             onclick="directInputRegister()">一鍵輸入
                     </button>
                     <button type="button" name="registerMom"

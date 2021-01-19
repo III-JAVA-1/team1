@@ -6,6 +6,7 @@ import com.web.pet.mom.Exeption.MomSearchNotFoundException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.PageableMomDataRes;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.hibernate.Session;
@@ -44,7 +45,8 @@ public class PetMomDAOImpl implements PetMomDAO {
 
     @SneakyThrows
     @Override
-    public List<MomData> getAllMoms(String country, String title) {
+    public PageableMomDataRes getAllMoms(String country, String title, Integer currPage, Integer pageSize) {
+
         if (country == null) {
             country = "";
         }
@@ -57,11 +59,22 @@ public class PetMomDAOImpl implements PetMomDAO {
                 ",Mom.momId,Member.Img,Member.District\n" +
                 "from Member,MOM\n" +
                 "where MOM.momId=Member.u_Id\n" +
+//                "and Member.country = '"+country+"'\n" +
+//                "and MOM.title = '"+title+"'";
                 "and Member.country like '%" + country + "%'" +
                 "and MOM.title like '%" + title + "%'";
 
         Session session = sessionFactory.getCurrentSession();
-        List<Object[]> resultList = session.createNativeQuery(sql).getResultList();
+
+        List<Object[]> resultList = session.createNativeQuery(sql)
+                .setFirstResult((currPage - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+
+        String countSql = "SELECT COUNT(momId) count FROM Mom,Member\n" +
+                "where MOM.momId=Member.u_Id";
+
+        Integer totalDataSize = (Integer) session.createNativeQuery(countSql).uniqueResult();
 
         List<MomData> list = new LinkedList<>();
         for (Object[] objects : resultList) {
@@ -70,9 +83,11 @@ public class PetMomDAOImpl implements PetMomDAO {
         if (list.isEmpty()) {
             throw new MomSearchNotFoundException();
         } else {
-            return list;
+            return PageableMomDataRes.builder().
+                    currPage(currPage).
+                    pageSize(pageSize).
+                    totalDataSize(totalDataSize).momDataList(list).build();
         }
-
     }
 
     @Override

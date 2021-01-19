@@ -217,16 +217,15 @@
                 ],
                 borderWidth: 2,
             }]
-        },
-//         options: {
-//             scales: {
-//                 xAxes: [{
-//                     ticks: {
-//                         display: false //this will remove only the label
-//                     }
-//                 }]
-//             }
-//         }
+        },options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 0,
+                    }
+                }]
+            }
+        }
     });
 
     var ctx = document.getElementById("sales").getContext('2d');

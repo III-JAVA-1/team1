@@ -41,6 +41,34 @@
         #goTop:hover { /*button滑入不要背景顏色*/
             background-color: transparent;
         }
+
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+        ul.pagination li {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        ul.pagination li.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        ul.pagination li:hover:not(.active) {
+            background-color: #ddd;
+        }
     </style>
 </head>
 
@@ -147,6 +175,14 @@
                 <!-- 							id="reg" onclick="goTo()" style="position: absolute; bottom: 10px; right: 10px;">預約</button> -->
                 <!-- 					</div> -->
             </div>
+
+            <br>
+
+            <ul class="pagination d-flex justify-content-center">
+                <span id="pageF"></span>
+                <span id="page"></span>
+                <span id="pageB"></span>
+            </ul>
         </div>
 
         <div class="col-md-4">
@@ -173,7 +209,7 @@
             cancelButtonText: '我不要登入'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "../Member/Login.jsp"
+                window.location.href = "../mom/comment.jsp"
             }
 
         });
@@ -183,7 +219,7 @@
     }
 
     function goTo() {
-        <%if (session.getAttribute("user") == null || session.getAttribute("user") == "") {%>
+        <%if (session.getAttribute("user") == null || "".equals(session.getAttribute("user"))) {%>
         Swal.fire({
             title: '請先登入',
             text: "你還尚未登入",
@@ -200,7 +236,7 @@
 
         });
         <%} else {%>
-        return  true
+        return true
         <%}%>
         return false;
     }
@@ -233,7 +269,6 @@
         }).scroll();
     });
 </script>
-
 
 
 <jsp:include page="Footer.jsp"/>

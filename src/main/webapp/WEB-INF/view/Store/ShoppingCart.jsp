@@ -92,7 +92,7 @@
                         + "<td class=\"shopping-item-img\"><img src=\""
                         + img
                         + "\" width=\"150px\" height=\"150px\"></td>\n"
-                        + "<td class=\"shopping-item-name\">"
+                        + "<td class=\"shopping-item-name\ style=\"width='700px' \">"
                         + data.productName
                         + "</td>\n"
                         + "<td></td>\n"

@@ -24,10 +24,9 @@ public class FavoriteMomDAOImpl implements FavoriteMomDAO {
         Session session = sessionFactory.getCurrentSession();
 
         favoriteMom.setMember(session.get(Member.class, uId));
-        System.out.println(uId);
         favoriteMom.setMom(session.get(Mom.class, momId));
-        System.out.println(momId);
         session.save(favoriteMom);
+
     }
 
 }

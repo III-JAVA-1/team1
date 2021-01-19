@@ -3,6 +3,7 @@ package com.web.pet.mom.controller;
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.PageableMomDataRes;
 import com.web.pet.mom.service.MomService;
 import com.web.pet.util.BlobToByteArray;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Blob;
-import java.util.List;
 
 import static com.web.pet.mom.config.MomConstant.CHARSET_CODE;
 import static com.web.pet.mom.config.MomConstant.CONTENT_TYPE;
@@ -68,9 +68,12 @@ public class MomController {
      * @return
      */
     @RequestMapping(value = "/allMom", produces = "application/json; charset=utf-8")
-    public List<MomData> allMom(String country, String title) {
+    public PageableMomDataRes allMom(@RequestParam String country,
+                                     @RequestParam String title,
+                                     @RequestParam Integer currPage,
+                                     @RequestParam Integer pageSize) {
 
-        return momService.getAllMoms(country, title);
+        return momService.getAllMoms(country, title, currPage, pageSize);
     }
 
     /**

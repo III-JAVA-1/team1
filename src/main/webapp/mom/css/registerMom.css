@@ -51,3 +51,7 @@ input[type="text"] {
 .formPosition{
     text-align: center;
 }
+
+textarea {
+    resize: none;
+}

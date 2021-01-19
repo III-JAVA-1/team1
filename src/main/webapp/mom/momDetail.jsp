@@ -28,43 +28,43 @@
             margin: 0;
         }
 
-        .st2 { /*預約*/
-            background-color: burlywood;
+        /*.st2 { !*預約*!*/
+        /*    background-color: burlywood;*/
 
-        }
+        /*}*/
 
-        .st3 { /*評論*/
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-bottom: solid rgb(194, 193, 193) 1px;
-        }
+        /*.st3 { !*評論*!*/
+        /*    padding-top: 10px;*/
+        /*    padding-bottom: 10px;*/
+        /*    border-bottom: solid rgb(194, 193, 193) 1px;*/
+        /*}*/
 
-        .st4 { /*服務介紹*/
-            background-color: grey;
+        /*.st4 { !*服務介紹*!*/
+        /*    background-color: grey;*/
 
-        }
-        .st5 {
-            border-left: solid rgb(194, 193, 193) 1px;
-            position: absolute;
-            padding-top: 10px;
-        }
+        /*}*/
+        /*.st5 {*/
+        /*    border-left: solid rgb(194, 193, 193) 1px;*/
+        /*    position: absolute;*/
+        /*    padding-top: 10px;*/
+        /*}*/
 
-        .st6 {
-            background-color: darkgoldenrod;
+        /*.st6 {*/
+        /*    background-color: darkgoldenrod;*/
 
-        }
-        .st7{
-            background-color: wheat;
+        /*}*/
+        /*.st7{*/
+        /*    background-color: wheat;*/
 
-        }
-        .st8{
-            background-color: wheat;
+        /*}*/
+        /*.st8{*/
+        /*    background-color: wheat;*/
 
-        }
-        .st9{ /*預約*/
-            background-color: wheat;
+        /*}*/
+        /*.st9{ !*預約*!*/
+        /*    background-color: wheat;*/
 
-        }
+        /*}*/
     </style>
 </head>
 
@@ -161,7 +161,7 @@
                 $("#pic").html(" <img src='data:image/png;base64,"+data.pic+"' style='width:720px; height:500px;'/>")
                 $("#momPic").html(" <img src='data:image/png;base64,"+data.img+"' style='width:350px; height:300px;'/>")
                 $("#reservation").html("<a href='reservation.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'><button class='btn btn-secondary' type='button'  onclick='toReservation()'>預約保母</button></a>")
-                $("#favoriteMom").html("<a href='comment.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'><button class='btn btn-secondary' type='button'  onclick='toReservation()'>收藏保母</button></a>")
+                $("#favoriteMom").html("<button class='btn btn-secondary' type='button'  onclick='toCollection()'>關注保母</button>")
                 $("#address").html("<h5 style='font-size:20px;margin-bottom:2px;'>"+data.sname+"</h5>"+
                 "<h5 style='font-size: 15px'>聯絡地址:"+data.country+"  "+data.district+"</h5>"+
                 "<h5 style='font-size: 15px'>聯絡電話:  "+data.phone+"</h5>")
@@ -208,6 +208,34 @@
     function toReservation(){
         return true
     }
+    function toCollection(){
+        $.ajax({
+            url:"../mom/favorite",
+            type:"post",
+            dataType:"json",
+            data:{
+                "momId": <%=getMom%>
+            },
+            success:function(data){
+                console.log(data)
+                console.log("isFavorite="+data);
+
+                if(data){
+                    $("#favoriteMom").html("<button class='btn btn-success' type='button'  onclick='toCollection()'>取關保母</button>")
+                }
+                else{
+                    $("#favoriteMom").html("<button class='btn btn-secondary' type='button''>關注保母</button>")
+                }
+            }, error: function () {
+                Swal.fire({
+                    icon: 'error', title: '關注 失敗自己無法關注自己',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        });
+    }
+
 </script>
 </body>
 

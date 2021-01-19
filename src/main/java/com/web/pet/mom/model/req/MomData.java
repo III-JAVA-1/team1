@@ -35,8 +35,8 @@ public class MomData {
     private String phone;
     private Integer experience;
     private String petContent;
-    private List<Object> bodyTypeList = new LinkedList<>();
-    private List<Object> proPriceList = new LinkedList<>();
+//    private List<Object> bodyTypeList = new LinkedList<>();
+//    private List<Object> proPriceList = new LinkedList<>();
 
 
     public static MomData mappingMomData(Object[] objects) {
@@ -56,31 +56,31 @@ public class MomData {
         momData.setImg(ENCODER.encodeToString(((byte[]) objects[12])));
         momData.setDistrict((String) objects[13]);
 
-        String bodyType1 = momData.getBodyType1();
-        String bodyType2 = momData.getBodyType2();
-        String bodyType3 = momData.getBodyType3();
-        String bodyType4 = momData.getBodyType4();
+//        String bodyType1 = momData.getBodyType1();
+//        String bodyType2 = momData.getBodyType2();
+//        String bodyType3 = momData.getBodyType3();
+//        String bodyType4 = momData.getBodyType4();
+//
+//        Integer proPrice1 = momData.getProPrice1();
+//        Integer proPrice2 = momData.getProPrice2();
+//        Integer proPrice3 = momData.getProPrice3();
 
-        Integer proPrice1 = momData.getProPrice1();
-        Integer proPrice2 = momData.getProPrice2();
-        Integer proPrice3 = momData.getProPrice3();
+//        List<Object> bodyTypeList = momData.getBodyTypeList();
+//        List<Object> proPriceList = momData.getProPriceList();
 
-        List<Object> bodyTypeList = momData.getBodyTypeList();
-        List<Object> proPriceList = momData.getProPriceList();
-
-        filterList(bodyTypeList, bodyType1, bodyType2, bodyType3, bodyType4);
-        filterList(proPriceList,  proPrice1,  proPrice2,  proPrice3);
+//        filterList(bodyTypeList, bodyType1, bodyType2, bodyType3, bodyType4);
+//        filterList(proPriceList,  proPrice1,  proPrice2,  proPrice3);
 
         return momData;
     }
 
-    private static void filterList(List<Object> list, Object... objects) {
-        for (Object o : objects) {
-            if (o != null) {
-                list.add(o);
-            }
-        }
-    }
+//    private static void filterList(List<Object> list, Object... objects) {
+//        for (Object o : objects) {
+//            if (o != null) {
+//                list.add(o);
+//            }
+//        }
+//    }
 
     public static MomData mappingOrderData(Object[] objects) {
         MomData orderData = new MomData();
@@ -104,20 +104,20 @@ public class MomData {
         orderData.setExperience((Integer) objects[17]);
         orderData.setPetContent((String) objects[18]);
 
-        String bodyType1 = orderData.getBodyType1();
-        String bodyType2 = orderData.getBodyType2();
-        String bodyType3 = orderData.getBodyType3();
-        String bodyType4 = orderData.getBodyType4();
-
-        Integer proPrice1 = orderData.getProPrice1();
-        Integer proPrice2 = orderData.getProPrice2();
-        Integer proPrice3 = orderData.getProPrice3();
+//        String bodyType1 = orderData.getBodyType1();
+//        String bodyType2 = orderData.getBodyType2();
+//        String bodyType3 = orderData.getBodyType3();
+//        String bodyType4 = orderData.getBodyType4();
+//
+//        Integer proPrice1 = orderData.getProPrice1();
+//        Integer proPrice2 = orderData.getProPrice2();
+//        Integer proPrice3 = orderData.getProPrice3();
         
-        List<Object> bodyTypeList = orderData.getBodyTypeList();
-        List<Object> proPriceList = orderData.getProPriceList();
+//        List<Object> bodyTypeList = orderData.getBodyTypeList();
+//        List<Object> proPriceList = orderData.getProPriceList();
 
-        filterList(bodyTypeList, bodyType1, bodyType2, bodyType3, bodyType4);
-        filterList(proPriceList,  proPrice1,  proPrice2,  proPrice3);
+//        filterList(bodyTypeList, bodyType1, bodyType2, bodyType3, bodyType4);
+//        filterList(proPriceList,  proPrice1,  proPrice2,  proPrice3);
 
         return orderData;
     }

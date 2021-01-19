@@ -4,6 +4,7 @@ import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.PageableMomDataRes;
 import com.web.pet.mom.service.MomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
 import java.sql.Blob;
-import java.util.List;
 
 /**
  * @author i19
@@ -48,8 +48,9 @@ public class MomServiceImpl implements MomService {
     }
 
     @Override
-    public List<MomData> getAllMoms(String country, String title) {
-        return petMomDAO.getAllMoms(country, title);
+    public PageableMomDataRes getAllMoms(String country, String title, Integer currPage, Integer pageSize) {
+
+        return petMomDAO.getAllMoms(country, title, currPage, pageSize);
     }
 
 

@@ -2,9 +2,8 @@ package com.web.pet.mom.service;
 
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.PageableMomDataRes;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 /**
  * @author i19
@@ -24,9 +23,11 @@ public interface MomService {
      * 取得首頁資料
      * @param country
      * @param title
+     * @param currPage
+     * @param pageSize
      * @return
      */
-    List<MomData> getAllMoms(String country, String title);
+    PageableMomDataRes getAllMoms(String country, String title, Integer currPage, Integer pageSize);
 
 
     /**

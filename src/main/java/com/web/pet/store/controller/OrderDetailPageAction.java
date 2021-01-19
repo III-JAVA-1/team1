@@ -78,10 +78,10 @@ public class OrderDetailPageAction {
                 // 組出購買項目HTML
                 stringBuilder
                         .append("<tr>\n")
-                        .append("<td><img src=\"")
+                        .append("<td style='width: 150px'><img src=\"")
                         .append(img)
                         .append("\" width=\"150px\" height=\"150px\"></td>\n")
-                        .append("<td style=\"vertical-align:middle\">")
+                        .append("<td style=\"vertical-align:middle; max-width:30vw;\">")
                         .append(productName)
                         .append("</td>\n")
                         .append("<td style=\"vertical-align:middle\" class=\"item-count\">$")

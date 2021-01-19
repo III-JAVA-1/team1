@@ -2,8 +2,7 @@ package com.web.pet.mom.dao;
 
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
-
-import java.util.List;
+import com.web.pet.mom.model.res.PageableMomDataRes;
 
 /**
  * @author i19
@@ -35,9 +34,11 @@ public interface PetMomDAO {
      * 由標題或城市查詢
      * @param country
      * @param title
+     * @param currPage
+     * @param pageSize
      * @return
      */
-    List<MomData> getAllMoms(String country, String title);
+    PageableMomDataRes getAllMoms(String country, String title, Integer currPage, Integer pageSize);
 
 
     /**

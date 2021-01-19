@@ -1,13 +1,9 @@
 package com.web.pet.mom.controller;
 
-import com.web.pet.member.model.Member;
-import com.web.pet.mom.Exeption.CommentIsSameOrderException;
 import com.web.pet.mom.Exeption.OrderIsSameMomException;
 import com.web.pet.mom.model.req.OrderCommentReq;
 import com.web.pet.mom.service.PetMomOrderCommentService;
 import lombok.AllArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,15 +34,18 @@ public class PetMomOrderCommentController {
             request.setCharacterEncoding(CHARSET_CODE);
             response.setContentType(CONTENT_TYPE);
 
-//            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
-            Integer uId = 3;
-//            Integer momId = req.getMomId();
-            Integer momId = 1;
-//            Integer orderId = req.getOrderId();
-            Integer orderId = 23;
+//            Integer uId =1;
+            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());;
+
+//            Integer momId = 2;
+            Integer momId = req.getMomId();
+
+//            Integer orderId =28;
+            Integer orderId = req.getOrderId();
+
             petMomOrderCommentService.insertComment(req, uId, momId, orderId);
 
-        } catch (OrderIsSameMomException | CommentIsSameOrderException e) {
+        } catch (OrderIsSameMomException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }

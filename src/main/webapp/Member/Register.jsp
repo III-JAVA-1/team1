@@ -13,14 +13,6 @@
 	crossorigin="anonymous">
 <title>AccompanyMe</title>
 <style>
-	body{
-		background-image: url("image/background.jpg");
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-	.container{
-	background-color: gray;
-	}
 </style>
 <div class="twzipcode"></div><!--弄地址的-->
 </head>

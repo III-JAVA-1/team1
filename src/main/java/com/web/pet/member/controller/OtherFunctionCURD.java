@@ -211,45 +211,13 @@ public class OtherFunctionCURD {
 	}
 	
 	@RequestMapping("/momorderaccept")//會員保母訂單接受寄信並修改訂單狀態
-	public void orderacceptController(Integer oid,HttpServletResponse response) throws IOException, AddressException, MessagingException {
-		response.setContentType(CONTENT_TYPE);
-		PrintWriter out = response.getWriter();
+	@ResponseBody
+	public Integer orderacceptController(Integer oid) throws IOException, AddressException, MessagingException {
 		PetMomOrder petMomOrder = otherFunctionService.momorderacceptService(oid);
-		petMomOrder.setStatus("接受");
 		String email = petMomOrder.getMember().getEmail();
 		String message = "您預約保母服務: "+petMomOrder.getMom().getTitle()+" 保母已接受此次預約<br>有任何問題歡迎來信告知，謝謝";
-		if(otherFunctionService.momorderaccepteditService(petMomOrder)>0) {
-			MailUtils.sendMail(email,message);
-			out.print("<html><body>");
-			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-			out.print("<script>");
-			out.print("Swal.fire({\r\n"
-                    + "  icon: 'success',\r\n"
-                    + "  title: '接受成功，已寄信通知預約者',\r\n"
-                    + "  showConfirmButton: false,\r\n"
-                    + "  timer: 1500\r\n"
-                    + "}).then((result) => {\r\n"
-                    + "window.location.href='../Member/Momorder.jsp';\r\n"
-                    + "})");
-			out.print("</script>");
-			out.print("</html></body>");
-		}else {
-			out.print("<html><body>");
-			out.print("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>");
-			out.print("<script>");
-			out.print("Swal.fire({\r\n"
-                    + "  icon: 'error',\r\n"
-                    + "  title: '接受失敗',\r\n"
-                    + "  showConfirmButton: false,\r\n"
-                    + "  timer: 1500\r\n"
-                    + "}).then((result) => {\r\n"
-                    + "window.location.href='../Member/Momorder.jsp';\r\n"
-                    + "})");
-			out.print("</script>");
-			out.print("</html></body>");
-		}
-		
-		out.close();
+		MailUtils.sendMail(email,message);
+		return otherFunctionService.momorderaccepteditService(oid);
 	}
 	
 	@RequestMapping("/rejectmomorder")//預約拒絕並修改訂單狀態

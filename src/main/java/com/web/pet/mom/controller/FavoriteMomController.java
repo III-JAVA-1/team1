@@ -25,7 +25,7 @@ public class FavoriteMomController {
     private final FavoriteMomService favoriteMomService;
 
     @RequestMapping("/favorite")
-    public void insertFavoriteMom(FavoriteMomReq req, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public boolean insertFavoriteMom(FavoriteMomReq req, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
         request.setCharacterEncoding(CHARSET_CODE);
         response.setContentType(CONTENT_TYPE);
@@ -37,10 +37,14 @@ public class FavoriteMomController {
 //            Integer momId = 3;
 
             favoriteMomService.insertFavoriteMom(req, uId, momId);
+
+            return true;
         } catch (FavoriteSameMomException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return false;
         }
+
 
     }
 

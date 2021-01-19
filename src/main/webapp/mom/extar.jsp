@@ -183,6 +183,8 @@
                 <span id="page"></span>
                 <span id="pageB"></span>
             </ul>
+
+            <input type="hidden" id="pageValue" />
         </div>
 
         <div class="col-md-4">
@@ -209,7 +211,7 @@
             cancelButtonText: '我不要登入'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "../mom/comment.jsp"
+                window.location.href = "../Member/Login.jsp"
             }
 
         });

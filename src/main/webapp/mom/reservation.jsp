@@ -291,7 +291,8 @@
         css: ["city form-control", "town form-control"],
         countyName: "country", // 自訂城市 select 標籤的 name 值
         districtName: "district", // 自訂地區 select 標籤的 name 值
-
+        countySel : "桃園市",
+        districtSel : "蘆竹區"
     });
 </script>
 

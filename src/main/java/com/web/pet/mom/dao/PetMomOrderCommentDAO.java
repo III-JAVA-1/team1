@@ -31,14 +31,14 @@ public interface PetMomOrderCommentDAO {
      * @param uId
      * @return
      */
-    List<OrderCommentReq> searchOrderComment(int uId);
+//    List<OrderCommentReq> searchOrderComment(int uId);
 
     /**
      * 更新訂單評論
      * @param petMomOrderComment
      * @return
      */
-    int updateOrderComment(PetMomOrderComment petMomOrderComment);
+//    int updateOrderComment(PetMomOrderComment petMomOrderComment);
 
     /**
      * 刪除訂單評論

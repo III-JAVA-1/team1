@@ -4,15 +4,14 @@ import com.web.pet.mom.Exeption.OrderIsSameMomException;
 import com.web.pet.mom.model.req.OrderCommentReq;
 import com.web.pet.mom.service.PetMomOrderCommentService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import static com.web.pet.mom.config.MomConstant.CHARSET_CODE;
 import static com.web.pet.mom.config.MomConstant.CONTENT_TYPE;
@@ -29,13 +28,13 @@ public class PetMomOrderCommentController {
     private final PetMomOrderCommentService petMomOrderCommentService;
 
     @PostMapping(value = "/comment", produces = "application/json; charset=utf-8")
-    public void comment(@RequestBody OrderCommentReq req, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public void comment(@ModelAttribute OrderCommentReq req, HttpServletResponse response, HttpServletRequest request) throws IOException {
         try {
             request.setCharacterEncoding(CHARSET_CODE);
             response.setContentType(CONTENT_TYPE);
 
 //            Integer uId =1;
-            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());;
+            Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
 
 //            Integer momId = 2;
             Integer momId = req.getMomId();
@@ -52,10 +51,10 @@ public class PetMomOrderCommentController {
 
     }
 
-    @RequestMapping(value = "showComment")
-    public List<OrderCommentReq> searchComment(int uId) {
-        return petMomOrderCommentService.searchComment(uId);
-    }
+//    @RequestMapping(value = "showComment")
+//    public List<OrderCommentReq> searchComment(int uId) {
+//        return petMomOrderCommentService.searchComment(uId);
+//    }
 }
 
 

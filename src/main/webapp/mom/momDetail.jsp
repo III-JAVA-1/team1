@@ -78,7 +78,7 @@
 
         <div class="col-md-8">
 
-            <div  id="pic"><!-- 圖片--></div>
+            <div  id="momPic"><!-- 圖片--></div>
             <div class="st3"></div>
 
             <div class="st4"><h4>家長的話</h4>
@@ -110,7 +110,7 @@
 
         <div class="col-md-4">
             <div id="title"></div>
-            <div class="st2" id="momPic"></div> <!-- 預約-->
+            <div class="st2" id="pic"></div> <!-- 預約-->
 
             <div class="row">
                 <div class="col-md-3" id="reservation"></div>
@@ -158,8 +158,8 @@
             },
             success: function (data) {
                 $("#title").html("<b style='font-size: 150%'>"+data.title+"</b>")
-                $("#pic").html(" <img src='data:image/png;base64,"+data.pic+"' style='width:720px; height:500px;'/>")
-                $("#momPic").html(" <img src='data:image/png;base64,"+data.img+"' style='width:350px; height:300px;'/>")
+                $("#momPic").html(" <img src='data:image/png;base64,"+data.pic+"' style='width:720px; height:500px;'/>")
+                $("#pic").html(" <img src='data:image/png;base64,"+data.img+"' style='width:350px; height:300px;'/>")
                 $("#reservation").html("<a href='reservation.jsp?momId="+data.momId+"' style='text-decoration:none;color:white;'><button class='btn btn-secondary' type='button'  onclick='toReservation()'>預約保母</button></a>")
                 $("#favoriteMom").html("<button class='btn btn-secondary' type='button'  onclick='toCollection()'>關注保母</button>")
                 $("#address").html("<h5 style='font-size:20px;margin-bottom:2px;'>"+data.sname+"</h5>"+

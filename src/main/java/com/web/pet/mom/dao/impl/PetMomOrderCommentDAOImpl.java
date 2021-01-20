@@ -26,6 +26,9 @@ public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO{
 
     @Override
     public void insertOrderComment(PetMomOrderComment petMomOrderComment, Integer uId, Integer momId, Integer orderId) { //新增評論
+        if (getCommentByOrderId(orderId) == null){
+            throw new RuntimeException("訂單重複評論");
+        }
         Session session = sessionFactory.getCurrentSession();
         petMomOrderComment.setMom(session.get(Mom.class, momId));
         petMomOrderComment.setMember(session.get(Member.class, uId));
@@ -39,23 +42,23 @@ public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO{
     }
 
 
-    @Override
-    public List<OrderCommentReq> searchOrderComment(int uId) { //查詢評論
-
-        String hql = "FROM PetMomOrderComment WHERE momId = :uId";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("momId", uId);
-        return query.getResultList();
-
-    }
-
-    @Override
-    public int updateOrderComment(PetMomOrderComment petMomOrderComment) {//修改評論
-        int count = 0;
-        Session session = sessionFactory.getCurrentSession();
-        session.update(petMomOrderComment);
-        count++;
-        return count;
-    }
+//    @Override
+//    public List<OrderCommentReq> searchOrderComment(int uId) { //查詢評論
+//
+//        String hql = "FROM PetMomOrderComment WHERE momId = :uId";
+//        Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("momId", uId);
+//        return query.getResultList();
+//
+//    }
+//
+//    @Override
+//    public int updateOrderComment(PetMomOrderComment petMomOrderComment) {//修改評論
+//        int count = 0;
+//        Session session = sessionFactory.getCurrentSession();
+//        session.update(petMomOrderComment);
+//        count++;
+//        return count;
+//    }
 
     @Override
     public int deleteOrderComment(PetMomOrderComment petMomOrderComment) {//刪除評論

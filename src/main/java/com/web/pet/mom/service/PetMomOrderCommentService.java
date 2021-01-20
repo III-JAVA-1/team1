@@ -24,19 +24,19 @@ public interface PetMomOrderCommentService {
      * @param uId
      * @return
      */
-    List<OrderCommentReq> searchComment(int uId);
+//    List<OrderCommentReq> searchComment(int uId);
 
     /**
      * 新增評論
      * @param petMomOrderComment
      * @return
      */
-    int updateOrderComment(PetMomOrderComment petMomOrderComment);
+//    int updateOrderComment(PetMomOrderComment petMomOrderComment);
 
     /**
      * 修改評論
      * @param petMomOrderComment
      * @return
      */
-    int deleteOrderComment(PetMomOrderComment petMomOrderComment);
+//    int deleteOrderComment(PetMomOrderComment petMomOrderComment);
 }

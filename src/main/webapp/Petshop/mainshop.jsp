@@ -154,18 +154,18 @@ $.ajax({
 		$.each(data,function(i,n){
 			if(i>=0&&i<12){
 				if(n.type=="美容店"){
-					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+					$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 				  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' style='width:100%;height:200px;' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
 				    		"<p class='card-text'>"+n.address+"</p>"+
 				    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 				    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-				    		"<button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary'>預約服務</button>"+
-				    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</button>"+
+				    		"<p><button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary m-1'>預約服務</button>"+
+				    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</button></p>"+
 				  			"</div></div>");
 				}else{
-					$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+					$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 				  			"<img src='"+n.image+"' onerror='imageerror(this)' style='width:100%;height:200px;' class='card-img-top' alt='沒有圖片'>"+
 				  			"<div class='card-body'>"+
 				    		"<h5 class='card-title'>"+n.name+"</h5>"+
@@ -202,18 +202,18 @@ function search(){
 			$.each(data,function(i,n){
 				if(i>=0&&i<12){
 					if(n.type=="美容店"){
-						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+						$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' style='width:100%;height:200px;' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-					    		"<button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary'>預約服務</button>"+
+					    		"<button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary m-1'>預約服務</button>"+
 					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</button>"+
 					  			"</div></div>");
 					}else{
-						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+						$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 					  			"<img src='"+n.image+"' onerror='imageerror(this)' style='width:100%;height:200px;' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
@@ -255,18 +255,18 @@ function pagechange(page){
 			$.each(data,function(i,n){
 				if(i+1>=$(page).val()*12-12+1&&i+1<=$(page).val()*12){
 					if(n.type=="美容店"){
-						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+						$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 					  			"<img src='"+n.image+"' onerror='imageerror(this)' class='card-img-top' style='width:100%;height:200px;' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+
 					    		"<p class='card-text'>"+n.address+"</p>"+
 					    		"<p class='card-text'>服務寵物:&nbsp"+n.pet+"</p>"+
 					    		"<p class='card-text'>"+n.phone+"</p><hr>"+
-					    		"<button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary'>預約服務</button>"+
+					    		"<button onclick='logincheck(this)' value='"+n.name+"' class='btn btn-primary m-1'>預約服務</button>"+
 					    		"<button onclick='addressdisplay(this)' value='"+n.address+","+n.name+"' class='btn btn-warning'>地圖顯示</button>"+
 					  			"</div></div>");
 					}else{
-						$("#shop").append("<div class='card m-3' style='width: 15rem;'>"+
+						$("#shop").append("<div class='card m-1' style='width: 16rem;'>"+
 					  			"<img src='"+n.image+"' onerror='imageerror(this)' style='width:100%;height:200px;' class='card-img-top' alt='沒有圖片'>"+
 					  			"<div class='card-body'>"+
 					    		"<h5 class='card-title'>"+n.name+"</h5>"+

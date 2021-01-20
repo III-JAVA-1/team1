@@ -12,7 +12,8 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-	
+<link href="../css/chat.css" rel="stylesheet">
+
 	<%
     String path = request.getContextPath();
     String basePath = request.getServerName() + ":"
@@ -36,122 +37,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	.functioncard img:hover{
 		transform:scale(1.2,1.2);
 	}
-	
-	textarea {
-    height: 300px;
-    width: 100%;
-    resize: none;
-    outline: none;
-}
- 
-input[type=button] {
-    float: right;
-    margin: 5px;
-    width: 50px;
-    height: 35px;
-    border: none;
-    color: white;
-    font-weight: bold;
-    outline: none;
-}
- 
-.clear {
-    background: red;
-}
- 
-.send {
-    background: green;
-}
- 
-.clear:active {
-    background: yellow;
-}
- 
-.send:active {
-    background: yellow;
-}
- 
-.msg {
-    width: 100%;
-    height: 25px;
-    outline: none;
-}
- 
-#content {
-    border: 1px solid gray;
-    width: 100%;
-    height: 400px;
-    overflow-y: scroll;
-}
- 
-.from {
-    background-color: green;
-    width: 80%;
-    border-radius: 10px;
-    height: 30px;
-    line-height: 30px;
-    margin: 5px;
-    float: left;
-    color: white;
-    padding: 5px;
-    font-size: 22px;
-}
- 
-.to {
-    background-color: gray;
-    width: 80%;
-    border-radius: 10px;
-    height: 30px;
-    line-height: 30px;
-    margin: 5px;
-    float: right;
-    color: white;
-    padding: 5px;
-    font-size: 22px;
-}
- 
-.name {
-    color: gray;
-    font-size: 12px;
-}
- 
-.tmsg_text {
-    color: white;
-    background-color: rgb(47, 47, 47);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.fmsg_text {
-    color: white;
-    background-color: rgb(66, 138, 140);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.sfmsg_text {
-    color: white;
-    background-color: rgb(148, 16, 16);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.tmsg {
-    clear: both;
-    float: right;
-    width: 80%;
-    text-align: right;
-}
- 
-.fmsg {
-    clear: both;
-    float: left;
-    width: 80%;
-}
-	
 </style>
 </head>
 <body>

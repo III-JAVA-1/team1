@@ -13,7 +13,7 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
           crossorigin="anonymous">
     <link href="../Admin/css/store.css" rel="stylesheet">
-
+	<link href="../Admin/css/Adminchart.css" rel="stylesheet">
     <%
         String basePath = request.getScheme() + "://" +
                 request.getServerName() + ":" + request.getServerPort() +
@@ -37,27 +37,21 @@
 
 <%-- 	<c:url value='../Store/?memberId=admin'/> --%>
 
-<div class="container">
-
-
-    <div class="all-chart-div d-flex flex-wrap align-items-start">
-        <div class="d-flex justify-content-start">
-            <div class="row justify-content-center chart-div">
-                <div class='h3'>本月銷售商品種類排行</div>
-                <canvas id="storesales" width="100" height="50"></canvas>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-end">
-            <div class="row justify-content-center chart-div">
-                <div class='h3'>本月銷售業績</div>
-                <canvas id="sales" width="100" height="50"></canvas>
-            </div>
-        </div>
-    </div>
+      <div class="row mainarea">
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center h1">本月銷售商品種類排行</div>
+		<canvas id="storesales" width="100" height="60"></canvas>
+		</div>
+		
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center h1">本月銷售業績</div>
+		<canvas id="sales" width="100" height="60"></canvas>
+		</div>
+	 </div>
     <br>
     <hr>
-
+    
+<div class="container detailtable">
     <!-- 搜尋框 -->
     <div class="input-group mb-3 align-self-center my-searchbar">
         <input type="text" class="form-control" placeholder="請輸入商品名稱" aria-label="Recipient's username"

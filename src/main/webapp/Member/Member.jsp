@@ -93,7 +93,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   				<div class="row justify-content-center">
   				<p class="h5">請選擇照片:&nbsp&nbsp</p>
   				<form action="../Gusty/upload" method="post" enctype="multipart/form-data">
-    				<input type="file" name="image">
+    				<input type="file" id='changeimg' name="image">
     				<input type="submit" value="確定上傳">
     			</form>
   				</div><br>
@@ -705,6 +705,20 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$("#editbutton").attr('disabled', false);
 		}
 	}
+	
+	$("#changeimg").change(function(){
+	      //當檔案改變後，做一些事 
+	     readURL(this);   // this代表<input id="imgInp">
+	   });
+	function readURL(input){
+		  if(input.files && input.files[0]){
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		       $("#photo").attr('src', e.target.result);
+		    }
+		    reader.readAsDataURL(input.files[0]);
+		  }
+		}
 	</script>
 
 </body>

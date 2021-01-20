@@ -13,6 +13,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
+<link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
 <style>
 #gotop {
@@ -43,25 +44,25 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		</div>
   		</div>
 	</nav><br>
-
-	<div class="container">
-	
-		<div class="row justify-content-center">
-		<div class='h1 '>本月文章發起熱度</div>
+		<div class='row mainarea'>
+		<div class="col-12 secondarea">
+		<div class='h1'>本月文章發起熱度</div>
 		<canvas id="hottime" width="100" height="30"></canvas>
-		</div><br>
+		</div></div><br>
 		
-		<div class="row">
-		<div class="col-6">
+		<div class="row mainarea">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">本月文章點閱率TOP3</div>
-		<canvas id="clickamount" width="50" height="30"></canvas>
+		<canvas id="clickamount" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">文章類型比例</div>
-		<canvas id="articletype" width="50" height="30"></canvas>
+		<canvas id="articletype" width="100" height="60"></canvas>
 		</div>
 		</div><br>
+		
+		<div class="detailtable">
 
 		<div class="row justify-content-center display-4">
 			文章總覽
@@ -80,8 +81,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col">文章點閱率</th>
       			<th scope="col">發文者暱稱</th>
       			<th scope="col">發文時間</th>
-      			<th scope="col">留言數</th>
-      			<th scope="col">操作</th></tr>
+      			<th scope="col" style='width:80px;' >留言數</th>
+      			<th scope="col" style='width:50px;'>操作</th></tr>
   			</thead>
   			<tbody id="articletable">
   			</tbody>
@@ -344,7 +345,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     	//alert(aid);
     	Swal.fire({
   		  	title: '文章名稱:<div id="mainname"></div>',
-  		  	html:"<div id='content'></div>",
+  		  	html:"<div id='content' style='text-align:left;'></div>",
 			width: '1000px',
   		confirmButtonText: '確定'
   		})

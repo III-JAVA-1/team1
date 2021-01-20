@@ -1,0 +1,23 @@
+body{
+    background-color: #F0F0F0;
+}
+.mainarea{
+   	width:80%;
+   	margin:auto;
+   	padding:5px;
+}
+.secondarea{
+    background-color:#FFFFFF;
+    box-shadow:3px 3px 5px 6px #cccccc; 
+    border:solid 5px #2894FF;
+    margin:auto;
+    padding:30px;
+}
+.detailtable{
+	width:80%;
+	margin:auto;
+	background-color: #FFFFFF;
+	box-shadow:3px 3px 5px 6px #cccccc;
+	border:solid 2px #FBFBFF;
+	padding:10px;
+}

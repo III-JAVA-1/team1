@@ -14,6 +14,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">	
+<link href="../Admin/css/Adminchart.css" rel="stylesheet">
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -23,6 +24,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <title>AccompanyMe</title>
 <style>
+body{
+    background-color: #F0F0F0;
+}
 #gotop {
 		width:65px;
 		height:65px;
@@ -53,33 +57,25 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	</nav>
 
 	<br>
-	
-	<div class="container">
 		
-		<div class="row" style="box-shadow:8px 8px 9px 10px #cccccc;">
+		<div class="row mainarea">
 		
-		<div class="col-6" style="border:5px black solid;padding:20px;background-color:	#84C1FF;">
-		<div class="row justify-content-center">
-		<h1>會員男女比例</h1>
-		</div>
-		<canvas id="boyandgirl" >
-		</canvas>
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center"><h1>會員男女比例</h1></div>
+		<canvas id="boyandgirl" width="100" height="60" ></canvas>
 		</div>
 		
-		<div class="col-6" style="border:5px black solid;padding:20px;background-color:yellow;">
-		<div class="row justify-content-center">
-		<h1>會員年齡比例</h1>
-		</div>
-		<canvas id="age" >
-		</canvas>
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center"><h1>會員年齡比例</h1></div>
+		<canvas id="age" width="100" height="60" ></canvas>
 		</div>
 		
 		</div><br>
-		
-		<div class="col">
+	
+		<div class="col detailtable">
 		
 		<div class="row justify-content-center">
-			<h1>全部會員資料</h1>
+			<h1 class='display-4'>全部會員資料</h1>
 		</div>
 		<div class="row justify-content-center">
 			<h4 id="count"></h4>
@@ -89,11 +85,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		<thead class="h4" style="background-color:#D200D2;">
     		<tr>
       			<th scope="col">編號</th>
-      			<th scope="col" style="width:110px;height:90px;">大頭貼</th>
-      			<th scope="col" style='width:70px;'>姓名</th>
+      			<th scope="col">大頭貼</th>
+      			<th scope="col">姓名</th>
       			<th scope="col">手機</th>
-      			<th scope="col" style='width:120px;'>電子郵件</th>
-      			<th scope="col" style='width:50px;'>暱稱</th>
+      			<th scope="col">電子郵件</th>
+      			<th scope="col">暱稱</th>
       			<th scope="col">地址</th>
       			<th scope="col">停權</th>
     		</tr>
@@ -108,8 +104,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</div>
 		
 		</div>
-		
-	</div>
 	
 	<div id="gotop">
 	</div>

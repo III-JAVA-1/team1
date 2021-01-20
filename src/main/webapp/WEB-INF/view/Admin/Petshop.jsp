@@ -14,7 +14,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	crossorigin="anonymous">
 <link href="../Admin/css/style.css" rel="stylesheet" media="screen">
 <link href="../Admin/css/mobile-style.css" rel="stylesheet" media="screen">
-	
+<link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
 <style>
 #gotop {
@@ -45,22 +45,22 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		</div>
   		</div>
 	</nav><br>
-
-	<div class="container">
 		
-		<div class="row">
-		<div class="col-6">
+		<div class="row mainarea">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">本月店面預約熱度</div>
-		<canvas id="petshophot" width="50" height="30"></canvas>
+		<canvas id="petshophot" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">本月預約店家Top3</div>
-		<canvas id="petshoptop3" width="50" height="30"></canvas>
+		<canvas id="petshoptop3" width="100" height="60"></canvas>
 		</div>
-		</div><br>
+	 	</div><br>
+	 	
+	 <div class="detailtable">
 		
-		<div class='col' id='addshop' style='border: 5px #B766AD ridge; display:none'>
+		<div class='col collapse' id='addshop' style='border: 5px #B766AD ridge;'>
 		
 		<div class="row justify-content-center display-4">新增商店</div><br>
 		
@@ -124,8 +124,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</div><br>
 	
 		<div class="row justify-content-center h4">
-		<button type="button" onclick='addshow()' class="btn btn-info" style='height:40px;'>新增店家</button>
-		&nbsp&nbsp店家名稱關鍵字搜尋<input type="text" class = 'form-group' name="search" id="search">
+		<button type="button" onclick='addshow()' class="btn btn-info" style='height:40px;' data-toggle="collapse" data-target="#addshop" aria-expanded="false" aria-controls="addshop">新增店家</button>
+		&nbsp&nbsp店家名稱關鍵字搜尋&nbsp&nbsp<input type="text" class = 'form-group' name="search" id="search">
 		<p id='petshopcount'></p>
 		</div>
 		
@@ -265,8 +265,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             },
     		success:function(data){
     			$.each(data,function(i,n){
-    				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-    	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+    				$("#allstore").append("<div class='card m-3' style='width: 20rem;'>"+
+    	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:250px;border:2px #796400 solid;'>"+
     	  			"<div class='card-body'>"+
     	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
     	    		"<p class='card-text'>"+n[2]+"</p>"+
@@ -299,8 +299,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			}
 			$.each(data,function(i,n){	
 				if(i>=12){return false;}
-				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+				$("#allstore").append("<div class='card m-3' style='width: 20rem;'>"+
+	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top noimg' alt='' style='width:100%;height:250px;border:2px #796400 solid;'>"+
 	  			"<div class='card-body'>"+
 	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
 	    		"<p class='card-text'>"+n[2]+"</p>"+
@@ -327,8 +327,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
             },
     		success:function(data){
     			$.each(data,function(i,n){
-    				$("#allstore").append("<div class='card m-3' style='width: 15rem;'>"+
-    	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top' alt='' style='width:100%;height:200px;border:2px #796400 solid;'>"+
+    				$("#allstore").append("<div class='card m-3' style='width:20rem;'>"+
+    	  			"<img src='"+n[6]+"' id='photo' onerror='findimg(this)' class='card-img-top' alt='' style='width:100%;height:250px;border:2px #796400 solid;'>"+
     	  			"<div class='card-body'>"+
     	  			"<h5 class='card-title'>"+n[1]+"</h5>"+
     	    		"<p class='card-text'>"+n[2]+"</p>"+
@@ -411,17 +411,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		$(replaceimg).attr("src","../Admin/image/photo.png")
     	}
     	
-    }
-    
-    let add=0;
-    function addshow(){
-    	if(add==0){
-    		$("#addshop").css("display","");
-    		add=1;
-    	}else{
-    		$("#addshop").css("display","none");
-    		add=0;    	
-    	}
     }
     
     var petshoptop3name=[]//top3名稱

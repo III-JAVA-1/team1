@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--bootstrap初始規模-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
+<link href="css/chat.css" rel="stylesheet">
 <%
     String path = request.getContextPath();
     String basePath = request.getServerName() + ":"
@@ -54,121 +54,6 @@
     	cursor: pointer;
     	z-index: 2000;
 	}
-	
-	textarea {
-    height: 300px;
-    width: 100%;
-    resize: none;
-    outline: none;
-}
- 
-input[type=button] {
-    float: right;
-    margin: 5px;
-    width: 50px;
-    height: 35px;
-    border: none;
-    color: white;
-    font-weight: bold;
-    outline: none;
-}
- 
-.clear {
-    background: red;
-}
- 
-.send {
-    background: green;
-}
- 
-.clear:active {
-    background: yellow;
-}
- 
-.send:active {
-    background: yellow;
-}
- 
-.msg {
-    width: 100%;
-    height: 25px;
-    outline: none;
-}
- 
-#content {
-    border: 1px solid gray;
-    width: 100%;
-    height: 400px;
-    overflow-y: scroll;
-}
- 
-.from {
-    background-color: green;
-    width: 80%;
-    border-radius: 10px;
-    height: 30px;
-    line-height: 30px;
-    margin: 5px;
-    float: left;
-    color: white;
-    padding: 5px;
-    font-size: 22px;
-}
- 
-.to {
-    background-color: gray;
-    width: 80%;
-    border-radius: 10px;
-    height: 30px;
-    line-height: 30px;
-    margin: 5px;
-    float: right;
-    color: white;
-    padding: 5px;
-    font-size: 22px;
-}
- 
-.name {
-    color: gray;
-    font-size: 12px;
-}
- 
-.tmsg_text {
-    color: white;
-    background-color: rgb(47, 47, 47);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.fmsg_text {
-    color: white;
-    background-color: rgb(66, 138, 140);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.sfmsg_text {
-    color: white;
-    background-color: rgb(148, 16, 16);
-    font-size: 18px;
-    border-radius: 5px;
-    padding: 2px;
-}
- 
-.tmsg {
-    clear: both;
-    float: right;
-    width: 80%;
-    text-align: right;
-}
- 
-.fmsg {
-    clear: both;
-    float: left;
-    width: 80%;
-}
 
 </style>
 
@@ -453,7 +338,7 @@ input[type=button] {
 		dataType:"json",
 		success:function(data){
 			$.each(data,function(i,n){
-				$("#indexactive").append("<div class='card m-2' style='width: 15rem;'>"+
+				$("#indexactive").append("<div class='card m-2' style='width: 18rem;'>"+
 	  			"<img src='<c:url value='Gusty/getactiveimg2?act_no="+n[2]+"'/>' class='card-img-top' alt='' style='height:200px;'>"+
 	  			"<div class='card-body'>"+
 	    			"<h5 class='card-title'>"+n[0]+"</h5>"+
@@ -477,7 +362,7 @@ input[type=button] {
 					if(i==0||shopname!=n[0]){
 						shopname=n[0];xx=xx+1;
 						if(xx>4){return false;}
-						$("#indexshop").append("<div class='card m-2' style='width: 15rem;'>"+
+						$("#indexshop").append("<div class='card m-2' style='width: 18rem;'>"+
 					  			"<img src='"+n[2]+"' class='card-img-top border border-dark border-2'>"+
 					  			"<div class='card-body'>"+
 					  			"<h2 id='"+n[3]+"'></h2><hr>"+

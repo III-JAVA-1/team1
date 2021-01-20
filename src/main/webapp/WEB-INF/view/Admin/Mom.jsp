@@ -14,7 +14,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-
+<link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <%
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 		+ request.getContextPath() + "/";
@@ -52,21 +52,21 @@
 	</nav>
 
 	<br>
-
-	<div class="container">
 	
-	<div class="row justify-content-center">
-		<div class="col-6">
+	<div class="row mainarea">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">本月保母預約數量</div>
 		<canvas id="momhot" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6">
+		<div class="col-5 secondarea">
 		<div class="row justify-content-center h1">本月保母接單Top3</div>
 		<canvas id="momtop3" width="100" height="60"></canvas>
 		</div>
 	</div><br>
-
+	
+	<div class="detailtable">
+	
 		<div class="col">
 
 			<div class="row justify-content-center">
@@ -80,12 +80,12 @@
 				<thead class="h4" style="background-color:#ECFFFF;">
 					<tr>
 						<th scope="col">編號</th>
-						<th scope="col" style="width: 100px; height: 50px;">環境照片</th>
+						<th scope="col">環境照片</th>
 						<th scope="col">服務名稱</th>
 						<th scope="col">年資</th>
 						<th scope="col">注意事項&服務內容</th>
-						<th scope="col" style="width: 150px;">服務項目</th>
-						<th scope="col" style="width: 160px;">服務寵物</th>
+						<th scope="col">服務項目</th>
+						<th scope="col">服務寵物</th>
 						<th scope="col">評價</th>
 						<th scope="col">操作</th>
 					</tr>

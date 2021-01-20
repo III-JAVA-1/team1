@@ -80,13 +80,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center">
 			<Button  type="submit" class="btn btn-primary btn-lg active ml-3" role="button" aria-pressed="true">登錄</Button>
 			<a href="Register.jsp" class="btn btn-success btn-lg active ml-3" role="button" aria-pressed="true">註冊</a>
-			<Button  type="button" onclick="forgetshow()" class="btn btn-danger btn-lg active ml-3" role="button" aria-pressed="true">忘記密碼</Button>
+			<Button  type="button" class="btn btn-danger btn-lg ml-3" data-toggle="collapse" data-target="#forget" aria-expanded="false" aria-controls="forget">忘記密碼</Button>
 			<div class="g-signin2 ml-3" data-onsuccess="onSignIn" onclick="clicked()" data-theme="dark"></div>
 			</div>
 			<br>
 			<div class="row justify-content-center">
 			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=admin'/>"'>管理者</button>
-			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal1'/>"'>一般人</button>
+			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal1'/>"'>小君</button>
 			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=normal2'/>"'>給我用</button>
 			<button type="button" class="btn btn-info m-3" onclick='lock()'>封鎖用</button>
 			<button type="button" class="btn btn-info m-3" onclick='location.href="<c:url value='/Gusty/fastlogin?where=mom1'/>"'>保母用1</button>
@@ -99,7 +99,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			
 		</form>
 		
-		<div id="forget" style="display:none">
+		<div id="forget" class='collapse'>
 		<div class="row justify-content-center h4">
 		忘記密碼
 		</div>
@@ -241,19 +241,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			setCookie(name,null,-1);
 		 }
 	     
-    	let show=0;
-    	function forgetshow(){
-    		jQuery("html,body").animate({
-    	            scrollTop:1000
-    	        },100);
-    		if(show==0){
-    			$("#forget").css("display","");
-    			show=1;
-    		}else{
-    			$("#forget").css("display","none");
-    			show=0;
-    		}
-    	}
+//     	let show=0;
+//     	function forgetshow(){
+//     		jQuery("html,body").animate({
+//     	            scrollTop:1000
+//     	        },100);
+//     		if(show==0){
+//     			$("#forget").css("display","");
+//     			show=1;
+//     		}else{
+//     			$("#forget").css("display","none");
+//     			show=0;
+//     		}
+//     	}
     	
     	function lock(){
     		$("#LoginEmail").val("qwe78889@gmail.com")

@@ -158,7 +158,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					n[2]=""
 				}
 				testid=_uuid();
-				$("#ratetable").append("<tr><th scope='row'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
+				$("#ratetable").append("<tr><th scope='row' style='width:400px;'><a href='<c:url value='../Store/productDetail?id="+n[5]+"&memberId="+n[4]+"'/>'>"+n[0]+"</a></th>"+
 			   			"<td id='"+testid+"'></td>"+
 			   			"<td>"+n[2]+"</td>"+
 			   			"<td>"+n[3]+"</td></tr>");

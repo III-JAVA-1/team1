@@ -13,7 +13,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
-	
+<link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
 <style>
 #gotop {
@@ -44,26 +44,26 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     		</div>
   		</div>
 	</nav><br>
-
-	<div class="container">
 	
-		<div class="row justify-content-center">
-		<div class='h1 '>本月活動發起熱度</div>
+		<div class='row mainarea'>
+		<div class="col-12 secondarea">
+		<div class='h1'>本月活動發起熱度</div>
 		<canvas id="hottime" width="100" height="30"></canvas>
+		</div></div><br>
+		
+		<div class="row mainarea">
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center h1">參加人數TOP3的活動</div>
+		<canvas id="joincount" width="100" height="60"></canvas>
+		</div>
+		
+		<div class="col-5 secondarea">
+		<div class="row justify-content-center h1">活動類型比例</div>
+		<canvas id="activetype" width="100" height="60"></canvas>
+		</div>
 		</div><br>
 		
-		<div class="row">
-		<div class="col-6">
-		<div class="row justify-content-center h1">參加人數TOP3的活動</div>
-		<canvas id="joincount" width="50" height="30"></canvas>
-		</div>
-		
-		<div class="col-6">
-		<div class="row justify-content-center h1">活動類型比例</div>
-		<canvas id="activetype" width="50" height="30"></canvas>
-		</div>
-		</div><br></div>
-		
+		<div class='detailtable'>
 		<div class="row justify-content-center " >
   			<ul class="nav nav-tabs ">
   				<li class="nav-item">
@@ -77,7 +77,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center h4">
 		<div id='total'></div>
 		</div>
-		<div style="width:90%;margin: auto;">
+		<div class='col'>
 		<div class='row'>
 			<div class='col'>
 			<table class="table table-hover table-bordered h4" id='maintable'>
@@ -103,7 +103,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			<div class="row justify-content-center h4" id='tip'>
 			</div>
 			
-		</div></div>
+		</div></div></div>
 		
 	<br>
 
@@ -160,15 +160,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
     						"<td>"+n[1]+"</td>"+
-    						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-    						"<td>"+n[3]+"</td>"+
+    						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td style='width:130px;'>"+n[3]+"</td>"+
     						"<td>"+n[4]+"</td>"+
-    						"<td>"+n[5]+"</td>"+
+    						"<td style='width:80px;'>"+n[5]+"</td>"+
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
     						"<td>"+n[8]+"</td>"+
     						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
-    						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
+    						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>參加人數:&nbsp"+n[11]+"</button></td></tr>");
     			});
     			$('#maintable').DataTable({
     				"language": {
@@ -219,10 +219,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
     						"<td>"+n[1]+"</td>"+
-    						"<td><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-    						"<td>"+n[3]+"</td>"+
+    						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td style='width:130px;'>"+n[3]+"</td>"+
     						"<td>"+n[4]+"</td>"+
-    						"<td>"+n[5]+"</td>"+
+    						"<td style='width:80px;'>"+n[5]+"</td>"+
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
     						"<td>"+n[8]+"</td>"+
@@ -397,15 +397,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$.each(data,function(i,n){				
 				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
 						"<td>"+n[1]+"</td>"+
-						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-						"<td>"+n[3]+"</td>"+
+						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+						"<td style='width:130px;'>"+n[3]+"</td>"+
 						"<td>"+n[4]+"</td>"+
-						"<td>"+n[5]+"</td>"+
+						"<td style='width:80px;'>"+n[5]+"</td>"+
 						"<td>"+n[6]+"</td>"+
 						"<td>"+n[7]+"</td>"+
 						"<td>"+n[8]+"</td>"+
 						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
-						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>目前參加人數"+n[11]+"</button></td></tr>");
+						"<td style='width:80px;'><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>參加人數:&nbsp"+n[11]+"</button></td></tr>");
 			});
 			$('#maintable').DataTable({
 				"language": {

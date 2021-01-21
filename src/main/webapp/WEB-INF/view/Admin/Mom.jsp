@@ -22,29 +22,13 @@
 %>
 
 <title>AccompanyMe</title>
-<style>
-#gotop {
-	width: 65px;
-	height: 65px;
-	position: fixed;
-	border-radius: 50px;
-	right: 20px;
-	bottom: 30px;
-	padding: 10px 16px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-image: url("../Admin/image/up.png");
-	color: white;
-	cursor: pointer;
-	z-index: 1000;
-}
-</style>
+
 </head>
 <body>
 
 	<nav class="navbar navbar-light bg-light display-4">
 		<div class="container-fluid" style="background-color: #81C0C0;">
-			<p class="nav-link mt-2">會員後台</p>
+			<p class="nav-link mt-2">保母管理</p>
 			<div class="d-flex">
 				<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
 			</div>
@@ -54,13 +38,13 @@
 	<br>
 	
 	<div class="row mainarea">
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">本月保母預約熱度</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月保母預約熱度<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="momhot" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">本月保母接單Top3</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月保母接單Top3<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="momtop3" width="100" height="60"></canvas>
 		</div>
 	</div><br>
@@ -107,6 +91,8 @@
 
 	<br>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -386,10 +372,22 @@
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
+                        fontSize: 25,
                         suggestedMin: 0,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -428,7 +426,26 @@
                 borderWidth: 5,
                 pointBorderWidth:'5px',
             }], 
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
     });
   		
   		

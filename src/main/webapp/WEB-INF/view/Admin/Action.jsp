@@ -15,30 +15,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 <link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
-<style>
-#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
 </head>
 <body>
 	
 	<nav class="navbar navbar-light bg-light display-4">
   		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">活動後台</p>
+    		<p class="nav-link mt-2">活動管理</p>
     		<div class="d-flex">
       		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
@@ -46,19 +28,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	</nav><br>
 	
 		<div class='row mainarea'>
-		<div class="col-12 secondarea">
-		<div class='h1'>本月活動發起熱度</div>
+		<div class="col-12 secondarea" onclick='doScreenShot(this)'>
+		<div class='row justify-content-center h1 tooltipp'>本月活動發起熱度<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="hottime" width="100" height="30"></canvas>
 		</div></div><br>
 		
 		<div class="row mainarea">
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">參加人數TOP3的活動</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">參加人數TOP3的活動<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="joincount" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">活動類型比例</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">活動類型比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="activetype" width="100" height="60"></canvas>
 		</div>
 		</div><br>
@@ -107,6 +89,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<div id="gotop">
 	</div>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -559,7 +543,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		data : {                    
         },
 		success:function(data){
-			$.each(data,function(i,n){				
+			$.each(data,function(i,n){	
+				if(n[0].length>6){
+					n[0]=n[0].substring(0,6)+"..."
+				}
 				joincountname[i]=n[0]
 				joincountamount[i]=n[1]
 			});
@@ -599,7 +586,26 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 5,
                 pointBorderWidth:'5px',
             }], 
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
     });
     
     var joincount = document.getElementById('joincount').getContext('2d');//參加人數top3
@@ -618,10 +624,22 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
+                        fontSize: 25,
                         suggestedMin: 0,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -630,7 +648,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     var activetype = document.getElementById("activetype").getContext('2d');//顯示活動比例
 	var myChart = new Chart(activetype, {
-		
 	    type: 'pie',
 	    data: {
 	        labels: typename,
@@ -643,7 +660,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	                '#4F9D9D'
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	</script>
 

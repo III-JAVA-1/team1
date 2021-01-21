@@ -1,0 +1,41 @@
+	a{
+    	text-decoration:none;
+	}
+
+	#title{
+		background-color: aqua;
+	}
+	
+	hr#aa{
+  		text-align:center;
+  		line-height:0px;
+  		background:blue;
+	}
+
+	hr#aa:after{
+  		content:"服務項目";
+  		font-weight:bold;
+  		font-size:30px;
+  		background:white;
+  		z-index:2;
+	}
+	
+	#gotop {
+		width:65px;
+		height:65px;
+    	position: fixed;
+    	border-radius: 50px;
+    	right: 20px;
+    	bottom: 30px;
+    	padding: 10px 16px;
+    	background-repeat: no-repeat;
+    	background-size: cover;
+    	background-image: url("../image/up.png");
+    	color: white;
+    	cursor: pointer;
+    	z-index: 1000;
+	}
+	
+	.register{
+		width:500px;
+	}

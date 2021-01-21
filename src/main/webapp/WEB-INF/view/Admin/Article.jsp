@@ -51,12 +51,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		</div></div><br>
 		
 		<div class="row mainarea">
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center h1">本月文章點閱率TOP3</div>
 		<canvas id="clickamount" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center h1">文章類型比例</div>
 		<canvas id="articletype" width="100" height="60"></canvas>
 		</div>
@@ -78,8 +78,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
       			<th scope="col">文章名稱</th>
       			<th scope="col">文章子版</th>
       			<th scope="col">文章內容</th>
-      			<th scope="col">文章點閱率</th>
-      			<th scope="col">發文者暱稱</th>
+      			<th scope="col">點閱率</th>
+      			<th scope="col">發文暱稱</th>
       			<th scope="col">發文時間</th>
       			<th scope="col" style='width:80px;' >留言數</th>
       			<th scope="col" style='width:50px;'>操作</th></tr>
@@ -413,7 +413,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			"month" :new Date().getMonth()+1, 
         },
 		success:function(data){
-			$.each(data,function(i,n){				
+			$.each(data,function(i,n){
+				if(n[0].length>10){
+					n[0]=n[0].substring(0,10)+"..."
+				}
 				aricletop3name[i]=n[0]
 				articletop3amount[i]=n[1]
 			});
@@ -473,9 +476,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 label: '當日文章發起數量',
                 data: articlehotamount,
                 fill: false,
-                backgroundColor: '#FF8040',
-                borderColor: '#00A600',
-                borderWidth: 2
+                backgroundColor: '#3D7878',
+                borderColor: '#D9B300',
+                borderWidth: 5,
+                pointBorderWidth:'5px',
             }], 
         },
     });

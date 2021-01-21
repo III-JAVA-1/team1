@@ -60,12 +60,12 @@ body{
 		
 		<div class="row mainarea">
 		
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center"><h1>會員男女比例</h1></div>
 		<canvas id="boyandgirl" width="100" height="60" ></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center"><h1>會員年齡比例</h1></div>
 		<canvas id="age" width="100" height="60" ></canvas>
 		</div>
@@ -86,11 +86,11 @@ body{
     		<tr>
       			<th scope="col">編號</th>
       			<th scope="col">大頭貼</th>
-      			<th scope="col">姓名</th>
+      			<th scope="col" style='width:50px;'>姓名</th>
       			<th scope="col">手機</th>
       			<th scope="col">電子郵件</th>
-      			<th scope="col">暱稱</th>
-      			<th scope="col">地址</th>
+      			<th scope="col" style='width:50px;'>暱稱</th>
+      			<th scope="col" >地址</th>
       			<th scope="col">停權</th>
     		</tr>
   		</thead>

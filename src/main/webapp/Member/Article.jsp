@@ -148,7 +148,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     });
     
     $("#maintable").append("<thead class='h4' style='background-color:#EA0000;'><tr>"+
-			"<th scope='col'>文章名稱</th>"+
+			"<th scope='col' style='width:300px;'>文章名稱</th>"+
 			"<th scope='col'>文章子版</th>"+
 			"<th scope='col'>發文時間</th>"+
 			"<th scope='col'>點閱率</th>"+

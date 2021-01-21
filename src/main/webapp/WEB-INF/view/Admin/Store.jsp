@@ -38,12 +38,12 @@
 <%-- 	<c:url value='../Store/?memberId=admin'/> --%>
 
       <div class="row mainarea">
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center h1">本月銷售商品種類排行</div>
 		<canvas id="storesales" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
+		<div class="col-6 secondarea">
 		<div class="row justify-content-center h1">本月銷售業績</div>
 		<canvas id="sales" width="100" height="60"></canvas>
 		</div>
@@ -231,10 +231,11 @@
             datasets: [{
                 label: '當日銷售總金額(NT)',
                 data: storeallmoney,
-                fill: false,
-                backgroundColor: '#00FFFF',
-                borderColor: '#CE0000',
-                borderWidth: 2
+                fill: true,
+                backgroundColor: '#9F4D95',
+                borderColor: '#9F4D95',
+                borderWidth: 5,
+                pointBorderWidth:'5px',
             }],
         },
 

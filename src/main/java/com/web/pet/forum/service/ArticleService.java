@@ -74,9 +74,5 @@ public class ArticleService {
 		return list;
 	}
 	
-		
-	public int setCommentCounts(Article article) {
-		return dao.setCommentCounts(article);
-	}
 	
 }

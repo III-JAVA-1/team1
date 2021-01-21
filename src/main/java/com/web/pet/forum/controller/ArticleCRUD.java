@@ -147,10 +147,7 @@ public class ArticleCRUD{
 		//增加瀏覽率
 		Article article = service.getArticle(posterUid);	
 		Integer viewing = article.getViewing()+1;
-		article.setViewing(viewing);
-		
-		//更新文章的回應數
-		service.setCommentCounts(article);
+		article.setViewing(viewing);		
 		
 		//取得favoriteId
 		if(sessionU_Id != null) {

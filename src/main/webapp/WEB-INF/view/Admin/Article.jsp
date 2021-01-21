@@ -15,49 +15,31 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 <link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
-<style>
-#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
 </head>
 <body>
 	
 	<nav class="navbar navbar-light bg-light display-4">
   		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">文章後台</p>
+    		<p class="nav-link mt-2">文章管理</p>
     		<div class="d-flex">
       		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
   		</div>
 	</nav><br>
 		<div class='row mainarea'>
-		<div class="col-12 secondarea">
-		<div class='h1'>本月文章發起熱度</div>
+		<div class="col-12 secondarea" onclick='doScreenShot(this)'>
+		<div class='row justify-content-center h1 tooltipp'>本月文章發起熱度<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="hottime" width="100" height="30"></canvas>
 		</div></div><br>
 		
 		<div class="row mainarea">
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">本月文章點閱率TOP3</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月文章點閱率TOP3<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="clickamount" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center h1">文章類型比例</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">文章類型比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="articletype" width="100" height="60"></canvas>
 		</div>
 		</div><br>
@@ -101,6 +83,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<div id="gotop">
 	</div>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -399,7 +383,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	            	'#949449'
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
     
     var aricletop3name=[]//top3日期
@@ -439,10 +431,22 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
+                        fontSize: 25,
                         suggestedMin: 0,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
                     }
                 }]
             }
@@ -481,7 +485,26 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 5,
                 pointBorderWidth:'5px',
             }], 
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
     });
     
     

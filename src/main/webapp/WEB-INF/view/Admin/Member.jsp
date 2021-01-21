@@ -23,33 +23,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	%>
 	
 <title>AccompanyMe</title>
-<style>
-body{
-    background-color: #F0F0F0;
-}
-#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
+
 </head>
 <body>
 	
 	<nav class="navbar navbar-light bg-light display-4">
   		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">會員後台</p>
+    		<p class="nav-link mt-2">會員管理</p>
     		<div class="d-flex">
       		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
@@ -60,13 +40,13 @@ body{
 		
 		<div class="row mainarea">
 		
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center"><h1>會員男女比例</h1></div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">會員男女比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="boyandgirl" width="100" height="60" ></canvas>
 		</div>
 		
-		<div class="col-6 secondarea">
-		<div class="row justify-content-center"><h1>會員年齡比例</h1></div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">會員年齡比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="age" width="100" height="60" ></canvas>
 		</div>
 		
@@ -110,6 +90,8 @@ body{
 	
 	<br>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -254,7 +236,15 @@ body{
 	                'rgba(54, 162, 235)',
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	
 	var ctx2 = document.getElementById("age").getContext('2d');//顯示男女比例
@@ -270,7 +260,15 @@ body{
 	                '#A23400',
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	
 	$("#gotop").click(function(){//回最上層JQUERY

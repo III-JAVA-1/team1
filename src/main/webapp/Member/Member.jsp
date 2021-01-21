@@ -15,7 +15,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/theme.min.css" integrity="sha512-NIaqX+eDfmA0bIDqx/oRznvm4IYs9qfSjxdLVyDeJTP5n2YQFBGfalKsjwzduqCWeEeMMwSJfI1EoIFfLhRMhg==" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.min.css" integrity="sha512-NaCOGQe8bs7/BxJpnhZ4t4f4psMHnqsCxH/o4d3GFqBS4/0Yr/8+vZ08q675lx7pNz7lvJ6fRPfoCNHKx6d/fA==" crossorigin="anonymous" />	
-	
+<link href="css/Member.css" rel="stylesheet">		
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -24,30 +24,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	%>
 	
 <title>AccompanyMe</title>
-<style>
-
-	#title{
-		background-color: aqua;
-	}
-	
-	#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-	
-</style>
 </head>
 <body>
 

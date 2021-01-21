@@ -24,7 +24,7 @@ public class AdminDao {
 		List<Member> list = new ArrayList<Member>();
 		Session session = sessionFactory.getCurrentSession();
 		Query<Member> query=null;
-		String hql = "select u_Id,name,phone,email,sname,zip,country,district,address,gender,birth,authority FROM Member where name like '%%'";
+		String hql = "select u_Id,name,phone,email,sname,zip,country,district,address,gender,birth,authority,password FROM Member where name like '%%'";
 		query= session.createSQLQuery(hql);
 		list=query.getResultList();
 		if(list.isEmpty()) {

@@ -414,7 +414,7 @@ public class MemberCURD {
 				member.setEmail(email);
 				member.setPassword(pictureUrl);
 				member.setAuthority(0);
-				member.setSname("Google登入者");
+				member.setSname("未輸入");
 				member.setBirth(new java.sql.Date(new java.util.Date().getTime()));
 				memberService.insertMemberService(member);
 				list = memberService.ajaxloginService();

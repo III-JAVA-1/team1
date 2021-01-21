@@ -219,7 +219,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
     						"<td>"+n[1]+"</td>"+
-    						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td style='width:100px;'><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
     						"<td style='width:130px;'>"+n[3]+"</td>"+
     						"<td>"+n[4]+"</td>"+
     						"<td style='width:80px;'>"+n[5]+"</td>"+

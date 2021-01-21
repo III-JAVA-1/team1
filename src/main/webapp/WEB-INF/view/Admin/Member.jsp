@@ -142,6 +142,11 @@ body{
             },
 			success:function(data){
 			$.each(data,function(i,n){
+				for(let i=0;i<=8;i=i+1){
+					if(n[i]==null){
+						n[i]=""
+					}
+				}
 				count=data.length;
 					if(n[9]=="男"){
 						boy=boy+1;
@@ -160,7 +165,7 @@ body{
 						age3++;
 					}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:110px; height:90px; margin:auto;' onerror='imgDisplay(this)'></td>"
+							+"<td><img src='' id='gimg"+n[0]+"' alt='沒有上傳圖片' style='width:110px; height:90px; margin:auto;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n[1]+"</td>"
 							+"<td>"+n[2]+"</td>"
 							+"<td>"+n[3]+"</td>"
@@ -178,7 +183,13 @@ body{
 					}else{
 						$("#"+n[0]+"").attr("checked",false)
 						$("#l"+n[0]+"").html("正常")
-					}				
+					}
+					if(n[12].indexOf("http")==0){
+						$("#gimg"+n[0]+"").attr('src',n[12])
+						//console.log(n[12])
+					}else{
+						$("#gimg"+n[0]+"").attr('src',"<c:url value='/Gusty/getallimg?id="+n[0]+"'/>")
+					}
 				});
 			}
 		});
@@ -276,6 +287,7 @@ body{
     });
     
     function imgDisplay(substitle){
+    	//console.log(substitle)
     	$(substitle).attr('src', '../Member/image/user.png');
     }
     

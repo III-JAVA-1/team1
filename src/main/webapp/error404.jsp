@@ -75,10 +75,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<div class="container">
 
 		<div class="row justify-content-center">
-			<div class="display-1">無效的頁面</div>
+			<div class="display-1">找不到的頁面</div>
 			<div class="row justify-content-center">
-			<img src='Admin/image/error1.jpg' style="width:550px;height:450px;">
-			<img src='Admin/image/error2.jpg' style="width:550px;height:450px;">
+			<img src='Admin/image/error1.jpg' style="width:400px;height:300px;">
+			<img src='Admin/image/error2.jpg' style="width:400px;height:300px;">
 			</div>
 			<div class='col-12'>
 			<div class="row justify-content-center">
@@ -94,6 +94,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			</div>	
 		</div>
 	</div>
+	<br>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

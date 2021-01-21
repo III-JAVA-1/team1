@@ -338,7 +338,7 @@
 		dataType:"json",
 		success:function(data){
 			$.each(data,function(i,n){
-				$("#indexactive").append("<div class='card m-2' style='width: 18rem;'>"+
+				$("#indexactive").append("<div class='card m-2' style='width: 16rem;'>"+
 	  			"<img src='<c:url value='Gusty/getactiveimg2?act_no="+n[2]+"'/>' class='card-img-top' alt='' style='height:200px;'>"+
 	  			"<div class='card-body'>"+
 	    			"<h5 class='card-title'>"+n[0]+"</h5>"+
@@ -362,7 +362,7 @@
 					if(i==0||shopname!=n[0]){
 						shopname=n[0];xx=xx+1;
 						if(xx>4){return false;}
-						$("#indexshop").append("<div class='card m-2' style='width: 18rem;'>"+
+						$("#indexshop").append("<div class='card m-2' style='width: 16rem;'>"+
 					  			"<img src='"+n[2]+"' class='card-img-top border border-dark border-2'>"+
 					  			"<div class='card-body'>"+
 					  			"<h2 id='"+n[3]+"'></h2><hr>"+

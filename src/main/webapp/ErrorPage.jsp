@@ -77,8 +77,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		<div class="row justify-content-center">
 			<div class="display-1">發生了一些問題</div>
 			<div class="row justify-content-center">
-			<img src='Admin/image/error1.jpg' style="width:550px;height:450px;">
-			<img src='Admin/image/error2.jpg' style="width:550px;height:450px;">
+			<img src='../Admin/image/error1.jpg' style="width:400px;height:300px;">
+			<img src='../Admin/image/error2.jpg' style="width:400px;height:300px;">
 			</div>
 			<div class='col-12'>
 			<div class="row justify-content-center">

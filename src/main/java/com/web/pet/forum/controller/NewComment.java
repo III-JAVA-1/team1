@@ -36,7 +36,7 @@ public class NewComment {
 			) {		
 		 	String commentUpdatedtime = params.get("commentUpdatedtime");
 	        Integer posterUid = Integer.valueOf(params.get("posterUid"));
-	        String u_Id = params.get("u_Id");
+	        Integer u_Id = Integer.valueOf(params.get("u_Id"));
 	        String commentContent = params.get("commentContent");
 		//把從前端送來的Comment物件insert到資料庫
 		//需要的是留言者的u_Id，非發文者的u_Id		
@@ -63,7 +63,7 @@ public class NewComment {
 		//Commit評論 reply數加1
 		article.setReply(article.getReply() + 1);		
 		//存入資料庫
-		articleService.saveArticle(article, sessionU_Id);
+		articleService.saveArticle(article, u_Id);
 		
 		return list;
 	}

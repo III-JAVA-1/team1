@@ -6,14 +6,10 @@ import com.web.pet.mom.dao.PetMomOrderCommentDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.mom.model.PetMomOrderComment;
-import com.web.pet.mom.model.req.OrderCommentReq;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author i19
@@ -26,9 +22,7 @@ public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO{
 
     @Override
     public void insertOrderComment(PetMomOrderComment petMomOrderComment, Integer uId, Integer momId, Integer orderId) { //新增評論
-        if (getCommentByOrderId(orderId) == null){
-            throw new RuntimeException("訂單重複評論");
-        }
+
         Session session = sessionFactory.getCurrentSession();
         petMomOrderComment.setMom(session.get(Mom.class, momId));
         petMomOrderComment.setMember(session.get(Member.class, uId));

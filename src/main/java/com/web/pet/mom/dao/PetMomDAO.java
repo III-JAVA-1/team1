@@ -1,7 +1,7 @@
 package com.web.pet.mom.dao;
 
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.MomDataRes;
 import com.web.pet.mom.model.res.PageableMomDataRes;
 
 /**
@@ -53,5 +53,12 @@ public interface PetMomDAO {
      * @param momId
      * @return
      */
-    MomData getReservation(Integer momId);
+    MomDataRes getReservation(Integer momId);
+
+    /**
+     * 查詢評論
+     * @param momId
+     * @return
+     */
+//    List<MomData> getCommentData(Integer momId);
 }

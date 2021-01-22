@@ -2,9 +2,8 @@ package com.web.pet.mom.model.req;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Base64;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author i19
@@ -35,6 +34,11 @@ public class MomData {
     private String phone;
     private Integer experience;
     private String petContent;
+    private Integer star;
+    private String comment;
+    private Timestamp commentNowTime;
+    private Integer starAvg;
+    private Integer countTime;
 //    private List<Object> bodyTypeList = new LinkedList<>();
 //    private List<Object> proPriceList = new LinkedList<>();
 
@@ -55,6 +59,7 @@ public class MomData {
         momData.setMomId(((Integer) objects[11]));
         momData.setImg(ENCODER.encodeToString(((byte[]) objects[12])));
         momData.setDistrict((String) objects[13]);
+
 
 //        String bodyType1 = momData.getBodyType1();
 //        String bodyType2 = momData.getBodyType2();
@@ -83,6 +88,7 @@ public class MomData {
 //    }
 
     public static MomData mappingOrderData(Object[] objects) {
+
         MomData orderData = new MomData();
         orderData.setCountry(((String) objects[0]));
         orderData.setTitle(((String) objects[1]));
@@ -103,6 +109,9 @@ public class MomData {
         orderData.setPhone((String) objects[16]);
         orderData.setExperience((Integer) objects[17]);
         orderData.setPetContent((String) objects[18]);
+//        orderData.setStar((Integer) objects[19]);
+//        orderData.setComment((String) objects[20]);
+//        orderData.setCommentNowTime((Timestamp) objects[21]);
 
 //        String bodyType1 = orderData.getBodyType1();
 //        String bodyType2 = orderData.getBodyType2();
@@ -120,6 +129,15 @@ public class MomData {
 //        filterList(proPriceList,  proPrice1,  proPrice2,  proPrice3);
 
         return orderData;
+    }
+
+    public static MomData mappingCommentData(Object[] objects){
+        MomData commentData = new MomData();
+        commentData.setComment((String) objects[0]);
+        commentData.setCommentNowTime((Timestamp) objects[1]);
+        commentData.setStar((Integer) objects[2]);
+        commentData.setSname((String) objects[3]);
+        return commentData;
     }
 }
 

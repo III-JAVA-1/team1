@@ -2,7 +2,7 @@ package com.web.pet.mom.controller;
 
 import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.model.Mom;
-import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.MomDataRes;
 import com.web.pet.mom.model.res.PageableMomDataRes;
 import com.web.pet.mom.service.MomService;
 import com.web.pet.util.BlobToByteArray;
@@ -81,11 +81,17 @@ public class MomController {
      * @return 顯示預約時由保母ID查出的保母資料
      */
     @RequestMapping("/showReservation")
-    public MomData getReservation(@RequestParam Integer momId) {
+    public MomDataRes getReservation(@RequestParam Integer momId) {
 
         return momService.getReservation(momId);
     }
 
+//    @GetMapping("/showComment")
+//    public List<MomData> getCommentData(@RequestParam Integer momId){
+//        return null;
+//    }
+
+    @GetMapping("/showStar")
 
     /**
      * 顯示與momId相符的圖片

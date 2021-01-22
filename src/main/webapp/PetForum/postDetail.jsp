@@ -513,7 +513,7 @@ function favorites(item){
   			error:function(){    				
   				 Swal.fire({
  	      		  title: '查無收藏紀錄！',
- 	      		  icon: 'oops',
+ 	      		  icon: 'warning',
  	      		  confirmButtonText: '確定'
  	      	})
   		}

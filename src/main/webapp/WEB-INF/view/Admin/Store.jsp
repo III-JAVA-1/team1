@@ -229,7 +229,7 @@
                 }],
                 xAxes: [{
                     ticks: {
-                        fontSize: 25
+                        fontSize: 15
                     }
                 }]
             }
@@ -245,8 +245,8 @@
             datasets: [{
                 label: '當日銷售總金額(NT)',
                 data: storeallmoney,
-                fill: true,
-                backgroundColor: '#9F4D95',
+                fill: false,
+                backgroundColor: '#4DFFFF',
                 borderColor: '#9F4D95',
                 borderWidth: 5,
                 pointBorderWidth:'3px',

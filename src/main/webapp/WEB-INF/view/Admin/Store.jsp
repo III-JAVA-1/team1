@@ -27,7 +27,7 @@
 
 <nav class="navbar navbar-light bg-light display-4">
     <div class="container-fluid" style="background-color:#81C0C0;">
-        <p class="nav-link mt-2">商城後台</p>
+        <p class="nav-link mt-2">商城管理</p>
         <div class="d-flex">
             <a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
         </div>
@@ -38,13 +38,13 @@
 <%-- 	<c:url value='../Store/?memberId=admin'/> --%>
 
       <div class="row mainarea">
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">本月銷售商品種類排行</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月銷售商品種類排行<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="storesales" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">本月銷售業績</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月銷售業績<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="sales" width="100" height="60"></canvas>
 		</div>
 	 </div>
@@ -121,6 +121,8 @@
 
 <br>
 
+<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -212,10 +214,22 @@
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
-                        suggestedMin: 0,
+                    	suggestedMin: 0,
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
                     }
                 }]
             }
@@ -231,12 +245,32 @@
             datasets: [{
                 label: '當日銷售總金額(NT)',
                 data: storeallmoney,
-                fill: false,
-                backgroundColor: '#00FFFF',
-                borderColor: '#CE0000',
-                borderWidth: 2
+                fill: true,
+                backgroundColor: '#9F4D95',
+                borderColor: '#9F4D95',
+                borderWidth: 5,
+                pointBorderWidth:'3px',
             }],
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
 
     });
 

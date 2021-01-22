@@ -13,6 +13,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<link href="css/Member.css" rel="stylesheet">	
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -21,33 +22,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	%>
 	
 <title>AccompanyMe</title>
-<style>
-
-	a{
-    	text-decoration:none;
-	}
-	
-	#title{
-		background-color: aqua;
-	}
-	
-	#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
 </head>
 <body>
 
@@ -551,11 +525,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     				   			"<td>"+n[6]+"</td></tr>");
     					if(n[6]=="處理中"){
     						$("#b"+n[9]+"").html("訂單尚在處理")	
-    					}else if(n[6]=="接受"){
+    					}if(n[6]=="接受"){
     						$("#b"+n[9]+"").html("<button type='button' onclick='location.href=\"../mom/comment.jsp?orderId="+n[9]+"\"' class='btn btn-dark'>去寫評價</button>")
-    					}else if(n[6]=="接受"&&n[8]!=null){
+    					}if(n[6]=="接受"&&n[8]!=null){
     						$("#b"+n[9]+"").html("您已經寫過評價")
-    					}else if(n[6]=="拒絕"){
+    					}if(n[6]=="拒絕"){
     						$("#b"+n[9]+"").html("訂單已被拒絕")
     					}
     				});

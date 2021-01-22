@@ -38,10 +38,10 @@
     <div class="card-div">
         <div class="top-div d-flex bd-highlight">
             <div class="flex-grow-1 bd-highlight products">商品</div>
-            <div class="bd-highlight product-price-t">買家應付金額</div>
+            <div class="bd-highlight product-price-t" style='width:120px;'>買家應付金額</div>
             <div class="bd-highlight product-status-t">狀態</div>
-            <div class="bd-highlight delivery-time-t">訂單生成日期</div>
-            <div class="bd-highlight detail-btn-t">操作</div>
+            <div class="bd-highlight delivery-time-t" style='width:120px;'>訂單生成日期</div>
+            <div class="bd-highlight detail-btn-t" style='width:120px;'>操作</div>
         </div>
     </div>
 
@@ -155,8 +155,8 @@
                         "<div class=\"product-div bd-highlight\">\n" +
                         "<img class=\"product-img\" src=\"" + img + "\"/>" + data.productName + "\n" +
                         "</div>\n" +
-                        " <div class=\"product-price p-2 bd-highlight\">NT$" + data.cost + "</div>\n" +
-                        "<div class=\"product-status\">" +
+                        " <div class=\"product-price p-2 bd-highlight\" style='width:120px;'>NT$" + data.cost + "</div>\n" +
+                        "<div style='width:100px;margin-right:15px;' class=\"product-status\">" +
                         "<select class=\"form-control p-2 bd-highlight\" " +
                         "onchange='editStatus(this ," + data.orderId + ", this.value" + "," + data.orderStatus + ")'>\n";
 
@@ -180,8 +180,8 @@
                     cardHtml +=
                         "</select>\n" +
                         "</div>" +
-                        "<div class=\"delivery-time p-2 bd-highlight\">" + data.date + "</div>\n" +
-                        "<div class=\"operate p-2 bd-highlight detail-btn\" onclick='goDetail(" + data.orderId + ")'>\n" +
+                        "<div class=\"delivery-time p-2 bd-highlight\" style='width:130px;'>" + data.date + "</div>\n" +
+                        "<div class=\"operate p-2 bd-highlight detail-btn\" style='width:110px;' onclick='goDetail(" + data.orderId + ")'>\n" +
                         "<img src=\"Store/images/paper.svg\" width=\"15px\" height=\"15px\"/>\n" +
                         "查看詳情\n" +
                         "</div>\n" +

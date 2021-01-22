@@ -298,33 +298,6 @@ public class ArticleDao {
 		count++;
 		return count;
 	}
-			
-
-	/**
-	 *  Description: 計算並設定每篇文章的回應數
-	 *  @author ching  DateTime 2021/1/14 下午 01:23:13
-	 *  @param article
-	 *  @return
-	 */
-	public int setCommentCounts(Article article) {
-		int count = 0;
-		Session session = sessionFactory.getCurrentSession();
-		String sql = "";
-		
-		sql = "select count(*) \r\n" + 
-				"from Comment c, Article a\r\n" + 
-				"where c.posterUid = a.posterUid and a.posterUid = :posterUid";
-		
-		Integer commentCount = (Integer) session.createSQLQuery(sql)
-												.setParameter("posterUid", article.getPosterUid())
-												.uniqueResult();
-		article.setReply(commentCount);		
-		count++;		
-		return count;
-	}
-	
-	
-	
 	
 	/**
 	 *  Description: 整合分頁設定

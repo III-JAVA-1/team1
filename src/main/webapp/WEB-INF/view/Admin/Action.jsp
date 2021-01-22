@@ -15,30 +15,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">	
 <link href="../Admin/css/Adminchart.css" rel="stylesheet">
 <title>AccompanyMe</title>
-<style>
-#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
 </head>
 <body>
 	
 	<nav class="navbar navbar-light bg-light display-4">
   		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">活動後台</p>
+    		<p class="nav-link mt-2">活動管理</p>
     		<div class="d-flex">
       		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
@@ -46,19 +28,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	</nav><br>
 	
 		<div class='row mainarea'>
-		<div class="col-12 secondarea">
-		<div class='h1'>本月活動發起熱度</div>
+		<div class="col-12 secondarea" onclick='doScreenShot(this)'>
+		<div class='row justify-content-center h1 tooltipp'>本月活動發起熱度<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="hottime" width="100" height="30"></canvas>
 		</div></div><br>
 		
 		<div class="row mainarea">
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">參加人數TOP3的活動</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">參加人數TOP3的活動<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="joincount" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">活動類型比例</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">活動類型比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="activetype" width="100" height="60"></canvas>
 		</div>
 		</div><br>
@@ -84,13 +66,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   			<thead style="background-color:#8080C0">
     		<tr><th scope="col">活動編號</th>
       			<th scope="col">活動名稱</th>
-      			<th scope="col">活動內容</th>
       			<th scope="col">活動新增時間</th>
-      			<th scope="col">舉辦單位</th>
       			<th scope="col">舉辦人姓名</th>
       			<th scope="col">舉辦人手機</th>
       			<th scope="col">活動類型</th>
-      			<th scope="col">活動地址</th>
       			<th scope="col">活動時間</th>
       			<th scope="col" id='contro'>參加人員</th></tr>
   			</thead>
@@ -110,6 +89,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<div id="gotop">
 	</div>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -159,16 +140,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$("#contro").html("參加人員");
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
-    						"<td>"+n[1]+"</td>"+
-    						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-    						"<td style='width:130px;'>"+n[3]+"</td>"+
-    						"<td>"+n[4]+"</td>"+
-    						"<td style='width:80px;'>"+n[5]+"</td>"+
+    						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td >"+n[3]+"</td>"+
+    						"<td>"+n[5]+"</td>"+
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
-    						"<td>"+n[8]+"</td>"+
     						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
-    						"<td><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>參加人數:&nbsp"+n[11]+"</button></td></tr>");
+    						"<td style='width:80px;'><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>參加人數:&nbsp"+n[11]+"</button></td></tr>");
     			});
     			$('#maintable').DataTable({
     				"language": {
@@ -218,14 +196,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     			$("#contro").html("操作");
     			$.each(data,function(i,n){				
     				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
-    						"<td>"+n[1]+"</td>"+
-    						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-    						"<td style='width:130px;'>"+n[3]+"</td>"+
-    						"<td>"+n[4]+"</td>"+
-    						"<td style='width:80px;'>"+n[5]+"</td>"+
+    						"<td><button type='button' onclick='activedetailcheck("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+    						"<td >"+n[3]+"</td>"+
+    						"<td>"+n[5]+"</td>"+
     						"<td>"+n[6]+"</td>"+
     						"<td>"+n[7]+"</td>"+
-    						"<td>"+n[8]+"</td>"+
     						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
     						"<td style='width:80px;'><button type='button' class='btn btn-danger' onclick='deleteactive("+n[0]+")'>不予許</button><hr>"+
     						"&nbsp<button type='button' class='btn btn-primary' onclick='activeok("+n[0]+")'>通過</button>"+
@@ -396,14 +371,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 			$("#total").html("&nbsp&nbsp活動總數量&nbsp&nbsp"+data.length)
 			$.each(data,function(i,n){				
 				$("#allactive").append("<tr><th scope='row'>"+n[0]+"</th>"+
-						"<td>"+n[1]+"</td>"+
-						"<td style='width:90px;'><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
-						"<td style='width:130px;'>"+n[3]+"</td>"+
-						"<td>"+n[4]+"</td>"+
-						"<td style='width:80px;'>"+n[5]+"</td>"+
+						"<td><button type='button' onclick='activedetail("+n[0]+")' class='btn btn-warning'>詳細內容</button></td>"+
+						"<td >"+n[3]+"</td>"+
+						"<td>"+n[5]+"</td>"+
 						"<td>"+n[6]+"</td>"+
 						"<td>"+n[7]+"</td>"+
-						"<td>"+n[8]+"</td>"+
 						"<td style='width:140px;'>"+n[9].substring(0,10)+"<br>~<br>"+n[10].substring(0,10)+"</td>"+
 						"<td style='width:80px;'><button type='button' class='btn btn-info' onclick='joinpeople("+n[0]+")'>參加人數:&nbsp"+n[11]+"</button></td></tr>");
 			});
@@ -478,7 +450,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		  	title: '活動名稱:<div id="namee"></div>&nbsp詳細活動內容',
   		  	html:"<img id='aimg' src='' style='width:500px;'><br>"+
   		  		"<div class='row justify-content-center h1'>活動內容:</div>"+
-  		  		"<div id='content' class='h2'></div>",
+  		  		"<div id='content' class='h2'></div>"+
+  				"<div class='row justify-content-center h1'>舉辦單位:</div>"+
+  				"<div id='actionaunit' class='h2'></div>"+
+  				"<div class='row justify-content-center h1'>活動地址:</div>"+
+  				"<div id='actionaddress' class='h2'></div>",
 			width: '1000px',
   		confirmButtonText: '確定'
   		})
@@ -496,6 +472,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   						$("#namee").html(n[1]);
   						$("#aimg").attr("src","<c:url value='/Gusty/getactiveimg?act_no="+n[0]+"'/>");
   						$("#content").html(n[2]);
+  						$("#actionaunit").html(n[4]);
+  						$("#actionaddress").html(n[8]);
   					}
   				});
   			}
@@ -507,7 +485,11 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   		  	title: '活動名稱:<div id="namee"></div>&nbsp詳細活動內容',
   		  	html:"<img id='aimg' src='' style='width:500px;'><br>"+
   		  		"<div class='row justify-content-center h1'>活動內容:</div>"+
-  		  		"<div id='content' class='h2'></div>",
+  		  		"<div id='content' class='h2'></div>"+
+  				"<div class='row justify-content-center h1'>舉辦單位:</div>"+
+  				"<div id='actionaunit' class='h2'></div>"+
+  				"<div class='row justify-content-center h1'>活動地址:</div>"+
+  				"<div id='actionaddress' class='h2'></div>",
 			width: '1000px',
   		confirmButtonText: '確定'
   		})
@@ -525,6 +507,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
   						$("#namee").html(n[1]);
   						$("#aimg").attr("src","<c:url value='/Gusty/getactiveimg?act_no="+n[0]+"'/>");
   						$("#content").html(n[2]);
+  						$("#actionaunit").html(n[4]);
+  						$("#actionaddress").html(n[8]);
   					}
   				});
   			}
@@ -559,7 +543,10 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		data : {                    
         },
 		success:function(data){
-			$.each(data,function(i,n){				
+			$.each(data,function(i,n){	
+				if(n[0].length>6){
+					n[0]=n[0].substring(0,6)+"..."
+				}
 				joincountname[i]=n[0]
 				joincountamount[i]=n[1]
 			});
@@ -595,10 +582,30 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 data: activehotamount,
                 fill: false,
                 backgroundColor: '#FF8040',
-                borderColor: '#808040',
-                borderWidth: 2
+                borderColor: '#B766AD',
+                borderWidth: 5,
+                pointBorderWidth:'5px',
             }], 
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
     });
     
     var joincount = document.getElementById('joincount').getContext('2d');//參加人數top3
@@ -617,10 +624,22 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
+                        fontSize: 25,
                         suggestedMin: 0,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -629,7 +648,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     
     var activetype = document.getElementById("activetype").getContext('2d');//顯示活動比例
 	var myChart = new Chart(activetype, {
-		
 	    type: 'pie',
 	    data: {
 	        labels: typename,
@@ -642,7 +660,15 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	                '#4F9D9D'
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	</script>
 

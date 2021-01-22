@@ -23,33 +23,13 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	%>
 	
 <title>AccompanyMe</title>
-<style>
-body{
-    background-color: #F0F0F0;
-}
-#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("../Admin/image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
+
 </head>
 <body>
 	
 	<nav class="navbar navbar-light bg-light display-4">
   		<div class="container-fluid" style="background-color:#81C0C0;">
-    		<p class="nav-link mt-2">會員後台</p>
+    		<p class="nav-link mt-2">會員管理</p>
     		<div class="d-flex">
       		<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
     		</div>
@@ -60,13 +40,13 @@ body{
 		
 		<div class="row mainarea">
 		
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center"><h1>會員男女比例</h1></div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">會員男女比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="boyandgirl" width="100" height="60" ></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center"><h1>會員年齡比例</h1></div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">會員年齡比例<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="age" width="100" height="60" ></canvas>
 		</div>
 		
@@ -86,11 +66,11 @@ body{
     		<tr>
       			<th scope="col">編號</th>
       			<th scope="col">大頭貼</th>
-      			<th scope="col">姓名</th>
+      			<th scope="col" style='width:50px;'>姓名</th>
       			<th scope="col">手機</th>
       			<th scope="col">電子郵件</th>
-      			<th scope="col">暱稱</th>
-      			<th scope="col">地址</th>
+      			<th scope="col" style='width:50px;'>暱稱</th>
+      			<th scope="col" >地址</th>
       			<th scope="col">停權</th>
     		</tr>
   		</thead>
@@ -110,6 +90,8 @@ body{
 	
 	<br>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -142,6 +124,11 @@ body{
             },
 			success:function(data){
 			$.each(data,function(i,n){
+				for(let i=0;i<=8;i=i+1){
+					if(n[i]==null){
+						n[i]=""
+					}
+				}
 				count=data.length;
 					if(n[9]=="男"){
 						boy=boy+1;
@@ -160,7 +147,7 @@ body{
 						age3++;
 					}
 					$("#membertable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
-							+"<td><img src='<c:url value='/Gusty/getallimg?id="+n[0]+"'/>'alt='沒有上傳圖片' style='width:110px; height:90px; margin:auto;' onerror='imgDisplay(this)'></td>"
+							+"<td><img src='' id='gimg"+n[0]+"' alt='沒有上傳圖片' style='width:110px; height:90px; margin:auto;' onerror='imgDisplay(this)'></td>"
 							+"<td>"+n[1]+"</td>"
 							+"<td>"+n[2]+"</td>"
 							+"<td>"+n[3]+"</td>"
@@ -178,7 +165,13 @@ body{
 					}else{
 						$("#"+n[0]+"").attr("checked",false)
 						$("#l"+n[0]+"").html("正常")
-					}				
+					}
+					if(n[12].indexOf("http")==0){
+						$("#gimg"+n[0]+"").attr('src',n[12])
+						//console.log(n[12])
+					}else{
+						$("#gimg"+n[0]+"").attr('src',"<c:url value='/Gusty/getallimg?id="+n[0]+"'/>")
+					}
 				});
 			}
 		});
@@ -243,7 +236,15 @@ body{
 	                'rgba(54, 162, 235)',
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	
 	var ctx2 = document.getElementById("age").getContext('2d');//顯示男女比例
@@ -259,7 +260,15 @@ body{
 	                '#A23400',
 	            ],
 	        }]
-	    },
+	    },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            }
+        }
 	});
 	
 	$("#gotop").click(function(){//回最上層JQUERY
@@ -276,6 +285,7 @@ body{
     });
     
     function imgDisplay(substitle){
+    	//console.log(substitle)
     	$(substitle).attr('src', '../Member/image/user.png');
     }
     

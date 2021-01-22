@@ -22,29 +22,13 @@
 %>
 
 <title>AccompanyMe</title>
-<style>
-#gotop {
-	width: 65px;
-	height: 65px;
-	position: fixed;
-	border-radius: 50px;
-	right: 20px;
-	bottom: 30px;
-	padding: 10px 16px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-image: url("../Admin/image/up.png");
-	color: white;
-	cursor: pointer;
-	z-index: 1000;
-}
-</style>
+
 </head>
 <body>
 
 	<nav class="navbar navbar-light bg-light display-4">
 		<div class="container-fluid" style="background-color: #81C0C0;">
-			<p class="nav-link mt-2">會員後台</p>
+			<p class="nav-link mt-2">保母管理</p>
 			<div class="d-flex">
 				<a class="nav-link" href="<c:url value='/Gusty/goadmin'/>">回後台首頁</a>
 			</div>
@@ -54,13 +38,13 @@
 	<br>
 	
 	<div class="row mainarea">
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">本月保母預約數量</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月保母預約熱度<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="momhot" width="100" height="60"></canvas>
 		</div>
 		
-		<div class="col-5 secondarea">
-		<div class="row justify-content-center h1">本月保母接單Top3</div>
+		<div class="col-6 secondarea" onclick='doScreenShot(this)'>
+		<div class="row justify-content-center h1 tooltipp">本月保母接單Top3<span class="tooltiptext h4">點我可下載png</span></div>
 		<canvas id="momtop3" width="100" height="60"></canvas>
 		</div>
 	</div><br>
@@ -79,13 +63,13 @@
 			<table class="table table-hover table-bordered" id='maintable'>
 				<thead class="h4" style="background-color:#ECFFFF;">
 					<tr>
-						<th scope="col">編號</th>
+						<th scope="col" style='width:20px;'>編號</th>
 						<th scope="col">環境照片</th>
 						<th scope="col">服務名稱</th>
-						<th scope="col">年資</th>
-						<th scope="col">注意事項&服務內容</th>
-						<th scope="col">服務項目</th>
-						<th scope="col">服務寵物</th>
+						<th scope="col"style='width:20px;'>年資</th>
+						<th scope="col" style='width:90px;'>服務內容</th>
+						<th scope="col" style='width:130px;'>服務項目</th>
+						<th scope="col" style='width:150px;'>服務寵物</th>
 						<th scope="col">評價</th>
 						<th scope="col">操作</th>
 					</tr>
@@ -107,6 +91,8 @@
 
 	<br>
 
+	<script type="text/javascript" src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script type="text/javascript" src="../Admin/Js/chartscheenshot.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
@@ -169,7 +155,7 @@
 				$("#momtable").append("<tr style='font-size:20px;' ><th scope='row'>"+n[0]+"</th>"
 						+"<td><img src='<c:url value='/mom/getPic?momId="+n[0]+"'/>'alt='沒有上傳圖片' style='width:100%; height:120px;'></td>"
 						+"<td>"+n[1]+"</td>"
-						+"<td>"+n[2]+"</td>"
+						+"<td>"+n[2]+"年</td>"
 						+"<td><button type='button' class='btn btn-primary' onclick='momdetail("+n[0]+")' >點我查看</button></td>"
 						+"<td>到府遛狗:&nbsp"+n[5]+"<br>安親照顧:&nbsp"+n[6]+"<br>寄宿照顧:&nbsp"+n[7]+"</td>"
 						+"<td>"+n[8]+""+n[9]+""+n[10]+""+n[11]+"</td>"
@@ -386,10 +372,22 @@
                 borderWidth: 2,
             }]
         },options: {
-            scales: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
                 yAxes: [{
                     ticks: {
+                        fontSize: 25,
                         suggestedMin: 0,
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -424,10 +422,30 @@
                 data: momamount,
                 fill: false,
                 backgroundColor: '#8600FF',
-                borderColor: '#FF0000',
-                borderWidth: 2
+                borderColor: '#FF0080',
+                borderWidth: 5,
+                pointBorderWidth:'5px',
             }], 
-        },
+        },options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#000000',
+                    fontSize:25,
+                }
+            },scales: {
+                yAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 25
+                    }
+                }]
+            }
+        }
     });
   		
   		

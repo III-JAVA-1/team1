@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.web.pet.forum.model.Article;
 import com.web.pet.forum.model.Comment;
+import com.web.pet.forum.service.ArticleService;
 import com.web.pet.forum.service.CommentService;
 
 
@@ -24,6 +25,8 @@ public class NewComment {
 	
 	@Autowired
 	private CommentService service;
+	@Autowired
+	private ArticleService articleService;
 
 
 	@RequestMapping("/commitComment")
@@ -39,8 +42,7 @@ public class NewComment {
 		//需要的是留言者的u_Id，非發文者的u_Id		
 		Integer sessionU_Id = null;
 		if(request.getSession().getAttribute("user")!=null){
-			sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());		
-			System.out.println("sessionU_Id"+sessionU_Id);
+			sessionU_Id = Integer.valueOf(request.getSession().getAttribute("user").toString());			
 		}
 		
 		Comment comment = new Comment();
@@ -55,7 +57,13 @@ public class NewComment {
 		comment.setCommentContent(commentContent);		
 		service.saveComment(comment, posterUid, sessionU_Id);
 		if(posterUid == null) {return null;}
-		List<Object[]> list = service.getCommentByPosterUid(posterUid);
+		List<Object[]> list = service.getCommentByPosterUid(posterUid);	
+		
+		Article article = articleService.getArticle(posterUid);
+		//Commit評論 reply數加1
+		article.setReply(article.getReply() + 1);		
+		//存入資料庫
+		articleService.saveArticle(article, sessionU_Id);
 		
 		return list;
 	}

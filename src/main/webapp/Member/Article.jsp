@@ -13,7 +13,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-	
+<link href="css/Member.css" rel="stylesheet">	
 	<%
 	String basePath = request.getScheme()+"://"+
 		request.getServerName()+":"+request.getServerPort()+
@@ -22,33 +22,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	%>
 	
 <title>AccompanyMe</title>
-<style>
-
-	a{
-    	text-decoration:none;
-	}
-	
-	#title{
-		background-color: aqua;
-	}
-	
-	#gotop {
-		width:65px;
-		height:65px;
-    	position: fixed;
-    	border-radius: 50px;
-    	right: 20px;
-    	bottom: 30px;
-    	padding: 10px 16px;
-    	background-repeat: no-repeat;
-    	background-size: cover;
-    	background-image: url("image/up.png");
-    	color: white;
-    	cursor: pointer;
-    	z-index: 1000;
-	}
-	
-</style>
 </head>
 <body>
 
@@ -148,7 +121,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     });
     
     $("#maintable").append("<thead class='h4' style='background-color:#EA0000;'><tr>"+
-			"<th scope='col'>文章名稱</th>"+
+			"<th scope='col' style='width:300px;'>文章名稱</th>"+
 			"<th scope='col'>文章子版</th>"+
 			"<th scope='col'>發文時間</th>"+
 			"<th scope='col'>點閱率</th>"+

@@ -2,8 +2,11 @@ package com.web.pet.mom.service;
 
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.MomDataRes;
 import com.web.pet.mom.model.res.PageableMomDataRes;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author i19
@@ -35,7 +38,14 @@ public interface MomService {
      * @param momId
      * @return
      */
-    MomData getReservation(Integer momId);
+    MomDataRes getReservation(Integer momId);
+
+    /**
+     * 取得保母評論
+     * @param momId
+     * @return
+//     */
+//    List<MomData> getCommentData(Integer momId);
 
     /**
      * 顯示圖片

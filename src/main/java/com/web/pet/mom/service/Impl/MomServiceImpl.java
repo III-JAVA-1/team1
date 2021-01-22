@@ -4,6 +4,7 @@ import com.web.pet.mom.Exeption.MomIsExistedException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.MomDataRes;
 import com.web.pet.mom.model.res.PageableMomDataRes;
 import com.web.pet.mom.service.MomService;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
 import java.sql.Blob;
+import java.util.List;
 
 /**
  * @author i19
@@ -55,9 +57,14 @@ public class MomServiceImpl implements MomService {
 
 
     @Override
-    public MomData getReservation(Integer momId) {
+    public MomDataRes getReservation(Integer momId) {
         return petMomDAO.getReservation(momId);
     }
+
+//    @Override
+//    public List<MomData> getCommentData(Integer momId) {
+//        return null;
+//    }
 
 
     @Override

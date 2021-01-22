@@ -6,6 +6,7 @@ import com.web.pet.mom.Exeption.MomSearchNotFoundException;
 import com.web.pet.mom.dao.PetMomDAO;
 import com.web.pet.mom.model.Mom;
 import com.web.pet.mom.model.req.MomData;
+import com.web.pet.mom.model.res.MomDataRes;
 import com.web.pet.mom.model.res.PageableMomDataRes;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -80,6 +81,13 @@ public class PetMomDAOImpl implements PetMomDAO {
         for (Object[] objects : resultList) {
             list.add(MomData.mappingMomData(objects));
         }
+
+//語法糖        list.forEach(this::getMomStar);
+
+        for (MomData momData : list) {
+            getMomStar(momData);
+        }
+
         if (list.isEmpty()) {
             throw new MomSearchNotFoundException();
         } else {
@@ -90,6 +98,19 @@ public class PetMomDAOImpl implements PetMomDAO {
         }
     }
 
+    private void getMomStar(MomData momData){
+        String sqlGetStar = "SELECT AVG(petMomOrderComment.star) starAVG, COUNT(petMomOrderComment.commentId) countTime\n" +
+                "FROM PetMomOrderComment petMomOrderComment , Mom mom \n" +
+                "where MOM.momId= petMomOrderComment.momId\n" +
+                "AND mom.momId =" + momData.getMomId();
+
+        Session session = sessionFactory.getCurrentSession();
+
+        Object[] result = (Object[]) session.createNativeQuery(sqlGetStar).uniqueResult();
+        momData.setStarAvg((Integer) result[0]);
+        momData.setCountTime((Integer) result[1]);
+    }
+
     @Override
     public Mom showPic(Integer momId) {
         Session session = sessionFactory.getCurrentSession();
@@ -98,8 +119,9 @@ public class PetMomDAOImpl implements PetMomDAO {
 
     @SneakyThrows
     @Override
-    public MomData getReservation(Integer momId) {
+    public MomDataRes getReservation(Integer momId) {
 
+        //detailObject
         String sql = "select Member.country , MOM.title , Member.sname ,Mom.bodyType1\n" +
                 ",Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
                 ",Mom.notices,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.pic\n" +
@@ -109,8 +131,48 @@ public class PetMomDAOImpl implements PetMomDAO {
                 "where Member.u_Id =" + momId +
                 "AND MOM.momId =" + momId;
 
+        //評論list
+        String sqlComment = "SELECT petMomOrderComment.comment\n" +
+                ",petMomOrderComment.commentNowTime,petMomOrderComment.star ,member.sname\n" +
+                "FROM Member member , PetMomOrderComment petMomOrderComment, Mom mom\n" +
+                "WHERE member.u_Id = petMomOrderComment.uId\n" +
+                "AND petMomOrderComment.momId = " + momId +
+                "AND mom.momId =" + momId;
+
+        Session session = sessionFactory.getCurrentSession();
+        List<Object[]> resultList = session.createNativeQuery(sqlComment).getResultList();
+
+        List<MomData> list = new LinkedList<>();
+        for (Object[] objects : resultList) {
+            list.add(MomData.mappingCommentData(objects));
+        }
+
         Session currentSession = sessionFactory.getCurrentSession();
         Object result = currentSession.createNativeQuery(sql).uniqueResult();
-        return MomData.mappingOrderData((Object[]) result);
+        MomData momData = MomData.mappingOrderData((Object[]) result);
+        return MomDataRes.builder()
+                .momDetailData(momData)
+                .commentDataList(list).build();
     }
+
+//    @Override
+//    public List<MomData> getCommentData(Integer momId) {
+//
+//        String sqlComment = "SELECT petMomOrderComment.comment\n" +
+//                ",petMomOrderComment.commentNowTime,petMomOrderComment.star ,member.sname\n" +
+//                "FROM Member member , PetMomOrderComment petMomOrderComment, Mom mom\n" +
+//                "WHERE member.u_Id = petMomOrderComment.uId\n" +
+//                "AND petMomOrderComment.momId = " + momId +
+//                "AND mom.momId =" + momId;
+//
+//        Session session = sessionFactory.getCurrentSession();
+//        List<Object[]> resultList = session.createNativeQuery(sqlComment).getResultList();
+//
+//        List<MomData> list = new LinkedList<>();
+//        for (Object[] objects : resultList) {
+//            list.add(MomData.mappingCommentData(objects));
+//        }
+//
+//        return list;
+//    }
 }

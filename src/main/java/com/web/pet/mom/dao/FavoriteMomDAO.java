@@ -22,6 +22,13 @@ public interface FavoriteMomDAO {
 //     */
 //    void deleteFavoriteMom(FavoriteMomReq req);
 
+    /**
+     * 查詢favorite表裡momId
+     * @param momId
+     * @return
+     */
+    FavoriteMom getFavoriteMomByMomId(Integer momId);
+
 }
 
 

@@ -11,26 +11,29 @@
 
     <title>AccompanyMe</title>
 
-    <script src="js/reservation.js"></script>
-    <script src="js/reservationGo.js"></script>
-
-    <link rel="stylesheet" href="css/registerMom.css">
-
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+
     <!--sweetAlert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="sweetalert2.all.min.js"></script>
+
     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!--要include 的程式 最下面還有-->
+
+    <script src="js/reservation.js"></script>
+    <script src="js/reservationGo.js"></script>
+
+    <link rel="stylesheet" href="css/registerMom.css">
 <body>
 
 <jsp:include page="Header.jsp"/>
@@ -254,10 +257,11 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="momId" id="momId" value="<%=getMom%>">
                 <%--                    <input type="hidden" name="total" value="<%=request.getParameter("total")%>">--%>
 
                 <br>
+
+                <input type="hidden" name="momId" id="momId" value="<%=getMom%>">
 
                 <div class="form-check" style="text-align: center;">
                     <!-- checked -->
@@ -296,55 +300,6 @@
     });
 </script>
 
-
-<script>
-    $().ready(function () {
-        $.ajax({
-            url: "../mom/showReservation",
-            type: "post",
-            dataType: "json",
-            data: {
-                "momId": <%=getMom%>
-            },
-            success: function (data) {
-
-                console.log(data)
-
-                let sName = data.sname
-                $("#sName").text("聯絡 " + sName)
-                console.log(data.proPrice1)
-                let pet = "<option>請選擇貓或狗</option>";
-                if (data.bodyType1 != null) {
-                    pet += "<option id='type1' name='type1'>" + data.bodyType1 + "</option>"
-                }
-                if (data.bodyType2 != null) {
-                    pet += "<option id='type2' name='type2'>" + data.bodyType2 + "</option>"
-                }
-                if (data.bodyType3 != null) {
-                    pet += "<option id='type3' name='type3'>" + data.bodyType3 + "</option>"
-                }
-                if (data.bodyType4 != null) {
-                    pet += "<option id='type4' name='type4'>" + data.bodyType4 + "</option>"
-                }
-                $("#petId").append(pet);
-
-                let price = "<option>服務種類</option>";
-                if (data.proPrice1 != null) {
-                    price += "<option id='service1' name='service1'>到府遛狗 " + data.proPrice1 + " 元/1hr</option>"
-                }
-                if (data.proPrice2 != null) {
-                    price += "<option id='service2' name='service2'>安親照顧 " + data.proPrice2 + " 元/1hr</option>"
-                }
-                if (data.proPrice3 != null) {
-                    price += "<option id='service3' name='service3'>寄宿照顧 " + data.proPrice3 + " 元/1hr</option>"
-                }
-                $("#priceId").append(price)
-            }
-
-        });
-    });
-
-</script>
 </body>
 
 </html>

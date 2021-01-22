@@ -474,7 +474,7 @@ function goAjax(){
 			$("#article").append("<tr><h2>"+"查無資料"+"</h2></tr>");					
 			Swal.fire({
   	      		  title: "查無相關標題",
-  	      		  icon: 'oops',
+  	      		  icon: 'warning',
   	      		  confirmButtonText: '確定'
   	      		});
 		}

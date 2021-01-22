@@ -1,3 +1,49 @@
+$().ready(function () {
+    $.ajax({
+        url: "../mom/showReservation",
+        type: "post",
+        dataType: "json",
+        data: {
+            "momId": $("#momId").val()
+        },
+        success: function (data) {
+
+            console.log(data)
+
+            $("#sName").text("聯絡 " + data.momDetailData.sname)
+            console.log(data.momDetailData.proPrice1)
+            let pet = "<option>請選擇貓或狗</option>";
+            if (data.momDetailData.bodyType1 != null) {
+                pet += "<option id='type1' name='type1'>" + data.momDetailData.bodyType1 + "</option>"
+            }
+            if (data.momDetailData.bodyType2 != null) {
+                pet += "<option id='type2' name='type2'>" + data.momDetailData.bodyType2 + "</option>"
+            }
+            if (data.momDetailData.bodyType3 != null) {
+                pet += "<option id='type3' name='type3'>" + data.momDetailData.bodyType3 + "</option>"
+            }
+            if (data.momDetailData.bodyType4 != null) {
+                pet += "<option id='type4' name='type4'>" + data.momDetailData.bodyType4 + "</option>"
+            }
+            $("#petId").append(pet);
+
+            let price = "<option>服務種類</option>";
+            if (data.momDetailData.proPrice1 != null) {
+                price += "<option id='service1' name='service1'>到府遛狗 " + data.momDetailData.proPrice1 + " 元/1hr</option>"
+            }
+            if (data.momDetailData.proPrice2 != null) {
+                price += "<option id='service2' name='service2'>安親照顧 " + data.momDetailData.proPrice2 + " 元/1hr</option>"
+            }
+            if (data.momDetailData.proPrice3 != null) {
+                price += "<option id='service3' name='service3'>寄宿照顧 " + data.momDetailData.proPrice3 + " 元/1hr</option>"
+            }
+            $("#priceId").append(price)
+        }
+
+    });
+});
+
+
 function printPriceResult() {
 
     let timeStart = Date.parse(document.getElementById("timeStart").value);

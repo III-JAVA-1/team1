@@ -446,7 +446,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 }],
                 xAxes: [{
                     ticks: {
-                        fontSize: 20,
+                        fontSize: 18,
                     }
                 }]
             }
@@ -500,7 +500,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                 }],
                 xAxes: [{
                     ticks: {
-                        fontSize: 25
+                        fontSize: 20
                     }
                 }]
             }

@@ -57,7 +57,7 @@ public class PetMomDAOImpl implements PetMomDAO {
         String sql = "select Member.country , MOM.title , Member.sname \n" +
                 ",Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4\n" +
                 ",Mom.notices,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3\n" +
-                ",Mom.momId,Member.Img,Member.District\n" +
+                ",Mom.momId,Member.Img,Member.District,Member.address\n" +
                 "from Member,MOM\n" +
                 "where MOM.momId=Member.u_Id\n" +
 //                "and Member.country = '"+country+"'\n" +
@@ -98,7 +98,7 @@ public class PetMomDAOImpl implements PetMomDAO {
         }
     }
 
-    private void getMomStar(MomData momData){
+    private void getMomStar(MomData momData) {
         String sqlGetStar = "SELECT AVG(petMomOrderComment.star) starAVG, COUNT(petMomOrderComment.commentId) countTime\n" +
                 "FROM PetMomOrderComment petMomOrderComment , Mom mom \n" +
                 "where MOM.momId= petMomOrderComment.momId\n" +

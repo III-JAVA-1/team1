@@ -34,8 +34,6 @@
 
 </head>
 
-
-
 <body>
 <jsp:include page="Header.jsp"/>
 
@@ -132,7 +130,7 @@
                     <div class="col-md-7 picFrame">
                         <div>
                             <div class="picPosition">
-                                <input type="file" name="myPic"  id="myPic"/>
+                                <input type="file" name="myPic" id="myPic"/>
                                 <!-- 									<div class='row'> -->
                                 <!-- 										<div id='previewMultiple'></div> -->
                                 <!-- 									</div> -->
@@ -181,7 +179,7 @@
 
                     <div class="col-md-3">
                         <div class="col-md-1"></div>
-                        <label >寵物體型</label> <span class="uppercase">*</span>
+                        <label>寵物體型</label> <span class="uppercase">*</span>
                     </div>
 
                     <div class="input-group mb-3">

@@ -59,7 +59,7 @@ public class MomData {
         momData.setMomId(((Integer) objects[11]));
         momData.setImg(ENCODER.encodeToString(((byte[]) objects[12])));
         momData.setDistrict((String) objects[13]);
-
+        momData.setAddress((String) objects[14]);
 
 //        String bodyType1 = momData.getBodyType1();
 //        String bodyType2 = momData.getBodyType2();
@@ -121,7 +121,7 @@ public class MomData {
 //        Integer proPrice1 = orderData.getProPrice1();
 //        Integer proPrice2 = orderData.getProPrice2();
 //        Integer proPrice3 = orderData.getProPrice3();
-        
+
 //        List<Object> bodyTypeList = orderData.getBodyTypeList();
 //        List<Object> proPriceList = orderData.getProPriceList();
 
@@ -131,7 +131,7 @@ public class MomData {
         return orderData;
     }
 
-    public static MomData mappingCommentData(Object[] objects){
+    public static MomData mappingCommentData(Object[] objects) {
         MomData commentData = new MomData();
         commentData.setComment((String) objects[0]);
         commentData.setCommentNowTime((Timestamp) objects[1]);

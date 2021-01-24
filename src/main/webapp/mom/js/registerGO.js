@@ -1,4 +1,4 @@
-function directInputRegister(){
+function directInputRegister() {
     $("#title").val("小宇的專業保母服務")
     $("#experience").val(5)
     $("#notices").val("可以上沙發\n" +

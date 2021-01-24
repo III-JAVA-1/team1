@@ -1,8 +1,7 @@
 package com.web.pet.mom.model.req;
 
-import lombok.*;
+import lombok.Data;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
 
 @Data

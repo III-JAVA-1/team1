@@ -20,7 +20,8 @@ public class PetMomOrderDAOImpl implements PetMomOrderDAO {
 
     /**
      * 寫入預約保母資料
-     *  @param petMomOrder
+     *
+     * @param petMomOrder
      * @param momId
      * @param uId
      */
@@ -33,8 +34,9 @@ public class PetMomOrderDAOImpl implements PetMomOrderDAO {
     }
 
     @Override
-    public PetMomOrder getOrderById(int orderId){
+    public PetMomOrder getOrderById(int orderId) {
         return sessionFactory.getCurrentSession().get(PetMomOrder.class, orderId);
     }
+
 }
 

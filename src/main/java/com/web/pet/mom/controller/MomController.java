@@ -51,7 +51,7 @@ public class MomController {
         Integer uId = Integer.valueOf(request.getSession().getAttribute("user").toString());
 
         try {
-            momService.insertMom(myPic,mom, uId);
+            momService.insertMom(myPic, mom, uId);
 
         } catch (MomIsExistedException e) {
             e.printStackTrace();

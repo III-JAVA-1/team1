@@ -11,6 +11,7 @@ public interface PetMomDAO {
 
     /**
      * 新增保母
+     *
      * @param mom
      * @param uId
      */
@@ -18,13 +19,15 @@ public interface PetMomDAO {
 
     /**
      * 取得userId
+     *
      * @param userId
      * @return
      */
-    Mom getMomByMemberId(int userId );
+    Mom getMomByMemberId(int userId);
 
     /**
      * 取得momId
+     *
      * @param momId
      * @return
      */
@@ -32,6 +35,7 @@ public interface PetMomDAO {
 
     /**
      * 由標題或城市查詢
+     *
      * @param country
      * @param title
      * @param currPage
@@ -43,6 +47,7 @@ public interface PetMomDAO {
 
     /**
      * 首頁秀圖片
+     *
      * @param momId
      * @return
      */
@@ -50,6 +55,7 @@ public interface PetMomDAO {
 
     /**
      * 查詢訂單
+     *
      * @param momId
      * @return
      */

@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="css/extar.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -21,7 +23,7 @@
     <style>
 
         #map { /*google map 要給大小 不然不會顯示*/
-            height: 1000px;
+            height: 900px;
             width: 100%;
         }
 
@@ -111,15 +113,16 @@
     </a>
     </div>
 
+    <br>
+
     <div class="row justify-content-center">
         <!--保母搜尋框框自己改-->
         <div class="row">
             <div class="col-md-4">
-                <select name="country" id="selectArea" class="form-control">
-                    <option value="">請選擇縣市</option>
+                <select name="country" id="selectArea" class="form-control" onchange="search()">
+                    <option value="桃園市">桃園市</option>
                     <option value="台北市">台北市</option>
                     <option value="新北市">新北市</option>
-                    <option value="桃園市">桃園市</option>
                     <option value="台中市">台中市</option>
                     <option value="台南市">台南市</option>
                     <option value="高雄市">高雄市</option>
@@ -161,6 +164,7 @@
             <div id="tip" class="row justify-content-center"></div>
             <div class="row" id="showMom">
 
+
                 <!-- 					<div class="col-md-4"> -->
                 <!-- 						<img src="Images/test.jpg" alt=""> -->
                 <!-- 					</div> -->
@@ -184,7 +188,7 @@
                 <span id="pageB"></span>
             </ul>
 
-            <input type="hidden" id="pageValue" />
+            <input type="hidden" id="pageValue"/>
         </div>
 
         <div class="col-md-4">
@@ -245,14 +249,15 @@
 </script>
 
 <script>
+    let map
     function initMap() {/*要用googleamp的初始參數設定*/
-        let uluru = {
-            lat: 23.58,
-            lng: 120.58
-        };/*經緯度 目前大約是台灣*/
-        let map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,/*放大比例*/
-            center: uluru
+        let myLatLng = {
+            lat: 24.9901422,
+            lng: 121.2319603
+        };
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,/*放大比例*/
+            center: myLatLng
         });
     }
 
@@ -272,12 +277,14 @@
     });
 </script>
 
-
 <jsp:include page="Footer.jsp"/>
 <!--要include 的地方-->
 
 <button type="button" class="btn btn-outline-primary" id="goTop"></button>
 
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChBlcBS8CVWG0N3smlRpMO678wobs4bdA&callback=initMap">
+</script>
 
 <!--include 的下半部分-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -292,10 +299,6 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!--bootstrap的東西-->
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChBlcBS8CVWG0N3smlRpMO678wobs4bdA&callback=initMap">
-</script>
-<!--把key= 到 &的金鑰換成自己的 googlemap 引用script設定-->
 <script src="js/extra.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"

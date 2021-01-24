@@ -33,19 +33,19 @@ for (let i = 0; i < stars.length; i++) {
     })
 }
 
-function button1(){
+function button1() {
     $("#comment").val("真是優秀的好保母")
 }
 
-function button2(){
+function button2() {
     $("#comment").val("超專業的保母")
 }
 
-function button3(){
+function button3() {
     $("#comment").val("只要交給他就對了")
 }
 
-function toComment(){
+function toComment() {
     console.log("toComment()")
     const data = new FormData();
     let star = $("#star").val()
@@ -54,9 +54,9 @@ function toComment(){
     console.log(comment)
     console.log(star)
 
-    data.append("star" , star)
-    data.append("comment" , comment)
-    data.append("orderId" , orderId)
+    data.append("star", star)
+    data.append("comment", comment)
+    data.append("orderId", orderId)
 
     $.ajax({
         url: "../mom/comment",
@@ -73,6 +73,7 @@ function toComment(){
         }
     });
 }
+
 function showSuccessPage() {
     console.log('showSuccessPage()')
     Swal.fire({

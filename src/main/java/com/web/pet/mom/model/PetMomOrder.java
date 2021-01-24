@@ -1,7 +1,8 @@
 package com.web.pet.mom.model;
 
 import com.web.pet.member.model.Member;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -25,7 +26,7 @@ public class PetMomOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
 
-    @Column(columnDefinition = "smalldatetime",nullable = false)
+    @Column(columnDefinition = "smalldatetime", nullable = false)
     private Timestamp orderCreate;
 
     @Column(columnDefinition = "nvarchar(MAX)", nullable = false)
@@ -53,10 +54,10 @@ public class PetMomOrder {
 
     private Blob picUser;
 
-    @Column(nullable = false,columnDefinition = "smalldatetime")
+    @Column(nullable = false, columnDefinition = "smalldatetime")
     private Timestamp chooseStart;
 
-    @Column(nullable = false ,columnDefinition = "smalldatetime")
+    @Column(nullable = false, columnDefinition = "smalldatetime")
     private Timestamp chooseEnd;
 
     @Column(columnDefinition = "nvarchar(MAX)")

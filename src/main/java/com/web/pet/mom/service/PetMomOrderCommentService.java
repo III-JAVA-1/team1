@@ -1,9 +1,6 @@
 package com.web.pet.mom.service;
 
-import com.web.pet.mom.model.PetMomOrderComment;
 import com.web.pet.mom.model.req.OrderCommentReq;
-
-import java.util.List;
 
 /**
  * @author i19
@@ -12,6 +9,7 @@ public interface PetMomOrderCommentService {
 
     /**
      * 寫入評論資料
+     *
      * @param req
      * @param momId
      * @param orderId

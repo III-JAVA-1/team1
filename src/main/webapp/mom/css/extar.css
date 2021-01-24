@@ -1,11 +1,12 @@
-.bSize{
-    width:1100px;
-    height:325px;
-    max-width:  100%;
+.bSize {
+    width: 1100px;
+    height: 325px;
+    max-width: 100%;
 }
 
 
-#tip{
-    font-size: 50px;color:crimson
+#tip {
+    font-size: 50px;
+    color: crimson
 }
 

@@ -1,7 +1,8 @@
 package com.web.pet.mom.model;
 
 import com.web.pet.member.model.Member;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -23,7 +24,7 @@ public class PetMomOrderComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @Column(nullable = false , columnDefinition = "smalldatetime")
+    @Column(nullable = false, columnDefinition = "smalldatetime")
     private Timestamp commentNowTime;
 
     @Column(columnDefinition = "nvarchar(MAX)")

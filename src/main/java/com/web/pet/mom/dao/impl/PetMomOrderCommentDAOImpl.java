@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @AllArgsConstructor
 @Repository
-public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO{
+public class PetMomOrderCommentDAOImpl implements PetMomOrderCommentDAO {
 
     private final SessionFactory sessionFactory;
 

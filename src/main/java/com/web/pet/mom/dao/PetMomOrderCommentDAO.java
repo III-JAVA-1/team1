@@ -1,10 +1,6 @@
 package com.web.pet.mom.dao;
 
-import com.web.pet.mom.model.PetMomOrder;
 import com.web.pet.mom.model.PetMomOrderComment;
-import com.web.pet.mom.model.req.OrderCommentReq;
-
-import java.util.List;
 
 /**
  * @author i19
@@ -13,6 +9,7 @@ public interface PetMomOrderCommentDAO {
 
     /**
      * 寫入訂單評論
+     *
      * @param petMomOrderComment
      * @param uId
      * @param momId
@@ -22,6 +19,7 @@ public interface PetMomOrderCommentDAO {
 
     /**
      * 查詢orderId
+     *
      * @param orderId
      * @return
      */
@@ -42,6 +40,7 @@ public interface PetMomOrderCommentDAO {
 
     /**
      * 刪除訂單評論
+     *
      * @param petMomOrderComment
      * @return
      */

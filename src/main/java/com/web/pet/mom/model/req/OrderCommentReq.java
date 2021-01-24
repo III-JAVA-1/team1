@@ -2,7 +2,6 @@ package com.web.pet.mom.model.req;
 
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
 
 @Data

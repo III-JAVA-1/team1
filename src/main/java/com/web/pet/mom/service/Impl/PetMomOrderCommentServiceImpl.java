@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * @author i19
@@ -30,12 +29,12 @@ public class PetMomOrderCommentServiceImpl implements PetMomOrderCommentService 
 
     @Override
     public void insertComment(OrderCommentReq req, Integer uId, Integer momId, Integer orderId) {
-        if(momId == null){
+        if (momId == null) {
             momId = petMomOrderDAO.getOrderById(orderId).getMom().getMomId();
         }
         if (petMomDAO.getMomByMomId(momId).equals(petMomDAO.getMomByMemberId(uId))) {
             throw new CommentIsSameMomException();
-        }else {
+        } else {
             PetMomOrderComment petMomOrderComment = new PetMomOrderComment();
             petMomOrderComment.setComment(req.getComment());
             petMomOrderComment.setStar(req.getStar());

@@ -61,7 +61,7 @@
             <input type="hidden" id="star"/>
             <input type="hidden" name="orderId" id="orderId" value="<%=getOrder%>">
             <br>
-            <div  class="underline"></div>
+            <div class="underline"></div>
             <br>
             <b>
 
@@ -72,13 +72,13 @@
                 </h4>
             </b>
             <br>
-            <button type="button"  class="btn btn-light"
+            <button type="button" class="btn btn-light"
                     onclick="button1()">真是優秀的好保母
             </button>
-            <button type="button"  class="btn btn-light"
+            <button type="button" class="btn btn-light"
                     onclick="button2()">超專業的保母
             </button>
-            <button type="button"  class="btn btn-light"
+            <button type="button" class="btn btn-light"
                     onclick="button3()">只要交給他就對了
             </button>
 

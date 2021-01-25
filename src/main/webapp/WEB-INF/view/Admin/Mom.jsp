@@ -349,7 +349,8 @@
 			"month" :new Date().getMonth()+1, 
         },
 		success:function(data){
-			$.each(data,function(i,n){				
+			$.each(data,function(i,n){
+				if(n[0].length>5){n[0]=n[0].substring(0,5)+"..."}
 				momordertitletop3[i]=n[0]
 				momorderamounttop3[i]=n[1]
 			});

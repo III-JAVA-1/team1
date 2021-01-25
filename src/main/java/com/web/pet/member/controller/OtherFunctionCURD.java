@@ -261,8 +261,8 @@ public class OtherFunctionCURD {
 	
 	@RequestMapping("/delmomlove")//會員頁面收藏保母
 	@ResponseBody
-	public Integer deletelovemomController(Integer fid) {
-		return otherFunctionService.deletelovemomService(fid);
+	public Integer deletelovemomController(Integer momid,Integer uid) {
+		return otherFunctionService.deletelovemomService(momid,uid);
 	}
 	
 	/////////////////////////會員保母功能////////////////////////////////

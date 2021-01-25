@@ -14,8 +14,8 @@
 href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> -->
 	
 	
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -132,9 +132,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/gh/Gusty1/live2d-widget@latest/autoload.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- 	<script -->
+<!-- 		src="https://cdn.jsdelivr.net/gh/Gusty1/live2d-widget@latest/autoload.js"></script> -->
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
 
 	<script>
 	var clickcheck=false;

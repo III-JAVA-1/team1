@@ -292,7 +292,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 					  "</ul>"+
 					  "<div class='card-body'>"+
 					    "<a href='../mom/momDetail.jsp?momId="+n[9]+"' class='card-link btn btn-primary'>詳細資料</a>"+
-					    "<button type='button' class='btn btn-danger m-3' onclick=deletelovemom("+n[10]+") >取消收藏</button>"+
+					    //"<button type='button' class='btn btn-danger m-3' onclick=deletelovemom(parseInt("+n[9]+")+parseInt("+n[10]+")) >取消收藏</button>"+
+					    "<button type='button' class='btn btn-danger m-3' onclick=deletelovemom('"+n[9]+','+n[10]+"') >取消收藏</button>"+
 					  "</div></div>");
 				});
 			},error:function(){
@@ -302,14 +303,19 @@ href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	return false;
     }
     
-    function deletelovemom(fid){
-    	//alert(loveid)
+    function deletelovemom(favorite){
+    	//alert(favorite)
+    	let momidd = favorite.substring(0,favorite.indexOf(","));
+    	let uidd = favorite.substring((favorite.indexOf(",")+1));
+    	//alert("momid: "+momidd)
+    	//alert("uidd: "+uidd)
     	$.ajax({
 			url:"../Gusty/delmomlove",
 			type:"post",
 			dataType:"json",
 			data : { 
-				"fid" : fid,
+				"momid" : momidd,
+				"uid" : uidd
 	        },
 			success:function(data){
 				Swal.fire({

@@ -387,7 +387,7 @@ public class OtherFunctionDao {
 	public List<Object[]> lovemomDao(Integer uid){
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> list = new ArrayList<Object[]>();
-		String hql="select Mom.title,Mom.experience,Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.momId,favoriteMom.favoriteId\r\n"
+		String hql="select Mom.title,Mom.experience,Mom.bodyType1,Mom.bodyType2,Mom.bodyType3,Mom.bodyType4,Mom.proPrice1,Mom.proPrice2,Mom.proPrice3,Mom.momId,favoriteMom.uId\r\n"
 				+ "from favoriteMom,Mom\r\n"
 				+ "where favoriteMom.uId=:uid\r\n"
 				+ "and favoriteMom.momId=Mom.momId";
@@ -400,11 +400,11 @@ public class OtherFunctionDao {
 		}
 	}
 	
-	public Integer deletelovemomDao(Integer fid){//會員頁面取消收藏保母
+	public Integer deletelovemomDao(Integer momid,Integer uid){//會員頁面取消收藏保母
 		Integer result=0;
 		Session session = sessionFactory.getCurrentSession();
-		String hql="delete from favoriteMom where favoriteId=:fid";
-		result = result + session.createSQLQuery(hql).setParameter("fid", fid).executeUpdate();
+		String hql="delete from favoriteMom where momId=:momid and uId=:uid";
+		result = result + session.createSQLQuery(hql).setParameter("momid", momid).setParameter("uid", uid).executeUpdate();
 		return result;
 	}
 	

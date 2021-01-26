@@ -129,8 +129,8 @@ public class OtherFunctionService {
 		return otherFunctionDao.lovemomDao(uid);
 	}
 	
-	public Integer deletelovemomService(Integer fid){//會員頁面取消收藏保母
-		return otherFunctionDao.deletelovemomDao(fid);
+	public Integer deletelovemomService(Integer momid,Integer uid){//會員頁面取消收藏保母
+		return otherFunctionDao.deletelovemomDao(momid,uid);
 	}
 	
 	/////////////////////////會員店家功能////////////////////////////////

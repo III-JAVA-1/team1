@@ -82,8 +82,8 @@ function showSuccessPage() {
         timer: 1500,
     }).then((result) => {
         console.log("result")
-        //console.log(result)
+        console.log(result)
 
-        window.location.href = '../mom/extar.jsp';
+        window.location.href = '../Member/Member.jsp';
     })
 }
